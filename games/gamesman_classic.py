@@ -3,66 +3,7 @@ import json
 import requests
 from requests.exceptions import HTTPError
 
-
-# Definitions
-
-
-class Game:
-    """Record keeping for a game
-    """
-
-    def __init__(self, name, desc, variants):
-        assert isinstance(name, str), 'name must be a string'
-        assert isinstance(desc, str), 'desc must be a string'
-        assert isinstance(variants, dict), 'variants must be a dict'
-
-        self.name = name
-        self.desc = desc
-        self.variants = variants
-
-    def variant(self, variant_id):
-        return self.variants.get(variant_id, None)
-
-
-class GameVariant:
-    """Record keeping for a variant of a game
-    """
-
-    def __init__(self, name, desc, data_provider, data_provider_game_id, data_provider_variant_id):
-        assert isinstance(name, str), 'name must be a string'
-        assert isinstance(desc, str), 'desc must be a string'
-
-        self.name = name
-        self.desc = desc
-        self.data_provider = data_provider
-        self.data_provider_game_id = data_provider_game_id
-        self.data_provider_variant_id = data_provider_variant_id
-
-    def start_position(self):
-        return self.data_provider.start_position(self.data_provider_game_id, self.data_provider_variant_id)
-
-    def stat(self, position):
-        return self.data_provider.stat(self.data_provider_game_id, self.data_provider_variant_id, position)
-
-    def next_stats(self, position):
-        return self.data_provider.next_stats(self.data_provider_game_id, self.data_provider_variant_id, position)
-
-
-class DataProvider:
-    """Abstract class with methods for a data provider
-    """
-
-    @staticmethod
-    def start_position(game_id, variant_id):
-        return None
-
-    @staticmethod
-    def stat(game_id, variant_id, position):
-        return None
-
-    @staticmethod
-    def next_stats(game_id, variant_id, position):
-        return None
+from .models import DataProvider
 
 
 class GamesmanClassicDataProvider(DataProvider):
@@ -191,21 +132,3 @@ class GamesmanClassicDataProvider(DataProvider):
             print(f'Other error occurred: {err}')
         else:
             return json.loads(response.content)["response"]
-
-
-# Collection of games
-
-
-games = {
-    'ttt': Game(
-        name='Tic Tac Toe',
-        desc='3 in a row',
-        variants={
-            'regular': GameVariant(
-                name='Regular',
-                desc='Regular',
-                data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='ttt',
-                data_provider_variant_id=-1)
-        })
-}
