@@ -14,5 +14,11 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='ttt',
                 data_provider_variant_id=-1)
+        }),
+    'chess': Game(
+        name='Chess',
+        desc='Chess',
+        variants={
+            '7-man': RegularChessVariant()
         })
 }
