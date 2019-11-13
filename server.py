@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, escape, request
 
 from games import games, GamesmanClassicDataProvider
@@ -90,4 +92,5 @@ def handle_classic_games():
 
 
 if __name__ == '__main__':
-    app.run()
+    port = os.environ.get('API_PORT', None)
+    app.run(port=port)
