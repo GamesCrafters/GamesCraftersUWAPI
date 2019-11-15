@@ -1,0 +1,13 @@
+[Unit]
+Description=GamesCrafters Universal Web API
+
+[Service]
+User=gamescrafters
+WorkingDirectory=/home/gamescrafters/special-octo-garbanzo/
+ExecStart=/usr/bin/python3 server.py
+Restart=on-failure
+RestartSec=5
+Environment=API_PORT=8082
+
+[Install]
+WantedBy=multi-user.target
