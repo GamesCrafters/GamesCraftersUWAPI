@@ -1,10 +1,12 @@
 import os
 
 from flask import Flask, escape, request
+from flask_cors import CORS
 
 from games import games, GamesmanClassicDataProvider
 
 app = Flask(__name__)
+CORS(app)
 
 
 # Helper methods
