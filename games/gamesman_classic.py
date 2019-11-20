@@ -26,18 +26,7 @@ class GamesmanClassicDataProvider(DataProvider):
         def wrangle_next_stat(next_stat):
             # Rename members
             next_stat['position'] = next_stat.pop('board')
-            position_value = next_stat.pop('value')
-            next_stat['positionValue'] = position_value
-
-            # Get move value from next position value
-            if position_value == 'win':
-                move_value = 'lose'
-            elif position_value == 'lose':
-                move_value = 'win'
-            else:
-                move_value = position_value
-            next_stat['moveValue'] = move_value
-
+            next_stat['positionValue'] = next_stat.pop('value')
             return next_stat
 
         return list(map(wrangle_next_stat,

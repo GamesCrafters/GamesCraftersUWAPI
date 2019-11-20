@@ -37,6 +37,33 @@ def get_game_variant(game_id, variant_id):
     return game.variant(variant_id)
 
 
+def wrangle_next_stats(next_stats, curr_position_value):
+    best_remoteness_evaluator = max if curr_position_value == "lose" else min
+    best_remoteness = best_remoteness_evaluator(
+        [next_stat['remoteness'] for next_stat in next_stats])
+
+    def wrangle_next_stat(next_stat):
+        position_value = next_stat['positionValue']
+        remoteness = next_stat['remoteness']
+        delta_remoteness = abs(remoteness - best_remoteness)
+
+        # Get move value from next position value
+        if position_value == 'win':
+            move_value = 'lose'
+        elif position_value == 'lose':
+            move_value = 'win'
+        else:
+            move_value = position_value
+        next_stat['moveValue'] = move_value
+
+        # Delta remoteness
+        next_stat['deltaRemoteness'] = delta_remoteness
+
+        return next_stat
+
+    return sorted(map(wrangle_next_stat, next_stats), key=lambda next_stat: next_stat['deltaRemoteness'])
+
+
 # Routes
 
 
@@ -76,7 +103,8 @@ def handle_position(game_id, variant_id, position):
     if not variant:
         return format_response_err('Game/Variant not found')
     result = variant.stat(position)
-    result['moves'] = variant.next_stats(position)
+    result['moves'] = wrangle_next_stats(
+        variant.next_stats(position), result['positionValue'])
     return format_response_ok(result)
 
 
@@ -85,7 +113,8 @@ def handle_position_moves(game_id, variant_id, position):
     variant = get_game_variant(game_id, variant_id)
     if not variant:
         return format_response_err('Game/Variant not found')
-    return format_response_ok(variant.next_stats(position))
+    curr_stat = variant.stat(position)
+    return format_response_ok(wrangle_next_stats(variant.next_stats(position), curr_stat['positionValue']))
 
 
 @app.route('/internal/classic-games')

@@ -42,10 +42,6 @@ def positionValue(data):
     return 'draw' if data['dtm'] is None or data['dtm'] == 0 else 'lose' if data['dtm'] < 0 else 'win'
 
 
-def moveValue(data):
-    return 'draw' if data['dtm'] is None or data['dtm'] == 0 else 'win' if data['dtm'] < 0 else 'lose'
-
-
 def syz_stat(fen):
     try:
         r = requests.get(url=URL, params={'fen': FENParse(fen)})
@@ -76,7 +72,6 @@ def syz_next_stats(fen):
         data = r.json()
         response = [{
             "move": move['uci'],
-            "moveValue": moveValue(move),
             "position": makeMove(fen, move['uci']),
             "positionValue": positionValue(move),
             "remoteness": 0 if move['dtm'] is None else abs(move['dtm'])
