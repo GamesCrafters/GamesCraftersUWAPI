@@ -38,6 +38,9 @@ def get_game_variant(game_id, variant_id):
 
 
 def wrangle_next_stats(next_stats, curr_position_value):
+    if not next_stats:
+        return next_stats
+
     best_remoteness_evaluator = max if curr_position_value == "lose" else min
     best_remoteness = best_remoteness_evaluator(
         [next_stat['remoteness'] for next_stat in next_stats])
