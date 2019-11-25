@@ -7,7 +7,10 @@ from .models import DataProvider
 
 
 class GamesmanClassicDataProvider(DataProvider):
+    # Use top url when running on a different machine,
+    # use bottom when running on main gamesman server.
     url = "http://nyc.cs.berkeley.edu/classic/"
+    #url = "http://localhost/classic/"
 
     @staticmethod
     def start_position(game_id, variant_id):
