@@ -79,7 +79,9 @@ games = {
         }),
     'dnb': Game(
         name='Dots & Boxes',
-        desc='Dots & Boxes',
+        desc='Players take turns connecting horizontal or vertical lines between dots.' +
+             ' After winning one or more boxes, the player places another line.' +
+             ' The player’s turn ends when he or she cannot make a box.',
         variants={
             'regular': GameVariant(
                 name='Regular',
