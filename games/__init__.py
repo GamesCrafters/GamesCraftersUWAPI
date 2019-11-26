@@ -65,4 +65,15 @@ games = {
                 data_provider_game_id='snake',
                 data_provider_variant_id=-1)
         }),
+    'foxes': Game(
+        name='Foxes & Geese',
+        desc='Foxes & Geese',
+        variants={
+            'regular': GameVariant(
+                name='Regular',
+                desc='Regular',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='foxes',
+                data_provider_variant_id=-1)
+        }),
 }
