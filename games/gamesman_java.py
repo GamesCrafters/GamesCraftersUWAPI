@@ -53,12 +53,10 @@ class GamesmanJavaDataProvider(DataProvider):
         """Get values for the next moves
         """
         try:
-            tempurl = GamesmanJavaDataProvider.url + game + \
-                "/getNextMoveValues" + "?board=" + board
+            tempurl = GamesmanJavaDataProvider.url + \
+                game + "/getNextMoveValues" + ";board=" + board + \
+                variation
             response = requests.get(tempurl)
-            if variation != -1:
-                tempurl += "?number=" + str(variation)
-
             response.raise_for_status()
         except HTTPError as http_err:
             print(f'HTTP error occurred: {http_err}')
