@@ -90,7 +90,7 @@ games = {
         }),
     'connect4': Game(
         name='Connect 4',
-        desc='n in a row with gravity',
+        desc='Tic Tac Toe with gravity',
         variants={
             '7x5x4': GameVariant(
                 name='7x5x4',
