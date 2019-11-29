@@ -37,7 +37,7 @@ class GamesmanClassicDataProvider(DataProvider):
 
     @staticmethod
     def getGames():
-        """Get starting position of game
+        """Gets dictionary of all games (not fully implemented, try loading it)
         """
         try:
             tempurl = GamesmanClassicDataProvider.url + "getGames"
