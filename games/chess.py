@@ -39,6 +39,10 @@ def FENParse(code):
 
 
 def positionValue(data):
+    if data['checkmate']:
+        return 'lose'
+    if data['stalemate']:
+        return 'tie'
     return 'draw' if data['dtm'] is None or data['dtm'] == 0 else 'lose' if data['dtm'] < 0 else 'win'
 
 
