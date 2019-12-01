@@ -37,18 +37,36 @@ def get_game_variant(game_id, variant_id):
     return game.variant(variant_id)
 
 
-def wrangle_next_stats(next_stats, curr_position_value):
+def wrangle_next_stats(next_stats):
     if not next_stats:
         return next_stats
 
-    best_remoteness_evaluator = max if curr_position_value == "lose" else min
-    best_remoteness = best_remoteness_evaluator(
-        [next_stat['remoteness'] for next_stat in next_stats])
+    def next_stats_remoteness_where_position_value(position_value):
+        return [next_stat['remoteness'] for next_stat in next_stats if next_stat['positionValue'] == position_value]
+
+    def key_next_stat_by_move_value_then_delta_remoteness(next_stat):
+        VALUES = ['win', 'tie', 'draw', 'lose']
+        move_value = next_stat['moveValue']
+        delta_remotenesss = next_stat['deltaRemoteness']
+        return (VALUES.index(move_value), delta_remotenesss)
+
+    next_stats_remoteness_where_position_value_win = \
+        next_stats_remoteness_where_position_value('win')
+    next_stats_remoteness_where_position_value_lose = \
+        next_stats_remoteness_where_position_value('lose')
+    next_stats_remoteness_where_position_value_tie = \
+        next_stats_remoteness_where_position_value('tie')
+
+    best_next_stats_remoteness_where_move_value_win = \
+        min(next_stats_remoteness_where_position_value_lose) if next_stats_remoteness_where_position_value_lose else 0
+    best_next_stats_remoteness_where_move_value_lose = \
+        max(next_stats_remoteness_where_position_value_win) if next_stats_remoteness_where_position_value_win else 0
+    best_next_stats_remoteness_where_move_value_tie = \
+        min(next_stats_remoteness_where_position_value_tie) if next_stats_remoteness_where_position_value_tie else 0
 
     def wrangle_next_stat(next_stat):
         position_value = next_stat['positionValue']
         remoteness = next_stat['remoteness']
-        delta_remoteness = abs(remoteness - best_remoteness)
 
         # Get move value from next position value
         if position_value == 'win':
@@ -59,12 +77,20 @@ def wrangle_next_stats(next_stats, curr_position_value):
             move_value = position_value
         next_stat['moveValue'] = move_value
 
-        # Delta remoteness
+        # Delta remoteness (grouped by move value)
+        if move_value == 'win':
+            delta_remoteness = remoteness - best_next_stats_remoteness_where_move_value_win
+        elif move_value == 'lose':
+            delta_remoteness = best_next_stats_remoteness_where_move_value_lose - remoteness
+        elif move_value == 'tie':
+            delta_remoteness = remoteness - best_next_stats_remoteness_where_move_value_tie
+        else:
+            delta_remoteness = 0
         next_stat['deltaRemoteness'] = delta_remoteness
 
         return next_stat
 
-    return sorted(map(wrangle_next_stat, next_stats), key=lambda next_stat: next_stat['deltaRemoteness'])
+    return sorted(map(wrangle_next_stat, next_stats), key=key_next_stat_by_move_value_then_delta_remoteness)
 
 
 # Routes
@@ -106,8 +132,7 @@ def handle_position(game_id, variant_id, position):
     if not variant:
         return format_response_err('Game/Variant not found')
     result = variant.stat(position)
-    result['moves'] = wrangle_next_stats(
-        variant.next_stats(position), result['positionValue'])
+    result['moves'] = wrangle_next_stats(variant.next_stats(position))
     return format_response_ok(result)
 
 
@@ -117,7 +142,7 @@ def handle_position_moves(game_id, variant_id, position):
     if not variant:
         return format_response_err('Game/Variant not found')
     curr_stat = variant.stat(position)
-    return format_response_ok(wrangle_next_stats(variant.next_stats(position), curr_stat['positionValue']))
+    return format_response_ok(wrangle_next_stats(variant.next_stats(position)))
 
 
 @app.route('/internal/classic-games')
