@@ -67,15 +67,17 @@ def wrangle_next_stats(next_stats):
     def wrangle_next_stat(next_stat):
         position_value = next_stat['positionValue']
         remoteness = next_stat['remoteness']
+        move_value = next_stat.get('moveValue', None)
 
         # Get move value from next position value
-        if position_value == 'win':
-            move_value = 'lose'
-        elif position_value == 'lose':
-            move_value = 'win'
-        else:
-            move_value = position_value
-        next_stat['moveValue'] = move_value
+        if not move_value:
+            if position_value == 'win':
+                move_value = 'lose'
+            elif position_value == 'lose':
+                move_value = 'win'
+            else:
+                move_value = position_value
+            next_stat['moveValue'] = move_value
 
         # Delta remoteness (grouped by move value)
         if move_value == 'win':
