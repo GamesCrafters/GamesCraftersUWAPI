@@ -26,9 +26,19 @@ class GamesmanJavaDataProvider(DataProvider):
     @staticmethod
     def next_stats(game_id, variant_id, position):
         def wrangle_next_stat(next_stat):
-            # Rename members
             next_stat['position'] = next_stat.pop('board')
-            next_stat['positionValue'] = next_stat.pop('value')
+            
+            move_value = next_stat.pop('value')
+            next_stat['moveValue'] = move_value
+
+            if move_value == 'win':
+                position_value = 'lose'
+            elif move_value == 'lose':
+                position_value = 'win'
+            else:
+                position_value = move_value
+            next_stat['positionValue'] = position_value
+
             return next_stat
 
         return list(map(wrangle_next_stat,
