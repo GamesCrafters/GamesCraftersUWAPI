@@ -5,6 +5,7 @@ from requests.exceptions import HTTPError
 
 from .models import DataProvider
 
+
 class GamesmanJavaDataProvider(DataProvider):
     # Use top url when running on a different machine,
     # use bottom when running on main gamesman server.
@@ -33,20 +34,14 @@ class GamesmanJavaDataProvider(DataProvider):
         return list(map(wrangle_next_stat,
                         GamesmanJavaDataProvider.getNextMoveValues(game_id, position, variant_id)))
 
-
     @staticmethod
     def getStart(game, variation):
         """Get starting position of game
         """
-        if (game == "connect4" or game == "ttt"):
+        if game == "connect4" or game == "ttt":
             width = int(variation[7])
             height = int(variation[16])
-            str = ""
-            for i in range(width*height):
-                str += " "
-            return str
-
-
+            return " " * (width * height)
 
     @staticmethod
     def getNextMoveValues(game, board, variation):
