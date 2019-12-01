@@ -43,7 +43,7 @@ class GamesmanJavaDataProvider(DataProvider):
             height = int(variation[16])
             str = ""
             for i in range(width*height):
-                str += "%20"
+                str += " "
             return str
 
 
