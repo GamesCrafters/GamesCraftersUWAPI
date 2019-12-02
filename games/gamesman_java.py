@@ -10,6 +10,7 @@ class GamesmanJavaDataProvider(DataProvider):
     # Use top url when running on a different machine,
     # use bottom when running on main gamesman server.
     url = "https://nyc.cs.berkeley.edu/gcweb/service/gamesman/puzzles/"
+    #url = "https://localhost/gcweb/service/gamesman/puzzles/
 
     @staticmethod
     def start_position(game_id, variant_id):
@@ -27,7 +28,7 @@ class GamesmanJavaDataProvider(DataProvider):
     def next_stats(game_id, variant_id, position):
         def wrangle_next_stat(next_stat):
             next_stat['position'] = next_stat.pop('board')
-            
+
             move_value = next_stat.pop('value')
             next_stat['moveValue'] = move_value
 

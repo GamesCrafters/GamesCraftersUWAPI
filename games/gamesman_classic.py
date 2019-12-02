@@ -8,9 +8,11 @@ from .models import DataProvider
 
 class GamesmanClassicDataProvider(DataProvider):
     # Use top url when running on a different machine,
-    # use bottom when running on main gamesman server.
+    # use middle when running on main gamesman server.
+    # bottom may result in speedups as well but bypases nginx
     url = "http://nyc.cs.berkeley.edu/classic/"
     #url = "http://localhost/classic/"
+    #url = "http://localhost:8081"
 
     @staticmethod
     def start_position(game_id, variant_id):
