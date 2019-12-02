@@ -171,7 +171,7 @@ games = {
 
     'Lgame': Game(
         name='L-game',
-        desc='The L game is played on a 4x4 board. Each player has a 3×2 L-shaped piece, and there are two 1×1 neutral pieces. On each turn, a player must first move their L piece to a new location (can rotate or flip) and then may optionally move one of the neutral pieces. Won when the opponent cannot move their L piece to a new location.',
+        desc='The L game is played on a 4x4 board. Each player has a 3×2 L-shaped piece, and there are two 1×1 neutral pieces. On each turn, a player must first move their L piece to a new location (can rotate or flip) and then may optionally move one of the neutral pieces. Wins when the opponent cannot move their L piece to a new location.',
         variants={
             'regular': GameVariant(
                 name='Regular',
@@ -214,6 +214,78 @@ games = {
                 desc='Regular',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='ctoi',
+                data_provider_variant_id=-1)
+        }),
+
+    'baghchal': Game(
+        name='Bagh Chal',
+        desc="In the first phase the goats are placed on the board while the tigers are moved. In the second phase both the goats and the tigers are moved. For the tigers, the objective is to 'capture' five goats to win. Capturing is performed as in alquerque and draughts, by jumping over the goats, although capturing is not obligatory. The goats win by blocking all the tigers' legal moves.",
+        variants={
+            'regular': GameVariant(
+                name='Regular',
+                desc='Regular',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='baghchal',
+                data_provider_variant_id=-1)
+        }),
+
+    'ago': Game(
+        name='Atari Go',
+        desc="A move consists of the player putting one of their pieces on an empty intersection of the board. The first player to capture one or more pieces (depending on how many pieces you and your opponent want) wins. The rules are similar to those of regular Go. Black player makes first move. Players alternative placing stones onto the board. Pieces on the board cannot be moved unless captured. Capturing happens when one of your or your opponent's piece is surrounded.",
+        variants={
+            'regular': GameVariant(
+                name='Regular',
+                desc='Regular',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='ago',
+                data_provider_variant_id=-1)
+        }),
+
+    'achi': Game(
+        name='Achi',
+        desc="There are two types of moves in Achi: place moves and slide moves. In a place move, you place three pieces on a board. Once all of your three pieces are on the board, you make a slide move by selecting a piece to a connected and unoccupied spot. Win by getting three in a row either horizontally, vertically or diagonally.",
+        variants={
+            'regular': GameVariant(
+                name='Regular',
+                desc='Regular',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='achi',
+                data_provider_variant_id=-1)
+        }),
+
+    'abalone': Game(
+        name='Abalone',
+        desc="A player may move either one, two or three pieces in any of the six directions as long as the space is moving to is empty. There are several types of moves. In line is a move forwards or backwards from one point to the next with 2 or 3 marbles. A broadside move involves moving the marbles parallel to an open adjacent spot.",
+        variants={
+            'regular': GameVariant(
+                name='Regular',
+                desc='Regular',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='abalone',
+                data_provider_variant_id=-1)
+        }),
+
+    '3spot': Game(
+        name='Three Spot',
+        desc="4x4 board. Each player has a 3×2 L-shaped piece, and there are two 1×1 neutral pieces. During a player's turn, player must move his/her piece such that the piece must stay on the board and must cover at least one new square. Afterwards, the same player must move the neutral piece to a new position as well. Wins when you score 12 points when your opponent has scored at least 6.",
+        variants={
+            'regular': GameVariant(
+                name='Regular',
+                desc='Regular',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='3spot',
+                data_provider_variant_id=-1)
+        }),
+
+    '369mm': Game(
+        name='Three Six Nine Mens Morris',
+        desc="Players first alternate placing pieces onto empty nodes on the board. Once all pieces have been placed, players take turns sliding their pieces to other empty nodes connected to it by a line. If a player's move completes a 'mill', three in a line, then that player gets removes one of the opponent's pieces from the board that is currently not in a mill. A mill may be broken and reformed. When a player is down to 3 pieces, that player may move his or her piece to any empty node on the board.",
+        variants={
+            'regular': GameVariant(
+                name='Regular',
+                desc='Regular',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
                 data_provider_variant_id=-1)
         }),
 
