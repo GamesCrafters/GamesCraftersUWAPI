@@ -103,7 +103,8 @@ def handle_games():
     return format_response_ok([
         {
             'gameId': game_id,
-            'name': game.name
+            'name': game.name,
+            'status': game.status
         }
         for (game_id, game) in games.items()
     ])
@@ -121,6 +122,7 @@ def handle_game(game_id):
             {
                 'variantId': variant_id,
                 'description': variant.desc,
+                'status': variant.status,
                 'startPosition': variant.start_position()
             }
             for (variant_id, variant) in game.variants.items()
