@@ -1,8 +1,12 @@
+import os
+
 from .models import Game, GameVariant
 from .gamesman_classic import GamesmanClassicDataProvider
 from .gamesman_java import GamesmanJavaDataProvider
+from .json_game_variant import JSONGameVariant
 from .chess import RegularChessVariant
 
+dirname = os.path.dirname(__file__)
 
 games = {
 
@@ -35,6 +39,25 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='1210',
                 data_provider_variant_id=-1)
+        }),
+
+    '0ton': Game(
+        name='0 to n by 1 or 2',
+        desc="A player may either place 1 or 2 pieces on their turn. Wins when player reaches n (n is chosen by the players).",
+        variants={
+            '10': GameVariant(
+                name='10',
+                desc='Wins when player reaches 10.',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='1ton',
+                data_provider_variant_id=-1)
+        }),
+
+    'nto0': Game(
+        name='n to 0 by 1 or 2',
+        desc='A player may either take 1 or 2 pieces on their turn. Wins when player reaches 0.',
+        variants={
+            '4': JSONGameVariant(os.path.join(dirname, 'json_games/nto0/4to0.json'))
         }),
 
     'sim': Game(
@@ -106,18 +129,6 @@ games = {
                 desc='Regular',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='tilechess',
-                data_provider_variant_id=-1)
-        }),
-
-    '1ton': Game(
-        name='1 to n by 1 or 2',
-        desc="A player may either place 1 or 2 pieces on their turn. Wins when player reaches n (n is chosen by the players).",
-        variants={
-            'regular': GameVariant(
-                name='Regular',
-                desc='Regular',
-                data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='1ton',
                 data_provider_variant_id=-1)
         }),
 
