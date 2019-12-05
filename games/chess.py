@@ -86,8 +86,10 @@ def syz_next_stats(fen):
 class RegularChessVariant(AbstractGameVariant):
 
     def __init__(self):
-        self.name = "Regular"
-        self.desc = "Regular 7-man Chess"
+        name = "Regular"
+        desc = "Regular 7-man Chess"
+        status = 'stable'
+        super(RegularChessVariant, self).__init__(name, desc, status=status)
 
     def start_position(self):
         return "4k388888P6R4K3_b_-_-_0_1"
