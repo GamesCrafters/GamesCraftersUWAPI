@@ -250,7 +250,8 @@ games = {
                 desc='Regular',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='ago',
-                data_provider_variant_id=-1)
+                data_provider_variant_id=-1,
+                status='dev')
         }),
 
     'achi': Game(
