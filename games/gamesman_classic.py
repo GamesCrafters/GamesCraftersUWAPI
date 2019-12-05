@@ -77,9 +77,9 @@ class GamesmanClassicDataProvider(DataProvider):
         """
         try:
             tempurl = GamesmanClassicDataProvider.url + game + "/getEnd" + "?board=" + board
-            response = requests.get(tempurl)
             if variation != -1:
                 tempurl += "?number=" + str(variation)
+            response = requests.get(tempurl)
 
             response.raise_for_status()
         except HTTPError as http_err:
@@ -96,9 +96,9 @@ class GamesmanClassicDataProvider(DataProvider):
         try:
             tempurl = GamesmanClassicDataProvider.url + game + \
                 "/getNextMoveValues" + "?board=" + board
-            response = requests.get(tempurl)
             if variation != -1:
                 tempurl += "?number=" + str(variation)
+            response = requests.get(tempurl)
 
             response.raise_for_status()
         except HTTPError as http_err:
@@ -115,9 +115,9 @@ class GamesmanClassicDataProvider(DataProvider):
         try:
             tempurl = GamesmanClassicDataProvider.url + \
                 game + "/getMoveValue" + "?board=" + board
-            response = requests.get(tempurl)
             if variation != -1:
                 tempurl += "?number=" + str(variation)
+            response = requests.get(tempurl)
 
             response.raise_for_status()
         except HTTPError as http_err:
