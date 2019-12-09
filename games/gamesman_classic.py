@@ -60,7 +60,7 @@ class GamesmanClassicDataProvider(DataProvider):
         try:
             tempurl = GamesmanClassicDataProvider.url + game + "/getStart"
             if variation != -1:
-                tempurl += "&number=" + str(variation)
+                tempurl += "?number=" + str(variation)
             response = requests.get(tempurl)
 
             response.raise_for_status()
