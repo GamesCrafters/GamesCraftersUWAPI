@@ -19,7 +19,13 @@ games = {
                 desc='Regular',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='ttt',
-                data_provider_variant_id=-1)
+                data_provider_variant_id=-1),
+            'misere': GameVariant(
+                name='Misere',
+                desc='Misere',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='ttt',
+                data_provider_variant_id=1)
         }),
 
     'chess': Game(
