@@ -6,6 +6,7 @@ from flask_cors import CORS
 from games import games, GamesmanClassicDataProvider
 
 app = Flask(__name__)
+app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 CORS(app)
 
 
