@@ -60,7 +60,7 @@ class GamesmanClassicDataProvider(DataProvider):
         try:
             tempurl = GamesmanClassicDataProvider.url + game + "/getStart"
             if variation != -1:
-                tempurl += "?number=" + str(variation)
+                tempurl += "&number=" + str(variation)
             response = requests.get(tempurl)
 
             response.raise_for_status()
@@ -78,7 +78,7 @@ class GamesmanClassicDataProvider(DataProvider):
         try:
             tempurl = GamesmanClassicDataProvider.url + game + "/getEnd" + "?board=" + board
             if variation != -1:
-                tempurl += "?number=" + str(variation)
+                tempurl += "&number=" + str(variation)
             response = requests.get(tempurl)
 
             response.raise_for_status()
@@ -97,7 +97,7 @@ class GamesmanClassicDataProvider(DataProvider):
             tempurl = GamesmanClassicDataProvider.url + game + \
                 "/getNextMoveValues" + "?board=" + board
             if variation != -1:
-                tempurl += "?number=" + str(variation)
+                tempurl += "&number=" + str(variation)
             response = requests.get(tempurl)
 
             response.raise_for_status()
@@ -116,7 +116,7 @@ class GamesmanClassicDataProvider(DataProvider):
             tempurl = GamesmanClassicDataProvider.url + \
                 game + "/getMoveValue" + "?board=" + board
             if variation != -1:
-                tempurl += "?number=" + str(variation)
+                tempurl += "&number=" + str(variation)
             response = requests.get(tempurl)
 
             response.raise_for_status()
