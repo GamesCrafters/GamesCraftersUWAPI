@@ -47,8 +47,8 @@ def convertFENToUWAPIRegular2DPositionBoardString(fen):
 
 
 def makeUWAPIMoveString(move):
-    return "M_{}_{}".format(8 * (8 - int(move["uci"][1])) + (ord(move["uci"][0]) - ord('a')),
-                            8 * (8 - int(move["uci"][3])) + (ord(move["uci"][2]) - ord('a')))
+    return "M_{}_{}".format(8 * (8 - int(move[1])) + (ord(move[0]) - ord('a')),
+                            8 * (8 - int(move[3])) + (ord(move[2]) - ord('a')))
 
 
 def makeMove(position, move):
