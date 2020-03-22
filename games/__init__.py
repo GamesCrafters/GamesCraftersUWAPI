@@ -19,13 +19,15 @@ games = {
                 desc='Regular',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='ttt',
-                data_provider_variant_id=-1),
+                data_provider_variant_id=-1,
+                status='stable'),
             'misere': GameVariant(
                 name='Misere',
                 desc='Misere',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='ttt',
-                data_provider_variant_id=1)
+                data_provider_variant_id=1,
+                status='stable')
         }),
 
     'chess': Game(
@@ -44,7 +46,8 @@ games = {
                 desc='Regular',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='1210',
-                data_provider_variant_id=-1)
+                data_provider_variant_id=-1,
+                status='dev')
         }),
 
     '0ton': Game(
@@ -56,7 +59,8 @@ games = {
                 desc='Wins when player reaches 10.',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='1ton',
-                data_provider_variant_id=-1)
+                data_provider_variant_id=-1,
+                status='dev')
         }),
 
     'nto0': Game(
@@ -75,7 +79,8 @@ games = {
                 desc='Regular',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='sim',
-                data_provider_variant_id=-1)
+                data_provider_variant_id=-1,
+                status='dev')
         }),
 
     'ooe': Game(
@@ -87,7 +92,8 @@ games = {
                 desc='Regular',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='ooe',
-                data_provider_variant_id=-1)
+                data_provider_variant_id=-1,
+                status='dev')
         }),
 
     'snake': Game(
@@ -99,7 +105,8 @@ games = {
                 desc='Regular',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='snake',
-                data_provider_variant_id=-1)
+                data_provider_variant_id=-1,
+                status='dev')
         }),
 
     'foxes': Game(
@@ -111,7 +118,8 @@ games = {
                 desc='Regular',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='foxes',
-                data_provider_variant_id=-1)
+                data_provider_variant_id=-1,
+                status='dev')
         }),
 
     'dnb': Game(
@@ -123,7 +131,8 @@ games = {
                 desc='Regular',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='dnb',
-                data_provider_variant_id=-1)
+                data_provider_variant_id=-1,
+                status='dev')
         }),
 
     'tilechess': Game(
@@ -135,7 +144,8 @@ games = {
                 desc='Regular',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='tilechess',
-                data_provider_variant_id=-1)
+                data_provider_variant_id=-1,
+                status='dev')
         }),
 
     'swans': Game(
@@ -147,7 +157,8 @@ games = {
                 desc='Regular',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='swans',
-                data_provider_variant_id=-1)
+                data_provider_variant_id=-1,
+                status='dev')
         }),
 
     'quickchess': Game(
@@ -159,7 +170,8 @@ games = {
                 desc='Regular',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='quickchess',
-                data_provider_variant_id=-1)
+                data_provider_variant_id=-1,
+                status='dev')
         }),
 
     'othello': Game(
@@ -171,7 +183,8 @@ games = {
                 desc='Regular',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='othello',
-                data_provider_variant_id=-1)
+                data_provider_variant_id=-1,
+                status='dev')
         }),
 
     'mancala': Game(
@@ -183,7 +196,8 @@ games = {
                 desc='Regular',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='mancala',
-                data_provider_variant_id=-1)
+                data_provider_variant_id=-1,
+                status='dev')
         }),
 
     'Lgame': Game(
@@ -195,7 +209,8 @@ games = {
                 desc='Regular',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='Lgame',
-                data_provider_variant_id=-1)
+                data_provider_variant_id=-1,
+                status='dev')
         }),
 
     'dinododgem': Game(
@@ -220,7 +235,8 @@ games = {
                 desc='Regular',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='dao',
-                data_provider_variant_id=-1)
+                data_provider_variant_id=-1,
+                status='dev')
         }),
 
     'ctoi': Game(
@@ -232,7 +248,8 @@ games = {
                 desc='Regular',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='ctoi',
-                data_provider_variant_id=-1)
+                data_provider_variant_id=-1,
+                status='dev')
         }),
 
     'baghchal': Game(
@@ -244,7 +261,8 @@ games = {
                 desc='Regular',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='baghchal',
-                data_provider_variant_id=-1)
+                data_provider_variant_id=-1,
+                status='dev')
         }),
 
     'ago': Game(
@@ -269,7 +287,8 @@ games = {
                 desc='Regular',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='achi',
-                data_provider_variant_id=-1)
+                data_provider_variant_id=-1,
+                status='stable')
         }),
 
     'abalone': Game(
@@ -281,7 +300,8 @@ games = {
                 desc='Regular',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='abalone',
-                data_provider_variant_id=-1)
+                data_provider_variant_id=-1,
+                status='dev')
         }),
 
     '3spot': Game(
@@ -293,7 +313,8 @@ games = {
                 desc='Regular',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='3spot',
-                data_provider_variant_id=-1)
+                data_provider_variant_id=-1,
+                status='dev')
         }),
 
     '369mm': Game(
@@ -305,7 +326,8 @@ games = {
                 desc='Regular',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='369mm',
-                data_provider_variant_id=-1)
+                data_provider_variant_id=-1,
+                status='dev')
         }),
 
     'connect4': Game(
@@ -317,73 +339,85 @@ games = {
                 desc='4x4 board with 4 in a row',
                 data_provider=GamesmanJavaDataProvider,
                 data_provider_game_id='connect4',
-                data_provider_variant_id=';width=4;height=4;pieces=4'),
+                data_provider_variant_id=';width=4;height=4;pieces=4',
+                status='dev'),
             '4x5x4': GameVariant(
                 name='4x5x4',
                 desc='4x5 board with 4 in a row',
                 data_provider=GamesmanJavaDataProvider,
                 data_provider_game_id='connect4',
-                data_provider_variant_id=';width=4;height=5;pieces=4'),
+                data_provider_variant_id=';width=4;height=5;pieces=4',
+                status='dev'),
             '4x6x4': GameVariant(
                 name='4x6x4',
                 desc='4x6 board with 4 in a row',
                 data_provider=GamesmanJavaDataProvider,
                 data_provider_game_id='connect4',
-                data_provider_variant_id=';width=4;height=6;pieces=4'),
+                data_provider_variant_id=';width=4;height=6;pieces=4',
+                status='dev'),
             '5x4x4': GameVariant(
                 name='5x4x4',
                 desc='5x4 board with 4 in a row',
                 data_provider=GamesmanJavaDataProvider,
                 data_provider_game_id='connect4',
-                data_provider_variant_id=';width=5;height=4;pieces=4'),
+                data_provider_variant_id=';width=5;height=4;pieces=4',
+                status='dev'),
             '5x5x4': GameVariant(
                 name='5x5x4',
                 desc='5x5 board with 4 in a row',
                 data_provider=GamesmanJavaDataProvider,
                 data_provider_game_id='connect4',
-                data_provider_variant_id=';width=5;height=5;pieces=4'),
+                data_provider_variant_id=';width=5;height=5;pieces=4',
+                status='dev'),
             '5x6x4': GameVariant(
                 name='5x6x4',
                 desc='5x6 board with 4 in a row',
                 data_provider=GamesmanJavaDataProvider,
                 data_provider_game_id='connect4',
-                data_provider_variant_id=';width=5;height=6;pieces=4'),
+                data_provider_variant_id=';width=5;height=6;pieces=4',
+                status='dev'),
             '6x4x4': GameVariant(
                 name='6x4x4',
                 desc='6x4 board with 4 in a row',
                 data_provider=GamesmanJavaDataProvider,
                 data_provider_game_id='connect4',
-                data_provider_variant_id=';width=6;height=4;pieces=4'),
+                data_provider_variant_id=';width=6;height=4;pieces=4',
+                status='dev'),
             '6x5x4': GameVariant(
                 name='6x5x4',
                 desc='6x5 board with 4 in a row',
                 data_provider=GamesmanJavaDataProvider,
                 data_provider_game_id='connect4',
-                data_provider_variant_id=';width=6;height=5;pieces=4'),
+                data_provider_variant_id=';width=6;height=5;pieces=4',
+                status='dev'),
             # '6x6x4': GameVariant(
             #     name='6x6x4',
             #     desc='6x6 board with 4 in a row',
             #     data_provider=GamesmanJavaDataProvider,
             #     data_provider_game_id='connect4',
-            #     data_provider_variant_id=';width=6;height=6;pieces=4'),
+            #     data_provider_variant_id=';width=6;height=6;pieces=4',
+            #     status='dev'),
             '7x4x4': GameVariant(
                 name='7x4x4',
                 desc='7x4 board with 4 in a row',
                 data_provider=GamesmanJavaDataProvider,
                 data_provider_game_id='connect4',
-                data_provider_variant_id=';width=7;height=4;pieces=4'),
+                data_provider_variant_id=';width=7;height=4;pieces=4',
+                status='dev'),
             '7x5x4': GameVariant(
                 name='7x5x4',
                 desc='7x5 board with 4 in a row',
                 data_provider=GamesmanJavaDataProvider,
                 data_provider_game_id='connect4',
-                data_provider_variant_id=';width=7;height=5;pieces=4'),
+                data_provider_variant_id=';width=7;height=5;pieces=4',
+                status='dev'),
             # '7x6x4': GameVariant(
             #     name='7x6x4',
             #     desc='7x6 board with 4 in a row',
             #     data_provider=GamesmanJavaDataProvider,
             #     data_provider_game_id='connect4',
-            #     data_provider_variant_id=';width=7;height=6;pieces=4'),
+            #     data_provider_variant_id=';width=7;height=6;pieces=4',
+            #     status='dev'),
         }),
 
 }
