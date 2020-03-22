@@ -7,35 +7,58 @@ import requests
 from .models import AbstractGameVariant
 
 
-ROW_LENGTH = 8
 URL = "http://tablebase.lichess.ovh/standard"
 
 
-def makeMove(fen, move):
-    board = chess.Board(FENParse(fen).replace("_", " "))
-    move = chess.Move.from_uci(move)
-    board.push(move)
-    return board.fen().replace("/", "").replace(" ", "_")
-
-
-def FENParse(code):
-    pieces, uri = 0, ''
-    code = code.split("_", 1)
-    if len(code) != 2:
+def convertUWAPIRegular2DPositionStringToFEN(position):
+    pieces, spaces, uri = 0, 0, ''
+    position = position.split("_", 5)
+    
+    if len(position) != 6:
         return ""
-    fen1, fen2 = code[0], code[1]
-    for i in fen1:
-        if i == "_":
-            break
-        if pieces == ROW_LENGTH:
+
+    for c in position[4]:
+        if c != '-' and spaces > 0:
+            uri += str(spaces)
+            spaces = 0
+        if pieces == 8:
+            if spaces > 0:
+                uri += str(spaces)
+                spaces = 0
             uri += '/'
             pieces = 0
-        uri += i
-        if i.isdigit():
-            pieces += int(i)
+        if c == '-':
+            spaces += 1
         else:
-            pieces += 1
-    return uri + "_" + fen2
+            uri += c
+        pieces += 1
+    if spaces > 0:
+        uri += str(spaces)
+    
+    return uri + "_" + position[5]
+
+
+def convertFENToUWAPIRegular2DPositionBoardString(fen):
+    board, extra = fen.replace(" ", "_").split("_", 1)
+    board = board.replace("/", "")
+    for i in range(10):
+        board = board.replace(str(i), '-' * i)
+    return board + "_" + extra
+
+
+def makeUWAPIMoveString(move):
+    return "M_{}_{}".format(8 * (8 - int(move["uci"][1])) + (ord(move["uci"][0]) - ord('a')),
+                            8 * (8 - int(move["uci"][3])) + (ord(move["uci"][2]) - ord('a')))
+
+
+def makeMove(position, move):
+    fen = convertUWAPIRegular2DPositionStringToFEN(position)
+    board = chess.Board(fen.replace("_", " "))
+    move = chess.Move.from_uci(move)
+    board.push(move)
+    fen = board.fen()
+    turn = 'B' if position[2] == 'A' else 'A'
+    return "R_{}_8_8_{}".format(turn, convertFENToUWAPIRegular2DPositionBoardString(fen))
 
 
 def positionValue(data):
@@ -46,9 +69,10 @@ def positionValue(data):
     return 'draw' if data['dtm'] is None or data['dtm'] == 0 else 'lose' if data['dtm'] < 0 else 'win'
 
 
-def syz_stat(fen):
+def syz_stat(position):
     try:
-        r = requests.get(url=URL, params={'fen': FENParse(fen)})
+        r = requests.get(url=URL, params={
+                         'fen': convertUWAPIRegular2DPositionStringToFEN(position)})
         r.raise_for_status()
     except HTTPError as http_err:
         print(f'HTTP error occurred: {http_err}')
@@ -57,16 +81,17 @@ def syz_stat(fen):
     else:
         data = r.json()
         response = {
-            "position": fen,
+            "position": position,
             "positionValue": positionValue(data),
             "remoteness": 0 if data['dtm'] is None else abs(data['dtm']),
         }
         return response
 
 
-def syz_next_stats(fen):
+def syz_next_stats(position):
     try:
-        r = requests.get(url=URL, params={'fen': FENParse(fen)})
+        r = requests.get(url=URL, params={
+                         'fen': convertUWAPIRegular2DPositionStringToFEN(position)})
         r.raise_for_status()
     except HTTPError as http_err:
         print(f'HTTP error occurred: {http_err}')
@@ -75,8 +100,8 @@ def syz_next_stats(fen):
     else:
         data = r.json()
         response = [{
-            "move": move['uci'],
-            "position": makeMove(fen, move['uci']),
+            "move": makeUWAPIMoveString(move['uci']),
+            "position": makeMove(position, move['uci']),
             "positionValue": positionValue(move),
             "remoteness": 0 if move['dtm'] is None else abs(move['dtm'])
         } for move in data['moves']]
@@ -92,7 +117,7 @@ class RegularChessVariant(AbstractGameVariant):
         super(RegularChessVariant, self).__init__(name, desc, status=status)
 
     def start_position(self):
-        return "4k388888P6R4K3_b_-_-_0_1"
+        return "R_A_8_8_" + "--------" + "------R-" + "------k-" + "p--pB---" + "--------" + "--------" + "r-------" + "------K-" + "_b_-_-_0_1"
 
     def stat(self, position):
         return syz_stat(position)
