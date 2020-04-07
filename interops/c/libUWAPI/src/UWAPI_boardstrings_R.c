@@ -10,7 +10,7 @@ static BOOLEAN isalnumdash(char c)
     return ('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z') || ('0' <= c && c <= '9') || c == '-' || c == '*';
 }
 
-BOOLEAN UWAPI_Regular2D_ParsePositionString(char const *str, enum UWAPI_Turn *turn, unsigned int *num_rows, unsigned int *num_columns, char **board)
+BOOLEAN UWAPI_Board_Regular2D_ParsePositionString(char const *str, enum UWAPI_Turn *turn, unsigned int *num_rows, unsigned int *num_columns, char **board)
 {
     // Format: "R_<turn>_<rows>_<columns>_<cells...>"
 
@@ -87,7 +87,7 @@ BOOLEAN UWAPI_Regular2D_ParsePositionString(char const *str, enum UWAPI_Turn *tu
     return TRUE;
 }
 
-char *UWAPI_Regular2D_MakePositionString(enum UWAPI_Turn turn, unsigned int num_rows, unsigned int num_columns, char const *board)
+char *UWAPI_Board_Regular2D_MakePositionString(enum UWAPI_Turn turn, unsigned int num_rows, unsigned int num_columns, char const *board)
 {
     // Format: "R_<turn>_<rows>_<columns>_<cells...>"
 
@@ -126,7 +126,7 @@ char *UWAPI_Regular2D_MakePositionString(enum UWAPI_Turn turn, unsigned int num_
     return str;
 }
 
-char *UWAPI_Regular2D_MakeAddString(char piece, unsigned int to)
+char *UWAPI_Board_Regular2D_MakeAddString(char piece, unsigned int to)
 {
     // Format: "A_<piece>_<to>"
 
@@ -142,7 +142,7 @@ char *UWAPI_Regular2D_MakeAddString(char piece, unsigned int to)
     return str;
 }
 
-char *UWAPI_Regular2D_MakeMoveString(char from, unsigned int to)
+char *UWAPI_Board_Regular2D_MakeMoveString(char from, unsigned int to)
 {
     // Format: "M_<from>_<to>"
 
@@ -158,7 +158,7 @@ char *UWAPI_Regular2D_MakeMoveString(char from, unsigned int to)
     return str;
 }
 
-char *UWAPI_Regular2D_MakeShiftString(enum UWAPI_Board_Regular2DShiftDirection dir, unsigned int row, unsigned int amt)
+char *UWAPI_Board_Regular2D_MakeShiftString(enum UWAPI_Board_Regular2DShiftDirection dir, unsigned int row, unsigned int amt)
 {
     // Format: "S_<dir>_<row>_<amt>"
 
