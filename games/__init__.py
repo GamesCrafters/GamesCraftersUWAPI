@@ -30,6 +30,19 @@ games = {
                 status='stable')
         }),
 
+    'stt': Game(
+        name='Shift Tac Toe',
+        desc='',
+        variants={
+            'default': GameVariant(
+                name='Regular',
+                desc='Regular',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='stt',
+                data_provider_variant_id=-1,
+                status='dev')
+        }),
+
     'chess': Game(
         name='Chess',
         desc="Chess",
