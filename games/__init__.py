@@ -2,7 +2,7 @@ import os
 
 from .models import Game, GameVariant
 from .gamesman_classic import GamesmanClassicDataProvider
-from .gamesman_java import GamesmanJavaDataProvider
+from .gamesman_java import GamesmanJavaDataProvider, GamesmanJavaConnect4GameVariant
 from .json_game_variant import JSONGameVariant
 from .chess import RegularChessVariant
 
@@ -334,90 +334,78 @@ games = {
         name='Connect 4',
         desc='Tic Tac Toe with gravity',
         variants={
-            '4x4x4': GameVariant(
-                name='4x4x4',
-                desc='4x4 board with 4 in a row',
-                data_provider=GamesmanJavaDataProvider,
-                data_provider_game_id='connect4',
-                data_provider_variant_id=';width=4;height=4;pieces=4',
-                status='dev'),
-            '4x5x4': GameVariant(
-                name='4x5x4',
-                desc='4x5 board with 4 in a row',
-                data_provider=GamesmanJavaDataProvider,
-                data_provider_game_id='connect4',
-                data_provider_variant_id=';width=4;height=5;pieces=4',
-                status='dev'),
-            '4x6x4': GameVariant(
-                name='4x6x4',
-                desc='4x6 board with 4 in a row',
-                data_provider=GamesmanJavaDataProvider,
-                data_provider_game_id='connect4',
-                data_provider_variant_id=';width=4;height=6;pieces=4',
-                status='dev'),
-            '5x4x4': GameVariant(
-                name='5x4x4',
-                desc='5x4 board with 4 in a row',
-                data_provider=GamesmanJavaDataProvider,
-                data_provider_game_id='connect4',
-                data_provider_variant_id=';width=5;height=4;pieces=4',
-                status='dev'),
-            '5x5x4': GameVariant(
-                name='5x5x4',
-                desc='5x5 board with 4 in a row',
-                data_provider=GamesmanJavaDataProvider,
-                data_provider_game_id='connect4',
-                data_provider_variant_id=';width=5;height=5;pieces=4',
-                status='dev'),
-            '5x6x4': GameVariant(
-                name='5x6x4',
-                desc='5x6 board with 4 in a row',
-                data_provider=GamesmanJavaDataProvider,
-                data_provider_game_id='connect4',
-                data_provider_variant_id=';width=5;height=6;pieces=4',
-                status='dev'),
-            '6x4x4': GameVariant(
-                name='6x4x4',
-                desc='6x4 board with 4 in a row',
-                data_provider=GamesmanJavaDataProvider,
-                data_provider_game_id='connect4',
-                data_provider_variant_id=';width=6;height=4;pieces=4',
-                status='dev'),
-            '6x5x4': GameVariant(
-                name='6x5x4',
-                desc='6x5 board with 4 in a row',
-                data_provider=GamesmanJavaDataProvider,
-                data_provider_game_id='connect4',
-                data_provider_variant_id=';width=6;height=5;pieces=4',
-                status='dev'),
-            # '6x6x4': GameVariant(
-            #     name='6x6x4',
-            #     desc='6x6 board with 4 in a row',
-            #     data_provider=GamesmanJavaDataProvider,
-            #     data_provider_game_id='connect4',
-            #     data_provider_variant_id=';width=6;height=6;pieces=4',
-            #     status='dev'),
-            '7x4x4': GameVariant(
-                name='7x4x4',
-                desc='7x4 board with 4 in a row',
-                data_provider=GamesmanJavaDataProvider,
-                data_provider_game_id='connect4',
-                data_provider_variant_id=';width=7;height=4;pieces=4',
-                status='dev'),
-            '7x5x4': GameVariant(
-                name='7x5x4',
-                desc='7x5 board with 4 in a row',
-                data_provider=GamesmanJavaDataProvider,
-                data_provider_game_id='connect4',
-                data_provider_variant_id=';width=7;height=5;pieces=4',
-                status='dev'),
-            # '7x6x4': GameVariant(
-            #     name='7x6x4',
-            #     desc='7x6 board with 4 in a row',
-            #     data_provider=GamesmanJavaDataProvider,
-            #     data_provider_game_id='connect4',
-            #     data_provider_variant_id=';width=7;height=6;pieces=4',
-            #     status='dev'),
+            '4x4x4': GamesmanJavaConnect4GameVariant(
+                width=4,
+                height=4,
+                pieces=4,
+                status='dev'
+            ),
+            '4x5x4': GamesmanJavaConnect4GameVariant(
+                width=4,
+                height=5,
+                pieces=4,
+                status='dev'
+            ),
+            '4x6x4': GamesmanJavaConnect4GameVariant(
+                width=4,
+                height=6,
+                pieces=4,
+                status='dev'
+            ),
+            '5x4x4': GamesmanJavaConnect4GameVariant(
+                width=5,
+                height=4,
+                pieces=4,
+                status='dev'
+            ),
+            '5x5x4': GamesmanJavaConnect4GameVariant(
+                width=5,
+                height=5,
+                pieces=4,
+                status='dev'
+            ),
+            '5x6x4': GamesmanJavaConnect4GameVariant(
+                width=5,
+                height=6,
+                pieces=4,
+                status='dev'
+            ),
+            '6x4x4': GamesmanJavaConnect4GameVariant(
+                width=6,
+                height=4,
+                pieces=4,
+                status='dev'
+            ),
+            '6x5x4': GamesmanJavaConnect4GameVariant(
+                width=6,
+                height=5,
+                pieces=4,
+                status='dev'
+            ),
+            '6x6x4': GamesmanJavaConnect4GameVariant(
+                width=6,
+                height=6,
+                pieces=4,
+                status='unavailable'
+            ),
+            '7x4x4': GamesmanJavaConnect4GameVariant(
+                width=7,
+                height=4,
+                pieces=4,
+                status='dev'
+            ),
+            '7x5x4': GamesmanJavaConnect4GameVariant(
+                width=7,
+                height=5,
+                pieces=4,
+                status='dev'
+            ),
+            '7x6x4': GamesmanJavaConnect4GameVariant(
+                width=7,
+                height=6,
+                pieces=4,
+                status='unavailable'
+            ),
         }),
 
 }

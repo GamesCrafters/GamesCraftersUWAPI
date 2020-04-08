@@ -3,7 +3,11 @@ import json
 import requests
 from requests.exceptions import HTTPError
 
-from .models import DataProvider
+from .models import DataProvider, AbstractGameVariant
+from .uwapi import TURN_A, TURN_B, \
+    board_regular2d_parse_position_string, \
+    board_regular2d_make_position_string
+from .utils import wrap
 
 
 class GamesmanJavaDataProvider(DataProvider):
@@ -87,3 +91,103 @@ class GamesmanJavaDataProvider(DataProvider):
             print(f'Other error occurred: {err}')
         else:
             return json.loads(response.content)["response"]
+
+
+class GamesmanJavaConnect4GameVariant(AbstractGameVariant):
+    """
+    Special game variant for connect 4
+    """
+
+    game_id = 'connect4'
+
+    def __init__(self, width, height, pieces, status='stable'):
+        super(GamesmanJavaConnect4GameVariant, self).__init__(
+            name=f"{width}x{height}x{pieces}",
+            desc=f"{width}x{height} board with {pieces} pieces in a row",
+            status=status
+        )
+        self.width = width
+        self.height = height
+        self.pieces = pieces
+
+    @staticmethod
+    def get_turn(board):
+        num_placed_pieces = len(board) - board.count(' ')
+        return TURN_A if num_placed_pieces % 2 == 0 else TURN_B
+
+    def convert_to_position(self, board):
+        turn = self.get_turn(board)
+        board = board.replace(' ', '-')
+        board = ''.join(wrap(board, self.width)[::-1])  # Vertical flip
+        return board_regular2d_make_position_string(turn, self.height, self.width, board)
+
+    def convert_to_board(self, position):
+        match = board_regular2d_parse_position_string(position)
+        if not match:
+            return None
+
+        _, num_rows, num_columns, board = match
+        # Check width & height
+        if num_rows != self.height or num_columns != self.width:
+            return None
+
+        board = ''.join(wrap(board, self.width)[::-1])  # Vertical flip
+        board = board.replace('-', ' ')
+        return board
+
+    def start_position(self):
+        position = GamesmanJavaDataProvider.start_position(
+            self.game_id,
+            f";width={self.width};height={self.height};pieces={self.pieces}"
+        )
+        return self.convert_to_position(position)
+
+    def stat(self, position):
+        # Get board from UWAPI position string
+        board = self.convert_to_board(position)
+        if not board:
+            return None
+
+        stat = GamesmanJavaDataProvider.stat(
+            self.game_id,
+            f";width={self.width};height={self.height};pieces={self.pieces}",
+            board
+        )
+
+        # Convert board to UWAPI position string
+        stat['position'] = self.convert_to_position(stat['position'])
+
+        return stat
+
+    def next_stats(self, position):
+        # Get board from UWAPI position string
+        board = self.convert_to_board(position)
+        if not board:
+            return None
+
+        next_stats = GamesmanJavaDataProvider.next_stats(
+            self.game_id,
+            f";width={self.width};height={self.height};pieces={self.pieces}",
+            board
+        )
+
+        if not next_stats:
+            return None
+
+        turn = self.get_turn(board)
+        piece = 'X' if turn == TURN_A else 'O'
+
+        def wrangle_next_stat(next_stat):
+            # Convert board to UWAPI position string
+            next_stat['position'] = self.convert_to_position(
+                next_stat['position'])
+
+            # Convert move string
+            column = int(next_stat['move'])
+            rows = board[column::self.width]
+            empty_row = self.height - 1 - rows.index(' ')
+            next_stat['move'] = f"A_{piece}_{empty_row * self.width + column}"
+
+            return next_stat
+
+        return list(map(wrangle_next_stat, next_stats))
