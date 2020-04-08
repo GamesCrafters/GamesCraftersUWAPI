@@ -3,7 +3,7 @@ CFLAGS=-Iinclude -I../plugin/include
 BIN=bin
 
 $(BIN)/libUWAPI.so: create_directories include/*.h src/*.c
-	$(CC) $(CFLAGS) -shared -o libUWAPI.so \
+	$(CC) $(CFLAGS) -fpic -shared -o libUWAPI.so \
 		src/UWAPI_boardstrings_R.c \
 		src/UWAPI_boardstrings_C.c \
 		src/UWAPI_boardstrings.c \
