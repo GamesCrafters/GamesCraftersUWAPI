@@ -65,7 +65,7 @@ typedef struct UWAPI_GameVariantService
     /**
      * The stats of the given game position.
      */
-    UWAPI_PositionStats *(*stats)(char const *position, void *a);
+    UWAPI_PositionStats *(*stats)(void *a, char const *position);
 } UWAPI_GameVariantService;
 
 // Methods

@@ -38,7 +38,7 @@ char *nto0_1or2_start(void *a)
     return UWAPI_Board_Custom_MakePositionString("4");
 }
 
-UWAPI_PositionStats *nto0_1or2_stats(char const *str, void *a)
+UWAPI_PositionStats *nto0_1or2_stats(void *a, char const *str)
 {
     char *position_string;
     if (!UWAPI_Board_Custom_ParsePositionString(str, &position_string))

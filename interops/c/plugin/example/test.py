@@ -58,7 +58,7 @@ class PositionStats(Structure):
 
 class GameVariantService(Structure):
     start_type = CFUNCTYPE(c_void_p, c_void_p)
-    stats_type = CFUNCTYPE(POINTER(PositionStats), c_void_p, c_void_p)
+    stats_type = CFUNCTYPE(POINTER(PositionStats), c_void_p, c_char_p)
 
     _fields_ = [
         ("a", c_void_p),
@@ -81,7 +81,7 @@ class GameVariantService(Structure):
         return start_position
 
     def stats(self, position):
-        position_stats_ptr = self._stats(position, self.a)
+        position_stats_ptr = self._stats(self.a, position)
         if not bool(position_stats_ptr):
             return  # Unexpected NULL pointer
         position_stats = position_stats_ptr.contents
