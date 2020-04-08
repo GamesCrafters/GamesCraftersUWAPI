@@ -4,7 +4,7 @@ CFLAGS=-I../include \
 	-I../../libUWAPI/include
 
 example.so: example.c
-	$(CC) $(CFLAGS) -shared -o example.so example.c
+	$(CC) $(CFLAGS) -shared -fpic -o example.so example.c
 
 test: example.so
 	cp ../../libUWAPI/bin/libUWAPI.so .
