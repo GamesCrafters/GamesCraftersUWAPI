@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Iinclude -I../interface/include
+CFLAGS=-Iinclude -I../plugin/include
 BIN=bin
 
 $(BIN)/libUWAPI.so: create_directories include/*.h src/*.c

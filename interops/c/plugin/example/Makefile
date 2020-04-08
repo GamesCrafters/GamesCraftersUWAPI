@@ -3,9 +3,14 @@ CFLAGS=-I../include \
 	-L../../libUWAPI/bin -lUWAPI \
 	-I../../libUWAPI/include
 
-example: example.c
+example.so: example.c
 	$(CC) $(CFLAGS) -shared -o example.so example.c
 
-test:
+test: example.so
 	cp ../../libUWAPI/bin/libUWAPI.so .
 	python3 test.py
+
+clean:
+	rm -rf *.so
+
+.PHONY: clean

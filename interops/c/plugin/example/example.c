@@ -1,8 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <UWAPI_interface.h>
-
+#include <UWAPI_plugin.h>
 #include <UWAPI_boardstrings.h>
 #include <UWAPI_helpers.h>
 
