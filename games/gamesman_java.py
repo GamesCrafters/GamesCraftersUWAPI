@@ -14,7 +14,7 @@ class GamesmanJavaDataProvider(DataProvider):
     # Use top url when running on a different machine,
     # use bottom when running on main gamesman server.
     url = "https://nyc.cs.berkeley.edu/gcweb/service/gamesman/puzzles/"
-    #url = "https://localhost/gcweb/service/gamesman/puzzles/
+    # url = "https://localhost/gcweb/service/gamesman/puzzles/
 
     @staticmethod
     def start_position(game_id, variant_id):
@@ -127,6 +127,7 @@ class GamesmanJavaConnect4GameVariant(AbstractGameVariant):
             return None
 
         _, num_rows, num_columns, board = match
+        
         # Check width & height
         if num_rows != self.height or num_columns != self.width:
             return None
@@ -170,7 +171,6 @@ class GamesmanJavaConnect4GameVariant(AbstractGameVariant):
             f";width={self.width};height={self.height};pieces={self.pieces}",
             board
         )
-
         if not next_stats:
             return None
 
