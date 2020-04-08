@@ -3,7 +3,8 @@ from ctypes import *
 from ctypes.util import find_library
 
 
-GAME_VARIANT_SERVICES_LIBRARY = "example.so"
+UWAPI_LIBRARY = "./libUWAPI.so"
+GAME_VARIANT_SERVICES_LIBRARY = "./example.so"
 
 
 #
@@ -32,6 +33,12 @@ POSITION_VALUES_TEXT = {
 # We avoid receiving c_char_p when interop'ing with the library as function return type
 # for "easier" memory management.
 # Otherwise, we don't know the char pointers that we need to free the returned string
+
+
+libUWAPI = CDLL(UWAPI_LIBRARY)
+
+free_nonnull_position_stats = libUWAPI.UWAPI_free_nonnull_position_stats
+free_nonnull_position_stats.argtypes = (c_void_p,)
 
 
 class NextPositionStats(Structure):
@@ -116,10 +123,6 @@ lib = cdll.LoadLibrary(GAME_VARIANT_SERVICES_LIBRARY)
 GetGameVariantService = lib.UWAPI_GetGameVariantService
 GetGameVariantService.argtypes = (c_void_p, c_void_p)
 GetGameVariantService.restype = POINTER(GameVariantService)
-
-free_nonnull_position_stats = lib.UWAPI_free_nonnull_position_stats
-free_nonnull_position_stats.argtypes = (c_void_p,)
-
 
 #
 # Now, try an actual game
