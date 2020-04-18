@@ -171,7 +171,7 @@ class GamesmanJavaConnect4GameVariant(AbstractGameVariant):
             f";width={self.width};height={self.height};pieces={self.pieces}",
             board
         )
-        if not next_stats:
+        if next_stats is None:
             return None
 
         turn = self.get_turn(board)
