@@ -9,7 +9,7 @@ List of already added games can be found [here](https://docs.google.com/spreadsh
 
 #### II. Adding Games in games.py File
 
-In games.py file, add games into the `games` dictionary as below:
+In __init__.py file, add games into the `games` dictionary as below:
 
 ```python
 'ttt': Game(
