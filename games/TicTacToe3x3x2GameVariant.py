@@ -18,7 +18,26 @@ class TicTacToe3x3x2GameVariant(AbstractGameVariant):
     def start_position(self):
         return "XO---------|---------"
 
+    def WORM(position):
+        permutations = []
+        p = position
+        permutations.append(p)
+        permutations.append(mirror(p))
+        for i in range(3):
+            p = rotateX(p)
+            permutations.append(p)
+            pm = mirror(p)
+            permutations.append(pm)
+        return min(permutations)
+
+    def mirror(position):
+        return position[0:2] + position[4] + position[3] + position[2] + position[7] + position[6] + position[5] + position[10] + position[9] + position[8] + position[11]+ position[14] + position[13] + position[12] + position[17] + position[16] + position[15] + position[20] + position[19] + position[18]
+
+    def rotateX(position):
+        return position[0:2] + position[8] + position[5] + position[2] + position[9] + position[6] + position[3] + position[10] + position[7] + position[4] + position[11] + position[18] + position[15] + position[12] + position[19] + position[16] + position[13] + position[20] + position[17] + position[14]
+
     def hashTTT(position):
+        position = WORM(position)
         index = 0
         s = position[2:11] + position[12:21]
         for i in range(len(s)):
