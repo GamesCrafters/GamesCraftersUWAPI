@@ -72,8 +72,12 @@ class TicTacToe3x3x2GameVariant(AbstractGameVariant):
         try:
             index = self.hashTTT(position)
             self.file.seek(index, 0)
-            value = self.file.read(1).decode('utf-8')
+            value = self.file.read(1).decode('ascii')
             value = int(value)
+            
+            if value >= 3:
+                return None  # Unreachable position
+
             position_value = ["lose", "tie", "win"][value]
             return {
                 "position": position,
