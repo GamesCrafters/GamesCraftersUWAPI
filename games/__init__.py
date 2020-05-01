@@ -5,6 +5,8 @@ from .gamesman_classic import GamesmanClassicDataProvider
 from .gamesman_java import GamesmanJavaDataProvider, GamesmanJavaConnect4GameVariant
 from .json_game_variant import JSONGameVariant
 from .chess import RegularChessVariant
+from .TicTacToe3x3x2GameVariant import TicTacToe3x3x2GameVariant
+
 
 dirname = os.path.dirname(__file__)
 
@@ -28,6 +30,17 @@ games = {
                 data_provider_game_id='ttt',
                 data_provider_variant_id=1,
                 status='stable')
+        }),
+
+    'ttt3d': Game(
+        name='3D Tic-Tac-Toe',
+        desc='3D Tic-Tac-Toe',
+        variants={
+            '3x3x2': TicTacToe3x3x2GameVariant(
+                name='3x3x2',
+                desc='3x3x2',
+                filepath=os.path.join(dirname, 'solutions/ttt3d/3x3x2.txt'),
+                status='dev')
         }),
 
     'stt': Game(
@@ -80,7 +93,7 @@ games = {
         name='n to 0 by 1 or 2',
         desc='A player may either take 1 or 2 pieces on their turn. Wins when player reaches 0.',
         variants={
-            '4': JSONGameVariant(os.path.join(dirname, 'json_games/nto0/4to0.json'))
+            '4': JSONGameVariant(os.path.join(dirname, 'solutions/nto0/4to0.json'))
         }),
 
     'sim': Game(
