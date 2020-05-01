@@ -3,7 +3,7 @@ Description=GamesCrafters Universal Web API
 
 [Service]
 User=gamescrafters
-WorkingDirectory=/home/gamescrafters/special-octo-garbanzo/
+WorkingDirectory=/home/gamescrafters/GamesCraftersUWAPI/
 ExecStart=/usr/bin/python3 server.py
 Restart=on-failure
 RestartSec=5
