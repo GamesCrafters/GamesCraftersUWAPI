@@ -7,7 +7,7 @@ This is the back end team code for the internal request-routing server framework
 ## games folder
 The games folder has four essential files and each has its own purpose.
 
-__init__.py: Initializes all the games with their gameinfo that have been added to the universal web API. It forms the games dict, indexed by the name of the game, and each game containing the name, description, and the details of each game variant.
+\_\_init__.py: Initializes all the games with their gameinfo that have been added to the universal web API. It forms the games dict, indexed by the name of the game, and each game containing the name, description, and the details of each game variant.
 
 gamesman_classic.py: Implements the GamesmanClassicDataProvider based on the abstract DataProvider class. 
 
