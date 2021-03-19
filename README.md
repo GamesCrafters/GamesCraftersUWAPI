@@ -45,7 +45,7 @@ Routes:
     - Calls handle_position(game_id, variant_id, position)
     - Finds game and variant if exists. Gets response of current position value from GamesCrafters website (with 'board', 'value', and remoteness), renames 'board' and 'value' fields to 'position' and 'positionValue', adds a new field 'moves' containing next wrangled moves (sorted), and returns modified response
     
-- "/games/<game_id>/variants/<variant_id>/positions/<position>/move"
+- "/games/<game_id>/variants/<variant_id>/positions/\<position\>/move"
 
     - Calls handle_position_moves(game_id, variant_id, position)
     - Similar to handle_position (above) but only returns "moves" field of the response
