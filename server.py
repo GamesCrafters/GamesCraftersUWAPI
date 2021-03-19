@@ -99,7 +99,7 @@ def wrangle_next_stats(next_stats):
 # Routes
 
 
-@app.route("/games")
+@app.route("/games/")
 def handle_games():
     return format_response_ok([
         {
@@ -111,7 +111,7 @@ def handle_games():
     ])
 
 
-@app.route("/games/<game_id>")
+@app.route("/games/<game_id>/")
 def handle_game(game_id):
     game = get_game(game_id)
     if not game:
@@ -131,7 +131,7 @@ def handle_game(game_id):
     })
 
 
-@app.route('/games/<game_id>/variants/<variant_id>/positions/<position>')
+@app.route('/games/<game_id>/variants/<variant_id>/positions/<position>/')
 def handle_position(game_id, variant_id, position):
     variant = get_game_variant(game_id, variant_id)
     if not variant:
@@ -141,7 +141,7 @@ def handle_position(game_id, variant_id, position):
     return format_response_ok(result)
 
 
-@app.route('/games/<game_id>/variants/<variant_id>/positions/<position>/moves')
+@app.route('/games/<game_id>/variants/<variant_id>/positions/<position>/moves/')
 def handle_position_moves(game_id, variant_id, position):
     variant = get_game_variant(game_id, variant_id)
     if not variant:
@@ -150,7 +150,7 @@ def handle_position_moves(game_id, variant_id, position):
     return format_response_ok(wrangle_next_stats(variant.next_stats(position)))
 
 
-@app.route('/internal/classic-games')
+@app.route('/internal/classic-games/')
 def handle_classic_games():
     return GamesmanClassicDataProvider.getGames()
 
