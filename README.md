@@ -5,6 +5,15 @@ This is the back end team code for the internal request-routing server framework
 ### UWAPI backend link
 https://nyc.cs.berkeley.edu/universal/v1/games
 
+## Run the server locally
+To run the server on your local machine, first clone this repository and run these following commands.
+```
+git clone https://github.com/GamesCrafters/GamesCraftersUWAPI.git
+pip install -r requirements.txt
+python server.py
+```
+These commands have been found to work on Python 3.6 and 3.7.
+
 ## games folder
 The games folder has four essential files and each has its own purpose.
 
@@ -16,8 +25,6 @@ models.py: Creates abstract model classes for Game, AbstractGameVariant, GameVar
 
 chess.py: Implementation of chess for visualization in universal web API
 Note: This is a separate project from the server code itself. 
-
-
 
 ## server.py
 This file holds the code for the request-routing implementation within the server from Universal Web API. It uses Flask for routing requests by link, and each route corresponds to specific functions that handles that request. The functions in this file use the definitions in the games folder.
