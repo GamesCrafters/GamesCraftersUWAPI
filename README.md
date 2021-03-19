@@ -12,7 +12,7 @@ git clone https://github.com/GamesCrafters/GamesCraftersUWAPI.git
 pip install -r requirements.txt
 python server.py
 ```
-These commands have been found to work on Python 3.6 and 3.7.
+These commands have been found to work on Python 3.6, 3.7, and 3.8.
 
 ## games folder
 The games folder has four essential files and each has its own purpose.
