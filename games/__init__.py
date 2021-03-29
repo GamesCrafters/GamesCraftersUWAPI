@@ -43,18 +43,18 @@ games = {
                 status='dev')
         }),
 
-    'tttwo': Game(
-        name='Tic-Tac-Two',
-        desc="Add piece onto a square in the grid, move a piece on the board, or move the grid. Wins when you connect three in a row horizontally, vertically, or diagonally within the grid.",
-        variants={
-            'regular': GameVariant(
-                name='Regular',
-                desc='Regular',
-                data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='tttwo',
-                data_provider_variant_id=-1,
-                status='stable')
-        }),
+    # 'tttwo': Game(
+    #     name='Tic-Tac-Two',
+    #     desc="Add piece onto a square in the grid, move a piece on the board, or move the grid. Wins when you connect three in a row horizontally, vertically, or diagonally within the grid.",
+    #     variants={
+    #         'regular': GameVariant(
+    #             name='Regular',
+    #             desc='Regular',
+    #             data_provider=GamesmanClassicDataProvider,
+    #             data_provider_game_id='tttwo',
+    #             data_provider_variant_id=-1,
+    #             status='stable')
+    #     }),
 
     'stt': Game(
         name='Shift Tac Toe',
