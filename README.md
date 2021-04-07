@@ -5,6 +5,9 @@ This is the back end team code for the internal request-routing server framework
 ### UWAPI backend link
 https://nyc.cs.berkeley.edu/universal/v1/games
 
+### UWAPI Board to String documentation (original paper)
+https://docs.google.com/document/d/e/2PACX-1vSa3uCftTOxVqw-n8HrysrTIh3iLXGXU1gpNAYUGHzY9mEwSL02c1gB23GALguN5hBAv09exvNbiTSx/pub
+
 ## Run the server locally
 To run the server on your local machine, first clone this repository and run these following commands.
 ```
