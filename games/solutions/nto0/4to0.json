@@ -1,7 +1,7 @@
 {
-    "name": "4 to 1 by 1 or 2",
-    "desc": "4 to 1 by 1 or 2",
-    "startPosition": "4",
+    "name": "4 to 0 by 1 or 2",
+    "desc": "4 to 0 by 1 or 2",
+    "startPosition": "C_4",
     "positions": {
         "C_0": {
             "remoteness": 0,
@@ -12,7 +12,7 @@
             "remoteness": 1,
             "value": "win",
             "moves": {
-                "1": "C_0"
+                "1": "C_1"
             }
         },
         "C_2": {
