@@ -1,43 +1,63 @@
 {
-    "name": "4 to 0 by 1 or 2",
-    "desc": "4 to 0 by 1 or 2",
-    "startPosition": "C_4",
-    "positions": {
-        "C_0": {
-            "remoteness": 0,
-            "value": "lose",
-            "moves": {}
-        },
-        "C_1": {
-            "remoteness": 1,
-            "value": "win",
-            "moves": {
-                "1": "C_1"
-            }
-        },
-        "C_2": {
-            "remoteness": 1,
-            "value": "win",
-            "moves": {
-                "1": "C_1",
-                "2": "C_0"
-            }
-        },
-        "C_3": {
-            "remoteness": 2,
-            "value": "lose",
-            "moves": {
-                "1": "C_2",
-                "2": "C_1"
-            }
-        },
-        "C_4": {
-            "remoteness": 3,
-            "value": "win",
-            "moves": {
-                "1": "C_3",
-                "2": "C_2"
-            }
-        }
+  "name": "4 to 0 by 1 or 2",
+  "desc": "4 to 0 by 1 or 2",
+  "startPosition": "R_A_5_1_4----",
+  "positions": {
+    "R_A_5_1_----0": {
+      "remoteness": 0,
+      "value": "lose",
+      "moves": {}
+    },
+    "R_B_5_1_----0": {
+      "remoteness": 0,
+      "value": "lose",
+      "moves": {}
+    },
+    "R_A_5_1_---1-": {
+      "remoteness": 1,
+      "value": "win",
+      "moves": {
+        "M_3_4": "R_B_5_1_----0"
+      }
+    },
+    "R_B_5_1_---1-": {
+      "remoteness": 1,
+      "value": "win",
+      "moves": {
+        "M_3_4": "R_A_5_1_----0"
+      }
+    },
+    "R_A_5_1_--2--": {
+      "remoteness": 1,
+      "value": "win",
+      "moves": {
+        "M_2_3": "R_B_5_1_---1-",
+        "M_2_4": "R_B_5_1_----0"
+      }
+    },
+    "R_B_5_1_--2--": {
+      "remoteness": 1,
+      "value": "win",
+      "moves": {
+        "M_2_3": "R_A_5_1_---1-",
+        "M_2_4": "R_A_5_1_----0"
+      }
+    },
+    "R_B_5_1_-3---": {
+      "remoteness": 2,
+      "value": "lose",
+      "moves": {
+        "M_1_2": "R_A_5_1_--2--",
+        "M_1_3": "R_A_5_1_---1-"
+      }
+    },
+    "R_A_5_1_4----": {
+      "remoteness": 3,
+      "value": "win",
+      "moves": {
+        "M_0_1": "R_B_5_1_-3---",
+        "M_0_2": "R_B_5_1_--2--"
+      }
     }
+  }
 }
