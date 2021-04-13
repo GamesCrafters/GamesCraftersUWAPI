@@ -451,6 +451,7 @@ games = {
             name='Chomp',
             desc='Players take turn eating chocolate',
             variants={
-                '3x2': JSONGameVariant(os.path.join(dirname, 'solutions/chomp/3x2.json'))
+                '3x2': JSONGameVariant(os.path.join(dirname, 'solutions/chomp/3x2.json')),
+                '4x7': JSONGameVariant(os.path.join(dirname, 'solutions/chomp/4x7.json')),
         }),
 }
