@@ -447,4 +447,10 @@ games = {
             ),
         }),
 
+        'chomp': Game(
+            name='Chomp',
+            desc='Players take turn eating chocolate',
+            variants={
+                '3x2': JSONGameVariant(os.path.join(dirname, 'solutions/chomp/3x2.json'))
+        }),
 }

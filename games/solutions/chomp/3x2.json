@@ -1,0 +1,155 @@
+{
+  "name": "Chomp_3_2",
+  "desc": "Chomp_3_2",
+  "startPosition": "R_A_3_2_xxxxxx",
+  "positions": {
+    "R_A_3_2_----x-": {
+      "remoteness": 0,
+      "value": "lose",
+      "moves": {}
+    },
+    "R_B_3_2_----x-": {
+      "remoteness": 0,
+      "value": "lose",
+      "moves": {}
+    },
+    "R_A_3_2_----xx": {
+      "remoteness": 1,
+      "value": "win",
+      "moves": {
+        "A_x_1": "R_B_3_2_----x-"
+      }
+    },
+    "R_B_3_2_----xx": {
+      "remoteness": 1,
+      "value": "win",
+      "moves": {
+        "A_x_1": "R_A_3_2_----x-"
+      }
+    },
+    "R_A_3_2_--x-x-": {
+      "remoteness": 1,
+      "value": "win",
+      "moves": {
+        "A_x_0": "R_B_3_2_----x-"
+      }
+    },
+    "R_B_3_2_--x-x-": {
+      "remoteness": 1,
+      "value": "win",
+      "moves": {
+        "A_x_0": "R_A_3_2_----x-"
+      }
+    },
+    "R_A_3_2_--x-xx": {
+      "remoteness": 2,
+      "value": "lose",
+      "moves": {
+        "A_x_0": "R_B_3_2_----xx",
+        "A_x_3": "R_B_3_2_--x-x-"
+      }
+    },
+    "R_B_3_2_--x-xx": {
+      "remoteness": 2,
+      "value": "lose",
+      "moves": {
+        "A_x_0": "R_A_3_2_----xx",
+        "A_x_3": "R_A_3_2_--x-x-"
+      }
+    },
+    "R_A_3_2_--xxxx": {
+      "remoteness": 3,
+      "value": "win",
+      "moves": {
+        "A_x_0": "R_B_3_2_----xx",
+        "A_x_1": "R_B_3_2_--x-xx",
+        "A_x_3": "R_B_3_2_--x-x-"
+      }
+    },
+    "R_B_3_2_--xxxx": {
+      "remoteness": 3,
+      "value": "win",
+      "moves": {
+        "A_x_0": "R_A_3_2_----xx",
+        "A_x_1": "R_A_3_2_--x-xx",
+        "A_x_3": "R_A_3_2_--x-x-"
+      }
+    },
+    "R_A_3_2_x-x-x-": {
+      "remoteness": 1,
+      "value": "win",
+      "moves": {
+        "A_x_0": "R_B_3_2_--x-x-",
+        "A_x_1": "R_B_3_2_----x-"
+      }
+    },
+    "R_B_3_2_x-x-x-": {
+      "remoteness": 1,
+      "value": "win",
+      "moves": {
+        "A_x_0": "R_A_3_2_--x-x-",
+        "A_x_1": "R_A_3_2_----x-"
+      }
+    },
+    "R_A_3_2_x-x-xx": {
+      "remoteness": 3,
+      "value": "win",
+      "moves": {
+        "A_x_0": "R_B_3_2_--x-xx",
+        "A_x_2": "R_B_3_2_----xx",
+        "A_x_5": "R_B_3_2_x-x-x-"
+      }
+    },
+    "R_B_3_2_x-x-xx": {
+      "remoteness": 3,
+      "value": "win",
+      "moves": {
+        "A_x_0": "R_A_3_2_--x-xx",
+        "A_x_2": "R_A_3_2_----xx",
+        "A_x_5": "R_A_3_2_x-x-x-"
+      }
+    },
+    "R_A_3_2_x-xxxx": {
+      "remoteness": 4,
+      "value": "lose",
+      "moves": {
+        "A_x_0": "R_B_3_2_--xxxx",
+        "A_x_2": "R_B_3_2_----xx",
+        "A_x_3": "R_B_3_2_x-x-xx",
+        "A_x_5": "R_B_3_2_x-x-x-"
+      }
+    },
+    "R_B_3_2_x-xxxx": {
+      "remoteness": 4,
+      "value": "lose",
+      "moves": {
+        "A_x_0": "R_A_3_2_--xxxx",
+        "A_x_2": "R_A_3_2_----xx",
+        "A_x_3": "R_A_3_2_x-x-xx",
+        "A_x_5": "R_A_3_2_x-x-x-"
+      }
+    },
+    "R_A_3_2_xxxxxx": {
+      "remoteness": 5,
+      "value": "win",
+      "moves": {
+        "A_x_0": "R_B_3_2_--xxxx",
+        "A_x_1": "R_B_3_2_x-xxxx",
+        "A_x_2": "R_B_3_2_----xx",
+        "A_x_3": "R_B_3_2_x-x-xx",
+        "A_x_5": "R_B_3_2_x-x-x-"
+      }
+    },
+    "R_B_3_2_xxxxxx": {
+      "remoteness": 5,
+      "value": "win",
+      "moves": {
+        "A_x_0": "R_A_3_2_--xxxx",
+        "A_x_1": "R_A_3_2_x-xxxx",
+        "A_x_2": "R_A_3_2_----xx",
+        "A_x_3": "R_A_3_2_x-x-xx",
+        "A_x_5": "R_A_3_2_x-x-x-"
+      }
+    }
+  }
+}
