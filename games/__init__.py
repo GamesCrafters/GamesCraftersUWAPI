@@ -197,6 +197,13 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='swans',
                 data_provider_variant_id=-1,
+                status='dev'),
+            'full': GameVariant(
+                name='Full (4 Dragons)',
+                desc='Full (4 Dragons)',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='swans',
+                data_provider_variant_id=13,
                 status='dev')
         }),
 
