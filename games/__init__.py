@@ -191,16 +191,30 @@ games = {
         name='Dragons & Swans',
         desc="Swan places a piece onto the board if there are remaining pieces from the initial pile, otherwise move piece to an orthogonally adjacent empty board position. Dragon can either move a piece to an orthogonally adjacent empty square, or captures a swan by jumping over it to an empty square the other side. Swans wins when they surround all the dragons and dragons win when they eat all the swans.",
         variants={
-            'regular': GameVariant(
-                name='Regular',
-                desc='Regular',
+            '1': GameVariant(
+                name='1 Dragon',
+                desc='1 Dragon',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='swans',
                 data_provider_variant_id=-1,
                 status='dev'),
-            'full': GameVariant(
-                name='Full (4 Dragons)',
-                desc='Full (4 Dragons)',
+            '2': GameVariant(
+                name='2 Dragons',
+                desc='2 Dragons',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='swans',
+                data_provider_variant_id=5,
+                status='dev'),
+            '3': GameVariant(
+                name='3 Dragons',
+                desc='3 Dragons',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='swans',
+                data_provider_variant_id=9,
+                status='dev'),
+            '4': GameVariant(
+                name='4 Dragons',
+                desc='4 Dragons',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='swans',
                 data_provider_variant_id=13,
