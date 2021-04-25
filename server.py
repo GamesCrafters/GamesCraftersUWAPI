@@ -5,12 +5,36 @@ from flask_cors import CORS
 
 from games import games, GamesmanClassicDataProvider
 
+from md_api import read_from_link
+
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 CORS(app)
 
+# ID mapping from Uni to GC to get game instructions.
+ids = {'1210': '1210', 'abalone': 'abalone', 'achi': 'achi', 'ago': 'atarigo',
+       'baghchal': 'baghchal', 'ctoi': 'chungtoi', 'dao': 'dao', 'dinododgem': 'dinododgem',
+       'dnb': 'dotsandboxes', 'swans': 'dragonsandswans', 'foxes': 'foxandgeese',
+       'Lgame': 'lgame', 'mancala': 'mancala', '369mm': 'ninemensmorris', 'ooe': 'oddoreven',
+       'othello': 'othello', 'quickchess': 'quickchess', 'sim': 'sim', 'snake': 'snake', '3spot': 'threespot',
+       'ttt': 'tictactoe', 'tilechess': 'tilechess', 'connect4': 'connect4'}
 
 # Helper methods
+
+
+def get_link(game_id):
+    if game_id in ids:
+        gc_id = ids.get(game_id)
+        link = "http://gamescrafters.berkeley.edu/games/" + gc_id + ".xml"
+        return link
+    return None
+
+
+def md_instr(game_id):
+    gc_link = get_link(game_id)
+    if gc_link:
+        return read_from_link(gc_link)
+    return None
 
 
 def format_response_ok(response):
@@ -153,6 +177,16 @@ def handle_position_moves(game_id, variant_id, position):
 @app.route('/internal/classic-games/')
 def handle_classic_games():
     return GamesmanClassicDataProvider.getGames()
+
+
+@app.route('/instructions/<game_id>/')
+def handle_instructions(game_id):
+    inst = md_instr(game_id)
+
+    if not inst:
+        return format_response_err('Game not found')
+
+    return format_response_ok(inst)
 
 
 if __name__ == '__main__':
