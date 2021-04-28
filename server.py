@@ -143,6 +143,7 @@ def handle_game(game_id):
     return format_response_ok({
         'gameId': game_id,
         'name': game.name,
+        'instructions': md_instr(game_id),
         'variants': [
             {
                 'variantId': variant_id,
@@ -177,16 +178,6 @@ def handle_position_moves(game_id, variant_id, position):
 @app.route('/internal/classic-games/')
 def handle_classic_games():
     return GamesmanClassicDataProvider.getGames()
-
-
-@app.route('/instructions/<game_id>/')
-def handle_instructions(game_id):
-    inst = md_instr(game_id)
-
-    if not inst:
-        return format_response_err('Game not found')
-
-    return format_response_ok(inst)
 
 
 if __name__ == '__main__':
