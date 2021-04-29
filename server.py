@@ -131,7 +131,7 @@ def handle_games():
             'name': game.name,
             'status': game.status
         }
-        for (game_id, game) in games.items()
+        for (game_id, game) in games.items() if game.status == 'available'
     ])
 
 
@@ -151,7 +151,7 @@ def handle_game(game_id):
                 'status': variant.status,
                 'startPosition': variant.start_position()
             }
-            for (variant_id, variant) in game.variants.items()
+            for (variant_id, variant) in game.variants.items() if variant.status != 'unavailable'
         ]
     })
 

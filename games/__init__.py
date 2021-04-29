@@ -159,7 +159,8 @@ games = {
                 data_provider_game_id='foxes',
                 data_provider_variant_id=-1,
                 status='dev')
-        }),
+        },
+        status = 'unavailable'),
 
     'dnb': Game(
         name='Dots & Boxes',
@@ -172,7 +173,8 @@ games = {
                 data_provider_game_id='dnb',
                 data_provider_variant_id=-1,
                 status='dev')
-        }),
+        },
+        status = 'unavailable'),
 
     'tilechess': Game(
         name='Tile Chess',
@@ -185,7 +187,8 @@ games = {
                 data_provider_game_id='tilechess',
                 data_provider_variant_id=-1,
                 status='dev')
-        }),
+        },
+        status = 'unavailable'),
 
     'swans': Game(
         name='Dragons & Swans',
@@ -284,7 +287,8 @@ games = {
                 data_provider_game_id='dinododgem',
                 data_provider_variant_id=-1,
                 status='dev')
-        }),
+        },
+        status = 'unavailable'),
 
     'dao': Game(
         name='Dao',
@@ -336,7 +340,8 @@ games = {
                 data_provider_game_id='ago',
                 data_provider_variant_id=-1,
                 status='dev')
-        }),
+        },
+        status = 'unavailable'),
 
     'achi': Game(
         name='Achi',
