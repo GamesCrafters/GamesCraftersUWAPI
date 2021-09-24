@@ -17,7 +17,7 @@ ids = {'1210': '1210', 'abalone': 'abalone', 'achi': 'achi', 'ago': 'atarigo',
        'dnb': 'dotsandboxes', 'swans': 'dragonsandswans', 'foxes': 'foxandgeese',
        'Lgame': 'lgame', 'mancala': 'mancala', '369mm': 'ninemensmorris', 'ooe': 'oddoreven',
        'othello': 'othello', 'quickchess': 'quickchess', 'sim': 'sim', 'snake': 'snake', '3spot': 'threespot',
-       'ttt': 'tictactoe', 'tilechess': 'tilechess', 'connect4': 'connect4'}
+       'ttt': 'tictactoe', 'tilechess': 'tilechess', 'connect4': 'connect4', 'dodgem': 'dodgem'}
 
 # Helper methods
 

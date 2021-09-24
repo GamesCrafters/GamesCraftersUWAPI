@@ -394,6 +394,19 @@ games = {
                 data_provider_variant_id=-1,
                 status='dev')
         }),
+    
+    'dodgem': Game(
+        name='Dodgem',
+        desc="Players alternate moving pieces, and the goal is to move your pieces off the board in the designated locations.",
+        variants={
+            'regular': GameVariant(
+                name='Regular',
+                desc='Regular',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='dodgem',
+                data_provider_variant_id=-1,
+                status='dev')
+        }),
 
     'connect4': Game(
         name='Connect 4',
