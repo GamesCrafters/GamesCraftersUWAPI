@@ -383,16 +383,297 @@ games = {
         }),
 
     '369mm': Game(
-        name='Three Six Nine Mens Morris',
+        name="Three/Six/Nine Men's Morris",
         desc="Players first alternate placing pieces onto empty nodes on the board. Once all pieces have been placed, players take turns sliding their pieces to other empty nodes connected to it by a line. If a player's move completes a 'mill', three in a line, then that player gets removes one of the opponent's pieces from the board that is currently not in a mill. A mill may be broken and reformed. When a player is down to 3 pieces, that player may move his or her piece to any empty node on the board.",
         variants={
-            'regular': GameVariant(
-                name='Regular',
-                desc='Regular',
+            '1':  GameVariant(
+                name="Misère 3 Men's Morris | No Flying",
+                desc="Moves limited to placing/sliding. Opponent's piece may be removed if it is not in a mill or if all of opponent's pieces are in mills. Objective is to be left without legal moves or to have only 2 pieces on the board remaining.",
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='369mm',
-                data_provider_variant_id=-1,
-                status='dev')
+                data_provider_variant_id=1,
+                status='dev'
+            ),
+            '2':  GameVariant(
+                name="3 Men's Morris | No Flying",
+                desc="Moves limited to placing/sliding. Opponent's piece may be removed if it is not in a mill or if all of opponent's pieces are in mills. Objective is to leave opponent with only 2 pieces or without legal moves.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=2,
+                status='dev'
+            ),
+            '3':  GameVariant(
+                name="Misère 3 Men's Morris",
+                desc="Flying allowed if player has 3 pieces on the board. Opponent's piece may be removed if it is not in a mill or if all of opponent's pieces are in mills. Objective is to be left without legal moves or to have only 2 pieces on the board remaining.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=3,
+                status='dev'
+            ),
+            '4':  GameVariant(
+                name="3 Men's Morris",
+                desc="Standard rules of 3 Men's Morris. Flying allowed if player has 3 pieces on the board. Opponent's piece may be removed if it is not in a mill or if all of opponent's pieces are in mills. Objective is to leave opponent with only 2 pieces or without legal moves.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=4,
+                status='dev'
+            ),
+            '5':  GameVariant(
+                name="Misère 6 Men's Morris | No Flying",
+                desc="Moves limited to placing/sliding. Opponent's piece may be removed if it is not in a mill or if all of opponent's pieces are in mills. Objective is to be left without legal moves or to have only 2 pieces on the board remaining.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=5,
+                status='dev'
+            ),
+            '6':  GameVariant(
+                name="6 Men's Morris | No Flying",
+                desc="Moves limited to placing/sliding. Opponent's piece may be removed if it is not in a mill or if all of opponent's pieces are in mills. Objective is to leave opponent with only 2 pieces or without legal moves.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=6,
+                status='dev'
+            ),
+            '7':  GameVariant(
+                name="Misère 6 Men's Morris",
+                desc="Flying allowed if player has 3 pieces on the board. Opponent's piece may be removed if it is not in a mill or if all of opponent's pieces are in mills. Objective is to be left without legal moves or to have only 2 pieces on the board remaining.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=7,
+                status='dev'
+            ),
+            '8':  GameVariant(
+                name="6 Men's Morris",
+                desc="Standard rules of 6 Men's Morris. Flying allowed if player has 3 pieces on the board. Opponent's piece may be removed if it is not in a mill or if all of opponent's pieces are in mills. Objective is to leave opponent with only 2 pieces or without legal moves.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=8,
+                status='dev'
+            ),
+            '9':  GameVariant(
+                name="Misère 9 Men's Morris | No Flying",
+                desc="Moves limited to placing/sliding. Opponent's piece may be removed if it is not in a mill or if all of opponent's pieces are in mills. Objective is to be left without legal moves or to have only 2 pieces on the board remaining.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=9,
+                status='dev'
+            ),
+            '10':  GameVariant(
+                name="9 Men's Morris | No Flying",
+                desc="Moves limited to placing/sliding. Opponent's piece may be removed if it is not in a mill or if all of opponent's pieces are in mills. Objective is to leave opponent with only 2 pieces or without legal moves.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=10,
+                status='dev'
+            ),
+            '11':  GameVariant(
+                name="Misère 9 Men's Morris",
+                desc="Flying allowed if player has 3 pieces on the board. Opponent's piece may be removed if it is not in a mill or if all of opponent's pieces are in mills. Objective is to be left without legal moves or to have only 2 pieces on the board remaining.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=11,
+                status='dev'
+            ),
+            '12': GameVariant(
+                name="9 Men's Morris",
+                desc="Standard rules of 9 Men's Morris. Flying allowed if player has 3 pieces on the board. Opponent's piece may be removed if it is not in a mill or if all of opponent's pieces are in mills. Objective is to leave opponent with only 2 pieces or without legal moves.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=12,
+                status='dev'
+            ),
+            '17':  GameVariant(
+                name="Misère 3 Men's Morris | No Flying | Lenient Removal Rules",
+                desc="Moves limited to placing/sliding. Any of opponent's pieces can be removed upon formation of a mill. Objective is to be left without legal moves or to have only 2 pieces on the board remaining.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=17,
+                status='dev'
+            ),
+            '18':  GameVariant(
+                name="3 Men's Morris | No Flying | Lenient Removal Rules",
+                desc="Moves limited to placing/sliding. Any of opponent's pieces can be removed upon formation of a mill. Objective is to leave opponent with only 2 pieces or without legal moves.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=18,
+                status='dev'
+            ),
+            '19':  GameVariant(
+                name="Misère 3 Men's Morris | Lenient Removal Rules",
+                desc="Flying allowed if player has 3 pieces on the board. Any of opponent's pieces can be removed upon formation of a mill. Objective is to be left without legal moves or to have only 2 pieces on the board remaining.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=19,
+                status='dev'
+            ),
+            '20':  GameVariant(
+                name="3 Men's Morris | Lenient Removal Rules",
+                desc="Flying allowed if player has 3 pieces on the board. Any of opponent's pieces can be removed upon formation of a mill. Objective is to leave opponent with only 2 pieces or without legal moves.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=20,
+                status='dev'
+            ),
+            '21':  GameVariant(
+                name="Misère 6 Men's Morris | No Flying | Lenient Removal Rules",
+                desc="Moves limited to placing/sliding. Any of opponent's pieces can be removed upon formation of a mill. Objective is to be left without legal moves or to have only 2 pieces on the board remaining.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=21,
+                status='dev'
+            ),
+            '22':  GameVariant(
+                name="6 Men's Morris | No Flying | Lenient Removal Rules",
+                desc="Moves limited to placing/sliding. Any of opponent's pieces can be removed upon formation of a mill. Objective is to leave opponent with only 2 pieces or without legal moves.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=22,
+                status='dev'
+            ),
+            '23':  GameVariant(
+                name="Misère 6 Men's Morris | Lenient Removal Rules",
+                desc="Flying allowed if player has 3 pieces on the board. Any of opponent's pieces can be removed upon formation of a mill. Objective is to be left without legal moves or to have only 2 pieces on the board remaining.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=23,
+                status='dev'
+            ),
+            '24':  GameVariant(
+                name="6 Men's Morris | Lenient Removal Rules",
+                desc="Flying allowed if player has 3 pieces on the board. Any of opponent's pieces can be removed upon formation of a mill. Objective is to leave opponent with only 2 pieces or without legal moves.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=24,
+                status='dev'
+            ),
+            '25':  GameVariant(
+                name="Misère 9 Men's Morris | No Flying | Lenient Removal Rules",
+                desc="Moves limited to placing/sliding. Any of opponent's pieces can be removed upon formation of a mill. Objective is to be left without legal moves or to have only 2 pieces on the board remaining.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=25,
+                status='dev'
+            ),
+            '26':  GameVariant(
+                name="9 Men's Morris | No Flying | Lenient Removal Rules",
+                desc="Moves limited to placing/sliding. Any of opponent's pieces can be removed upon formation of a mill. Objective is to leave opponent with only 2 pieces or without legal moves.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=26,
+                status='dev'
+            ),
+            '27':  GameVariant(
+                name="Misère 9 Men's Morris | Lenient Removal Rules",
+                desc="Flying allowed if player has 3 pieces on the board. Any of opponent's pieces can be removed upon formation of a mill. Objective is to be left without legal moves or to have only 2 pieces on the board remaining.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=27,
+                status='dev'
+            ),
+            '28': GameVariant(
+                name="9 Men's Morris | Lenient Removal Rules",
+                desc="Flying allowed if player has 3 pieces on the board.  Any of opponent's pieces can be removed upon formation of a mill. Objective is to leave opponent with only 2 pieces or without legal moves.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=28,
+                status='dev'
+            ),
+            '33':  GameVariant(
+                name="Misère 3 Men's Morris | No Flying | Strict Removal Rules",
+                desc="Moves limited to placing/sliding. Opponent's piece may only be removed if it is not in a mill. Objective is to be left without legal moves or to have only 2 pieces on the board remaining.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=33,
+                status='dev'
+            ),
+            '34':  GameVariant(
+                name="3 Men's Morris | No Flying | Strict Removal Rules",
+                desc="Moves limited to placing/sliding. Opponent's piece may only be removed if it is not in a mill. Objective is to leave opponent with only 2 pieces or without legal moves.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=34,
+                status='dev'
+            ),
+            '35':  GameVariant(
+                name="Misère 3 Men's Morris | Strict Removal Rules",
+                desc="Flying allowed if player has 3 pieces on the board. Opponent's piece may only be removed if it is not in a mill. Objective is to be left without legal moves or to have only 2 pieces on the board remaining.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=35,
+                status='dev'
+            ),
+            '36':  GameVariant(
+                name="3 Men's Morris | Strict Removal Rules",
+                desc="Flying allowed if player has 3 pieces on the board. Opponent's piece may only be removed if it is not in a mill. Objective is to leave opponent with only 2 pieces or without legal moves.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=36,
+                status='dev'
+            ),
+            '37':  GameVariant(
+                name="Misère 6 Men's Morris | No Flying | Strict Removal Rules",
+                desc="Moves limited to placing/sliding. Opponent's piece may only be removed if it is not in a mill. Objective is to be left without legal moves or to have only 2 pieces on the board remaining.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=37,
+                status='dev'
+            ),
+            '38':  GameVariant(
+                name="6 Men's Morris | No Flying | Strict Removal Rules",
+                desc="Moves limited to placing/sliding. Opponent's piece may only be removed if it is not in a mill. Objective is to leave opponent with only 2 pieces or without legal moves.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=38,
+                status='dev'
+            ),
+            '39':  GameVariant(
+                name="Misère 6 Men's Morris | Strict Removal Rules",
+                desc="Flying allowed if player has 3 pieces on the board. Opponent's piece may only be removed if it is not in a mill. Objective is to be left without legal moves or to have only 2 pieces on the board remaining.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=39,
+                status='dev'
+            ),
+            '40':  GameVariant(
+                name="6 Men's Morris | Strict Removal Rules",
+                desc="Flying allowed if player has 3 pieces on the board. Opponent's piece may only be removed if it is not in a mill. Objective is to leave opponent with only 2 pieces or without legal moves.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=40,
+                status='dev'
+            ),
+            '41':  GameVariant(
+                name="Misère 9 Men's Morris | No Flying | Strict Removal Rules",
+                desc="Moves limited to placing/sliding. Opponent's piece may only be removed if it is not in a mill. Objective is to be left without legal moves or to have only 2 pieces on the board remaining.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=41,
+                status='dev'
+            ),
+            '42':  GameVariant(
+                name="9 Men's Morris | No Flying | Strict Removal Rules",
+                desc="Moves limited to placing/sliding. Opponent's piece may only be removed if it is not in a mill. Objective is to leave opponent with only 2 pieces or without legal moves.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=42,
+                status='dev'
+            ),
+            '43':  GameVariant(
+                name="Misère 9 Men's Morris | Strict Removal Rules",
+                desc="Flying allowed if player has 3 pieces on the board. Opponent's piece may only be removed if it is not in a mill. Objective is to be left without legal moves or to have only 2 pieces on the board remaining.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=43,
+                status='dev'
+            ),
+            '44': GameVariant(
+                name="9 Men's Morris | Strict Removal Rules",
+                desc="Flying allowed if player has 3 pieces on the board. Opponent's piece may only be removed if it is not in a mill. Objective is to leave opponent with only 2 pieces or without legal moves.",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=44,
+                status='dev'
+            )
         }),
     
     'dodgem': Game(
