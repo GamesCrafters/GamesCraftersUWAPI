@@ -675,7 +675,7 @@ games = {
                 status='dev'
             )
         }),
-    
+
     'dodgem': Game(
         name='Dodgem',
         desc="Players alternate moving pieces, and the goal is to move your pieces off the board in the designated locations.",
@@ -773,5 +773,12 @@ games = {
             variants={
                 '3x2': JSONGameVariant(os.path.join(dirname, 'solutions/chomp/3x2.json')),
                 '4x7': JSONGameVariant(os.path.join(dirname, 'solutions/chomp/4x7.json')),
+        }),
+
+        'nim': Game(
+            name='Nim',
+            desc='Players take turn taking sticks from a pile',
+            variants={
+                '3_3_3': JSONGameVariant(os.path.join(dirname, 'solutions/nim/3_3_3.json')),
         }),
 }
