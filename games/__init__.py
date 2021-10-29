@@ -781,4 +781,10 @@ games = {
             variants={
                 '3_3_3': JSONGameVariant(os.path.join(dirname, 'solutions/nim/3_3_3.json')),
         }),
+        'minitoads': Game(
+            name='Minitoads',
+            desc='Players take turns jumping',
+            variants={
+                'easy': JSONGameVariant(os.path.join(dirname, 'solutions/minitoads/easy.json')),
+        })
 }
