@@ -6,7 +6,7 @@ from .gamesman_java import GamesmanJavaDataProvider, GamesmanJavaConnect4GameVar
 from .json_game_variant import JSONGameVariant
 from .chess import RegularChessVariant
 from .TicTacToe3x3x2GameVariant import TicTacToe3x3x2GameVariant
-
+from .Minitoads import Minitoads
 
 dirname = os.path.dirname(__file__)
 
@@ -786,5 +786,12 @@ games = {
             desc='Players take turns jumping',
             variants={
                 'easy': JSONGameVariant(os.path.join(dirname, 'solutions/minitoads/easy.json')),
-        })
+        }),
+        'minitoadspy': Game(
+            name='MinitoadPy',
+            desc='Players take turns jumping',
+            variants={
+                'easy': Minitoads()
+            }
+        )
 }
