@@ -791,7 +791,8 @@ games = {
             name='MinitoadPy',
             desc='Players take turns jumping',
             variants={
-                'easy': Minitoads()
+                'easy': Minitoads('easy'),
+                'misere': Minitoads('misere')
             }
         )
 }

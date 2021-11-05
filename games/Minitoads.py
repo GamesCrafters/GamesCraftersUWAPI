@@ -5,29 +5,29 @@ from .models import AbstractGameVariant
 
 class Minitoads(AbstractGameVariant):
 
-    def __init__(self):
-        name = "easypy"
-        desc = "easypy"
+    def __init__(self, variantId):
+        name = variantId
+        desc = variantId + " exploration"
         status = "stable"
         self.moves = {
             "positions": {
                 "R_A_1_3_RL-": {
                   "remoteness": 1,
-                  "value": "win",
+                  "value": "win" if variantId == "easy" else "lose",
                   "moves": {
                     "M_0_2": "R_A_1_3_-LR"
                   }
                 },
                 "R_A_1_3_-LR": {
                   "remoteness": 1,
-                  "value": "win",
+                  "value": "win" if variantId == "easy" else "lose",
                   "moves": {
                     "A_L_1": "R_B_1_3_--R"
                   }
                 },
                 "R_B_1_3_--R": {
                   "remoteness": 0,
-                  "value": "lose",
+                  "value": "lose" if variantId == "easy" else "win",
                   "moves": {}
                 }
         }
