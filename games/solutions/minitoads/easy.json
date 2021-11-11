@@ -1,0 +1,26 @@
+{
+  "name": "Easy",
+  "desc": "Easy",
+  "startPosition": "R_A_1_3_RL-",
+  "positions": {
+    "R_A_1_3_RL-": {
+      "remoteness": 1,
+      "value": "win",
+      "moves": {
+        "M_0_2": "R_A_1_3_-LR"
+      }
+    },
+    "R_A_1_3_-LR": {
+      "remoteness": 1,
+      "value": "win",
+      "moves": {
+        "A_L_1": "R_B_1_3_--R"
+      }
+    },
+    "R_B_1_3_--R": {
+      "remoteness": 0,
+      "value": "lose",
+      "moves": {}
+    }
+  }
+}

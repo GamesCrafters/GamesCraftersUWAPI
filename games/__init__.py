@@ -6,7 +6,7 @@ from .gamesman_java import GamesmanJavaDataProvider, GamesmanJavaConnect4GameVar
 from .json_game_variant import JSONGameVariant
 from .chess import RegularChessVariant
 from .TicTacToe3x3x2GameVariant import TicTacToe3x3x2GameVariant
-
+from .Minitoads import Minitoads
 
 dirname = os.path.dirname(__file__)
 
@@ -395,7 +395,7 @@ games = {
                 status='dev'
             )
         }),
-    
+
     'dodgem': Game(
         name='Dodgem',
         desc="Players alternate moving pieces, and the goal is to move your pieces off the board in the designated locations.",
@@ -494,4 +494,25 @@ games = {
                 '3x2': JSONGameVariant(os.path.join(dirname, 'solutions/chomp/3x2.json')),
                 '4x7': JSONGameVariant(os.path.join(dirname, 'solutions/chomp/4x7.json')),
         }),
+
+        'nim': Game(
+            name='Nim',
+            desc='Players take turn taking sticks from a pile',
+            variants={
+                '3_3_3': JSONGameVariant(os.path.join(dirname, 'solutions/nim/3_3_3.json')),
+        }),
+        'minitoads': Game(
+            name='Minitoads',
+            desc='Players take turns jumping',
+            variants={
+                'easy': JSONGameVariant(os.path.join(dirname, 'solutions/minitoads/easy.json')),
+        }),
+        'minitoadspy': Game(
+            name='MinitoadPy',
+            desc='Players take turns jumping',
+            variants={
+                'easy': Minitoads('easy'),
+                'misere': Minitoads('misere')
+            }
+        )
 }
