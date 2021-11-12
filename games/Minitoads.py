@@ -55,11 +55,22 @@ class Minitoads(AbstractGameVariant):
     def next_stats(self, position):
         try:
             moves = self.moves["positions"][position]["moves"]
+            current_player = self.get_player(position)
         except Exception as err:
             print(f'Other error occurred: {err}')
         else:
-            response = [{
-                "move": move,
-                **self.stat(position)
-            } for move, position in moves.items()]
+            response = []
+            for move, position in moves.items():
+                next_res = {
+                    "move": move,
+                    **self.stat(position)
+                }
+                next_player = self.get_player(position)
+                if current_player == next_player:
+                    next_res['moveValue'] = next_res['positionValue']
+                response.append(next_res)
             return response
+
+    def get_player(self, position_str):
+        position = position_str.split('_')
+        return position[1]
