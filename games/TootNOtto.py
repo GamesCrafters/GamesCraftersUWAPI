@@ -16,21 +16,21 @@ class TootNOtto(AbstractGameVariant):
             "positions": {
                 "R_A_1_3_RL-": {
                   "remoteness": 1,
-                  "value": "win" if variantIdNum == 4 else "lose",
+                  "value": "win" if COLS == 4 else "lose",
                   "moves": {
                     "M_0_2": "R_A_1_3_-LR"
                   }
                 },
                 "R_A_1_3_-LR": {
                   "remoteness": 1,
-                  "value": "win" if variantIdNum == 4 else "lose",
+                  "value": "win" if COLS == 4 else "lose",
                   "moves": {
                     "A_L_1": "R_B_1_3_--R"
                   }
                 },
                 "R_B_1_3_--R": {
                   "remoteness": 0,
-                  "value": "lose" if variantIdNum == 4 else "win",
+                  "value": "lose" if COLS == 4 else "win",
                   "moves": {}
                 }
             }
