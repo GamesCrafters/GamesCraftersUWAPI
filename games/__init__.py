@@ -7,6 +7,7 @@ from .json_game_variant import JSONGameVariant
 from .chess import RegularChessVariant
 from .TicTacToe3x3x2GameVariant import TicTacToe3x3x2GameVariant
 from .Minitoads import Minitoads
+from .TootNOtto import TootNOtto
 
 dirname = os.path.dirname(__file__)
 
@@ -514,5 +515,15 @@ games = {
                 'easy': Minitoads('easy'),
                 'misere': Minitoads('misere')
             }
+        ),
+        'tootnottopy': Game(
+            name='TootNOttoPy',
+            desc='Toot-N-Otto, get 4-in-a-row of TOOT (player 1) or OTTO (player 2) first',
+            variants={
+                '4': TootNOtto(4),
+                '5': TootNOtto(5),
+                '6': TootNOtto(6)
+            }
         )
+
 }
