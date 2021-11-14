@@ -517,7 +517,7 @@ games = {
             }
         ),
         'tootnottopy': Game(
-            name='TootNOttoPy',
+            name='Toot-N-Otto',
             desc='Toot-N-Otto, get 4-in-a-row of TOOT (player 1) or OTTO (player 2) first',
             variants={
                 '4': TootNOtto(4),
