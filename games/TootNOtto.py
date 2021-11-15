@@ -10,7 +10,12 @@ from .models import AbstractGameVariant
 class TootNOtto(AbstractGameVariant):
 
     def pos_to_UWAPI(self, position):
-        #return "R_A_1_3_RL-"
+
+        ### BOARD
+
+        SPACER = "-" #"█"
+        DOWN   = "v" #"↓"
+
         """
             ----------------x4444
             --------------------x5555
@@ -64,11 +69,6 @@ class TootNOtto(AbstractGameVariant):
         s += "_"
         s += str(self.COLS+6)
         s += "_"
-
-        ### BOARD
-
-        SPACER = "8" #"█"
-        DOWN   = "v" #"↓"
 
         ### ROW 1
 
@@ -206,55 +206,20 @@ class TootNOtto(AbstractGameVariant):
 
     def next_stats(self, UWAPI_position):
         position = self.UWAPI_to_pos(UWAPI_position)
-        moves = self.GenerateMoves(position)
+        position_value_char,remoteness = self.GetValueRemotnessEasy(position)
         response = []
-        for move in moves:
-            UWAPI_move = self.MoveToUWAPI(position,move)
-            next_position = self.DoMove(position,move)
-            next_UWAPI_position = self.pos_to_UWAPI(next_position)+"_"+next_position
-            next_res = {
-                "move": UWAPI_move,
-                **self.stat(next_UWAPI_position)
-            }
-            response.append(next_res)
+        if remoteness != 0:
+            moves = self.GenerateMoves(position)
+            for move in moves:
+                UWAPI_move = self.MoveToUWAPI(position,move)
+                next_position = self.DoMove(position,move)
+                next_UWAPI_position = self.pos_to_UWAPI(next_position)+"_"+next_position
+                next_res = {
+                    "move": UWAPI_move,
+                    **self.stat(next_UWAPI_position)
+                }
+                response.append(next_res)
         return response
 
-    """
-        moves = self.moves["positions"][position]["moves"]
-        response = []
-        for move, next_position in moves.items():
-            next_res = {
-                "move": move,
-                **self.stat(next_position)
-            }
-            response.append(next_res)
-        return response
-    """
     def get_player(self, position_str):
         return position_str.split('_')[1]
-
-    """
-            self.moves = {
-            "positions": {
-                "R_A_1_3_RL-": {
-                  "remoteness": 1,
-                  "value": "win",
-                  "moves": {
-                    "M_0_2": "R_A_1_3_-LR"
-                  }
-                },
-                "R_A_1_3_-LR": {
-                  "remoteness": 1,
-                  "value": "win",
-                  "moves": {
-                    "A_L_1": "R_B_1_3_--R"
-                  }
-                },
-                "R_B_1_3_--R": {
-                  "remoteness": 0,
-                  "value": "lose",
-                  "moves": {}
-                }
-            }
-        }
-    """
