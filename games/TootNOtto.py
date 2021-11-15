@@ -4,7 +4,7 @@ import sys
 import pickle
 import os
 
-from .models import AbstractGameVariant
+from models import AbstractGameVariant
 
 
 class TootNOtto(AbstractGameVariant):
@@ -67,7 +67,7 @@ class TootNOtto(AbstractGameVariant):
 
         ### BOARD
 
-        SPACER = "X" #"█"
+        SPACER = "8" #"█"
         DOWN   = "v" #"↓"
 
         ### ROW 1
@@ -75,7 +75,7 @@ class TootNOtto(AbstractGameVariant):
         s += SPACER*3
         #s += ("T" if Ts > 0 else "█") * self.COLS
         for col in range(self.COLS):
-            s += ("T" if (Ts > 0 and position[((self.ROWS-1)*self.COLS)+col]=="-") else "█")
+            s += ("T" if (Ts > 0 and position[((self.ROWS-1)*self.COLS)+col]=="-") else SPACER)
 
         s += SPACER*3
 
@@ -89,7 +89,7 @@ class TootNOtto(AbstractGameVariant):
         s += SPACER
         #s += ("O" if Os > 0 else "█") * self.COLS
         for col in range(self.COLS):
-            s += ("O" if (Os > 0 and position[((self.ROWS-1)*self.COLS)+col]=="-") else "█")
+            s += ("O" if (Os > 0 and position[((self.ROWS-1)*self.COLS)+col]=="-") else SPACER)
         s += SPACER
         if self.COLS < 6:
             s += SPACER*2
