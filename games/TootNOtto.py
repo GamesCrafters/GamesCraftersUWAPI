@@ -4,7 +4,7 @@ import sys
 import pickle
 import os
 
-from models import AbstractGameVariant
+from .models import AbstractGameVariant
 
 
 class TootNOtto(AbstractGameVariant):
