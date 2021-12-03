@@ -8,6 +8,8 @@ from .chess import RegularChessVariant
 from .TicTacToe3x3x2GameVariant import TicTacToe3x3x2GameVariant
 from .Minitoads import Minitoads
 from .TootNOtto import TootNOtto
+from .NimGameVariant import NimGameVariant, nim_custom_start
+
 
 dirname = os.path.dirname(__file__)
 
@@ -494,14 +496,17 @@ games = {
             variants={
                 '3x2': JSONGameVariant(os.path.join(dirname, 'solutions/chomp/3x2.json')),
                 '4x7': JSONGameVariant(os.path.join(dirname, 'solutions/chomp/4x7.json')),
-        }),
+            }
+            ),
 
         'nim': Game(
             name='Nim',
             desc='Players take turn taking sticks from a pile',
             variants={
                 '3_3_3': JSONGameVariant(os.path.join(dirname, 'solutions/nim/3_3_3.json')),
-        }),
+            },
+            custom_variant=nim_custom_start
+        ),
         'minitoads': Game(
             name='Minitoads',
             desc='Players take turns jumping',

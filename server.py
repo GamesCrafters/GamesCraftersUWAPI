@@ -155,6 +155,22 @@ def handle_game(game_id):
         ]
     })
 
+@app.route('/games/<game_id>/variants/<variant_id>/')
+def handle_variant(game_id, variant_id):
+    variant = get_game_variant(game_id, variant_id)
+    if not variant:
+        return format_response_err('Game/Variant not found')
+    return format_response_ok({
+        'gameId': game_id,
+        'variant': [
+            {
+                'variantId': variant_id,
+                'description': variant.desc,
+                'status': variant.status,
+                'startPosition': variant.start_position()
+            }
+        ]
+    })
 
 @app.route('/games/<game_id>/variants/<variant_id>/positions/<position>/')
 def handle_position(game_id, variant_id, position):

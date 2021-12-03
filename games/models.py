@@ -2,7 +2,7 @@ class Game:
     """Record keeping for a game
     """
 
-    def __init__(self, name, desc, variants, status='available'):
+    def __init__(self, name, desc, variants, custom_variant=None, status='available'):
         assert isinstance(name, str), 'name must be a string'
         assert isinstance(desc, str), 'desc must be a string'
         assert isinstance(variants, dict), 'variants must be a dict'
@@ -10,10 +10,15 @@ class Game:
         self.name = name
         self.desc = desc
         self.variants = variants
+        self.custom_variant = custom_variant
         self.status = status
 
     def variant(self, variant_id):
-        return self.variants.get(variant_id, None)
+        variant_val = self.variants.get(variant_id, None)
+        if not variant_val:
+            if self.custom_variant:
+                return self.custom_variant(variant_id)
+        return variant_val
 
 
 class AbstractGameVariant:
