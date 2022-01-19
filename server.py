@@ -140,6 +140,8 @@ def handle_game(game_id):
     game = get_game(game_id)
     if not game:
         return format_response_err('Game not found')
+    
+    custom_variant = 'true' if game.custom_variant else None
     return format_response_ok({
         'gameId': game_id,
         'name': game.name,
@@ -152,7 +154,8 @@ def handle_game(game_id):
                 'startPosition': variant.start_position()
             }
             for (variant_id, variant) in game.variants.items() if variant.status != 'unavailable'
-        ]
+        ],
+        'custom': custom_variant
     })
 
 @app.route('/games/<game_id>/variants/<variant_id>/')
