@@ -63,7 +63,7 @@ class NimGameVariant(AbstractGameVariant):
         board_str = ""
         for i in range(cols):
             num_pieces = position_arr[i]
-            next_col = NimGameVariant.piece_char * num_pieces + "*" * (rows - num_pieces)
+            next_col = NimGameVariant.piece_char * num_pieces + "-" * (rows - num_pieces)
             board_str += next_col
 
         board_str = NimGameVariant.rotateBoardStr(board_str, rows, cols)
@@ -99,9 +99,12 @@ class NimGameVariant(AbstractGameVariant):
 
         piles = []
         for i in range(cols):
-            start_index = i * rows
-            pile_str = board_str[start_index: start_index+rows]
-            piles.append(pile_str.count(NimGameVariant.piece_char))
+            pile_sum = 0
+            for j in range(rows):
+                index = i + j * cols
+                if board_str[index] == NimGameVariant.piece_char:
+                    pile_sum += 1
+            piles.append(pile_sum)
         return piles
 
     def get_moves(position_arr, rows, cols, player):
@@ -117,7 +120,10 @@ class NimGameVariant(AbstractGameVariant):
 
                 next_position = position_arr[:]
                 next_position[i] = j
-                next_position_str = NimGameVariant.getUWAPIPos(rows, cols, next_position, player)
+                next_position_str = NimGameVariant.getUWAPIPos(rows, cols, next_position, NimGameVariant.next_player(player))
 
                 moves[move] = next_position_str
         return moves
+
+    def next_player(player):
+        return 'B' if player == 'A' else 'A'
