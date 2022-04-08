@@ -8,8 +8,8 @@ from .chess import RegularChessVariant
 from .TicTacToe3x3x2GameVariant import TicTacToe3x3x2GameVariant
 from .Minitoads import Minitoads
 from .TootNOtto import TootNOtto
+from .TestMultipart import TestMultipart
 from .NimGameVariant import NimGameVariant, nim_custom_start
-from .DawsonsChessGameVariant import DawsonsChessGameVariant, dawsonschess_custom_start
 
 
 dirname = os.path.dirname(__file__)
@@ -387,7 +387,7 @@ games = {
         }),
 
     '369mm': Game(
-        name="Three/Six/Nine Men's Morris",
+        name="Nine Men's Morris",
         desc="Players first alternate placing pieces onto empty nodes on the board. Once all pieces have been placed, players take turns sliding their pieces to other empty nodes connected to it by a line. If a player's move completes a 'mill', three in a line, then that player gets removes one of the opponent's pieces from the board that is currently not in a mill. A mill may be broken and reformed. When a player is down to 3 pieces, that player may move his or her piece to any empty node on the board.",
         variants={
             'regular':  GameVariant(
@@ -491,56 +491,52 @@ games = {
             ),
         }),
 
-    'chomp': Game(
-        name='Chomp',
-        desc='Players take turn eating chocolate',
-        variants={
-            '3x2': JSONGameVariant(os.path.join(dirname, 'solutions/chomp/3x2.json')),
-            '4x7': JSONGameVariant(os.path.join(dirname, 'solutions/chomp/4x7.json')),
-        }
-    ),
+        'chomp': Game(
+            name='Chomp',
+            desc='Players take turn eating chocolate',
+            variants={
+                '3x2': JSONGameVariant(os.path.join(dirname, 'solutions/chomp/3x2.json')),
+                '4x7': JSONGameVariant(os.path.join(dirname, 'solutions/chomp/4x7.json')),
+            }
+            ),
 
-    'nim': Game(
-        name='Nim',
-        desc='Players take turns taking sticks from a pile',
-        variants={
-            '3_3_3': JSONGameVariant(os.path.join(dirname, 'solutions/nim/3_3_3.json')),
-        },
-        custom_variant=nim_custom_start
-    ),
-
-    'minitoads': Game(
-        name='Minitoads',
-        desc='Players take turns jumping',
-        variants={
-            'easy': JSONGameVariant(os.path.join(dirname, 'solutions/minitoads/easy.json')),
-        }
-    ),
-
-    'minitoadspy': Game(
-        name='MinitoadPy',
-        desc='Players take turns jumping',
-        variants={
-            'easy': Minitoads('easy'),
-            'misere': Minitoads('misere')
-        }
-    ),
-
-    'tootnottopy': Game(
-        name='Toot-N-Otto',
-        desc='Toot-N-Otto, get 4-in-a-row of TOOT (player 1) or OTTO (player 2) first',
-        variants={
-            '4': TootNOtto(4),
-            '5': TootNOtto(5),
-            '6': TootNOtto(6)
-        }
-    ),
-
-    'dawsonschess': Game(
-        name='Dawson\'s Chess',
-        desc='Players take turns blocking out spaces on the board.',
-        variants={},
-        custom_variant=dawsonschess_custom_start
-    )
+        'nim': Game(
+            name='Nim',
+            desc='Players take turn taking sticks from a pile',
+            variants={
+                '3_3_3': JSONGameVariant(os.path.join(dirname, 'solutions/nim/3_3_3.json')),
+            },
+            custom_variant=nim_custom_start
+        ),
+        'minitoads': Game(
+            name='Minitoads',
+            desc='Players take turns jumping',
+            variants={
+                'easy': JSONGameVariant(os.path.join(dirname, 'solutions/minitoads/easy.json')),
+        }),
+        'minitoadspy': Game(
+            name='MinitoadPy',
+            desc='Players take turns jumping',
+            variants={
+                'easy': Minitoads('easy'),
+                'misere': Minitoads('misere')
+            }
+        ),
+        'tootnottopy': Game(
+            name='Toot-N-Otto',
+            desc='Toot-N-Otto, get 4-in-a-row of TOOT (player 1) or OTTO (player 2) first',
+            variants={
+                '4': TootNOtto(4),
+                '5': TootNOtto(5),
+                '6': TootNOtto(6)
+            }
+        ),
+        'testmultipart': Game(
+            name='TestMultipart',
+            desc='Test Multipart Moves',
+            variants={
+                'regular': TestMultipart('regular')
+            }
+        )
 
 }

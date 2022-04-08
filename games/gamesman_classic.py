@@ -4,6 +4,7 @@ import requests
 from requests.exceptions import HTTPError
 
 from .models import DataProvider
+from .multipart_handler import multipart_solve
 
 
 class GamesmanClassicDataProvider(DataProvider):
@@ -104,7 +105,11 @@ class GamesmanClassicDataProvider(DataProvider):
         except Exception as err:
             print(f'Other error occurred: {err}')
         else:
-            return json.loads(response.content)["response"]
+            content = json.loads(response.content)
+            if "multipart" in content: # Response includes multipart move data.
+                return multipart_solve(board, content)
+            else:
+                return json.loads(response.content)["response"]
 
     @staticmethod
     def getMoveValue(game, board, variation=-1):
