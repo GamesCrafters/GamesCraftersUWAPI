@@ -15,7 +15,7 @@ CORS(app)
 ids = {'1210': '1210', 'abalone': 'abalone', 'achi': 'achi', 'ago': 'atarigo',
        'baghchal': 'baghchal', 'ctoi': 'chungtoi', 'dao': 'dao', 'dinododgem': 'dinododgem',
        'dnb': 'dotsandboxes', 'swans': 'dragonsandswans', 'foxes': 'foxandgeese',
-       'Lgame': 'lgame', 'mancala': 'mancala', '369mm': 'ninemensmorris', 'ooe': 'oddoreven',
+       'Lgame': 'lgame', 'mancala': 'mancala', '369mm': 'ninemensmorris', 'topitop': 'topitop', 'ooe': 'oddoreven',
        'othello': 'othello', 'quickchess': 'quickchess', 'sim': 'sim', 'snake': 'snake', '3spot': 'threespot',
        'ttt': 'tictactoe', 'tilechess': 'tilechess', 'connect4': 'connect4', 'dodgem': 'dodgem'}
 
@@ -184,13 +184,11 @@ def handle_position(game_id, variant_id, position):
     result['moves'] = wrangle_next_stats(variant.next_stats(position))
     return format_response_ok(result)
 
-
 @app.route('/games/<game_id>/variants/<variant_id>/positions/<position>/moves/')
 def handle_position_moves(game_id, variant_id, position):
     variant = get_game_variant(game_id, variant_id)
     if not variant:
         return format_response_err('Game/Variant not found')
-    curr_stat = variant.stat(position)
     return format_response_ok(wrangle_next_stats(variant.next_stats(position)))
 
 

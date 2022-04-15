@@ -31,10 +31,15 @@ class GamesmanClassicDataProvider(DataProvider):
             # Rename members
             next_stat['position'] = next_stat.pop('board')
             next_stat['positionValue'] = next_stat.pop('value')
+            if 'fromPos' in next_stat:
+                next_stat.pop('fromPos')
             return next_stat
+        
+        def filter_multipart_by_frompos(next_stat):
+            return 'fromPos' not in next_stat or next_stat['fromPos'] == position
 
-        return list(map(wrangle_next_stat,
-                        GamesmanClassicDataProvider.getNextMoveValues(game_id, position, variant_id)))
+        return list(map(wrangle_next_stat,list(filter(filter_multipart_by_frompos,
+                        GamesmanClassicDataProvider.getNextMoveValues(game_id, position, variant_id)))))
 
     @staticmethod
     def getGames():

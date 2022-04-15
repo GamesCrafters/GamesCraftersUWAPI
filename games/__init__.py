@@ -8,7 +8,6 @@ from .chess import RegularChessVariant
 from .TicTacToe3x3x2GameVariant import TicTacToe3x3x2GameVariant
 from .Minitoads import Minitoads
 from .TootNOtto import TootNOtto
-from .TestMultipart import TestMultipart
 from .NimGameVariant import NimGameVariant, nim_custom_start
 
 
@@ -400,6 +399,20 @@ games = {
             )
         }),
 
+    'topitop': Game(
+        name="Topitop",
+        desc="Building sandcastles has never been so much fun.",
+        variants={
+            'regular':  GameVariant(
+                name="Standard Topitop",
+                desc="Regular",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='topitop',
+                data_provider_variant_id=-1,
+                status='dev'
+            )
+        }),
+
     'dodgem': Game(
         name='Dodgem',
         desc="Players alternate moving pieces, and the goal is to move your pieces off the board in the designated locations.",
@@ -530,13 +543,5 @@ games = {
                 '5': TootNOtto(5),
                 '6': TootNOtto(6)
             }
-        ),
-        'testmultipart': Game(
-            name='TestMultipart',
-            desc='Test Multipart Moves',
-            variants={
-                'regular': TestMultipart('regular')
-            }
         )
-
 }
