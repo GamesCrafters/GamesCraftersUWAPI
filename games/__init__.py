@@ -10,6 +10,7 @@ from .Minitoads import Minitoads
 from .TootNOtto import TootNOtto
 from .NimGameVariant import NimGameVariant, nim_custom_start
 from .DawsonsChessGameVariant import DawsonsChessGameVariant, dawsonschess_custom_start
+from .KaylesGameVariant import KaylesGameVariant, kayles_custom_start
 
 
 dirname = os.path.dirname(__file__)
@@ -541,6 +542,13 @@ games = {
         desc='Players take turns blocking out spaces on the board.',
         variants={},
         custom_variant=dawsonschess_custom_start
+    ),
+
+    'kayles': Game(
+        name='Kayles',
+        desc='Players take turns blocking out one or two adjacent spaces on the board.',
+        variants={},
+        custom_variant=kayles_custom_start
     )
 
 }

@@ -11,8 +11,6 @@ def dawsonschess_custom_start(variant_id):
 
 class DawsonsChessGameVariant(AbstractGameVariant):
 
-    piece_char = 'l'
-
     def __init__(self, board_len):
         name = "custom"
         desc = "custom"
