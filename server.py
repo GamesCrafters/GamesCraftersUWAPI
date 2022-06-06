@@ -15,7 +15,7 @@ CORS(app)
 ids = {'1210': '1210', 'abalone': 'abalone', 'achi': 'achi', 'ago': 'atarigo',
        'baghchal': 'baghchal', 'ctoi': 'chungtoi', 'dao': 'dao', 'dinododgem': 'dinododgem',
        'dnb': 'dotsandboxes', 'swans': 'dragonsandswans', 'foxes': 'foxandgeese',
-       'Lgame': 'lgame', 'mancala': 'mancala', '369mm': 'ninemensmorris', 'topitop': 'topitop', 'ooe': 'oddoreven',
+       'Lgame': 'lgame', 'mancala': 'mancala', '369mm': 'ninemensmorris', 'topitop': 'topitop', 'tttwo': 'topitop', 'ooe': 'oddoreven',
        'othello': 'othello', 'quickchess': 'quickchess', 'sim': 'sim', 'snake': 'snake', '3spot': 'threespot',
        'ttt': 'tictactoe', 'tilechess': 'tilechess', 'connect4': 'connect4', 'dodgem': 'dodgem'}
 

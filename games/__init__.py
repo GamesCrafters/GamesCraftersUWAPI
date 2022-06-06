@@ -320,16 +320,37 @@ games = {
         }),
 
     'baghchal': Game(
-        name='Bagh Chal',
+        name='Bagh-Chal',
         desc="In the first phase the goats are placed on the board while the tigers are moved. In the second phase both the goats and the tigers are moved. For the tigers, the objective is to 'capture' five goats to win. Capturing is performed as in alquerque and draughts, by jumping over the goats, although capturing is not obligatory. The goats win by blocking all the tigers' legal moves.",
         variants={
             'regular': GameVariant(
-                name='Regular',
-                desc='Regular',
+                name='Standard',
+                desc='Standard',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='baghchal',
-                data_provider_variant_id=-1,
-                status='dev')
+                data_provider_variant_id=5,
+                status='available'),
+            '4x4NonDiag': GameVariant(
+                name='4x4NonDiag',
+                desc='4x4NonDiag',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='baghchal',
+                data_provider_variant_id=2,
+                status='available'),
+            '3x3Diag': GameVariant(
+                name='3x3Diag',
+                desc='3x3Diag',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='baghchal',
+                data_provider_variant_id=1,
+                status='available'),
+            '3x3NonDiag': GameVariant(
+                name='3x3NonDiag',
+                desc='3x3NonDiag',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='baghchal',
+                data_provider_variant_id=0,
+                status='available')
         }),
 
     'ago': Game(
