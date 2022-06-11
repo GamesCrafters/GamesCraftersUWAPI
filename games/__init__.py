@@ -412,11 +412,19 @@ games = {
         variants={
             'regular':  GameVariant(
                 name="Standard 9 Men's Morris",
-                desc="Standard 9 Men's Morris rules.",
+                desc="Standard",
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='369mm',
-                data_provider_variant_id=-1,
-                status='dev'
+                data_provider_variant_id=12,
+                status='available'
+            ),
+            '6mmNoFly':  GameVariant(
+                name="Standard 6 Men's Morris",
+                desc="6mmNoFly",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=6,
+                status='available'
             )
         }),
 

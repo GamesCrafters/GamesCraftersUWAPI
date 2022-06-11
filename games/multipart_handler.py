@@ -36,7 +36,9 @@ class Node:
                                         self.move_name, ','.join([('%s' % e) for e in self.edges_in]))
 
 
-def multipart_solve(position, input_dict, interpos=None):
+def multipart_solve(position, input_dict, output_type=0):
+    if not input_dict:
+        return None
     position_is_intermediate = False
     node_dict = {}  # Useful to keep track of which nodes have been created
     terminal_nodes = []
@@ -45,6 +47,8 @@ def multipart_solve(position, input_dict, interpos=None):
 
     # Get multipart edges
     mp_response = input_dict.get('multipart')
+    if output_type == 1 and not mp_response:
+        return None
     for r in mp_response:
         from_pos = r.get('from')
         to_pos = r.get('to')
@@ -67,7 +71,7 @@ def multipart_solve(position, input_dict, interpos=None):
         edge_list.append(edge)
 
     # Get terminal nodes
-    response = input_dict.get('response')  # Responses is a list of dicts
+    response = input_dict.get('response')  # Response is a list of dicts
     for r in response:
         board = r.get('board')
         remoteness = r.get('remoteness')
@@ -108,32 +112,54 @@ def multipart_solve(position, input_dict, interpos=None):
         mp_remoteness += 1
         for edge in n.edges_in:
             parent = edge.from_node
+            remoteness_increment = 1 if n in terminal_nodes else 0
 
-            if not parent.value or (parent.value == n.value and parent.mp_remoteness > n.mp_remoteness):
+            if not parent.value:
                 parent.value = n.value
-                parent.remoteness = n.remoteness
+                parent.remoteness = n.remoteness + remoteness_increment
                 parent.mp_remoteness = mp_remoteness
                 dfs(parent, mp_remoteness)
+            elif parent.value != n.value:
+                if parent.value == 'tie' and n.value == 'win' or parent.value =='lose':
+                    parent.value = n.value
+                    parent.remoteness = n.remoteness + remoteness_increment
+                    parent.mp_remoteness = mp_remoteness
+                    dfs(parent, mp_remoteness)
+            elif parent.remoteness != n.remoteness + remoteness_increment:
+                if parent.value == 'lose' and n.remoteness + remoteness_increment > parent.remoteness:
+                    parent.remoteness = n.remoteness + remoteness_increment
+                    parent.mp_remoteness = mp_remoteness
+                    dfs(parent, mp_remoteness)
+                elif parent.value != 'lose' and n.remoteness + remoteness_increment < parent.remoteness:
+                    parent.remoteness = n.remoteness
+                    parent.mp_remoteness = mp_remoteness
+                    dfs(parent, mp_remoteness)
 
     for n in terminal_nodes:
         dfs(n, 0)
 
-    # Output
-    moves = []
-    for e in edge_list:
-        move_name = move_name_dict.get(e.move)  # Move name from edge
-        if not move_name:
-            move_name = e.to_node.move_name  # Move name from node
-        move_dict = {
-            'fromPos': e.from_node.board,
-            'move': e.part_move,
-            'board': e.to_node.board,
-            # 'deltaRemoteness': 0 # Will be handled in server.py
-            'moveValue': e.to_node.value,
-            'value': e.to_node.value if e.to_node.mp_remoteness else {'lose': 'win', 'tie': 'tie', 'win': 'lose'}[e.to_node.value],
-            'remoteness': e.to_node.remoteness,
-            'moveName': move_name,
-            'isTerminal': move_name != None
+    if output_type == 0:
+        moves = []
+        for e in edge_list:
+            move_name = move_name_dict.get(e.move)  # Move name from edge
+            if not move_name:
+                move_name = e.to_node.move_name  # Move name from node
+            move_dict = {
+                'fromPos': e.from_node.board,
+                'move': e.part_move,
+                'board': e.to_node.board,
+                'moveValue': e.to_node.value,
+                'value': e.to_node.value if e.to_node.mp_remoteness else {'lose': 'win', 'tie': 'tie', 'win': 'lose'}[e.to_node.value],
+                'remoteness': e.to_node.remoteness,
+                'moveName': move_name
+                #'isTerminal': move_name != None
+            }
+            moves.append(move_dict)
+        return moves
+    else:
+        pos_dict = {
+            'board': position, 
+            'remoteness': node_dict.get(position).remoteness,
+            'value': node_dict.get(position).value
         }
-        moves.append(move_dict)
-    return moves
+        return pos_dict

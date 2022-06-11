@@ -113,7 +113,7 @@ class GamesmanClassicDataProvider(DataProvider):
             if "multipart" in content: # Response includes multipart move data.
                 return multipart_solve(board, content)
             else:
-                return json.loads(response.content)["response"]
+                return content["response"]
 
     @staticmethod
     def getMoveValue(game, board, variation=-1):
@@ -132,4 +132,10 @@ class GamesmanClassicDataProvider(DataProvider):
         except Exception as err:
             print(f'Other error occurred: {err}')
         else:
-            return json.loads(response.content)["response"]
+            content = json.loads(response.content)
+            mp_data = content["response"].pop('mp_data', None)
+            if mp_data: # Response includes multipart move data.
+                to_return = multipart_solve(board, mp_data, 1)
+                return to_return if to_return else content["response"]
+            else:
+                return content["response"]
