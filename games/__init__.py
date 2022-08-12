@@ -566,7 +566,8 @@ games = {
         variants={
             'easy': Minitoads('easy'),
             'misere': Minitoads('misere')
-        }
+        },
+        autogui_v2=True
     ),
 
     'tootnottopy': Game(
