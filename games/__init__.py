@@ -352,7 +352,8 @@ games = {
                 data_provider_game_id='baghchal',
                 data_provider_variant_id=0,
                 status='available')
-        }),
+        },
+        autogui_v2=True),
 
     'ago': Game(
         name='Atari Go',
