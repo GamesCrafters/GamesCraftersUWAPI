@@ -10,7 +10,6 @@ from md_api import read_from_link
 
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
-default_autogui_v2_theme_id = "default"
 
 CORS(app)
 
@@ -63,16 +62,6 @@ def get_game_variant(game_id, variant_id):
     if not game:
         return None
     return game.variant(variant_id)
-
-def get_variant_themes(game_id, variant_id):
-    game = get_game(game_id)
-    if game and game.autogui_v2:
-        v2_themes = autogui_v2_games[game_id]
-        theme_ids = [variant_id, default_autogui_v2_theme_id]
-        for theme_id in theme_ids:
-            if theme_id in v2_themes:
-                return v2_themes[theme_id]
-    return None
 
 def wrangle_next_stats(next_stats):
     if not next_stats:
@@ -169,8 +158,7 @@ def handle_game(game_id):
             }
             for (variant_id, variant) in game.variants.items() if variant.status != 'unavailable'
         ],
-        'custom': custom_variant,
-        'autogui_v2': game.autogui_v2
+        'custom': custom_variant
     })
 
 @app.route('/games/<game_id>/variants/<variant_id>/')
