@@ -166,7 +166,6 @@ def handle_variant(game_id, variant_id):
     variant = get_game_variant(game_id, variant_id)
     if not variant:
         return format_response_err('Game/Variant not found')
-    themes = get_variant_themes(game_id, variant_id)["themes"]
     return format_response_ok({
         'gameId': game_id,
         'variant': [
@@ -174,8 +173,7 @@ def handle_variant(game_id, variant_id):
                 'variantId': variant_id,
                 'description': variant.desc,
                 'status': variant.status,
-                'startPosition': variant.start_position(),
-                'themes': themes
+                'startPosition': variant.start_position()
             }
         ]
     })
