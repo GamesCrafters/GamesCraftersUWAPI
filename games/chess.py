@@ -101,6 +101,7 @@ def syz_next_stats(position):
         data = r.json()
         response = [{
             "move": makeUWAPIMoveString(move['uci']),
+            "moveName": move['san'],
             "position": makeMove(position, move['uci']),
             "positionValue": positionValue(move),
             "remoteness": 0 if move['dtm'] is None else abs(move['dtm'])

@@ -1,136 +1,72 @@
-autogui_v2_games = {
-    "baghchal": {
+"""
+===== STEP 1 ===== 
+Create a function that returns AutoGUIv2 Data for your game, given a variant of that game.
+Return None if no AutoGUIv2 Data for the given variant.
+
+get_<game>(variant_id) should return JSON of the following form:
+
+    {
+        "defaultTheme": <name of default theme>,
+        "themes": {
+            <name of theme1>: {
+                "backgroundGeometry": [<width>, <height>],
+                "backgroundImage": <path to background image; if no background image, omit this attribute>,
+                "foregroundImage": <path to foreground image; if no foreground image, omit this attribute>,
+                "centers": [ [<x0>,<y0>], [<x1>, <y1>], [<x2>, <y2>], [<x3>, <y3>], ... ]
+                "pieces": {
+                    <char1>: {
+                        "image": <path to piece image>,
+                        "scale": <image scale>
+                    },
+                    <char2>: {
+                        ...    
+                    }
+                    ...
+                }
+            },
+            <name of theme2>: {
+                ...
+            },
+            ...
+        }
+    }
+
+EXAMPLE:
+
+    def get_ttt(variant_id):
+        if variant_id == "regular":
+            data = {
+                "defaultTheme": "simple",
+                "themes": {
+                    "simple": {
+                        "backgroundGeometry": [30, 30],
+                        "backgroundImage": "ttt/background.svg",
+                        "centers": [ [5, 5], [15, 5], [25, 5], [5, 15], [15, 15], [25, 15], [5, 25], [15, 25], [25, 25] ],
+                        "pieces": {
+                            "x": {"image": "ttt/x.svg", "scale": 1.0},
+                            "o": {"image": "ttt/x.svg", "scale": 1.0}
+                        }
+                    }
+                }
+            }
+            return data
+        else:
+            return None
+
+
+(Scroll all the way down for Step 2).
+
+"""
+
+def get_baghchal(variant_id):
+    return {
         "regular": {
             "defaultTheme": "stolen_art",
             "themes": {
                 "stolen_art": {
-                    "backgroundGeometry": [
-                        6,
-                        7
-                    ],
+                    "backgroundGeometry": [6, 7],
                     "backgroundImage": "baghchal/grid5Diag.svg",
-                    "centers": [
-                        [
-                            1,
-                            1
-                        ],
-                        [
-                            2,
-                            1
-                        ],
-                        [
-                            3,
-                            1
-                        ],
-                        [
-                            4,
-                            1
-                        ],
-                        [
-                            5,
-                            1
-                        ],
-                        [
-                            1,
-                            2
-                        ],
-                        [
-                            2,
-                            2
-                        ],
-                        [
-                            3,
-                            2
-                        ],
-                        [
-                            4,
-                            2
-                        ],
-                        [
-                            5,
-                            2
-                        ],
-                        [
-                            1,
-                            3
-                        ],
-                        [
-                            2,
-                            3
-                        ],
-                        [
-                            3,
-                            3
-                        ],
-                        [
-                            4,
-                            3
-                        ],
-                        [
-                            5,
-                            3
-                        ],
-                        [
-                            1,
-                            4
-                        ],
-                        [
-                            2,
-                            4
-                        ],
-                        [
-                            3,
-                            4
-                        ],
-                        [
-                            4,
-                            4
-                        ],
-                        [
-                            5,
-                            4
-                        ],
-                        [
-                            1,
-                            5
-                        ],
-                        [
-                            2,
-                            5
-                        ],
-                        [
-                            3,
-                            5
-                        ],
-                        [
-                            4,
-                            5
-                        ],
-                        [
-                            5,
-                            5
-                        ],
-                        [
-                            3.3,
-                            5.7
-                        ],
-                        [
-                            3.5,
-                            5.7
-                        ],
-                        [
-                            -1,
-                            -1
-                        ],
-                        [
-                            3.4,
-                            6.1
-                        ],
-                        [
-                            3.6,
-                            6.1
-                        ]
-                    ],
+                    "centers": [[1 + (i % 5), 1 + (i // 5)] for i in range(25)] + [[3.3,5.7], [3.5,5.7], [-1,-1], [3.4,6.1], [3.6,6.1]],
                     "pieces": {
                         "G": {
                             "image": "baghchal/G.png",
@@ -188,8 +124,10 @@ autogui_v2_games = {
                 }
             }
         }
-    },
-    "3spot": {
+    }.get(variant_id, None)
+
+def get_3spot(variant_id):
+    return {
         "regular": {
             "defaultTheme": "standard",
             "themes": {
@@ -386,8 +324,10 @@ autogui_v2_games = {
                 }
             }
         }
-    },
-    "369mm": {
+    }.get(variant_id, None)
+
+def get_369mm(variant_id):
+    return {
         "regular": {
             "defaultTheme": "wikipedia",
             "themes": {
@@ -680,8 +620,10 @@ autogui_v2_games = {
                 }
             }
         }
-    },
-    "topitop": {
+    }.get(variant_id, None)
+
+def get_topitop(variant_id):
+    return {
         "regular": {
             "defaultTheme": "beach",
             "themes": {
@@ -934,8 +876,10 @@ autogui_v2_games = {
                 }
             }
         }
-    },
-    "Lgame": {
+    }.get(variant_id, None)
+
+def get_Lgame(variant_id):
+    return {
         "regular": {
             "defaultTheme": "regular",
             "themes": {
@@ -1384,8 +1328,10 @@ autogui_v2_games = {
                 }
             }
         }
-    },
-    "dodgem": {
+    }.get(variant_id, None)
+
+def get_dodgem(variant_id):
+    return {
         "regular": {
             "defaultTheme": "regular",
             "themes": {
@@ -1474,306 +1420,10 @@ autogui_v2_games = {
                 }
             }
         }
-    },
-    "chess": {
-        "7-man": {
-            "defaultTheme": "regular",
-            "themes": {
-                "regular": {
-                    "backgroundGeometry": [
-                        8,
-                        8
-                    ],
-                    "backgroundImage": "chess/grid.svg",
-                    "centers": [
-                        [
-                            0.5,
-                            0.5
-                        ],
-                        [
-                            1.5,
-                            0.5
-                        ],
-                        [
-                            2.5,
-                            0.5
-                        ],
-                        [
-                            3.5,
-                            0.5
-                        ],
-                        [
-                            4.5,
-                            0.5
-                        ],
-                        [
-                            5.5,
-                            0.5
-                        ],
-                        [
-                            6.5,
-                            0.5
-                        ],
-                        [
-                            7.5,
-                            0.5
-                        ],
-                        [
-                            0.5,
-                            1.5
-                        ],
-                        [
-                            1.5,
-                            1.5
-                        ],
-                        [
-                            2.5,
-                            1.5
-                        ],
-                        [
-                            3.5,
-                            1.5
-                        ],
-                        [
-                            4.5,
-                            1.5
-                        ],
-                        [
-                            5.5,
-                            1.5
-                        ],
-                        [
-                            6.5,
-                            1.5
-                        ],
-                        [
-                            7.5,
-                            1.5
-                        ],
-                        [
-                            0.5,
-                            2.5
-                        ],
-                        [
-                            1.5,
-                            2.5
-                        ],
-                        [
-                            2.5,
-                            2.5
-                        ],
-                        [
-                            3.5,
-                            2.5
-                        ],
-                        [
-                            4.5,
-                            2.5
-                        ],
-                        [
-                            5.5,
-                            2.5
-                        ],
-                        [
-                            6.5,
-                            2.5
-                        ],
-                        [
-                            7.5,
-                            2.5
-                        ],
-                        [
-                            0.5,
-                            3.5
-                        ],
-                        [
-                            1.5,
-                            3.5
-                        ],
-                        [
-                            2.5,
-                            3.5
-                        ],
-                        [
-                            3.5,
-                            3.5
-                        ],
-                        [
-                            4.5,
-                            3.5
-                        ],
-                        [
-                            5.5,
-                            3.5
-                        ],
-                        [
-                            6.5,
-                            3.5
-                        ],
-                        [
-                            7.5,
-                            3.5
-                        ],
-                        [
-                            0.5,
-                            4.5
-                        ],
-                        [
-                            1.5,
-                            4.5
-                        ],
-                        [
-                            2.5,
-                            4.5
-                        ],
-                        [
-                            3.5,
-                            4.5
-                        ],
-                        [
-                            4.5,
-                            4.5
-                        ],
-                        [
-                            5.5,
-                            4.5
-                        ],
-                        [
-                            6.5,
-                            4.5
-                        ],
-                        [
-                            7.5,
-                            4.5
-                        ],
-                        [
-                            0.5,
-                            5.5
-                        ],
-                        [
-                            1.5,
-                            5.5
-                        ],
-                        [
-                            2.5,
-                            5.5
-                        ],
-                        [
-                            3.5,
-                            5.5
-                        ],
-                        [
-                            4.5,
-                            5.5
-                        ],
-                        [
-                            5.5,
-                            5.5
-                        ],
-                        [
-                            6.5,
-                            5.5
-                        ],
-                        [
-                            7.5,
-                            5.5
-                        ],
-                        [
-                            0.5,
-                            6.5
-                        ],
-                        [
-                            1.5,
-                            6.5
-                        ],
-                        [
-                            2.5,
-                            6.5
-                        ],
-                        [
-                            3.5,
-                            6.5
-                        ],
-                        [
-                            4.5,
-                            6.5
-                        ],
-                        [
-                            5.5,
-                            6.5
-                        ],
-                        [
-                            6.5,
-                            6.5
-                        ],
-                        [
-                            7.5,
-                            6.5
-                        ],
-                        [
-                            0.5,
-                            7.5
-                        ],
-                        [
-                            1.5,
-                            7.5
-                        ],
-                        [
-                            2.5,
-                            7.5
-                        ],
-                        [
-                            3.5,
-                            7.5
-                        ],
-                        [
-                            4.5,
-                            7.5
-                        ],
-                        [
-                            5.5,
-                            7.5
-                        ],
-                        [
-                            6.5,
-                            7.5
-                        ],
-                        [
-                            7.5,
-                            7.5
-                        ]
-                    ],
-                    "pieces": {
-                        "K": {
-                            "image": "chess/K.svg.png",
-                            "scale": 1
-                        },
-                        "k": {
-                            "image": "chess/kk.svg.png",
-                            "scale": 1
-                        },
-                        "R": {
-                            "image": "chess/R.svg.png",
-                            "scale": 1
-                        },
-                        "B": {
-                            "image": "chess/B.svg.png",
-                            "scale": 1
-                        },
-                        "r": {
-                            "image": "chess/rr.svg.png",
-                            "scale": 1
-                        },
-                        "p": {
-                            "image": "chess/p.svg.png",
-                            "scale": 1
-                        }
-                    }
-                }
-            }
-        }
-    },
-    "tttwo": {
+    }.get(variant_id, None)
+
+def get_tttwo(variant_id):
+    return {
         "regular": {
             "defaultTheme": "regular",
             "themes": {
@@ -1958,8 +1608,10 @@ autogui_v2_games = {
                 }
             }
         }
-    },
-    "stt": {
+    }.get(variant_id, None)
+
+def get_stt(variant_id):
+    return {
         "default": {
             "defaultTheme": "regular",
             "themes": {
@@ -2192,8 +1844,10 @@ autogui_v2_games = {
                 }
             }
         }
-    },
-    "tootnottopy": {
+    }.get(variant_id, None)
+
+def get_tootnottopy(variant_id):
+    return {
         "6": {
             "defaultTheme": "dan",
             "themes": {
@@ -2558,8 +2212,10 @@ autogui_v2_games = {
                 }
             }
         }
-    },
-    "ctoi": {
+    }.get(variant_id, None)
+
+def get_ctoi(variant_id):
+    return {
         "regular": {
             "defaultTheme": "regular",
             "themes": {
@@ -2688,8 +2344,10 @@ autogui_v2_games = {
                 }
             }
         }
-    },
-    "chomp": {
+    }.get(variant_id, None)
+
+def get_chomp(variant_id):
+    return {
         "3x2": {
             "defaultTheme": "choco",
             "themes": {
@@ -2756,5 +2414,73 @@ autogui_v2_games = {
                 }
             }
         }
+    }.get(variant_id, None)
+
+def get_dawsonschess(variant_id):
+    size = int(variant_id)
+    return {
+        "defaultTheme": "kings",
+        "themes": {
+            "kings": {
+                "backgroundGeometry": [size, 1],
+                "centers": [[0.5 + i, 0.5] for i in range(size)],
+                "pieces": {
+                    "b": {
+                        "image": "dawsonschess/b.svg",
+                        "scale": 1
+                    },
+                    "x": {
+                        "image": "dawsonschess/x.svg",
+                        "scale": 1
+                    },
+                    "o": {
+                        "image": "dawsonschess/o.svg",
+                        "scale": 1
+                    }
+                }
+            }
+        }
     }
+
+def get_chess(variant_id):
+    if variant_id != '7-man':
+        return None
+    pieces = {"K": "K", "Q": "Q", "R": "R", "B": "B", "N": "N", "P": "P", "k": "kk", "q": "qq", "r": "rr", "b": "bb", "n": "nn", "p": "pp"}
+    return {
+            "defaultTheme": "regular",
+            "themes": {
+                "regular": {
+                    "backgroundGeometry": [8, 8],
+                    "backgroundImage": "chess/grid.svg",
+                    "centers": [[0.5 + (i % 8), 0.5 + (i // 8)] for i in range(64)],
+                    "pieces": {k: {"image": "chess/{}.svg".format(v), "scale": 1} for (k, v) in pieces.items()}
+                }
+            }
+        }
+
+
+"""
+===== STEP 2 ===== 
+Add your function to the autoGUIv2DataFuncs dict.
+"""
+
+autoGUIv2DataFuncs = {
+    "baghchal": get_baghchal,
+    "3spot": get_3spot,
+    "369mm": get_369mm,
+    "topitop": get_topitop,
+    "Lgame": get_Lgame,
+    "dodgem": get_dodgem,
+    "tttwo": get_tttwo,
+    "stt": get_stt,
+    "tootnottopy": get_tootnottopy,
+    "ctoi": get_ctoi,
+    "chomp": get_chomp,
+    "dawsonschess": get_dawsonschess,
+    "chess": get_chess
 }
+
+def get_autoguiV2Data(game_id, variant_id):
+    if game_id in autoGUIv2DataFuncs:
+        return autoGUIv2DataFuncs[game_id](variant_id)
+    return None

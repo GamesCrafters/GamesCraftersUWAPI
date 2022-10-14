@@ -4,7 +4,7 @@ from flask import Flask, escape, request
 from flask_cors import CORS
 
 from games import games, GamesmanClassicDataProvider
-from games.AutoGUI_v2_Games import autogui_v2_games
+from games.AutoGUI_v2_Games import *
 
 from md_api import read_from_link
 
@@ -143,7 +143,6 @@ def handle_game(game_id):
         return format_response_err('Game not found')
     
     custom_variant = 'true' if game.custom_variant else None
-    autogui_v2_present = lambda variant_id: game_id in autogui_v2_games and variant_id in autogui_v2_games[game_id]
     return format_response_ok({
         'gameId': game_id,
         'name': game.name,
@@ -154,7 +153,7 @@ def handle_game(game_id):
                 'description': variant.desc,
                 'status': variant.status,
                 'startPosition': variant.start_position(),
-                'autogui_v2_data': autogui_v2_games[game_id][variant_id] if autogui_v2_present(variant_id) else None
+                'autogui_v2_data': get_autoguiV2Data(game_id, variant_id)
             }
             for (variant_id, variant) in game.variants.items() if variant.status != 'unavailable'
         ],
@@ -173,7 +172,8 @@ def handle_variant(game_id, variant_id):
                 'variantId': variant_id,
                 'description': variant.desc,
                 'status': variant.status,
-                'startPosition': variant.start_position()
+                'startPosition': variant.start_position(),
+                'autogui_v2_data': get_autoguiV2Data(game_id, variant_id)
             }
         ]
     })

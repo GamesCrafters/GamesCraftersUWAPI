@@ -208,6 +208,13 @@ games = {
         }
     ),
     
+    'dawsonschess': Game(
+        name='Dawson\'s Chess',
+        desc='Players take turns blocking out spaces on the board.',
+        variants={},
+        custom_variant=dawsonschess_custom_start
+    ),
+    
     'mancala': Game(
         name='Mancala',
         desc="Choose one of your bins (cannot be an empty bin or the mancala). This disperses your stones counterclockwise around the board from that bin. Game ends when all the stones are contained in the two mancalas, and the player whose mancala contains more stones wins.",
@@ -488,13 +495,6 @@ games = {
             '3_3_3': JSONGameVariant(os.path.join(dirname, 'solutions/nim/3_3_3.json')),
         },
         custom_variant=nim_custom_start
-    ),
-
-    'dawsonschess': Game(
-        name='Dawson\'s Chess',
-        desc='Players take turns blocking out spaces on the board.',
-        variants={},
-        custom_variant=dawsonschess_custom_start
     ),
 
     'kayles': Game(

@@ -15,7 +15,7 @@ class DawsonsChessGameVariant(AbstractGameVariant):
         name = "custom"
         desc = "custom"
         status = "stable"
-        self.board_str = ''.join(['-' for i in range(board_len)])
+        self.board_str = ''.join(['b' for i in range(board_len)])
         super(DawsonsChessGameVariant, self).__init__(name, desc, status)
 
     def start_position(self):
@@ -45,7 +45,8 @@ class DawsonsChessGameVariant(AbstractGameVariant):
             print(f'Other error occurred: {err}')
         else:
             response = [{
-                "move": move,
+                "move": move[0],
+                "moveName": move[1],
                 **self.stat(position)
             } for move, position in moves.items()]
             return response
@@ -74,9 +75,9 @@ class DawsonsChessGameVariant(AbstractGameVariant):
         pile_lengths = []
         curr_pile = 0
         for i in range(len(position)):
-            if position[i] == '-':
+            if position[i] == 'b':
                 curr_pile += 1
-            elif position[i] != '-' and curr_pile != 0:
+            elif position[i] != 'b' and curr_pile != 0:
                 pile_lengths.append(curr_pile)
                 curr_pile = 0
         if curr_pile != 0:
@@ -85,24 +86,24 @@ class DawsonsChessGameVariant(AbstractGameVariant):
 
 
     def get_moves(position, player):
-        move_arr = ["A", 'x', 0]
+        move_arr = ["A", '-', 0]
         moves = {}
         for i in range(len(position)):
-            if position[i] == '-':
+            if position[i] == 'b':
                 move_arr[2] = str(i)
                 move = '_'.join(move_arr)
 
                 next_position = list(position)
                 next_position[i] = 'x'
                 if i > 0:
-                    next_position[i-1] = 'x'
+                    next_position[i-1] = 'o'
                 if i < len(position) - 1:
-                    next_position[i+1] = 'x'
+                    next_position[i+1] = 'o'
                 next_position = ''.join(next_position)
 
                 next_position_uwapi = DawsonsChessGameVariant.getUWAPIPos(1, len(position), next_position, DawsonsChessGameVariant.next_player(player))
 
-                moves[move] = next_position_uwapi
+                moves[(move, i)] = next_position_uwapi
         return moves
 
     def next_player(player):
