@@ -2458,6 +2458,33 @@ def get_chess(variant_id):
             }
         }
 
+def get_snake(variant_id):
+    if variant_id != "regular":
+        return None
+    return {
+        "defaultTheme": "slither",
+        "themes": {
+            "slither": {
+                "backgroundGeometry": [4, 4],
+                "backgroundImage": "snake/background.svg",
+                "centers": [[0.5 + i % 4, 0.5 + i // 4] for i in range(16)],
+                "pieces": {
+                    "b": {
+                        "image": "snake/b.svg",
+                        "scale": 1.0
+                    },
+                    "h": {
+                        "image": "snake/h.svg",
+                        "scale": 1.0
+                    },
+                    "t": {
+                        "image": "snake/t.svg",
+                        "scale": 1.0
+                    }
+                }
+            }
+        }
+    }
 
 """
 ===== STEP 2 ===== 
@@ -2477,7 +2504,8 @@ autoGUIv2DataFuncs = {
     "ctoi": get_ctoi,
     "chomp": get_chomp,
     "dawsonschess": get_dawsonschess,
-    "chess": get_chess
+    "chess": get_chess,
+    "snake": get_snake
 }
 
 def get_autoguiV2Data(game_id, variant_id):
