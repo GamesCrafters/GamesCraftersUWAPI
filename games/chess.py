@@ -83,7 +83,7 @@ def syz_stat(position):
         response = {
             "position": position,
             "positionValue": positionValue(data),
-            "remoteness": 0 if data['dtm'] is None else abs(data['dtm']),
+            "remoteness": 255 if data['dtm'] is None else abs(data['dtm']),
         }
         return response
 
