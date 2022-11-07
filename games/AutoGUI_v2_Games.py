@@ -2486,6 +2486,59 @@ def get_snake(variant_id):
         }
     }
 
+def get_connect4c(variant_id):
+    if variant_id == '6x6':
+        return {
+            "defaultTheme": "normal",
+            "themes": {
+                "normal": {
+                    "backgroundGeometry": [6, 7],
+                    "foregroundImage": "connect4/foreground6x6.svg",
+                    "centers": [[0.5 + i // 6, 1.5 + i % 6] for i in range(36)] + [[0.5 + i, 0.5] for i in range(6)],
+                    "pieces": {
+                        "X": {
+                            "image": "connect4/X.svg",
+                            "scale": 1.0
+                        },
+                        "O": {
+                            "image": "connect4/O.svg",
+                            "scale": 1.0
+                        },
+                        "a": {
+                            "image": "connect4/a.svg",
+                            "scale": 0.8
+                        }
+                    }
+                }
+            }
+        }
+    elif variant_id == '6x7':
+        return {
+            "defaultTheme": "normal",
+            "themes": {
+                "normal": {
+                    "backgroundGeometry": [7, 7],
+                    "foregroundImage": "connect4/foreground6x7.svg",
+                    "centers": [[0.5 + i // 6, 1.5 + i % 6] for i in range(42)] + [[0.5 + i, 0.5] for i in range(7)],
+                    "pieces": {
+                        "X": {
+                            "image": "connect4/X.svg",
+                            "scale": 1.0
+                        },
+                        "O": {
+                            "image": "connect4/O.svg",
+                            "scale": 1.0
+                        },
+                        "a": {
+                            "image": "connect4/a.svg",
+                            "scale": 0.8
+                        }
+                    }
+                }
+            }
+        } 
+    return None
+
 """
 ===== STEP 2 ===== 
 Add your function to the autoGUIv2DataFuncs dict.
@@ -2505,7 +2558,8 @@ autoGUIv2DataFuncs = {
     "chomp": get_chomp,
     "dawsonschess": get_dawsonschess,
     "chess": get_chess,
-    "snake": get_snake
+    "snake": get_snake,
+    "connect4c": get_connect4c
 }
 
 def get_autoguiV2Data(game_id, variant_id):

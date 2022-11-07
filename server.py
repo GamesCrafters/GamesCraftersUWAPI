@@ -74,6 +74,8 @@ def wrangle_next_stats(next_stats):
         VALUES = ['win', 'tie', 'draw', 'lose']
         move_value = next_stat['moveValue']
         delta_remotenesss = next_stat['deltaRemoteness']
+        if (move_value == 'undecided'):
+            return 1
         return (VALUES.index(move_value), delta_remotenesss)
 
     next_stats_remoteness_where_position_value_win = \
@@ -183,8 +185,15 @@ def handle_position(game_id, variant_id, position):
     variant = get_game_variant(game_id, variant_id)
     if not variant:
         return format_response_err('Game/Variant not found')
-    result = variant.stat(position)
-    result['moves'] = wrangle_next_stats(variant.next_stats(position))
+    if hasattr(variant, 'data_provider') and variant.data_provider == GamesmanClassicDataProvider:
+        # Get all information from one API call instead of 2
+        result = variant.next_stats(position)
+        result['moves'] = wrangle_next_stats(result['moves'])
+    else:
+        result = variant.stat(position)
+        result['moves'] = wrangle_next_stats(variant.next_stats(position))
+    if result['remoteness'] == 0:
+        result['moves'] = []
     return format_response_ok(result)
 
 @app.route('/games/<game_id>/variants/<variant_id>/positions/<position>/moves/')
