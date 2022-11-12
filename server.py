@@ -5,6 +5,7 @@ from flask_cors import CORS
 
 from games import games, GamesmanClassicDataProvider
 from games.AutoGUI_v2_Games import *
+from games.AutoGUI_v3_Games import *
 
 from md_api import read_from_link
 
@@ -194,6 +195,8 @@ def handle_position(game_id, variant_id, position):
         result['moves'] = wrangle_next_stats(variant.next_stats(position))
     if result['remoteness'] == 0:
         result['moves'] = []
+    else:
+        result['moves'] = get_autoguiV3Data(game_id, variant_id, position, result['moves'])
     return format_response_ok(result)
 
 @app.route('/games/<game_id>/variants/<variant_id>/positions/<position>/moves/')
