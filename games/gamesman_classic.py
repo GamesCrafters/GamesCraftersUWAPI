@@ -9,7 +9,7 @@ from .multipart_handler import multipart_solve
 class GamesmanClassicDataProvider(DataProvider):
     # Use first url when running on a different machine,
     # use second when running on main gamesman server.
-    # url = "http://nyc.cs.berkeley.edu:8083/"
+    #url = "http://nyc.cs.berkeley.edu:8083/"
     url = "http://localhost:8083/"
 
     @staticmethod
@@ -38,6 +38,9 @@ class GamesmanClassicDataProvider(DataProvider):
             return 'fromPos' not in next_stat or next_stat['fromPos'] == position
         
         stat = GamesmanClassicDataProvider.getNextMoveValues(game_id, position, variant_id)
+        if (stat is None):
+            return None
+            
         stat['position'] = stat.pop('board')
         stat['positionValue'] = stat.pop('value')
         stat['moves'] = list(map(wrangle_next_stat,list(filter(filter_multipart_by_frompos, stat['moves']))))
@@ -113,6 +116,8 @@ class GamesmanClassicDataProvider(DataProvider):
             print(f'Other error occurred: {err}')
         else:
             content = json.loads(response.content)
+            if "response" not in content:
+                return None
             if "multipart" in content["response"]: # Response includes multipart move data.
                 content["response"]["moves"] = multipart_solve(board, content["response"])
                 content["response"].pop("multipart")

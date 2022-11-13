@@ -189,9 +189,13 @@ def handle_position(game_id, variant_id, position):
     if hasattr(variant, 'data_provider') and variant.data_provider == GamesmanClassicDataProvider:
         # Get all information from one API call instead of 2
         result = variant.next_stats(position)
+        if (result is None):
+            return format_response_err('Passed in Invalid Game State')
         result['moves'] = wrangle_next_stats(result['moves'])
     else:
         result = variant.stat(position)
+        if (result is None):
+            return format_response_err('Passed in Invalid Game State')
         result['moves'] = wrangle_next_stats(variant.next_stats(position))
     if result['remoteness'] == 0:
         result['moves'] = []
