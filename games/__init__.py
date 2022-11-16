@@ -61,6 +61,33 @@ games = {
                 status='available')
         }),
 
+    'lite3': Game(
+        name='Lite 3',
+        desc="Place your piece onto an open square. When the piece of any side comes to 3, the least recently placed piece of that side will disappear as that side placing new piece. Wins when you connect three in a row horizontally, vertically, or diagonally.",
+        variants={
+            'three-in-a-row': GameVariant(
+                name='Three-in-a-row',
+                desc='Three-In-A-Row Wins',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='lite3',
+                data_provider_variant_id=1,
+                status='stable'),
+            'surround': GameVariant(
+                name='Surround',
+                desc='Surround Wins',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='lite3',
+                data_provider_variant_id=2,
+                status='stable'),
+            'both': GameVariant(
+                name='Both',
+                desc='Three-In-A-Row and Surround BOTH win',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='lite3',
+                data_provider_variant_id=0,
+                status='stable')
+        }),
+
     'chess': Game(
         name='Chess',
         desc="Chess",
