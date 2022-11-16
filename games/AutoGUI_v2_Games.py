@@ -60,21 +60,19 @@ EXAMPLE:
 
 def get_lite3(variant_id):
     return {
-        "regular": {
-            "defaultTheme": "regular",
-            "themes": {
-                "regular": {
-                    "backgroundGeometry": [30, 30],
-                    "backgroundImage": "lite3/3x3grid.svg",
-                    "centers": [ [5, 5], [15, 5], [25, 5], [5, 15], [15, 15], [25, 15], [5, 25], [15, 25], [25, 25] ],
-                    "pieces": {
-                        "a": {"image": "lite3/o.svg", "scale": 1.0},
-                        "b": {"image": "lite3/o.svg", "scale": 1.0},
-                        "c": {"image": "lite3/o.svg", "scale": 1.0},
-                        "1": {"image": "lite3/x.svg", "scale": 1.0},
-                        "2": {"image": "lite3/x.svg", "scale": 1.0},
-                        "3": {"image": "lite3/x.svg", "scale": 1.0}
-                    }
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "backgroundGeometry": [30, 30],
+                "backgroundImage": "lite3/3x3grid.svg",
+                "centers": [ [5, 5], [15, 5], [25, 5], [5, 15], [15, 15], [25, 15], [5, 25], [15, 25], [25, 25] ],
+                "pieces": {
+                    "a": {"image": "lite3/o.svg", "scale": 5.0},
+                    "b": {"image": "lite3/o.svg", "scale": 3.0},
+                    "c": {"image": "lite3/o.svg", "scale": 1.0},
+                    "1": {"image": "lite3/x.svg", "scale": 5.0},
+                    "2": {"image": "lite3/x.svg", "scale": 3.0},
+                    "3": {"image": "lite3/x.svg", "scale": 1.0}
                 }
             }
         }
@@ -2581,7 +2579,8 @@ autoGUIv2DataFuncs = {
     "dawsonschess": get_dawsonschess,
     "chess": get_chess,
     "snake": get_snake,
-    "connect4c": get_connect4c
+    "connect4c": get_connect4c,
+    "lite3": get_lite3
 }
 
 def get_autoguiV2Data(game_id, variant_id):

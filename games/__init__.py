@@ -84,7 +84,7 @@ games = {
                 desc='Three-In-A-Row and Surround BOTH win',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='lite3',
-                data_provider_variant_id=0,
+                data_provider_variant_id=3,
                 status='stable')
         }),
 
