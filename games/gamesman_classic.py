@@ -9,7 +9,7 @@ from .multipart_handler import multipart_solve
 class GamesmanClassicDataProvider(DataProvider):
     # Use first url when running on a different machine,
     # use second when running on main gamesman server.
-    # url = "http://nyc.cs.berkeley.edu:8083/"
+    #url = "http://nyc.cs.berkeley.edu:8083/"
     url = "http://localhost:8083/"
 
     @staticmethod
@@ -36,9 +36,15 @@ class GamesmanClassicDataProvider(DataProvider):
         
         def filter_multipart_by_frompos(next_stat):
             return 'fromPos' not in next_stat or next_stat['fromPos'] == position
-
-        return list(map(wrangle_next_stat,list(filter(filter_multipart_by_frompos,
-                        GamesmanClassicDataProvider.getNextMoveValues(game_id, position, variant_id)))))
+        
+        stat = GamesmanClassicDataProvider.getNextMoveValues(game_id, position, variant_id)
+        if (stat is None):
+            return None
+            
+        stat['position'] = stat.pop('board')
+        stat['positionValue'] = stat.pop('value')
+        stat['moves'] = list(map(wrangle_next_stat,list(filter(filter_multipart_by_frompos, stat['moves']))))
+        return stat
 
     @staticmethod
     def getGames():
@@ -110,32 +116,13 @@ class GamesmanClassicDataProvider(DataProvider):
             print(f'Other error occurred: {err}')
         else:
             content = json.loads(response.content)
-            if "multipart" in content: # Response includes multipart move data.
-                return multipart_solve(board, content)
-            else:
-                return content["response"]
+            if "response" not in content:
+                return None
+            if "multipart" in content["response"]: # Response includes multipart move data.
+                content["response"]["moves"] = multipart_solve(board, content["response"])
+                content["response"].pop("multipart")
+            return content["response"]
 
     @staticmethod
     def getMoveValue(game, board, variation=-1):
-        """Check move value of current position
-        """
-        try:
-            tempurl = GamesmanClassicDataProvider.url + \
-                game + "/getMoveValue" + "?board=" + board
-            if variation != -1:
-                tempurl += "&number=" + str(variation)
-            response = requests.get(tempurl)
-
-            response.raise_for_status()
-        except HTTPError as http_err:
-            print(f'HTTP error occurred: {http_err}')
-        except Exception as err:
-            print(f'Other error occurred: {err}')
-        else:
-            content = json.loads(response.content)
-            mp_data = content["response"].pop('mp_data', None)
-            if mp_data: # Response includes multipart move data.
-                to_return = multipart_solve(board, mp_data, 1)
-                return to_return if to_return else content["response"]
-            else:
-                return content["response"]
+        pass

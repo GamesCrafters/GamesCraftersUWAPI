@@ -242,6 +242,39 @@ games = {
         custom_variant=dawsonschess_custom_start
     ),
     
+    'snake': Game(
+        name='Snake',
+        desc="Move one step up, left, or right. Wins when your opponent has no more moves given the current position.",
+        variants={
+            'regular': GameVariant(
+                name='Regular',
+                desc='Regular',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='snake',
+                data_provider_variant_id=-1,
+                status='dev')
+    }),
+    
+    'connect4c': Game(
+        name='Connect 4',
+        desc="4-in-a-row with gravity.",
+        variants={
+            '6x6': GameVariant(
+                name='6x6',
+                desc='6x6',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='connect4',
+                data_provider_variant_id=1,
+                status='dev'),
+            '6x7': GameVariant(
+                name='6x7',
+                desc='6x7',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='connect4',
+                data_provider_variant_id=2,
+                status='dev')
+    }),
+    
     'mancala': Game(
         name='Mancala',
         desc="Choose one of your bins (cannot be an empty bin or the mancala). This disperses your stones counterclockwise around the board from that bin. Game ends when all the stones are contained in the two mancalas, and the player whose mancala contains more stones wins.",
@@ -264,19 +297,6 @@ games = {
                 desc='Regular',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='sim',
-                data_provider_variant_id=-1,
-                status='dev')
-        }),
-    
-    'snake': Game(
-        name='Snake',
-        desc="Move one step up, left, or right. Wins when your opponent has no more moves given the current position.",
-        variants={
-            'regular': GameVariant(
-                name='Regular',
-                desc='Regular',
-                data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='snake',
                 data_provider_variant_id=-1,
                 status='dev')
         }),
@@ -438,7 +458,7 @@ games = {
         }),
 
     'connect4': Game(
-        name='Connect 4',
+        name='Connect 4 (Java)',
         desc='Tic Tac Toe with gravity',
         variants={
             '4x4x4': GamesmanJavaConnect4GameVariant(

@@ -46,7 +46,7 @@ def multipart_solve(position, input_dict, output_type=0):
     move_name_dict = {}
 
     # Get multipart edges
-    mp_response = input_dict.get('multipart')
+    mp_response = input_dict['multipart']
     if output_type == 1 and not mp_response:
         return None
     for r in mp_response:
@@ -71,7 +71,7 @@ def multipart_solve(position, input_dict, output_type=0):
         edge_list.append(edge)
 
     # Get terminal nodes
-    response = input_dict.get('response')  # Response is a list of dicts
+    response = input_dict['moves']  # Response is a list of dicts
     for r in response:
         board = r.get('board')
         remoteness = r.get('remoteness')

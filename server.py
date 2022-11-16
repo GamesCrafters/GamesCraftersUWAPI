@@ -5,6 +5,7 @@ from flask_cors import CORS
 
 from games import games, GamesmanClassicDataProvider
 from games.AutoGUI_v2_Games import *
+from games.AutoGUI_v3_Games import *
 
 from md_api import read_from_link
 
@@ -17,7 +18,7 @@ CORS(app)
 ids = {'1210': '1210', 'abalone': 'abalone', 'achi': 'achi', 'ago': 'atarigo',
        'baghchal': 'baghchal', 'ctoi': 'chungtoi', 'dao': 'dao', 'dinododgem': 'dinododgem',
        'dnb': 'dotsandboxes', 'swans': 'dragonsandswans', 'foxes': 'foxandgeese',
-       'Lgame': 'lgame', 'mancala': 'mancala', '369mm': 'ninemensmorris', 'topitop': 'topitop', 'tttwo': 'topitop', 'ooe': 'oddoreven',
+       'Lgame': 'lgame', 'mancala': 'mancala', '369mm': 'ninemensmorris', 'topitop': 'topitop', 'ooe': 'oddoreven',
        'othello': 'othello', 'quickchess': 'quickchess', 'sim': 'sim', 'snake': 'snake', '3spot': 'threespot',
        'ttt': 'tictactoe', 'tilechess': 'tilechess', 'connect4': 'connect4', 'dodgem': 'dodgem'}
 
@@ -74,6 +75,8 @@ def wrangle_next_stats(next_stats):
         VALUES = ['win', 'tie', 'draw', 'lose']
         move_value = next_stat['moveValue']
         delta_remotenesss = next_stat['deltaRemoteness']
+        if (move_value == 'undecided'):
+            return 1
         return (VALUES.index(move_value), delta_remotenesss)
 
     next_stats_remoteness_where_position_value_win = \
@@ -183,8 +186,21 @@ def handle_position(game_id, variant_id, position):
     variant = get_game_variant(game_id, variant_id)
     if not variant:
         return format_response_err('Game/Variant not found')
-    result = variant.stat(position)
-    result['moves'] = wrangle_next_stats(variant.next_stats(position))
+    if hasattr(variant, 'data_provider') and variant.data_provider == GamesmanClassicDataProvider:
+        # Get all information from one API call instead of 2
+        result = variant.next_stats(position)
+        if result is None:
+            return format_response_err('Passed in Invalid Game State')
+        result['moves'] = wrangle_next_stats(result['moves'])
+    else:
+        result = variant.stat(position)
+        if result is None:
+            return format_response_err('Passed in Invalid Game State')
+        result['moves'] = wrangle_next_stats(variant.next_stats(position))
+    if result['remoteness'] == 0:
+        result['moves'] = []
+    else:
+        result['moves'] = get_autoguiV3Data(game_id, variant_id, position, result['moves'])
     return format_response_ok(result)
 
 @app.route('/games/<game_id>/variants/<variant_id>/positions/<position>/moves/')
