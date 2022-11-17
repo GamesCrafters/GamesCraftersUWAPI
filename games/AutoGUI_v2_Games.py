@@ -59,6 +59,8 @@ EXAMPLE:
 """
 
 def get_lite3(variant_id):
+    if variant_id not in ['three-in-a-row', 'surround', 'both']:
+        return None
     return {
         "defaultTheme": "regular",
         "themes": {
@@ -67,16 +69,16 @@ def get_lite3(variant_id):
                 "backgroundImage": "lite3/3x3grid.svg",
                 "centers": [ [5, 5], [15, 5], [25, 5], [5, 15], [15, 15], [25, 15], [5, 25], [15, 25], [25, 25] ],
                 "pieces": {
-                    "a": {"image": "lite3/o.svg", "scale": 9.0},
+                    "a": {"image": "lite3/o.svg", "scale": 3.0},
                     "b": {"image": "lite3/o.svg", "scale": 6.0},
-                    "c": {"image": "lite3/o.svg", "scale": 3.0},
-                    "1": {"image": "lite3/x.svg", "scale": 9.0},
+                    "c": {"image": "lite3/o.svg", "scale": 9.0},
+                    "1": {"image": "lite3/x.svg", "scale": 3.0},
                     "2": {"image": "lite3/x.svg", "scale": 6.0},
-                    "3": {"image": "lite3/x.svg", "scale": 3.0}
+                    "3": {"image": "lite3/x.svg", "scale": 9.0}
                 }
             }
         }
-    }.get(variant_id, None)
+    }
 
 def get_baghchal(variant_id):
     return {
