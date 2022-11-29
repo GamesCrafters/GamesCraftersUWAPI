@@ -107,6 +107,19 @@ games = {
                 data_provider_variant_id=1,
                 status='available')
         }),
+    
+    'achi': Game(
+        name='Achi',
+        desc="There are two types of moves in Achi: place moves and slide moves. In a place move, you place three pieces on a board. Once all of your three pieces are on the board, you make a slide move by selecting a piece to a connected and unoccupied spot. Win by getting three in a row either horizontally, vertically or diagonally.",
+        variants={
+            'regular': GameVariant(
+                name='Regular',
+                desc='Regular',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='achi',
+                data_provider_variant_id=-1,
+                status='stable')
+        }),
 
     'chess': Game(
         name='Chess',
@@ -463,19 +476,6 @@ games = {
                 status='dev')
         },
         status = 'unavailable'),
-
-    'achi': Game(
-        name='Achi',
-        desc="There are two types of moves in Achi: place moves and slide moves. In a place move, you place three pieces on a board. Once all of your three pieces are on the board, you make a slide move by selecting a piece to a connected and unoccupied spot. Win by getting three in a row either horizontally, vertically or diagonally.",
-        variants={
-            'regular': GameVariant(
-                name='Regular',
-                desc='Regular',
-                data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='achi',
-                data_provider_variant_id=-1,
-                status='stable')
-        }),
 
     'connect4': Game(
         name='Connect 4 (Java)',
