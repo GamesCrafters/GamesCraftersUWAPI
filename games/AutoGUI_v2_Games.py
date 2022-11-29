@@ -2588,6 +2588,38 @@ def get_mutorere(variant_id):
             }
         }
     }
+    
+def get_achi(variant_id):
+    return {
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "backgroundGeometry": [108, 108],
+                "backgroundImage": "achi/achiboard.svg",
+                "centers": [
+                    [4, 4],
+                    [54, 4],
+                    [104, 4],
+                    [4, 54],
+                    [54, 54],
+                    [104, 54],
+                    [4, 104],
+                    [54, 104],
+                    [104, 104],
+                ],
+                "pieces": {
+                    "x": {
+                        "image": "369mm/X.svg",
+                        "scale": 40
+                    },
+                    "o": {
+                        "image": "369mm/O.svg",
+                        "scale": 40
+                    }
+                }
+            }
+        }
+    }
 
 """
 ===== STEP 2 ===== 
@@ -2611,7 +2643,8 @@ autoGUIv2DataFuncs = {
     "snake": get_snake,
     "connect4c": get_connect4c,
     "lite3": get_lite3,
-    "mutorere": get_mutorere
+    "mutorere": get_mutorere,
+    "achi": get_achi,
 }
 
 def get_autoguiV2Data(game_id, variant_id):
