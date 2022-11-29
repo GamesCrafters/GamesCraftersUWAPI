@@ -87,6 +87,26 @@ games = {
                 data_provider_variant_id=3,
                 status='stable')
         }),
+    
+    'mutorere': Game(
+        name='Mū Tōrere',
+        desc='Mu Torere',
+        variants={
+            'regular': GameVariant(
+                name='Standard',
+                desc='Standard',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='tore',
+                data_provider_variant_id=2,
+                status='available'),
+            'misere': GameVariant(
+                name='Misere',
+                desc='Misere',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='tore',
+                data_provider_variant_id=1,
+                status='available')
+        }),
 
     'chess': Game(
         name='Chess',
@@ -252,7 +272,7 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='snake',
                 data_provider_variant_id=-1,
-                status='dev')
+                status='available')
     }),
     
     'connect4c': Game(

@@ -2561,6 +2561,34 @@ def get_connect4c(variant_id):
         } 
     return None
 
+def get_mutorere(variant_id):
+    if variant_id not in ('regular', 'misere'):
+        return None
+    return {
+        "defaultTheme": "octagon",
+        "themes": {
+            "octagon": {
+                "backgroundGeometry": [100, 100],
+                "backgroundImage": "mutorere/board.svg",
+                "centers": [
+                    [50 + 17 * x, 50 + 17 * y] for x, y in 
+                    [[0, 0], [-1, -2.41421], [-2.41421, -1], [-2.41421, 1], [-1, 2.41421],
+                     [1, 2.41421], [2.41421, 1], [2.41421, -1], [1, -2.41421]]
+                ],
+                "pieces": {
+                    "x": {
+                        "image": "general/blue_circle.svg",
+                        "scale": 10
+                    },
+                    "o": {
+                        "image": "general/red_circle.svg",
+                        "scale": 10
+                    }
+                }
+            }
+        }
+    }
+
 """
 ===== STEP 2 ===== 
 Add your function to the autoGUIv2DataFuncs dict.
@@ -2582,7 +2610,8 @@ autoGUIv2DataFuncs = {
     "chess": get_chess,
     "snake": get_snake,
     "connect4c": get_connect4c,
-    "lite3": get_lite3
+    "lite3": get_lite3,
+    "mutorere": get_mutorere
 }
 
 def get_autoguiV2Data(game_id, variant_id):
