@@ -120,6 +120,20 @@ games = {
                 data_provider_variant_id=-1,
                 status='stable')
         }),
+    
+    'dinododgem': Game(
+        name='Dino Dodgem',
+        desc="Each player places their dinosaurs on the posts that match their dinosaur color. Each player takes turns moving their pieces forward by one space. They may not move backward, or diagonally. Blocking, however, is allowed and is considered a key part to winning the game. Players are not allowed to jump, move diagonally or move into the opponent's starting area. Wins when you are the first player to get all three of their dinosaurs off the other side of the board.",
+        variants={
+            'regular': GameVariant(
+                name='Regular',
+                desc='Regular',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='dinododgem',
+                data_provider_variant_id=-1,
+                status='dev')
+        },
+        status = 'available'),
 
     'chess': Game(
         name='Chess',
@@ -448,20 +462,6 @@ games = {
                 data_provider_variant_id=-1,
                 status='dev')
         }),
-
-    'dinododgem': Game(
-        name='Dino Dodgem',
-        desc="Each player places their dinosaurs on the posts that match their dinosaur color. Each player takes turns moving their pieces forward by one space. They may not move backward, or diagonally. Blocking, however, is allowed and is considered a key part to winning the game. Players are not allowed to jump, move diagonally or move into the opponent's starting area. Wins when you are the first player to get all three of their dinosaurs off the other side of the board.",
-        variants={
-            'regular': GameVariant(
-                name='Regular',
-                desc='Regular',
-                data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='dinododgem',
-                data_provider_variant_id=-1,
-                status='dev')
-        },
-        status = 'unavailable'),
 
     'ago': Game(
         name='Atari Go',
