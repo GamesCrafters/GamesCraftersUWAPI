@@ -2621,6 +2621,99 @@ def get_achi(variant_id):
         }
     }
 
+def get_dinododgem(variant_id):
+    return {
+        "regular": {
+            "defaultTheme": "regular",
+            "themes": {
+                "regular": {
+                    "backgroundGeometry": [
+                        4,
+                        4
+                    ],
+                    "backgroundImage": "dinododgem/new_grid.svg",
+                    "centers": [
+                        [
+                            0.5,
+                            0.5
+                        ],
+                        [
+                            1.5,
+                            0.5
+                        ],
+                        [
+                            2.5,
+                            0.5
+                        ],
+                        [
+                            3.5,
+                            0.5
+                        ],
+                        [
+                            0.5,
+                            1.5
+                        ],
+                        [
+                            1.5,
+                            1.5
+                        ],
+                        [
+                            2.5,
+                            1.5
+                        ],
+                        [
+                            3.5,
+                            1.5
+                        ],
+                        [
+                            0.5,
+                            2.5
+                        ],
+                        [
+                            1.5,
+                            2.5
+                        ],
+                        [
+                            2.5,
+                            2.5
+                        ],
+                        [
+                            3.5,
+                            2.5
+                        ],
+                        [
+                            0.5,
+                            3.5
+                        ],
+                        [
+                            1.5,
+                            3.5
+                        ],
+                        [
+                            2.5,
+                            3.5
+                        ],
+                        [
+                            3.5,
+                            3.5
+                        ]
+                    ],
+                    "pieces": {
+                        "x": {
+                            "image": "dinododgem/hadrosaur.svg",
+                            "scale": 1.0
+                        },
+                        "o": {
+                            "image": "dinododgem/triceratops.svg",
+                            "scale": 1.0
+                        }
+                    }
+                }
+            }
+        }
+    }.get(variant_id, None)
+
+
 """
 ===== STEP 2 ===== 
 Add your function to the autoGUIv2DataFuncs dict.
@@ -2645,6 +2738,7 @@ autoGUIv2DataFuncs = {
     "lite3": get_lite3,
     "mutorere": get_mutorere,
     "achi": get_achi,
+    "dinododgem": get_dinododgem
 }
 
 def get_autoguiV2Data(game_id, variant_id):
