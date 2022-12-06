@@ -120,7 +120,8 @@ class RegularChessVariant(AbstractGameVariant):
         name = "Regular"
         desc = "Regular 7-man Chess"
         status = 'stable'
-        super(RegularChessVariant, self).__init__(name, desc, status=status)
+        gui_status = 'v2'
+        super(RegularChessVariant, self).__init__(name, desc, status=status, gui_status=gui_status)
 
     def start_position(self):
         return "R_A_8_8_" + "--------" + "------R-" + "------k-" + "p--pB---" + "--------" + "--------" + "r-------" + "------K-" + "_b_-_-_0_1"

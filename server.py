@@ -133,7 +133,8 @@ def handle_games():
         {
             'gameId': game_id,
             'name': game.name,
-            'status': game.status
+            'status': game.status,
+            'gui_status': game.gui_status
         }
         for (game_id, game) in games.items() if game.status == 'available'
     ])
@@ -156,7 +157,8 @@ def handle_game(game_id):
                 'description': variant.desc,
                 'status': variant.status,
                 'startPosition': variant.start_position(),
-                'autogui_v2_data': get_autoguiV2Data(game_id, variant_id)
+                'autogui_v2_data': get_autoguiV2Data(game_id, variant_id),
+                'gui_status': variant.gui_status
             }
             for (variant_id, variant) in game.variants.items() if variant.status != 'unavailable'
         ],

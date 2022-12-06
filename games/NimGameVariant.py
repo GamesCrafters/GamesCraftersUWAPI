@@ -19,10 +19,11 @@ class NimGameVariant(AbstractGameVariant):
         name = "custom"
         desc = "custom"
         status = "stable"
+        gui_status = "v1"
         self.start_piles = start_piles
         self.board_rows = max(self.start_piles)
         self.board_cols = len(self.start_piles)
-        super(NimGameVariant, self).__init__(name, desc, status)
+        super(NimGameVariant, self).__init__(name, desc, status, gui_status)
 
     def start_position(self):
         return NimGameVariant.getUWAPIPos(self.board_rows, self.board_cols, self.start_piles, "A")

@@ -25,15 +25,18 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='ttt',
                 data_provider_variant_id=-1,
-                status='stable'),
+                status='stable',
+                gui_status='v2'),
             'misere': GameVariant(
                 name='Misere',
                 desc='Misere',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='ttt',
                 data_provider_variant_id=1,
-                status='stable')
-        }),
+                status='stable',
+                gui_status='v2')
+        },
+        gui_status='v2'),
 
     'tttwo': Game(
         name='Tic-Tac-Two',
@@ -45,8 +48,10 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='tttwo',
                 data_provider_variant_id=-1,
-                status='stable')
-        }),
+                status='stable',
+                gui_status='v2')
+        },
+        gui_status='v2'),
 
     'stt': Game(
         name='Shift Tac Toe',
@@ -58,8 +63,10 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='stt',
                 data_provider_variant_id=-1,
-                status='available')
-        }),
+                status='available',
+                gui_status='v2')
+        },
+        gui_status='v2'),
 
     'lite3': Game(
         name='Lite 3',
@@ -71,25 +78,29 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='lite3',
                 data_provider_variant_id=1,
-                status='stable'),
+                status='stable',
+                gui_status='v2'),
             'surround': GameVariant(
                 name='Surround',
                 desc='Surround Wins',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='lite3',
                 data_provider_variant_id=2,
-                status='stable'),
+                status='stable',
+                gui_status='v2'),
             'both': GameVariant(
                 name='Both',
                 desc='Three-In-A-Row and Surround BOTH win',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='lite3',
                 data_provider_variant_id=3,
-                status='stable')
-        }),
+                status='stable',
+                gui_status='v2')
+        },
+        gui_status='v2'),
     
     'mutorere': Game(
-        name='Mū Tōrere',
+        name='Mu Torere',
         desc='Mu Torere',
         variants={
             'regular': GameVariant(
@@ -98,15 +109,18 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='tore',
                 data_provider_variant_id=2,
-                status='available'),
+                status='available',
+                gui_status='v2'),
             'misere': GameVariant(
                 name='Misere',
                 desc='Misere',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='tore',
                 data_provider_variant_id=1,
-                status='available')
-        }),
+                status='available',
+                gui_status='v2')
+        },
+        gui_status='v2'),
     
     'achi': Game(
         name='Achi',
@@ -118,8 +132,10 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='achi',
                 data_provider_variant_id=-1,
-                status='stable')
-        }),
+                status='stable',
+                gui_status='v2')
+        },
+        gui_status='v2'),
     
     'dinododgem': Game(
         name='Dino Dodgem',
@@ -131,16 +147,18 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='dinododgem',
                 data_provider_variant_id=-1,
-                status='dev')
+                status='dev',
+                gui_status='v2')
         },
-        status = 'available'),
+        gui_status='v2'),
 
     'chess': Game(
         name='Chess',
         desc="Chess",
         variants={
             '7-man': RegularChessVariant()
-        }),
+        },
+        gui_status='v2'),
     
     '3spot': Game(
         name='3-Spot',
@@ -152,8 +170,10 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='3spot',
                 data_provider_variant_id=-1,
-                status='available')
-        }),
+                status='available',
+                gui_status='v2')
+        },
+        gui_status='v2'),
     
     'Lgame': Game(
         name='L-game',
@@ -165,8 +185,10 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='Lgame',
                 data_provider_variant_id=-1,
-                status='available')
-        }),
+                status='available',
+                gui_status='v2')
+        },
+        gui_status='v2'),
     
     'ctoi': Game(
         name='Chung-Toi',
@@ -178,8 +200,10 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='ctoi',
                 data_provider_variant_id=-1,
-                status='available')
-        }),
+                status='available',
+                gui_status='v2')
+        },
+        gui_status='v2'),
     
     '369mm': Game(
         name="Nine Men's Morris",
@@ -191,7 +215,8 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='369mm',
                 data_provider_variant_id=12,
-                status='available'
+                status='available',
+                gui_status='v2'
             ),
             '6mmNoFly':  GameVariant(
                 name="Standard 6 Men's Morris",
@@ -199,9 +224,11 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='369mm',
                 data_provider_variant_id=6,
-                status='available'
+                status='available',
+                gui_status='v2'
             )
-        }),
+        },
+        gui_status='v2'),
     
     'topitop': Game(
         name="Topitop",
@@ -213,9 +240,11 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='topitop',
                 data_provider_variant_id=-1,
-                status='available'
+                status='available',
+                gui_status='v2'
             )
-        }),
+        },
+        gui_status='v2'),
 
     'dodgem': Game(
         name='Dodgem',
@@ -227,8 +256,10 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='dodgem',
                 data_provider_variant_id=-1,
-                status='available')
-        }),
+                status='available',
+                gui_status='v2')
+        },
+        gui_status='v2'),
     
     'baghchal': Game(
         name='Bagh-Chal',
@@ -240,29 +271,10 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='baghchal',
                 data_provider_variant_id=5,
-                status='available'),
-            '4x4NonDiag': GameVariant(
-                name='4x4NonDiag',
-                desc='4x4NonDiag',
-                data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='baghchal',
-                data_provider_variant_id=2,
-                status='available'),
-            '3x3Diag': GameVariant(
-                name='3x3Diag',
-                desc='3x3Diag',
-                data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='baghchal',
-                data_provider_variant_id=1,
-                status='available'),
-            '3x3NonDiag': GameVariant(
-                name='3x3NonDiag',
-                desc='3x3NonDiag',
-                data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='baghchal',
-                data_provider_variant_id=0,
-                status='available')
-        }),
+                status='available',
+                gui_status='v2')
+        },
+        gui_status='v2'),
     
     'tootnottopy': Game(
         name='Toot-N-Otto',
@@ -271,22 +283,25 @@ games = {
             '4': TootNOtto(4),
             '5': TootNOtto(5),
             '6': TootNOtto(6)
-        }),
+        },
+        gui_status='v2'),
     
     'chomp': Game(
         name='Chomp',
         desc='Players take turn eating chocolate',
         variants={
-            '3x2': JSONGameVariant(os.path.join(dirname, 'solutions/chomp/3x2.json')),
-            '4x7': JSONGameVariant(os.path.join(dirname, 'solutions/chomp/4x7.json')),
-        }
+            '3x2': JSONGameVariant(os.path.join(dirname, 'solutions/chomp/3x2.json'), gui_status='v2'),
+            '4x7': JSONGameVariant(os.path.join(dirname, 'solutions/chomp/4x7.json'), gui_status='v2'),
+        },
+        gui_status='v2'
     ),
     
     'dawsonschess': Game(
         name='Dawson\'s Chess',
         desc='Players take turns blocking out spaces on the board.',
         variants={},
-        custom_variant=dawsonschess_custom_start
+        custom_variant=dawsonschess_custom_start,
+        gui_status='v2'
     ),
     
     'snake': Game(
@@ -299,8 +314,11 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='snake',
                 data_provider_variant_id=-1,
-                status='available')
-    }),
+                status='available',
+                gui_status='v2')
+            },
+        gui_status='v2'
+        ),
     
     'connect4c': Game(
         name='Connect 4',
@@ -312,15 +330,18 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='connect4',
                 data_provider_variant_id=1,
-                status='dev'),
+                status='dev',
+                gui_status='v2'),
             '6x7': GameVariant(
                 name='6x7',
                 desc='6x7',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='connect4',
                 data_provider_variant_id=2,
-                status='dev')
-    }),
+                status='dev',
+                gui_status='v2')
+    },
+    gui_status='v2'),
     
     'mancala': Game(
         name='Mancala',
@@ -332,8 +353,10 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='mancala',
                 data_provider_variant_id=-1,
-                status='dev')
-        }),
+                status='dev',
+                gui_status='v0')
+        },
+        gui_status='v0'),
     
     'sim': Game(
         name='Sim',
@@ -345,8 +368,10 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='sim',
                 data_provider_variant_id=-1,
-                status='dev')
-        }),
+                status='dev',
+                gui_status='v0')
+        },
+        gui_status='v0'),
     
     'dao': Game(
         name='Dao',
@@ -358,50 +383,10 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='dao',
                 data_provider_variant_id=-1,
-                status='dev')
-        }),
-
-    'foxes': Game(
-        name='Fox & Geese',
-        desc="Initially set up with seventeen geese G and one fox F. First player G, second player F. Players take turns moving a goose or fox to an adjacent spot. Geese are allowed to move one square left, right or down, while the fox can move either left, right, up, or down. The fox may also capture a goose on his turn by jumping over the goose that is in his immediate path.",
-        variants={
-            'regular': GameVariant(
-                name='Regular',
-                desc='Regular',
-                data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='foxes',
-                data_provider_variant_id=-1,
-                status='dev')
+                status='dev',
+                gui_status='v1')
         },
-        status = 'unavailable'),
-
-    'dnb': Game(
-        name='Dots & Boxes',
-        desc="Players take turns connecting horizontal or vertical lines between dots. Box has a designated owner once four sides have been connected. Wins when a player has the majority of the boxes.",
-        variants={
-            'regular': GameVariant(
-                name='Regular',
-                desc='Regular',
-                data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='dnb',
-                data_provider_variant_id=-1,
-                status='dev')
-        },
-        status = 'unavailable'),
-    
-    'tilechess': Game(
-        name='Tile Chess',
-        desc="A chess variant (with slightly different valid moves). Wins when checkmate opponent's King.",
-        variants={
-            'regular': GameVariant(
-                name='Regular',
-                desc='Regular',
-                data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='tilechess',
-                data_provider_variant_id=-1,
-                status='dev')
-        },
-        status = 'unavailable'),
+        gui_status='v1'),
 
     'swans': Game(
         name='Dragons & Swans',
@@ -413,29 +398,34 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='swans',
                 data_provider_variant_id=-1,
-                status='dev'),
+                status='dev',
+                gui_status='v1'),
             '2': GameVariant(
                 name='2 Dragons',
                 desc='2 Dragons',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='swans',
                 data_provider_variant_id=5,
-                status='dev'),
+                status='dev',
+                gui_status='v1'),
             '3': GameVariant(
                 name='3 Dragons',
                 desc='3 Dragons',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='swans',
                 data_provider_variant_id=9,
-                status='dev'),
+                status='dev',
+                gui_status='v1'),
             '4': GameVariant(
                 name='4 Dragons',
                 desc='4 Dragons',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='swans',
                 data_provider_variant_id=13,
-                status='dev')
-        }),
+                status='dev',
+                gui_status='v1')
+        },
+        gui_status='v1'),
 
     'quickchess': Game(
         name='Quick Chess',
@@ -447,8 +437,10 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='quickchess',
                 data_provider_variant_id=-1,
-                status='dev')
-        }),
+                status='dev',
+                gui_status='v1')
+        },
+        gui_status='v1'),
 
     'othello': Game(
         name='Othello',
@@ -460,22 +452,10 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='othello',
                 data_provider_variant_id=-1,
-                status='dev')
-        }),
-
-    'ago': Game(
-        name='Atari Go',
-        desc="A move consists of the player putting one of their pieces on an empty intersection of the board. The first player to capture one or more pieces (depending on how many pieces you and your opponent want) wins. The rules are similar to those of regular Go. Black player makes first move. Players alternative placing stones onto the board. Pieces on the board cannot be moved unless captured. Capturing happens when one of your or your opponent's piece is surrounded.",
-        variants={
-            'regular': GameVariant(
-                name='Regular',
-                desc='Regular',
-                data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='ago',
-                data_provider_variant_id=-1,
-                status='dev')
+                status='dev',
+                gui_status='v1')
         },
-        status = 'unavailable'),
+        gui_status='v1'),
 
     'connect4': Game(
         name='Connect 4 (Java)',
@@ -485,90 +465,105 @@ games = {
                 width=4,
                 height=4,
                 pieces=4,
-                status='dev'
+                status='dev',
+                gui_status='v1'
             ),
             '4x5x4': GamesmanJavaConnect4GameVariant(
                 width=4,
                 height=5,
                 pieces=4,
-                status='dev'
+                status='dev',
+                gui_status='v1'
             ),
             '4x6x4': GamesmanJavaConnect4GameVariant(
                 width=4,
                 height=6,
                 pieces=4,
-                status='dev'
+                status='dev',
+                gui_status='v1'
             ),
             '5x4x4': GamesmanJavaConnect4GameVariant(
                 width=5,
                 height=4,
                 pieces=4,
-                status='dev'
+                status='dev',
+                gui_status='v1'
             ),
             '5x5x4': GamesmanJavaConnect4GameVariant(
                 width=5,
                 height=5,
                 pieces=4,
-                status='dev'
+                status='dev',
+                gui_status='v1'
             ),
             '5x6x4': GamesmanJavaConnect4GameVariant(
                 width=5,
                 height=6,
                 pieces=4,
-                status='dev'
+                status='dev',
+                gui_status='v1'
             ),
             '6x4x4': GamesmanJavaConnect4GameVariant(
                 width=6,
                 height=4,
                 pieces=4,
-                status='dev'
+                status='dev',
+                gui_status='v1'
             ),
             '6x5x4': GamesmanJavaConnect4GameVariant(
                 width=6,
                 height=5,
                 pieces=4,
-                status='dev'
+                status='dev',
+                gui_status='v1'
             ),
             '6x6x4': GamesmanJavaConnect4GameVariant(
                 width=6,
                 height=6,
                 pieces=4,
-                status='unavailable'
+                status='unavailable',
+                gui_status='v0'
             ),
             '7x4x4': GamesmanJavaConnect4GameVariant(
                 width=7,
                 height=4,
                 pieces=4,
-                status='dev'
+                status='dev',
+                gui_status='v0'
             ),
             '7x5x4': GamesmanJavaConnect4GameVariant(
                 width=7,
                 height=5,
                 pieces=4,
-                status='dev'
+                status='dev',
+                gui_status='v0'
             ),
             '7x6x4': GamesmanJavaConnect4GameVariant(
                 width=7,
                 height=6,
                 pieces=4,
-                status='unavailable'
+                status='unavailable',
+                gui_status='v0'
             ),
-        }),
+        },
+        gui_status='v1'),
 
     'nim': Game(
         name='Nim',
         desc='Players take turns taking sticks from a pile',
         variants={
-            '3_3_3': JSONGameVariant(os.path.join(dirname, 'solutions/nim/3_3_3.json')),
+            '3_3_3': JSONGameVariant(os.path.join(dirname, 'solutions/nim/3_3_3.json'), gui_status='v1'),
         },
-        custom_variant=nim_custom_start
+        custom_variant=nim_custom_start,
+        gui_status='v1'
     ),
 
     'kayles': Game(
         name='Kayles',
         desc='Players take turns blocking out one or two adjacent spaces on the board.',
         variants={},
-        custom_variant=kayles_custom_start
+        custom_variant=kayles_custom_start,
+        gui_status='v1'
     ),
     
     'abalone': Game(
@@ -581,8 +576,10 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='abalone',
                 data_provider_variant_id=-1,
-                status='dev')
-        }),
+                status='dev',
+                gui_status='v0')
+        },
+        gui_status='v0'),
     
     '0to10by1or2': Game(
         name='0 to 10 by 1 or 2',
@@ -594,28 +591,10 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='1210',
                 data_provider_variant_id=-1,
-                status='dev')
-        }),
-
-    '0ton': Game(
-        name='0 to n by 1 or 2',
-        desc="A player may either place 1 or 2 pieces on their turn. Wins when player reaches n (n is chosen by the players).",
-        variants={
-            '10': GameVariant(
-                name='10',
-                desc='Wins when player reaches 10.',
-                data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='1ton',
-                data_provider_variant_id=-1,
-                status='dev')
-        }),
-
-    'nto0': Game(
-        name='n to 0 by 1 or 2',
-        desc='A player may either take 1 or 2 pieces on their turn. Wins when player reaches 0.',
-        variants={
-            '4': JSONGameVariant(os.path.join(dirname, 'solutions/nto0/4to0.json'))
-        }),
+                status='dev',
+                gui_status='v0')
+        },
+        gui_status='v0'),
 
     'ooe': Game(
         name='Odd or Even',
@@ -627,8 +606,10 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='ooe',
                 data_provider_variant_id=-1,
-                status='dev')
-        }),
+                status='dev',
+                gui_status='v0')
+        },
+        gui_status='v0'),
     
     'ttt3d': Game(
         name='3D Tic-Tac-Toe',
@@ -638,6 +619,8 @@ games = {
                 name='3x3x2',
                 desc='3x3x2',
                 filepath=os.path.join(dirname, 'solutions/ttt3d/3x3x2.txt'),
-                status='dev')
-        }),
+                status='dev',
+                gui_status='v0')
+        },
+        gui_status='v0'),
 }
