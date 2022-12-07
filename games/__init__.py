@@ -343,6 +343,22 @@ games = {
     },
     gui_status='v2'),
     
+    'tactix': Game(
+        name='Tac Tix',
+        desc="2D Nim",
+        variants={
+            'regular': GameVariant(
+                name='Regular',
+                desc='Regular',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='tactix',
+                data_provider_variant_id=1,
+                status='available',
+                gui_status='v2')
+            },
+        gui_status='v2'
+        ),
+    
     'mancala': Game(
         name='Mancala',
         desc="Choose one of your bins (cannot be an empty bin or the mancala). This disperses your stones counterclockwise around the board from that bin. Game ends when all the stones are contained in the two mancalas, and the player whose mancala contains more stones wins.",
