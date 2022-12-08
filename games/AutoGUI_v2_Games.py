@@ -88,6 +88,7 @@ def get_baghchal(variant_id):
                 "stolen_art": {
                     "backgroundGeometry": [6, 7],
                     "backgroundImage": "baghchal/grid5Diag.svg",
+                    "arrowThickness": 0.05,
                     "centers": [[1 + (i % 5), 1 + (i // 5)] for i in range(25)] + [[3.3,5.7], [3.5,5.7], [-1,-1], [3.4,6.1], [3.6,6.1]],
                     "pieces": {
                         "G": {
@@ -628,11 +629,11 @@ def get_369mm(variant_id):
                         },
                         "B": {
                             "image": "369mm/X.svg",
-                            "scale": 130.0
+                            "scale": 28.6
                         },
                         "W": {
                             "image": "369mm/O.svg",
-                            "scale": 130.0
+                            "scale": 28.6
                         },
                         "-": {
                             "image": "369mm/-.svg",
@@ -1362,6 +1363,7 @@ def get_dodgem(variant_id):
                         4,
                         4
                     ],
+                    "piecesOverArrows": True,
                     "backgroundImage": "dodgem/grid.svg",
                     "centers": [
                         [
@@ -2473,6 +2475,7 @@ def get_chess(variant_id):
             "themes": {
                 "regular": {
                     "backgroundGeometry": [8, 8],
+                    "arrowThickness": 0.1,
                     "backgroundImage": "chess/grid.svg",
                     "centers": [[0.5 + (i % 8), 0.5 + (i // 8)] for i in range(64)],
                     "pieces": {k: {"image": "chess/{}.svg".format(v), "scale": 1} for (k, v) in pieces.items()}
@@ -2488,6 +2491,7 @@ def get_snake(variant_id):
         "themes": {
             "slither": {
                 "backgroundGeometry": [4, 4],
+                "piecesOverArrows": True,
                 "backgroundImage": "snake/background.svg",
                 "centers": [[0.5 + i % 4, 0.5 + i // 4] for i in range(16)],
                 "pieces": {
@@ -2569,6 +2573,7 @@ def get_mutorere(variant_id):
         "themes": {
             "octagon": {
                 "backgroundGeometry": [100, 100],
+                "piecesOverArrows": True,
                 "backgroundImage": "mutorere/board.svg",
                 "centers": [
                     [50 + 17 * x, 50 + 17 * y] for x, y in 
@@ -2594,27 +2599,29 @@ def get_achi(variant_id):
         "defaultTheme": "basic",
         "themes": {
             "basic": {
-                "backgroundGeometry": [108, 108],
+                "backgroundGeometry": [100, 100],
                 "backgroundImage": "achi/achiboard.svg",
+                "piecesOverArrows": True,
+                "defaultMoveTokenRadius": 6.5,
                 "centers": [
-                    [4, 4],
-                    [54, 4],
-                    [104, 4],
-                    [4, 54],
-                    [54, 54],
-                    [104, 54],
-                    [4, 104],
-                    [54, 104],
-                    [104, 104],
+                    [10, 10],
+                    [50, 10],
+                    [90, 10],
+                    [10, 50],
+                    [50, 50],
+                    [90, 50],
+                    [10, 90],
+                    [50, 90],
+                    [90, 90],
                 ],
                 "pieces": {
                     "x": {
                         "image": "369mm/X.svg",
-                        "scale": 40
+                        "scale": 15
                     },
                     "o": {
                         "image": "369mm/O.svg",
-                        "scale": 40
+                        "scale": 15
                     }
                 }
             }
@@ -2631,41 +2638,42 @@ def get_dinododgem(variant_id):
                         6,
                         6
                     ],
+                    "piecesOverArrows": True,
                     "backgroundImage": "dinododgem/new_grid.svg",
                     "centers": [
-                        [5.5, 0.5],
-                        [4.5, 0.5],
-                        [3.5, 0.5],
-                        [2.5, 0.5],
-                        [1.5, 0.5],
-                        [5.5, 1.5],
-                        [4.5, 1.5],
-                        [3.5, 1.5],
-                        [2.5, 1.5],
-                        [1.5, 1.5],
-                        [5.5, 2.5],
-                        [4.5, 2.5],
-                        [3.5, 2.5],
-                        [2.5, 2.5],
-                        [1.5, 2.5],
-                        [5.5, 3.5],
-                        [4.5, 3.5],
-                        [3.5, 3.5],
-                        [2.5, 3.5],
-                        [1.5, 3.5],
-                        [5.5, 4.5],
-                        [4.5, 4.5],
-                        [3.5, 4.5],
-                        [2.5, 4.5],
-                        [1.5, 4.5],
-                        [0.5, 1.5],
-                        [0.5, 2.5],
-                        [0.5, 3.5],
+                        [0.5, 5.5],
                         [0.5, 4.5],
+                        [0.5, 3.5],
+                        [0.5, 2.5],
+                        [0.5, 1.5],
                         [1.5, 5.5],
+                        [1.5, 4.5],
+                        [1.5, 3.5],
+                        [1.5, 2.5],
+                        [1.5, 1.5],
                         [2.5, 5.5],
+                        [2.5, 4.5],
+                        [2.5, 3.5],
+                        [2.5, 2.5],
+                        [2.5, 1.5],
                         [3.5, 5.5],
-                        [4.5, 5.5]
+                        [3.5, 4.5],
+                        [3.5, 3.5],
+                        [3.5, 2.5],
+                        [3.5, 1.5],
+                        [4.5, 5.5],
+                        [4.5, 4.5],
+                        [4.5, 3.5],
+                        [4.5, 2.5],
+                        [4.5, 1.5],
+                        [1.5, 0.5],
+                        [2.5, 0.5],
+                        [3.5, 0.5],
+                        [4.5, 0.5],
+                        [5.5, 1.5],
+                        [5.5, 2.5],
+                        [5.5, 3.5],
+                        [5.5, 4.5]
                     ],
                     "pieces": {
                         "x": {
@@ -2681,7 +2689,6 @@ def get_dinododgem(variant_id):
             }
         }
     }.get(variant_id, None)
-
 
 def get_tactix(variant_id):
     if variant_id != 'regular':

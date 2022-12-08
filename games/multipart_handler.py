@@ -149,7 +149,7 @@ def multipart_solve(position, input_dict, output_type=0):
                 'move': e.part_move,
                 'board': e.to_node.board,
                 'moveValue': e.to_node.value,
-                'value': e.to_node.value if e.to_node.mp_remoteness else {'lose': 'win', 'tie': 'tie', 'win': 'lose'}[e.to_node.value],
+                'value': e.to_node.value if e.to_node.mp_remoteness else {'lose': 'win', 'tie': 'tie', 'win': 'lose', 'draw': 'draw'}[e.to_node.value],
                 'remoteness': e.to_node.remoteness,
                 'moveName': move_name
                 #'isTerminal': move_name != None
