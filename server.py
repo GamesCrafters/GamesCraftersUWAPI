@@ -129,7 +129,7 @@ def wrangle_next_stats(next_stats):
 
 @app.route("/games/")
 def handle_games():
-    return format_response_ok([
+    response = [
         {
             'gameId': game_id,
             'name': game.name,
@@ -137,7 +137,9 @@ def handle_games():
             'gui_status': game.gui_status
         }
         for (game_id, game) in games.items() if game.status == 'available'
-    ])
+    ]
+    response.sort(key=lambda g: g['name'])
+    return format_response_ok(response)
 
 
 @app.route("/games/<game_id>/")
