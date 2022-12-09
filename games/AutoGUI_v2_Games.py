@@ -2602,6 +2602,7 @@ def get_achi(variant_id):
                 "backgroundGeometry": [100, 100],
                 "backgroundImage": "achi/achiboard.svg",
                 "piecesOverArrows": True,
+                "arrowThickness": 4,
                 "defaultMoveTokenRadius": 6.5,
                 "centers": [
                     [10, 10],
