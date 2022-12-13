@@ -360,6 +360,7 @@ def get_369mm(variant_id):
                         300
                     ],
                     "backgroundImage": "369mm/board.svg",
+                    "arrowThickness": 5,
                     "centers": [
                         [
                             145,
@@ -1644,6 +1645,7 @@ def get_stt(variant_id):
                         9,
                         6
                     ],
+                    "arrowThickness": 0.15,
                     "foregroundImage": "stt/foreground.svg",
                     "centers": [
                         [
@@ -2640,6 +2642,7 @@ def get_dinododgem(variant_id):
                         6
                     ],
                     "piecesOverArrows": True,
+                    "arrowThickness": 0.09,
                     "backgroundImage": "dinododgem/new_grid.svg",
                     "centers": [
                         [0.5, 5.5],
@@ -2683,6 +2686,62 @@ def get_dinododgem(variant_id):
                         },
                         "o": {
                             "image": "dinododgem/triceratops.svg",
+                            "scale": 1.0
+                        }
+                    }
+                }
+            }
+        }
+    }.get(variant_id, None)
+    
+def get_quickchess(variant_id):
+    return {
+        "regular": {
+            "defaultTheme": "regular",
+            "themes": {
+                "regular": {
+                    "backgroundGeometry": [
+                        4,
+                        3
+                    ],
+                    "backgroundImage": "quickchess/grid.svg",
+                    "centers": [
+                        [0.5, 0.5],
+                        [0.5, 1.5],
+                        [0.5, 2.5],
+                        [1.5, 0.5],
+                        [1.5, 1.5],
+                        [1.5, 2.5],
+                        [2.5, 0.5],
+                        [2.5, 1.5],
+                        [2.5, 2.5],
+                        [3.5, 0.5],
+                        [3.5, 1.5],
+                        [3.5, 2.5],
+                    ],
+                    "pieces": {
+                        "Q": {
+                            "image": "chess/Q.svg",
+                            "scale": 1.0
+                        },
+                        "R": {
+                            "image": "chess/R.svg",
+                            "scale": 1.0
+                        },
+                        "K": {
+                            "image": "chess/K.svg",
+                            "scale": 1.0
+                        },
+                        "q": {
+                            "image": "chess/qq.svg",
+                            "scale": 1.0
+                        },
+                        "r": {
+                            "image": "chess/rr.svg",
+                            "scale": 1.0
+                        },
+                        "k": {
+                            "image": "chess/kk.svg",
                             "scale": 1.0
                         }
                     }
@@ -2736,7 +2795,8 @@ autoGUIv2DataFuncs = {
     "mutorere": get_mutorere,
     "achi": get_achi,
     "dinododgem": get_dinododgem,
-    "tactix": get_tactix
+    "tactix": get_tactix,
+    "quickchess": get_quickchess
 }
 
 def get_autoguiV2Data(game_id, variant_id):

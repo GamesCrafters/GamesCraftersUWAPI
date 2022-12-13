@@ -9,8 +9,8 @@ from .multipart_handler import multipart_solve
 class GamesmanClassicDataProvider(DataProvider):
     # Use first url when running on a different machine,
     # use second when running on main gamesman server.
-    #url = "http://nyc.cs.berkeley.edu:8083/"
-    url = "http://localhost:8083/"
+    url = "http://nyc.cs.berkeley.edu:8083/"
+    #url = "http://localhost:8083/"
 
     @staticmethod
     def start_position(game_id, variant_id):
@@ -22,6 +22,8 @@ class GamesmanClassicDataProvider(DataProvider):
             game_id, position, variant_id)
         stat['position'] = stat.pop('board')
         stat['positionValue'] = stat.pop('value')
+        if stat['positionValue'] == 'tie' and stat['remoteness'] == 255:
+            stat['positionValue'] = 'draw'
         return stat
 
     @staticmethod
@@ -30,6 +32,8 @@ class GamesmanClassicDataProvider(DataProvider):
             # Rename members
             next_stat['position'] = next_stat.pop('board')
             next_stat['positionValue'] = next_stat.pop('value')
+            if next_stat['positionValue'] == 'tie' and next_stat['remoteness'] == 255:
+                next_stat['positionValue'] = 'draw'
             if 'fromPos' in next_stat:
                 next_stat.pop('fromPos')
             return next_stat
@@ -43,6 +47,8 @@ class GamesmanClassicDataProvider(DataProvider):
             
         stat['position'] = stat.pop('board')
         stat['positionValue'] = stat.pop('value')
+        if stat['positionValue'] == 'tie' and stat['remoteness'] == 255:
+            stat['positionValue'] = 'draw'
         stat['moves'] = list(map(wrangle_next_stat,list(filter(filter_multipart_by_frompos, stat['moves']))))
         return stat
 
@@ -119,7 +125,10 @@ class GamesmanClassicDataProvider(DataProvider):
             if "response" not in content:
                 return None
             if "multipart" in content["response"]: # Response includes multipart move data.
-                content["response"]["moves"] = multipart_solve(board, content["response"])
+                v, r, m = multipart_solve(board, content["response"])
+                content["response"]["value"] = v
+                content["response"]["remoteness"] = r
+                content["response"]["moves"] = m
                 content["response"].pop("multipart")
             return content["response"]
 

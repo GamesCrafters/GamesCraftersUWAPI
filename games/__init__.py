@@ -460,7 +460,7 @@ games = {
                 data_provider_game_id='369mm',
                 data_provider_variant_id=6,
                 status='available',
-                gui_status='v2'
+                gui_status='v1'
             )
         },
         gui_status='v2'),
@@ -505,10 +505,10 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='quickchess',
                 data_provider_variant_id=-1,
-                status='dev',
-                gui_status='v1')
+                status='available',
+                gui_status='v2')
         },
-        gui_status='v1'),
+        gui_status='v2'),
     
     'sim': Game(
         name='Sim',
