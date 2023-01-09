@@ -301,6 +301,61 @@ games = {
         },
         gui_status='v2'),
     
+    'haregame': Game(
+        name='Hare and Hounds',
+        desc="One player controls the three hounds. The other player controls the hare. The hound player can move one of the three hounds to an empty spot each turn with the restriction of no backward moves. The hare player can move the hare to any adjacent empty spot. The hare wins by reaching the left-most cell. The hounds win if the hare is unable to move on their turn.",
+        variants={
+            's-hounds-first': GameVariant(
+                name='Small, Hounds First',
+                desc='Small, Hounds First',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='haregame',
+                data_provider_variant_id=1,
+                status='stable',
+                gui_status='v2'),
+            's-hare-first': GameVariant(
+                name='Small, Hare First',
+                desc='Small, Hare First',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='haregame',
+                data_provider_variant_id=2,
+                status='stable',
+                gui_status='v2'),
+            'm-hounds-first': GameVariant(
+                name='Medium, Hounds First',
+                desc='Medium, Hounds First',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='haregame',
+                data_provider_variant_id=3,
+                status='stable',
+                gui_status='v2'),
+            'm-hare-first': GameVariant(
+                name='Medium, Hare First',
+                desc='Medium, Hare First',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='haregame',
+                data_provider_variant_id=4,
+                status='stable',
+                gui_status='v2'),
+            'l-hounds-first': GameVariant(
+                name='Large, Hounds First',
+                desc='Large, Hounds First',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='haregame',
+                data_provider_variant_id=5,
+                status='stable',
+                gui_status='v2'),
+            'l-hare-first': GameVariant(
+                name='Large, Hare First',
+                desc='Large, Hare First',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='haregame',
+                data_provider_variant_id=6,
+                status='stable',
+                gui_status='v2')
+        },
+        gui_status='v2'),
+    
     'swans': Game(
         name='Dragons & Swans',
         desc="Swan places a piece onto the board if there are remaining pieces from the initial pile, otherwise move piece to an orthogonally adjacent empty board position. Dragon can either move a piece to an orthogonally adjacent empty square, or captures a swan by jumping over it to an empty square the other side. Swans wins when they surround all the dragons and dragons win when they eat all the swans.",

@@ -2514,6 +2514,78 @@ def get_snake(variant_id):
         }
     }
 
+def get_haregame(variant_id):
+    if variant_id == 's-hounds-first' or variant_id == "s-hare-first":
+        return {
+            "defaultTheme": "regular",
+            "themes": {
+                "regular": {
+                    "backgroundGeometry": [180, 100],
+                    "piecesOverArrows": True,
+                    "arrowThickness": 2,
+                    "backgroundImage": "haregame/boardsmall.svg",
+                    "centers": [[10, 50]] + [[40*i + 50, 40*j + 10] for i in range(3) for j in range(3)] + [[170, 50]],
+                    "pieces": {
+                        "d": {
+                            "image": "haregame/d.svg",
+                            "scale": 20
+                        },
+                        "r": {
+                            "image": "haregame/r.svg",
+                            "scale": 20
+                        }
+                    }
+                }
+            }
+        }
+    elif variant_id == 'm-hounds-first' or variant_id == "m-hare-first":
+        return {
+            "defaultTheme": "regular",
+            "themes": {
+                "regular": {
+                    "backgroundGeometry": [260, 100],
+                    "piecesOverArrows": True,
+                    "arrowThickness": 2,
+                    "backgroundImage": "haregame/boardmedium.svg",
+                    "centers": [[10, 50]] + [[40*i + 50, 40*j + 10] for i in range(5) for j in range(3)] + [[250, 50]],
+                    "pieces": {
+                        "d": {
+                            "image": "haregame/d.svg",
+                            "scale": 20
+                        },
+                        "r": {
+                            "image": "haregame/r.svg",
+                            "scale": 20
+                        }
+                    }
+                }
+            }
+        }
+    elif variant_id == 'l-hounds-first' or variant_id == "l-hare-first":
+        return {
+            "defaultTheme": "regular",
+            "themes": {
+                "regular": {
+                    "backgroundGeometry": [340, 100],
+                    "piecesOverArrows": True,
+                    "arrowThickness": 2,
+                    "backgroundImage": "haregame/boardlarge.svg",
+                    "centers": [[10, 50]] + [[40*i + 50, 40*j + 10] for i in range(7) for j in range(3)] + [[330, 50]],
+                    "pieces": {
+                        "d": {
+                            "image": "haregame/d.svg",
+                            "scale": 20
+                        },
+                        "r": {
+                            "image": "haregame/r.svg",
+                            "scale": 20
+                        }
+                    }
+                }
+            }
+        }
+    return None
+
 def get_connect4c(variant_id):
     if variant_id == '6x6':
         return {
@@ -2796,7 +2868,8 @@ autoGUIv2DataFuncs = {
     "achi": get_achi,
     "dinododgem": get_dinododgem,
     "tactix": get_tactix,
-    "quickchess": get_quickchess
+    "quickchess": get_quickchess,
+    "haregame": get_haregame
 }
 
 def get_autoguiV2Data(game_id, variant_id):
