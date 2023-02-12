@@ -550,6 +550,21 @@ games = {
         },
         gui_status='v1'),
     
+    'quarto': Game(
+        name='Quarto',
+        desc='Make a four-in-a-row of pieces with common attributes.',
+        variants={
+            'regular': GameVariant(
+                name='Regular',
+                desc='Regular',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='quarto',
+                data_provider_variant_id=-1,
+                status='available',
+                gui_status='v2')
+        },
+        gui_status='v2'),
+    
     'quickchess': Game(
         name='Quick Chess',
         desc="Wins when you checkmate opponent's King.",
