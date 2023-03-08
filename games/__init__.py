@@ -15,6 +15,25 @@ dirname = os.path.dirname(__file__)
 
 games = {
     
+
+   'quickcross': Game(   
+       name='Quick Cross',
+       desc="Place your piece (vertically/horizontally) onto an open square (looks like a + sign) or rotate an existing piece. " +
+       "Wins when you connect 4 in a row horizontally, vertically, or diagonally.",
+       variants={
+           'regular': GameVariant(
+               name='Regular',
+               desc='Regular',
+               data_provider=GamesmanClassicDataProvider,
+               data_provider_game_id='qx',
+               data_provider_variant_id=9,
+               gui_status='v2',
+               status='stable'),
+       }, 
+       gui_status='v2'),
+  
+
+    
     '0to10by1or2': Game(
         name='0 to 10 by 1 or 2',
         desc="A player may either place 1 or 2 pieces on their turn. Wins when player reaches 10.",
