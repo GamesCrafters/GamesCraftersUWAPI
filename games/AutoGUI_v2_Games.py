@@ -2517,6 +2517,32 @@ def get_snake(variant_id):
 def get_quickcross(variant_id):
     if variant_id != "regular": # 4x4 variant (option-9)
         return None
+    
+    center_maps = [
+            [47.5, 48.75], #0
+            [140.5, 48.75],#1
+            [234, 48.75], #2
+            [327, 48.5], #3
+            [47.5, 141.75], #4
+            [140.5, 141.75],#5
+            [234, 141.75], #6
+            [327, 141.75], #7
+            [47.5, 235], #8
+            [140.5, 235], #9
+            [234, 235],#10
+            [327, 235], #11
+            [47.5, 328.2], #12
+            [140.5, 328.2], #13
+            [234, 328.2], #14
+            [327, 328.2], #15
+        ]
+    width = 27.5
+    left_cross = [[center_maps[i][0] - width, center_maps[i][1]] for i in range(len(center_maps))]
+    right_cross = [[center_maps[i][0] + width, center_maps[i][1]] for i in range(len(center_maps))]
+    top_cross = [[center_maps[i][0], center_maps[i][1] - width] for i in range(len(center_maps))]
+    bottom_cross = [[center_maps[i][0], center_maps[i][1] + width] for i in range(len(center_maps))]
+    mapping_list = center_maps + left_cross + right_cross + top_cross + bottom_cross
+
     return {
         "defaultTheme": "moffitt", #because Cameron and Arihant worked in Moffitt
         "themes": {
@@ -2528,38 +2554,19 @@ def get_quickcross(variant_id):
                 #centers[32->47]: right coordinate for horizontal piece
                 #centers[48->63]: top coordinate for vertical piece
                 #centers[64->79]: bottom coordinate for vertical piece.
-                "centers": [[47.5, 48.5], [140.5, 48.5], [234, 48.5], [327, 48.5], 
-                            [47.5, 141.5], [140.5, 141.5], [234, 141.5], [327, 141.5], 
-                            [47.5, 234.5], [140.5, 234.5], [234, 234.5], [327, 234.5], 
-                            [47.5, 328], [140.5, 328], [234, 328], [327, 328], 
-                            [20.0, 48.5], [113.0, 48.5], [206.5, 48.5], [299.5, 48.5], 
-                            [20.0, 141.5], [113.0, 141.5], [206.5, 141.5], [299.5, 141.5],
-                            [20.0, 234.5], [113.0, 234.5], [206.5, 234.5], [299.5, 234.5],
-                            [20.0, 328], [113.0, 328], [206.5, 328], [299.5, 328], 
-                            [75.0, 48.5], [168.0, 48.5], [261.5, 48.5], [354.5, 48.5], 
-                            [75.0, 141.5], [168.0, 141.5], [261.5, 141.5], [354.5, 141.5], 
-                            [75.0, 234.5], [168.0, 234.5], [261.5, 234.5], [354.5, 234.5],
-                            [75.0, 328], [168.0, 328], [261.5, 328], [354.5, 328],
-                            [47.5, 21.0], [140.5, 21.0], [234, 21.0], [327, 21.0],
-                            [47.5, 114.0], [140.5, 114.0], [234, 114.0], [327, 114.0], 
-                            [47.5, 207.0], [140.5, 207.0], [234, 207.0], [327, 207.0], 
-                            [47.5, 300.5], [140.5, 300.5], [234, 300.5], [327, 300.5],
-                            [47.5, 76.0], [140.5, 76.0], [234, 76.0], [327, 76.0],
-                            [47.5, 169.0], [140.5, 169.0], [234, 169.0], [327, 169.0],
-                            [47.5, 262.0], [140.5, 262.0], [234, 262.0], [327, 262.0], 
-                            [47.5, 355.5], [140.5, 355.5], [234, 355.5], [327, 355.5]],
+                "centers": mapping_list,
                 "pieces": {
                     "v": {
                         "image": "quickcross/V.svg",
-                        "scale": 1.0
+                        "scale": 70.0
                     },
                     "h": {
                         "image": "quickcross/H.svg",
-                        "scale": 1.0
+                        "scale": 70.0
                     },
                     "r": {
                         "image": "quickcross/rotate.svg",
-                        "scale": 1.0
+                        "scale": 30.0
                     }
                 }
             }
