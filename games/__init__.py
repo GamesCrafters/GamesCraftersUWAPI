@@ -319,7 +319,46 @@ games = {
                 gui_status='v2')
         },
         gui_status='v2'),
-    
+
+    'gameofy': Game(
+        name='Game of Y',
+        desc="Place your piece onto an open space. Wins when you connect three in a row horizontally, vertically, or diagonally.",
+        variants={
+            'dim4': GameVariant(
+                name='Dimension 4',
+                desc='Dimension 4',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='gameofy',
+                data_provider_variant_id=0,
+                status='stable',
+                gui_status='v2'),
+            'dim5': GameVariant(
+                name='Dimension 5',
+                desc='Dimension 5',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='gameofy',
+                data_provider_variant_id=1,
+                status='stable',
+                gui_status='v2'),
+            'dim4-misere': GameVariant(
+                name='Dimension 4 Misère',
+                desc='Dimension 4 Misère',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='gameofy',
+                data_provider_variant_id=4,
+                status='stable',
+                gui_status='v2'),
+            'dim5-misere': GameVariant(
+                name='Dimension 5 Misère',
+                desc='Dimension 5 Misère',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='gameofy',
+                data_provider_variant_id=5,
+                status='stable',
+                gui_status='v2'),
+        },
+        gui_status='v2'),
+
     'haregame': Game(
         name='Hare and Hounds',
         desc="One player controls the three hounds. The other player controls the hare. The hound player can move one of the three hounds to an empty spot each turn with the restriction of no backward moves. The hare player can move the hare to any adjacent empty spot. The hare wins by reaching the left-most cell. The hounds win if the hare is unable to move on their turn.",
@@ -722,5 +761,5 @@ games = {
                 gui_status='v2'
             )
         },
-        gui_status='v2') 
+        gui_status='v2'),
 }
