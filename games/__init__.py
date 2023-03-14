@@ -564,10 +564,10 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='othello',
                 data_provider_variant_id=-1,
-                status='dev',
-                gui_status='v1')
+                status='stable',
+                gui_status='v2')
         },
-        gui_status='v1'),
+        gui_status='v2'),
     
     'quarto': Game(
         name='Quarto',

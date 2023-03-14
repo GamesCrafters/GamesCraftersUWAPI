@@ -2903,6 +2903,73 @@ def get_tactix(variant_id):
         }
     }
 
+def get_othello(variant_id):
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "backgroundGeometry": [40, 50],
+                "backgroundImage": "othello/grid.svg",
+                "defaultMoveTokenRadius": 1.5,
+                "centers": [[5, 5], [15, 5], [25, 5], [35, 5],
+                            [5, 15], [15, 15], [25, 15], [35, 15],
+                            [5, 25], [15, 25], [25, 25], [35, 25],
+                            [5, 35], [15, 35], [25, 35], [35, 35],
+                            [8, 45], [12, 45], [-1, -1], [28, 45], [32, 45]],
+                "pieces": {
+                    "B": {
+                        "image": "othello/B.svg",
+                        "scale": 9
+                    },
+                    "W": {
+                        "image": "othello/W.svg",
+                        "scale": 9
+                    },
+                    "0": {
+                        "image": "othello/0.svg",
+                        "scale": 20.0
+                    },
+                    "1": {
+                        "image": "othello/1.svg",
+                        "scale": 20.0
+                    },
+                    "2": {
+                        "image": "othello/2.svg",
+                        "scale": 20.0
+                    },
+                    "3": {
+                        "image": "othello/3.svg",
+                        "scale": 20.0
+                    },
+                    "4": {
+                        "image": "othello/4.svg",
+                        "scale": 20.0
+                    },
+                    "5": {
+                        "image": "othello/5.svg",
+                        "scale": 20.0
+                    },
+                    "6": {
+                        "image": "othello/6.svg",
+                        "scale": 20.0
+                    },
+                    "7": {
+                        "image": "othello/7.svg",
+                        "scale": 20.0
+                    },
+                    "8": {
+                        "image": "othello/8.svg",
+                        "scale": 20.0
+                    },
+                    "9": {
+                        "image": "othello/9.svg",
+                        "scale": 20.0
+                    }
+                }
+            }
+        }
+    }
+
 """
 ===== STEP 2 ===== 
 Add your function to the autoGUIv2DataFuncs dict.
@@ -2931,7 +2998,8 @@ autoGUIv2DataFuncs = {
     "dinododgem": get_dinododgem,
     "tactix": get_tactix,
     "quickchess": get_quickchess,
-    "haregame": get_haregame
+    "haregame": get_haregame,
+    "othello": get_othello
 }
 
 def get_autoguiV2Data(game_id, variant_id):
