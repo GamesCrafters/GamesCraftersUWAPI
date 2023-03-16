@@ -3036,12 +3036,12 @@ def get_beeline(variant_id):
                 ],
                 "pieces": {
                     "W": {
-                        "image": "beeline/blue_circle.svg",
-                        "scale": 0.8
+                        "image": "beeline/yellow_bee.svg",
+                        "scale": 1.4
                     },
                     "B": {
-                        "image": "beeline/red_circle.svg",
-                        "scale": 0.8
+                        "image": "beeline/red_bee.svg",
+                        "scale": 1.4
                     }
                 }
             },
