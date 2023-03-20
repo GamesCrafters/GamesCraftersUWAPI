@@ -86,10 +86,10 @@ def get_baghchal(variant_id):
             "defaultTheme": "stolen_art",
             "themes": {
                 "stolen_art": {
-                    "backgroundGeometry": [6, 7],
+                    "backgroundGeometry": [5, 6],
                     "backgroundImage": "baghchal/grid5Diag.svg",
                     "arrowThickness": 0.05,
-                    "centers": [[1 + (i % 5), 1 + (i // 5)] for i in range(25)] + [[3.3,5.7], [3.5,5.7], [-1,-1], [3.4,6.1], [3.6,6.1]],
+                    "centers": [[0.5 + (i % 5), 0.5 + (i // 5)] for i in range(25)] + [[3.75,5.2], [3.95,5.2], [-1,-1], [3.75,5.55], [3.95,5.55]],
                     "pieces": {
                         "G": {
                             "image": "baghchal/G.png",
@@ -99,49 +99,45 @@ def get_baghchal(variant_id):
                             "image": "baghchal/T.png",
                             "scale": 0.75
                         },
-                        "-": {
-                            "image": "baghchal/-.svg",
-                            "scale": 0.75
-                        },
                         "0": {
-                            "image": "baghchal/0.svg",
-                            "scale": 1.3
+                            "image": "general/0.svg",
+                            "scale": 1.2
                         },
                         "1": {
-                            "image": "baghchal/1.svg",
-                            "scale": 1.3
+                            "image": "general/1.svg",
+                            "scale": 1.2
                         },
                         "2": {
-                            "image": "baghchal/2.svg",
-                            "scale": 1.3
+                            "image": "general/2.svg",
+                            "scale": 1.2
                         },
                         "3": {
-                            "image": "baghchal/3.svg",
-                            "scale": 1.3
+                            "image": "general/3.svg",
+                            "scale": 1.2
                         },
                         "4": {
-                            "image": "baghchal/4.svg",
-                            "scale": 1.3
+                            "image": "general/4.svg",
+                            "scale": 1.2
                         },
                         "5": {
-                            "image": "baghchal/5.svg",
-                            "scale": 1.3
+                            "image": "general/5.svg",
+                            "scale": 1.2
                         },
                         "6": {
-                            "image": "baghchal/6.svg",
-                            "scale": 1.3
+                            "image": "general/6.svg",
+                            "scale": 1.2
                         },
                         "7": {
-                            "image": "baghchal/7.svg",
-                            "scale": 1.3
+                            "image": "general/7.svg",
+                            "scale": 1.2
                         },
                         "8": {
-                            "image": "baghchal/8.svg",
-                            "scale": 1.3
+                            "image": "general/8.svg",
+                            "scale": 1.2
                         },
                         "9": {
-                            "image": "baghchal/9.svg",
-                            "scale": 1.3
+                            "image": "general/9.svg",
+                            "scale": 1.2
                         }
                     }
                 }
@@ -304,43 +300,43 @@ def get_3spot(variant_id):
                             "scale": 0.3
                         },
                         "0": {
-                            "image": "3spot/0.svg",
+                            "image": "general/0.svg",
                             "scale": 2.0
                         },
                         "1": {
-                            "image": "3spot/1.svg",
+                            "image": "general/1.svg",
                             "scale": 2.0
                         },
                         "2": {
-                            "image": "3spot/2.svg",
+                            "image": "general/2.svg",
                             "scale": 2.0
                         },
                         "3": {
-                            "image": "3spot/3.svg",
+                            "image": "general/3.svg",
                             "scale": 2.0
                         },
                         "4": {
-                            "image": "3spot/4.svg",
+                            "image": "general/4.svg",
                             "scale": 2.0
                         },
                         "5": {
-                            "image": "3spot/5.svg",
+                            "image": "general/5.svg",
                             "scale": 2.0
                         },
                         "6": {
-                            "image": "3spot/6.svg",
+                            "image": "general/6.svg",
                             "scale": 2.0
                         },
                         "7": {
-                            "image": "3spot/7.svg",
+                            "image": "general/7.svg",
                             "scale": 2.0
                         },
                         "8": {
-                            "image": "3spot/8.svg",
+                            "image": "general/8.svg",
                             "scale": 2.0
                         },
                         "9": {
-                            "image": "3spot/9.svg",
+                            "image": "general/9.svg",
                             "scale": 2.0
                         }
                     }
@@ -589,43 +585,43 @@ def get_369mm(variant_id):
                     ],
                     "pieces": {
                         "0": {
-                            "image": "369mm/0.svg",
+                            "image": "general/0.svg",
                             "scale": 100.0
                         },
                         "1": {
-                            "image": "369mm/1.svg",
+                            "image": "general/1.svg",
                             "scale": 100.0
                         },
                         "2": {
-                            "image": "369mm/2.svg",
+                            "image": "general/2.svg",
                             "scale": 100.0
                         },
                         "3": {
-                            "image": "369mm/3.svg",
+                            "image": "general/3.svg",
                             "scale": 100.0
                         },
                         "4": {
-                            "image": "369mm/4.svg",
+                            "image": "general/4.svg",
                             "scale": 100.0
                         },
                         "5": {
-                            "image": "369mm/5.svg",
+                            "image": "general/5.svg",
                             "scale": 100.0
                         },
                         "6": {
-                            "image": "369mm/6.svg",
+                            "image": "general/6.svg",
                             "scale": 100.0
                         },
                         "7": {
-                            "image": "369mm/7.svg",
+                            "image": "general/7.svg",
                             "scale": 100.0
                         },
                         "8": {
-                            "image": "369mm/8.svg",
+                            "image": "general/8.svg",
                             "scale": 100.0
                         },
                         "9": {
-                            "image": "369mm/9.svg",
+                            "image": "general/9.svg",
                             "scale": 100.0
                         },
                         "B": {
@@ -635,10 +631,6 @@ def get_369mm(variant_id):
                         "W": {
                             "image": "369mm/O.svg",
                             "scale": 28.6
-                        },
-                        "-": {
-                            "image": "369mm/-.svg",
-                            "scale": 1.0
                         }
                     }
                 }
@@ -820,28 +812,24 @@ def get_topitop(variant_id):
                         ]
                     ],
                     "pieces": {
-                        "-": {
-                            "image": "topitop/-.svg",
-                            "scale": 1.0
-                        },
                         "0": {
-                            "image": "topitop/0.svg",
+                            "image": "general/0.svg",
                             "scale": 1.0
                         },
                         "1": {
-                            "image": "topitop/1.svg",
+                            "image": "general/1.svg",
                             "scale": 1.0
                         },
                         "2": {
-                            "image": "topitop/2.svg",
+                            "image": "general/2.svg",
                             "scale": 1.0
                         },
                         "3": {
-                            "image": "topitop/3.svg",
+                            "image": "general/3.svg",
                             "scale": 1.0
                         },
                         "4": {
-                            "image": "topitop/4.svg",
+                            "image": "general/4.svg",
                             "scale": 1.0
                         },
                         "B": {
@@ -1601,32 +1589,28 @@ def get_tttwo(variant_id):
                             "image": "tttwo/O.svg",
                             "scale": 16.0
                         },
-                        "-": {
-                            "image": "tttwo/null.svg",
-                            "scale": 1.0
-                        },
                         "G": {
                             "image": "tttwo/s.svg",
                             "scale": 16.0
                         },
                         "0": {
-                            "image": "tttwo/0.svg",
+                            "image": "general/0.svg",
                             "scale": 50.0
                         },
                         "1": {
-                            "image": "tttwo/1.svg",
+                            "image": "general/1.svg",
                             "scale": 50.0
                         },
                         "2": {
-                            "image": "tttwo/2.svg",
+                            "image": "general/2.svg",
                             "scale": 50.0
                         },
                         "3": {
-                            "image": "tttwo/3.svg",
+                            "image": "general/3.svg",
                             "scale": 50.0
                         },
                         "4": {
-                            "image": "tttwo/4.svg",
+                            "image": "general/4.svg",
                             "scale": 50.0
                         }
                     }
@@ -1860,10 +1844,6 @@ def get_stt(variant_id):
                         },
                         "o": {
                             "image": "stt/o.svg",
-                            "scale": 1.0
-                        },
-                        "-": {
-                            "image": "stt/null.svg",
                             "scale": 1.0
                         }
                     }
@@ -2222,16 +2202,20 @@ def get_tootnottopy(variant_id):
                         ]
                     ],
                     "pieces": {
-                        "v": {
-                            "image": "tootnotto/v.svg",
-                            "scale": 100.0
-                        },
                         "T": {
                             "image": "tootnotto/T.svg",
                             "scale": 10.0
                         },
+                        "t": {
+                            "image": "tootnotto/tt.svg",
+                            "scale": 10.0
+                        },
                         "O": {
                             "image": "tootnotto/O.svg",
+                            "scale": 10.0
+                        },
+                        "o": {
+                            "image": "tootnotto/oo.svg",
                             "scale": 10.0
                         }
                     }
@@ -2517,24 +2501,24 @@ def get_snake(variant_id):
 def get_quickcross(variant_id):
     if variant_id != "regular": # 4x4 variant (option-9)
         return None
-    
+    #48.75,141.25,233.75,326.25
     center_maps = [
-            [47.5, 48.75], #0
-            [140.5, 48.75],#1
-            [234, 48.75], #2
-            [327, 48.5], #3
-            [47.5, 141.75], #4
-            [140.5, 141.75],#5
-            [234, 141.75], #6
-            [327, 141.75], #7
-            [47.5, 235], #8
-            [140.5, 235], #9
-            [234, 235],#10
-            [327, 235], #11
-            [47.5, 328.2], #12
-            [140.5, 328.2], #13
-            [234, 328.2], #14
-            [327, 328.2], #15
+            [48.75, 48.75], #0
+            [141.25, 48.75],#1
+            [233.75, 48.75], #2
+            [326.25, 48.75], #3
+            [47.5, 141.25], #4
+            [141.25, 141.25],#5
+            [233.75, 141.25], #6
+            [326.25, 141.25], #7
+            [47.5, 233.75], #8
+            [141.25, 233.75], #9
+            [233.75, 233.75],#10
+            [326.25, 233.75], #11
+            [47.5, 326.25], #12
+            [141.25, 326.25], #13
+            [233.75, 326.25], #14
+            [326.25, 326.25], #15
         ]
     width = 27.5
     left_cross = [[center_maps[i][0] - width, center_maps[i][1]] for i in range(len(center_maps))]
@@ -2926,43 +2910,43 @@ def get_othello(variant_id):
                         "scale": 9
                     },
                     "0": {
-                        "image": "othello/0.svg",
+                        "image": "general/0.svg",
                         "scale": 20.0
                     },
                     "1": {
-                        "image": "othello/1.svg",
+                        "image": "general/1.svg",
                         "scale": 20.0
                     },
                     "2": {
-                        "image": "othello/2.svg",
+                        "image": "general/2.svg",
                         "scale": 20.0
                     },
                     "3": {
-                        "image": "othello/3.svg",
+                        "image": "general/3.svg",
                         "scale": 20.0
                     },
                     "4": {
-                        "image": "othello/4.svg",
+                        "image": "general/4.svg",
                         "scale": 20.0
                     },
                     "5": {
-                        "image": "othello/5.svg",
+                        "image": "general/5.svg",
                         "scale": 20.0
                     },
                     "6": {
-                        "image": "othello/6.svg",
+                        "image": "general/6.svg",
                         "scale": 20.0
                     },
                     "7": {
-                        "image": "othello/7.svg",
+                        "image": "general/7.svg",
                         "scale": 20.0
                     },
                     "8": {
-                        "image": "othello/8.svg",
+                        "image": "general/8.svg",
                         "scale": 20.0
                     },
                     "9": {
-                        "image": "othello/9.svg",
+                        "image": "general/9.svg",
                         "scale": 20.0
                     }
                 }
