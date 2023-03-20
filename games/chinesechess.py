@@ -154,6 +154,10 @@ def do_move(chessBoard, chessPiece, col, row):
         if cp.row == row and cp.col == col:
             removedChess = cp
             chessBoard.chessPieces.remove(cp)
+	chessBoard.board[chessPiece.col][chessPiece.row] = 0
+	chessPiece.row = row
+	chessPiece.col = col
+	chessBoard.board[col, row] = 1
     return chessBoard, removedChess, True
 
 
