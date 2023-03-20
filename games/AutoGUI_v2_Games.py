@@ -2969,6 +2969,71 @@ def get_othello(variant_id):
             }
         }
     }
+    
+def get_gameofy(variant_id):
+    if variant_id == "dim4" or variant_id == "dim4-misere":
+        return {
+            "defaultTheme": "basic",
+            "themes": {
+                "basic": {
+                    "backgroundGeometry": [8, 6],
+                    "backgroundImage": "gameofy/dim4.svg",
+                    # "foregroundImage": <path to foreground image; if no foreground image, omit this attribute>,
+                    "centers": [
+                        [4, 1.2], [3.47, 2.1], [4.53, 2.1], [2.97, 3], [4, 3], [5.03, 3], [2.44, 3.9], [3.47, 3.9], [4.53, 3.9], [5.56, 3.9]
+                    ],
+                    "pieces": {
+                        "W": {
+                            "image": "gameofy/blue_circle.svg",
+                            "scale": 0.8
+                        },
+                        "B": {
+                            "image": "gameofy/red_circle.svg",
+                            "scale": 0.8
+                        }
+                    }
+                },
+            }
+        }
+    elif variant_id == "dim5" or variant_id == "dim5-misere":
+        return {
+            "defaultTheme": "basic",
+            "themes": {
+                "basic": {
+                    "backgroundGeometry": [8, 6],
+                    "backgroundImage": "gameofy/dim5.svg",
+                    # "foregroundImage": <path to foreground image; if no foreground image, omit this attribute>,
+                    "centers": [
+                        [4, 1.2], 
+                        [3.47, 2.1], 
+                        [4.53, 2.1], 
+                        [2.97, 3], 
+                        [4, 3], 
+                        [5.03, 3], 
+                        [2.44, 3.9], 
+                        [3.47, 3.9], 
+                        [4.53, 3.9], 
+                        [5.56, 3.9], 
+                        [1.91, 4.8], 
+                        [2.97, 4.8], 
+                        [4.00, 4.8], 
+                        [5.03, 4.8], 
+                        [6.09, 4.8], 
+                        [6.62, 4.8], 
+                    ],
+                    "pieces": {
+                        "W": {
+                            "image": "gameofy/blue_circle.svg",
+                            "scale": 0.8
+                        },
+                        "B": {
+                            "image": "gameofy/red_circle.svg",
+                            "scale": 0.8
+                        }
+                    }
+                },
+            }
+        }    
 
 """
 ===== STEP 2 ===== 
@@ -2999,7 +3064,8 @@ autoGUIv2DataFuncs = {
     "tactix": get_tactix,
     "quickchess": get_quickchess,
     "haregame": get_haregame,
-    "othello": get_othello
+    "othello": get_othello,
+    "gameofy": get_gameofy
 }
 
 def get_autoguiV2Data(game_id, variant_id):
