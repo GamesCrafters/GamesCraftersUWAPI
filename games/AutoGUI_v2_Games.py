@@ -3033,7 +3033,50 @@ def get_gameofy(variant_id):
                     }
                 },
             }
-        }    
+        }
+
+def get_beeline(variant_id):
+    return {
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "backgroundGeometry": [10, 8],
+                "backgroundImage": "beeline/board.svg",
+                "arrowThickness": 0.1,
+                "piecesOverArrows": True,
+                # "foregroundImage": <path to foreground image; if no foreground image, omit this attribute>,
+                "centers": [
+                    [1.25, 4.75], # 0
+                    [2.5, 4.05], # 1
+                    [3.75, 3.3], # 2
+                    [5.00, 2.6], # 3
+                    [2.5, 5.5], # 4
+                    [3.76, 4.75], # 5
+                    [5.00, 4.05], # 6
+                    [6.25, 3.3], # 7
+                    [3.75, 6.2], # 8
+                    [5, 5.5], # 9
+                    [6.25, 4.75], # 10
+                    [7.5, 4.05], # 11
+                    [5.00, 6.95], # 12
+                    [6.25, 6.2], # 13
+                    [7.5, 5.5], # 14
+                    [8.75, 4.75], # 15
+                ],
+                "pieces": {
+                    "W": {
+                        "image": "beeline/yellow_bee.svg",
+                        "scale": 1.4
+                    },
+                    "B": {
+                        "image": "beeline/red_bee.svg",
+                        "scale": 1.4
+                    }
+                }
+            },
+        }
+    }
+    
 
 """
 ===== STEP 2 ===== 
@@ -3065,7 +3108,8 @@ autoGUIv2DataFuncs = {
     "quickchess": get_quickchess,
     "haregame": get_haregame,
     "othello": get_othello,
-    "gameofy": get_gameofy
+    "gameofy": get_gameofy,
+    "beeline": get_beeline
 }
 
 def get_autoguiV2Data(game_id, variant_id):

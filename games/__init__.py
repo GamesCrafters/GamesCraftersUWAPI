@@ -121,6 +121,21 @@ games = {
                 gui_status='v2')
         },
         gui_status='v2'),
+
+    'beeline': Game(
+        name='Beeline',
+        desc="Trap your opponents bees.",
+        variants={
+            'regular': GameVariant(
+                name='Standard',
+                desc='Standard',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='beeline',
+                data_provider_variant_id=0,
+                status='available',
+                gui_status='v2')
+        },
+        gui_status='v2'),
     
     'chess': Game(
         name='Chess',
