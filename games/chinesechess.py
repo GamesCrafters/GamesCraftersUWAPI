@@ -115,22 +115,27 @@ def legal_move(chessBoard, chessPiece, col, row) -> bool:
                     cnt += 1
         return (cnt == 3 and chessBoard.board[col][row] != 0) or cnt == 1
 
-def board_legal(chessBoard,currentPlayer) -> bool:
+
+def board_legal(chessBoard, currentPlayer) -> bool:
     for piece in chessBoard.chessPieces:
         if piece.color == currentPlayer & (piece.type == 4 | piece.type == 12):
             for otherPiece in chessBoard.chessPieces:
-                if piece.color == currentPlayer: continue
-                if legal_move(chessBoard,otherPiece,piece.col,piece.row): 
+                if piece.color == currentPlayer:
+                    continue
+                if legal_move(chessBoard, otherPiece, piece.col, piece.row):
                     return False
                 if otherPiece.type == 4 | otherPiece.type == 12:
-                    if piece.col == otherPiece.col: 
+                    if piece.col == otherPiece.col:
                         flag = 0
                         for i in chessBoard.chessPieces:
-                            if i.type != 4 & i.type != 12: flag = 1
-                        if flag == 0: return False
+                            if i.type != 4 & i.type != 12:
+                                flag = 1
+                        if flag == 0:
+                            return False
     return True
 
-def check_legal2(chessBoard,chessPiece,col,row) -> bool:
+
+def check_legal2(chessBoard, chessPiece, col, row) -> bool:
     newBoard = copy.deepcopy(chessBoard)
     for cp in newBoard.chessPieces:
         if cp.row == row and cp.col == col:
@@ -209,16 +214,16 @@ def all_legal_move(chessBoard, color):
             list = all_move(chessPiece)
             for (col, row) in list:
                 if legal_move(chessBoard, chessPiece, col, row):
-                    if check_legal2(chessBoard,chessPiece,col,row):
+                    if check_legal2(chessBoard, chessPiece, col, row):
                         newList.append((chessPiece, col, row))
     return newList
 
 
 def to_string(chessBoard):
-    c = np.empty((9, 10))
-    c.fill(0)
+    c = np.empty((10, 9))
+    c.fill(-1)
     for cp in chessBoard.chessPieces:
-        c[cp.col][cp.row] = cp.type
+        c[cp.row][cp.col] = cp.type
     print(c)
 
 
@@ -228,6 +233,7 @@ if __name__ == "__main__":
     while not check_end(chessBoard):
         to_string(chessBoard)
         move = all_legal_move(chessBoard, color)
+        print(move)
         index = np.random.randint(low=0, high=len(move))
         chessBoard, _, ok = do_move(
             chessBoard, move[index][0], move[index][1], move[index][2])
