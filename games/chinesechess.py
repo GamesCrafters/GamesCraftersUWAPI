@@ -1,242 +1,361 @@
 import copy
 
-import numpy as np
-
-
-class ChessBoard:
+class Board:
     def __init__(self) -> None:
-        self.board = np.empty((9, 10))
-        self.board.fill(0)
-        self.chessPieces = []
+        self.occupied = [[0 for _ in range(9)] for _ in range(10)]
+        self.pieces = []
 
 
-class ChessPiece:
+class Piece:
     def __init__(self, color, type, row, col) -> None:
-        self.color = color
-        self.type = type
-        self.row = row
-        self.col = col
+        self.color: int = color
+        self.type: str = type
+        self.row: int = row
+        self.col: int = col
 
 
-def init_chess_board() -> ChessBoard:
-    chessBoard = ChessBoard()
+def init_chess_board() -> Board:
+    '''
+    Returns the default starting position of a Chinese Chess game.
+    '''
+    board = Board()
     colors = [-1] * 16 + [1] * 16
-    types = [0, 1, 2, 3, 4, 3, 2, 1, 0, 5, 5, 6, 6, 6, 6, 6,
-             8, 9, 10, 11, 12, 11, 10, 9, 8, 13, 13, 14, 14, 14, 14, 14]
+    types = ['r', 'n', 'b', 'a', 'k', 'a', 'b', 'n', 'r', 'c', 'c', 'p', 'p', 'p', 'p', 'p',
+             'R', 'N', 'B', 'A', 'K', 'A', 'B', 'N', 'R', 'C', 'C', 'P', 'P', 'P', 'P', 'P']
     rows = [0]*9+[2]*2+[3]*5+[9]*9+[7]*2+[6]*5
     cols = [0, 1, 2, 3, 4, 5, 6, 7, 8, 1, 7, 0, 2, 4, 6, 8] * 2
     for i in range(16*2):
-        chessBoard.chessPieces.append(ChessPiece(
-            color=colors[i], type=types[i], row=rows[i], col=cols[i]))
-        chessBoard.board[cols[i]][rows[i]] = 1
-    return chessBoard
-
-    # 8 9 10 11 12 11 10 9 8
-    #    13          13
-    # 14  14   14   14  14
-
-    # 6   6   6   6   6
-    #     5       5
-    # 0 1 2 3 4 3 2 1 0
+        board.pieces.append(Piece(colors[i], types[i], rows[i], cols[i]))
+        board.occupied[rows[i]][cols[i]] = 1
+    return board
 
 
-def legal_loc(col, row) -> bool:
+def legal_loc(row, col) -> bool:
     return row >= 0 and row < 10 and col >= 0 and col < 9
 
 
-def legal_move(chessBoard, chessPiece, col, row) -> bool:
-    if not legal_loc(col, row):
+def is_valid_move(board: Board, piece: Piece, row, col) -> bool:
+    '''
+    Returns True if the given move can be carried out. Returns 
+    False otherwise. Does not consider the flying general rule
+    and whether the current player's king is mated after the
+    move.
+    '''
+    if not legal_loc(row, col):
         return False
-    if chessBoard.board[col, row] != 0:
-        for cp in chessBoard.chessPieces:
-            if cp.row == row and cp.col == col and cp.color == chessPiece.color:
+    
+    if board.occupied[row][col] != 0:
+        # Capturing a friendly piece or not moving is not allowed.
+        for cp in board.pieces:
+            if cp.row == row and cp.col == col and cp.color == piece.color:
                 return False
-    if chessPiece.type == 6 or chessPiece.type == 14:
-        return ((chessPiece.col == col) and (chessPiece.type == 6 or chessPiece.row == row + 1) and (chessPiece.type == 14 or chessPiece.row == row - 1))
-    if chessPiece.type == 7 or chessPiece.type == 15:
-        if chessPiece.row == row and abs(chessPiece.col - col) == 1:
-            return True
-        if abs(chessPiece.col - col) != 0 or abs(chessPiece.row - row) != 1:
-            return False
-        return (chessPiece.type == 7 and chessPiece.row == row - 1) or (chessPiece.type == 15 and chessPiece.row == row + 1)
-    if chessPiece.type == 0 or chessPiece.type == 8:
-        if chessPiece.row != row and chessPiece.col != col:
+    
+    if piece.type == 'P' or piece.type == 'p':
+        # Pawn cannot move horizontally before crossing the river.
+        if (piece.col != col): return False
+        # Red pawns must move towards the black side.
+        if (piece.type == 'P'): return piece.row == row + 1
+        # Black pawns must move towards the red side.
+        return piece.row == row - 1
+
+    elif piece.type == 'Q' or piece.type == 'q':
+        # Horizontal moves are allowed if distance equals 1.
+        if piece.row == row: return abs(piece.col - col) == 1
+        # Vertical moves must be of distance 1.
+        if abs(piece.row - row) != 1: return False
+        # Diagonal moves are not allowed.
+        if piece.col != col: return False
+        if (piece.type == 'Q'): return piece.row == row + 1
+        return piece.row == row - 1
+    
+    elif piece.type == 'R' or piece.type == 'r':
+        # No diagonal moves are allowed.
+        if piece.row != row and piece.col != col:
             return False
         cnt = 0
-        if chessPiece.row == row:
-            for i in range(min(chessPiece.col, col), max(chessPiece.col, col)+1):
-                if chessBoard.board[i][row]:
-                    cnt += 1
+        # Horizontal.
+        if piece.row == row:
+            for j in range(min(piece.col, col), max(piece.col, col)+1):
+                cnt += board.occupied[row][j]
+        # Vertical.
         else:
-            for i in range(min(chessPiece.row, row), max(chessPiece.row, row)+1):
-                if chessBoard.board[col][i]:
-                    cnt += 1
-        return (cnt == 2 and chessBoard.board[col][row] != 0) or cnt == 1
-    if chessPiece.type == 1 or chessPiece.type == 9:
-        if abs(chessPiece.row - row) + abs(chessPiece.col - col) != 3:
-            return False
-        if abs(chessPiece.row - row) > abs(chessPiece.col - col):
-            drow = row - chessPiece.row
-            return chessBoard.board[chessPiece.col][chessPiece.row + int(drow/abs(drow))] == 0
+            for i in range(min(piece.row, row), max(piece.row, row)+1):
+                cnt += board.occupied[i][col]
+        # Capture with 2 pieces encountered, or no capture with 1 piece encountered.
+        return (cnt == 2 and board.occupied[row][col] != 0) or cnt == 1
+    
+    elif piece.type == 'N' or piece.type == 'n':
+        delta = (row - piece.row, col - piece.col)
+        vertical = ((-2, -1), (-2, 1), (2, -1), (2, 1))
+        horizontal = ((-1, -2), (-1, 2), (1, -2), (1, 2))
+        # The knight must not be blocked in the given direction.
+        if delta in vertical:
+            return board.occupied[piece.row + delta[0]//2][piece.col] == 0
+        elif delta in horizontal:
+            return board.occupied[piece.row][piece.col + delta[1]//2] == 0
         else:
-            dcol = col - chessPiece.col
-            return chessBoard.board[chessPiece.col + int(dcol/abs(dcol))][chessPiece.row] == 0
-    if chessPiece.type == 2 or chessPiece.type == 10:
-        if (abs(chessPiece.col - col) != 2) or (abs(chessPiece.row - row) != 2):
             return False
-        dcol = col - chessPiece.col
-        drow = row - chessPiece.row
-        if chessBoard.board[chessPiece.col + int(dcol/abs(dcol))][chessPiece.row + int(drow/abs(drow))]:
+    
+    elif piece.type == 'B' or piece.type == 'b':
+        delta = (row - piece.row, col - piece.col)
+        if delta not in ((-2, -2), (-2, 2), (2, -2), (2, 2)):
             return False
-        return (chessPiece.type == 2 and chessPiece.row <= 4) or (chessPiece.type == 10 and chessPiece.row >= 5)
-    if chessPiece.type == 3 or chessPiece.type == 11:
+        # The bishop must not be blocked in the given direction.
+        if board.occupied[piece.row + delta[0]//2][piece.col + delta[1]//2]:
+            return False
+        # A red bishop must not reach cross the river and reach black's half board.
+        if piece.type == 'B': return piece.row >= 5
+        # Similar for a black bishop.
+        return piece.row <= 4
+    
+    elif piece.type == 'A' or piece.type == 'a':
+        # Advisors must stay in their corresponding palace.
         if col < 3 or col > 5:
             return False
-        if (chessPiece.type == 3 and row > 2) or (chessPiece.type == 11 and row < 7):
+        if piece.type == 'A' and row < 7:
             return False
-        return abs(chessPiece.row - row) == 1 and abs(chessPiece.col - col) == 1
-    if chessPiece.type == 4 or chessPiece.type == 12:
+        if piece.type == 'a' and row > 2:
+            return False
+        return abs(piece.row - row) == 1 and abs(piece.col - col) == 1
+    
+    elif piece.type == 'K' or piece.type == 'k':
+        # Kings must stay in their corresponding palace.
         if col < 3 or col > 5:
             return False
-        if (chessPiece.type == 4 and row > 2) or (chessPiece.type == 12 and row < 7):
+        if piece.type == 'K' and row < 7:
             return False
-        return abs(chessPiece.row - row) + abs(chessPiece.col - col) == 1
-    if chessPiece.type == 5 or chessPiece.type == 13:
-        if chessPiece.row != row and chessPiece.col != col:
+        if piece.type == 'k' and row > 2:
+            return False
+        return abs(piece.row - row) + abs(piece.col - col) == 1
+    
+    elif piece.type == 'C' or piece.type == 'c':
+        if piece.row != row and piece.col != col:
             return False
         cnt = 0
-        if chessPiece.row == row:
-            for i in range(min(chessPiece.col, col), max(chessPiece.col, col)+1):
-                if chessBoard.board[i][row]:
-                    cnt += 1
+        if piece.row == row:
+            for i in range(min(piece.col, col), max(piece.col, col)+1):
+                cnt += board.occupied[row][i]
         else:
-            for i in range(min(chessPiece.row, row), max(chessPiece.row, row)+1):
-                if chessBoard.board[col][i]:
-                    cnt += 1
-        return (cnt == 3 and chessBoard.board[col][row] != 0) or cnt == 1
+            for i in range(min(piece.row, row), max(piece.row, row)+1):
+                cnt += board.occupied[i][col]
+        # Capture: three pieces encountered; or no capture: one piece encountered.
+        return (cnt == 3 and board.occupied[row][col] != 0) or cnt == 1
+    
+    else:
+        raise ValueError("is_legal_move: unexpected Piece type [" + piece.type + "]")
 
 
-def board_legal(chessBoard, currentPlayer) -> bool:
-    for piece in chessBoard.chessPieces:
-        if piece.color == currentPlayer & (piece.type == 4 | piece.type == 12):
-            for otherPiece in chessBoard.chessPieces:
-                if piece.color == currentPlayer:
-                    continue
-                if legal_move(chessBoard, otherPiece, piece.col, piece.row):
-                    return False
-                if otherPiece.type == 4 | otherPiece.type == 12:
-                    if piece.col == otherPiece.col:
-                        flag = 0
-                        for i in chessBoard.chessPieces:
-                            if i.type != 4 & i.type != 12:
-                                flag = 1
-                        if flag == 0:
-                            return False
-    return True
-
-
-def check_legal2(chessBoard, chessPiece, col, row) -> bool:
-    newBoard = copy.deepcopy(chessBoard)
-    for cp in newBoard.chessPieces:
-        if cp.row == row and cp.col == col:
-            newBoard.chessPieces.remove(cp)
-            break
-    for i in range(len(newBoard.chessPieces)):
-        if newBoard.chessPieces[i].col == chessPiece.col & newBoard.chessPieces[i].row == chessPiece.row:
-            newBoard.chessPieces[i].row = row
-            newBoard.chessPieces[i].col = col
-            break
-    if not board_legal(newBoard, chessPiece.color):
+def flying_general_possible(board: Board) -> bool:
+    # Find two kings.
+    for piece in board.pieces:
+        if piece.type == 'K':
+            redKing = piece
+        elif piece.type == 'k':
+            blackKing = piece
+    # Not possible if the two kings are in different columns.
+    if redKing.col != blackKing.col:
         return False
+    # Not possible if there exists at least one piece in between.
+    for i in range(min(redKing.row, blackKing.row)+1, max(redKing.row, blackKing.row)):
+        if board.occupied[i][piece.col]:
+            return False
     return True
 
 
-def do_move(chessBoard, chessPiece, col, row):
-    if not legal_move(chessBoard, chessPiece, col, row):
-        return chessBoard, None, False
-    removedChess = None
-    for cp in chessBoard.chessPieces:
-        if cp.row == row and cp.col == col:
-            removedChess = cp
-            chessBoard.chessPieces.remove(cp)
-    chessBoard.board[chessPiece.col][chessPiece.row] = 0
-    chessPiece.row = row
-    chessPiece.col = col
-    chessBoard.board[col, row] = 1
-    return chessBoard, removedChess, True
+def is_legal_board(board: Board, currentPlayer) -> bool:
+    '''
+    Returns False if current player can directly capture the opponent's king
+    or if flying general is possible. Returns True otherwise.
+    '''
+    # Illegal if flying general is possible.
+    if flying_general_possible(board):
+        return False
+    # Find opponent player's king.
+    for piece in board.pieces:
+        if piece.color != currentPlayer and (piece.type == 'K' or piece.type == 'k'):
+            oppKing = piece
+            break
+    for piece in board.pieces:
+        if piece.color != currentPlayer:
+            continue
+        # Illegal if can capture opponent's king directly.
+        if is_valid_move(board, piece, oppKing.row, oppKing.col):
+            return False
+    return True
 
 
-# True for end
-def check_end(chessBoard):
-    r = b = False
-    for cp in chessBoard.chessPieces:
-        if cp.type == 4:
-            r = True
-        if cp.type == 12:
-            b = True
-    return not r == b == True
+def is_legal_move(board: Board, piece: Piece, row, col) -> bool:
+    '''
+    Returns True if the given move is legal according to the rule.
+    Returns False otherwise.
+    '''
+    # Move is illegal if it cannot be carried out.
+    if not is_valid_move(board, piece, row, col):
+        return False
+    
+    # Create a new board corresponding to the position after
+    # making the given move.
+    newBoard = copy.deepcopy(board)
+    for p in newBoard.pieces:
+        if p.row == row and p.col == col:
+            newBoard.pieces.remove(p)
+            break
+    for i in range(len(newBoard.pieces)):
+        if newBoard.pieces[i].col == piece.col and newBoard.pieces[i].row == piece.row:
+            newBoard.pieces[i].row = row
+            newBoard.pieces[i].col = col
+            break
+    return is_legal_board(newBoard, -piece.color)
 
 
-def all_move(chessPiece):
+def do_move(board: Board, piece: Piece, row: int, col: int):
+    '''
+    Returns the child position board, and True if the given
+    move is legal according to the rule.
+    Returns the original board, False otherwise.
+    '''
+    if not is_legal_move(board, piece, row, col):
+        return board, False
+    # Remove the piece at destination.
+    for p in board.pieces:
+        if p.row == row and p.col == col:
+            board.pieces.remove(p)
+            break
+    board.occupied[piece.row][piece.col] = 0
+    # Move the given piece over.
+    piece.row = row
+    piece.col = col
+    board.occupied[row][col] = 1
+    return board, True
+
+
+def is_primitive(board: Board, turn):
+    '''
+    Returns True if the position represented by board is primitive.
+    Returns False otherwise.
+    '''
+    return len(generate_moves(board, turn)) == 0
+
+
+def all_moves(piece: Piece):
+    '''
+    Returns a list of all possible moves of the given piece.
+    Does not take into account whether the moves are blocked
+    or rendered illegal by the rule. It is the user's
+    responsibility to check for their validity.
+    '''
     list = []
-    if chessPiece.type == 0 or chessPiece.type == 5 or chessPiece.type == 8 or chessPiece.type == 13:
+    if piece.type == 'R' or piece.type == 'r' or piece.type == 'C' or piece.type == 'c':
         for i in range(10):
-            list.append((chessPiece.col, i))
-        for i in range(9):
-            list.append((i, chessPiece.row))
-    if chessPiece.type == 2 or chessPiece.type == 10:
-        list.append((chessPiece.col+2, chessPiece.row+2))
-        list.append((chessPiece.col-2, chessPiece.row+2))
-        list.append((chessPiece.col+2, chessPiece.row-2))
-        list.append((chessPiece.col-2, chessPiece.row-2))
-    if chessPiece.type == 1 or chessPiece.type == 9:
+            list.append((i, piece.col))
+        for j in range(9):
+            list.append((piece.row, j))
+    if piece.type == 'B' or piece.type == 'b':
+        list.append((piece.row+2, piece.col+2))
+        list.append((piece.row+2, piece.col-2))
+        list.append((piece.row-2, piece.col+2))
+        list.append((piece.row-2, piece.col-2))
+    elif piece.type == 'N' or piece.type == 'n':
         dx = [1, 2, 2, 1, -1, -2, -2, -1]
         dy = [-2, -1, 1, 2, 2, 1, -1, -2]
         for i in range(8):
-            list.append((chessPiece.col + dx[i], chessPiece.row + dy[i]))
-    if chessPiece.type == 3 or chessPiece.type == 11:
-        list.append((chessPiece.col+1, chessPiece.row+1))
-        list.append((chessPiece.col-1, chessPiece.row+1))
-        list.append((chessPiece.col+1, chessPiece.row-1))
-        list.append((chessPiece.col-1, chessPiece.row-1))
-    if chessPiece.type == 4 or chessPiece.type == 12 or chessPiece.type == 6 or chessPiece.type == 7 or chessPiece.type == 14 or chessPiece.type == 15:
-        list.append((chessPiece.col+1, chessPiece.row))
-        list.append((chessPiece.col-1, chessPiece.row))
-        list.append((chessPiece.col, chessPiece.row+1))
-        list.append((chessPiece.col, chessPiece.row-1))
+            list.append((piece.row + dy[i], piece.col + dx[i]))
+    elif piece.type == 'A' or piece.type == 'a':
+        list.append((piece.row+1, piece.col+1))
+        list.append((piece.row+1, piece.col-1))
+        list.append((piece.row-1, piece.col+1))
+        list.append((piece.row-1, piece.col-1))
+    elif piece.type == 'K' or piece.type == 'k' or \
+            piece.type == 'P' or piece.type == 'p' or \
+            piece.type == 'Q' or piece.type == 'q':
+        list.append((piece.row, piece.col+1))
+        list.append((piece.row, piece.col-1))
+        list.append((piece.row+1, piece.col))
+        list.append((piece.row-1, piece.col))
     return list
 
 
-def all_legal_move(chessBoard, color):
+def generate_moves(board: Board, color):
+    '''
+    Returns a list of all possible moves. Each move is represented
+    as a length-3 tuple of the format
+    ({piece_to_move}, {dest_row}, {dest_col}).
+    '''
     newList = []
-    for chessPiece in chessBoard.chessPieces:
-        if chessPiece.color == color:
-            list = all_move(chessPiece)
-            for (col, row) in list:
-                if legal_move(chessBoard, chessPiece, col, row):
-                    if check_legal2(chessBoard, chessPiece, col, row):
-                        newList.append((chessPiece, col, row))
+    for piece in board.pieces:
+        if piece.color == color:
+            list = all_moves(piece)
+            for (row, col) in list:
+                if is_legal_move(board, piece, row, col):
+                    newList.append((piece, row, col))
     return newList
 
 
-def to_string(chessBoard):
-    c = np.empty((10, 9))
-    c.fill(-1)
-    for cp in chessBoard.chessPieces:
-        c[cp.row][cp.col] = cp.type
-    print(c)
+def strcat(slist: list) -> str:
+    new = ""
+    for s in slist:
+        new += s
+    return new
 
+
+def print_board(board: Board) -> None:    
+    graph = [
+        " - - - - - - - - ",
+        "| | | |\|/| | | |",
+        " - - - - - - - - ",
+        "| | | |/|\| | | |",
+        " - - - - - - - - ",
+        "| | | | | | | | |",
+        " - - - - - - - - ",
+        "| | | | | | | | |",
+        " - - - - - - - - ",
+        "|     RIVER     |",
+        " - - - - - - - - ",
+        "| | | | | | | | |",
+        " - - - - - - - - ",
+        "| | | | | | | | |",
+        " - - - - - - - - ",
+        "| | | |\|/| | | |",
+        " - - - - - - - - ",
+        "| | | |/|\| | | |",
+        " - - - - - - - - "
+    ]
+    for i in range(len(graph)):
+        graph[i] = [c for c in graph[i]]
+    for piece in board.pieces:
+        graph[piece.row<<1][piece.col<<1] = str(piece.type)
+
+    print("\n  0 1 2 3 4 5 6 7 8")
+    for i in range(len(graph)):
+        if (i & 1):
+            print(" ", strcat(graph[i]))
+        else:
+            print(str(i>>1), strcat(graph[i]), str(i>>1))
+    print("  0 1 2 3 4 5 6 7 8\n")
+
+
+def boardToUWAPI(board: Board, turn: int) -> str:
+    slots = ['-' for _ in range(90)]
+    for piece in board.pieces:
+        slots[piece.row * 9 + piece.col] = piece.type
+    if turn == 1:
+        turnChar = 'A'
+    else:
+        turnChar = 'B'
+    return "R_" + turnChar + "_10_9_" + strcat(slots)
 
 if __name__ == "__main__":
-    chessBoard = init_chess_board()
+    board = init_chess_board()
     color = 1
-    while not check_end(chessBoard):
-        to_string(chessBoard)
-        move = all_legal_move(chessBoard, color)
-        print(move)
-        index = np.random.randint(low=0, high=len(move))
-        chessBoard, _, ok = do_move(
-            chessBoard, move[index][0], move[index][1], move[index][2])
+    while not is_primitive(board, color):
+        print_board(board)
+        print(boardToUWAPI(board, color))
+        move = generate_moves(board, color)
+        for i in range(len(move)):
+            print(str(i) + ": from [", move[i][0].row, move[i][0].col, "] to [", move[i][1], move[i][2], "]")
+        index = int(input())
+        board, ok = do_move(
+            board, move[index][0], move[index][1], move[index][2])
         if not ok:
             break
         color = -color
