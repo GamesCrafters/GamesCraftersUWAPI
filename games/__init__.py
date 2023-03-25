@@ -15,6 +15,25 @@ dirname = os.path.dirname(__file__)
 
 games = {
     
+
+   'quickcross': Game(   
+       name='Quick Cross',
+       desc="Place your piece (vertically/horizontally) onto an open square (looks like a + sign) or rotate an existing piece. " +
+       "Wins when you connect 4 in a row horizontally, vertically, or diagonally.",
+       variants={
+           'regular': GameVariant(
+               name='Regular',
+               desc='Regular',
+               data_provider=GamesmanClassicDataProvider,
+               data_provider_game_id='qx',
+               data_provider_variant_id=9,
+               gui_status='v2',
+               status='stable'),
+       }, 
+       gui_status='v2'),
+  
+
+    
     '0to10by1or2': Game(
         name='0 to 10 by 1 or 2',
         desc="A player may either place 1 or 2 pieces on their turn. Wins when player reaches 10.",
@@ -102,12 +121,35 @@ games = {
                 gui_status='v2')
         },
         gui_status='v2'),
+
+    'beeline': Game(
+        name='Beeline',
+        desc="Trap your opponents bees.",
+        variants={
+            'regular': GameVariant(
+                name='Standard',
+                desc='Standard',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='beeline',
+                data_provider_variant_id=0,
+                status='available',
+                gui_status='v2')
+        },
+        gui_status='v2'),
     
     'chess': Game(
         name='Chess',
         desc="Chess",
         variants={
             '7-man': RegularChessVariant()
+        },
+        gui_status='v2'),
+
+    'chinesechess': Game(
+        name='Chinese Chess',
+        desc="Checkmate the enemy general to win the battle.",
+        variants={
+            'regular': RegularChessVariant() # todo
         },
         gui_status='v2'),
     
@@ -300,7 +342,46 @@ games = {
                 gui_status='v2')
         },
         gui_status='v2'),
-    
+
+    'gameofy': Game(
+        name='Game of Y',
+        desc="Place your piece onto an open space. Wins when you connect three in a row horizontally, vertically, or diagonally.",
+        variants={
+            'dim4': GameVariant(
+                name='Dimension 4',
+                desc='Dimension 4',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='gameofy',
+                data_provider_variant_id=0,
+                status='stable',
+                gui_status='v2'),
+            'dim5': GameVariant(
+                name='Dimension 5',
+                desc='Dimension 5',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='gameofy',
+                data_provider_variant_id=1,
+                status='stable',
+                gui_status='v2'),
+            'dim4-misere': GameVariant(
+                name='Dimension 4 Misère',
+                desc='Dimension 4 Misère',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='gameofy',
+                data_provider_variant_id=4,
+                status='stable',
+                gui_status='v2'),
+            'dim5-misere': GameVariant(
+                name='Dimension 5 Misère',
+                desc='Dimension 5 Misère',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='gameofy',
+                data_provider_variant_id=5,
+                status='stable',
+                gui_status='v2'),
+        },
+        gui_status='v2'),
+
     'haregame': Game(
         name='Hare and Hounds',
         desc="One player controls the three hounds. The other player controls the hare. The hound player can move one of the three hounds to an empty spot each turn with the restriction of no backward moves. The hare player can move the hare to any adjacent empty spot. The hare wins by reaching the left-most cell. The hounds win if the hare is unable to move on their turn.",
@@ -545,10 +626,10 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='othello',
                 data_provider_variant_id=-1,
-                status='dev',
-                gui_status='v1')
+                status='stable',
+                gui_status='v2')
         },
-        gui_status='v1'),
+        gui_status='v2'),
     
     'quarto': Game(
         name='Quarto',
@@ -703,5 +784,5 @@ games = {
                 gui_status='v2'
             )
         },
-        gui_status='v2') 
+        gui_status='v2'),
 }
