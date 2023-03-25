@@ -1222,14 +1222,14 @@ def get_chinesechess(variant_id):
                 "backgroundGeometry": [9, 10],
                 "arrowThickness": 0.1,
                 "backgroundImage": "chinesechess/board.svg",
-                "centers": [[0.5 + (i % 10), 0.5 + (i // 10)] for i in range(90)],
+                "centers": [[0.5 + (i % 9), 0.5 + (i // 9)] for i in range(90)],
                 "pieces": {k: {"image": "chinesechess/regular/{}.svg".format(v), "scale": 1} for (k, v) in pieces.items()}
             },
             "graphical": {
                 "backgroundGeometry": [9, 10],
                 "arrowThickness": 0.1,
                 "backgroundImage": "chinesechess/board.svg",
-                "centers": [[0.5 + (i % 10), 0.5 + (i // 10)] for i in range(90)],
+                "centers": [[0.5 + (i % 9), 0.5 + (i // 9)] for i in range(90)],
                 "pieces": {k: {"image": "chinesechess/graphical/{}.svg".format(v), "scale": 1} for (k, v) in pieces.items()}
             }
         }

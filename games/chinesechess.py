@@ -1,18 +1,37 @@
 import copy
 from .models import AbstractGameVariant
 
-class Board:
-    def __init__(self) -> None:
-        self.occupied = [[False for _ in range(9)] for _ in range(10)]
-        self.pieces = []
-
-
 class Piece:
     def __init__(self, color, type, row, col) -> None:
         self.color: int = color
         self.type: str = type
         self.row: int = row
         self.col: int = col
+
+
+class Move:
+    def __init__(self, srcRow, srcCol, destRow, destCol) -> None:
+        self.srcRow: int = srcRow
+        self.srcCol: int = srcCol
+        self.destRow: int = destRow
+        self.destCol: int = destCol
+
+    def as_UWAPI(self) -> str:
+        srcIdx = self.srcRow * 9 + self.srcCol
+        destIdx = self.destRow * 9 + self.destCol
+        return "M_{}_{}".format(srcIdx, destIdx)
+
+
+class Board:
+    def __init__(self) -> None:
+        self.occupied = [[False for _ in range(9)] for _ in range(10)]
+        self.pieces = []
+
+    def get_piece_at(self, row, col) -> Piece:
+        for piece in self.pieces:
+            if piece.row == row and piece.col == col:
+                return piece
+        raise ValueError("unable to get piece at ({}, {})".format(row, col))
 
 
 def init_chess_board() -> Board:
@@ -104,10 +123,10 @@ def is_valid_move(board: Board, piece: Piece, row, col) -> bool:
         # The bishop must not be blocked in the given direction.
         if board.occupied[piece.row + delta[0]//2][piece.col + delta[1]//2]:
             return False
-        # A red bishop must not reach cross the river and reach black's half board.
-        if piece.type == 'B': return piece.row >= 5
+        # A red bishop must not cross the river and reach black's half board.
+        if piece.type == 'B': return row >= 5
         # Similar for a black bishop.
-        return piece.row <= 4
+        return row <= 4
     
     elif piece.type == 'A' or piece.type == 'a':
         # Advisors must stay in their corresponding palace.
@@ -143,7 +162,7 @@ def is_valid_move(board: Board, piece: Piece, row, col) -> bool:
         return (cnt == 3 and board.occupied[row][col]) or cnt == 1
     
     else:
-        raise ValueError("is_legal_move: unexpected Piece type [" + piece.type + "]")
+        raise ValueError("unexpected Piece type [" + piece.type + "]")
 
 
 def flying_general_possible(board: Board) -> bool:
@@ -158,7 +177,7 @@ def flying_general_possible(board: Board) -> bool:
         return False
     # Not possible if there exists at least one piece in between.
     for i in range(min(redKing.row, blackKing.row)+1, max(redKing.row, blackKing.row)):
-        if board.occupied[i][piece.col]:
+        if board.occupied[i][redKing.col]:
             return False
     return True
 
@@ -206,28 +225,35 @@ def is_legal_move(board: Board, piece: Piece, row, col) -> bool:
             newBoard.pieces[i].row = row
             newBoard.pieces[i].col = col
             break
+    newBoard.occupied[piece.row][piece.col] = False
+    newBoard.occupied[row][col] = True
     return is_legal_board(newBoard, -piece.color)
 
 
-def do_move(board: Board, piece: Piece, row: int, col: int):
+def do_move(board: Board, move: Move):
     '''
-    Returns the child position board, and True if the given
-    move is legal according to the rule.
-    Returns the original board, False otherwise.
+    Returns the child position board after doing move.
+    Raises ValueError if move is illegal.
     '''
-    if not is_legal_move(board, piece, row, col):
-        return board, False
+    piece = board.get_piece_at(move.srcRow, move.srcCol)
+    if not is_legal_move(board, piece, move.destRow, move.destCol):
+        raise ValueError("illegal move")
     # Remove the piece at destination.
     for p in board.pieces:
-        if p.row == row and p.col == col:
+        if p.row == move.destRow and p.col == move.destCol:
             board.pieces.remove(p)
             break
     board.occupied[piece.row][piece.col] = False
     # Move the given piece over.
-    piece.row = row
-    piece.col = col
-    board.occupied[row][col] = True
-    return board, True
+    piece.row = move.destRow
+    piece.col = move.destCol
+    board.occupied[move.destRow][move.destCol] = True
+    # Change pawn type if crossing the river.
+    if piece.type == 'P' and piece.row <= 4:
+        piece.type = 'Q'
+    if piece.type == 'p' and piece.row >= 5:
+        piece.type = 'q'
+    return board
 
 
 def is_primitive(board: Board, turn):
@@ -276,11 +302,9 @@ def all_moves(piece: Piece):
     return list
 
 
-def generate_moves(board: Board, color):
+def generate_moves(board: Board, color: int):
     '''
-    Returns a list of all possible moves. Each move is represented
-    as a length-3 tuple of the format
-    ({piece_to_move}, {dest_row}, {dest_col}).
+    Returns a list of all possible moves.
     '''
     newList = []
     for piece in board.pieces:
@@ -288,7 +312,7 @@ def generate_moves(board: Board, color):
             list = all_moves(piece)
             for (row, col) in list:
                 if is_legal_move(board, piece, row, col):
-                    newList.append((piece, row, col))
+                    newList.append(Move(piece.row, piece.col, row, col))
     return newList
 
 
@@ -363,16 +387,11 @@ def UWAPIToBoard(position: str):
             board.pieces.append(Piece(color, position[4][i], row, col))
     return board, turn
 
-def moveToUWAPI(piece: Piece, row: int, col: int) -> str:
-    srcIdx = piece.row * 9 + piece.col
-    destIdx = row * 9 + col
-    return "M_{}_{}".format(srcIdx, destIdx)
-
 
 class RegularChineseChessVariant(AbstractGameVariant):
     def __init__(self):
         name = "Regular"
-        desc = "Regular Chinese Chess with default initial position."
+        desc = "Regular"
         status = 'stable'
         gui_status = 'v2'
         super(RegularChineseChessVariant, self).__init__(
@@ -393,8 +412,9 @@ class RegularChineseChessVariant(AbstractGameVariant):
         board, turn = UWAPIToBoard(position)
         moves = generate_moves(board, turn)
         return [{
-            "move": moveToUWAPI(*move), # TODO: come up with good move names.
-            "position": boardToUWAPI(do_move(copy.deepcopy(board), move[0], move[1], move[2])[0]),
+            "move": move.as_UWAPI(),
+            # "moveName": "", # TODO: come up with good move names.
+            "position": boardToUWAPI(do_move(copy.deepcopy(board), move), -turn),
             "positionValue": "draw", # TODO: connect EGTB here.
             "remoteness": 255
         } for move in moves]
@@ -406,12 +426,9 @@ if __name__ == "__main__":
     while not is_primitive(board, color):
         print_board(board)
         print(boardToUWAPI(board, color))
-        move = generate_moves(board, color)
-        for i in range(len(move)):
-            print(str(i) + ": from [", move[i][0].row, move[i][0].col, "] to [", move[i][1], move[i][2], "]")
+        moves = generate_moves(board, color)
+        for i in range(len(moves)):
+            print(str(i) + ": from [", moves[i].srcRow, moves[i].srcCol, "] to [", moves[i].destRow, moves[i].destCol, "]")
         index = int(input())
-        board, ok = do_move(
-            board, move[index][0], move[index][1], move[index][2])
-        if not ok:
-            break
+        board = do_move(board, moves[index])
         color = -color
