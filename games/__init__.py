@@ -144,6 +144,14 @@ games = {
             '7-man': RegularChessVariant()
         },
         gui_status='v2'),
+
+    'chinesechess': Game(
+        name='Chinese Chess',
+        desc="Chinese Chess",
+        variants={
+            'regular': RegularChessVariant() # todo
+        },
+        gui_status='v2'),
     
     'chomp': Game(
         name='Chomp',
