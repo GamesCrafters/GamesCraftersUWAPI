@@ -147,7 +147,7 @@ games = {
 
     'chinesechess': Game(
         name='Chinese Chess',
-        desc="Chinese Chess",
+        desc="Checkmate the enemy general to win the battle.",
         variants={
             'regular': RegularChessVariant() # todo
         },
