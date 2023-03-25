@@ -1,8 +1,9 @@
 import copy
+from .models import AbstractGameVariant
 
 class Board:
     def __init__(self) -> None:
-        self.occupied = [[0 for _ in range(9)] for _ in range(10)]
+        self.occupied = [[False for _ in range(9)] for _ in range(10)]
         self.pieces = []
 
 
@@ -26,7 +27,7 @@ def init_chess_board() -> Board:
     cols = [0, 1, 2, 3, 4, 5, 6, 7, 8, 1, 7, 0, 2, 4, 6, 8] * 2
     for i in range(16*2):
         board.pieces.append(Piece(colors[i], types[i], rows[i], cols[i]))
-        board.occupied[rows[i]][cols[i]] = 1
+        board.occupied[rows[i]][cols[i]] = True
     return board
 
 
@@ -44,7 +45,7 @@ def is_valid_move(board: Board, piece: Piece, row, col) -> bool:
     if not legal_loc(row, col):
         return False
     
-    if board.occupied[row][col] != 0:
+    if board.occupied[row][col]:
         # Capturing a friendly piece or not moving is not allowed.
         for cp in board.pieces:
             if cp.row == row and cp.col == col and cp.color == piece.color:
@@ -90,9 +91,9 @@ def is_valid_move(board: Board, piece: Piece, row, col) -> bool:
         horizontal = ((-1, -2), (-1, 2), (1, -2), (1, 2))
         # The knight must not be blocked in the given direction.
         if delta in vertical:
-            return board.occupied[piece.row + delta[0]//2][piece.col] == 0
+            return not board.occupied[piece.row + delta[0]//2][piece.col]
         elif delta in horizontal:
-            return board.occupied[piece.row][piece.col + delta[1]//2] == 0
+            return not board.occupied[piece.row][piece.col + delta[1]//2]
         else:
             return False
     
@@ -139,7 +140,7 @@ def is_valid_move(board: Board, piece: Piece, row, col) -> bool:
             for i in range(min(piece.row, row), max(piece.row, row)+1):
                 cnt += board.occupied[i][col]
         # Capture: three pieces encountered; or no capture: one piece encountered.
-        return (cnt == 3 and board.occupied[row][col] != 0) or cnt == 1
+        return (cnt == 3 and board.occupied[row][col]) or cnt == 1
     
     else:
         raise ValueError("is_legal_move: unexpected Piece type [" + piece.type + "]")
@@ -221,11 +222,11 @@ def do_move(board: Board, piece: Piece, row: int, col: int):
         if p.row == row and p.col == col:
             board.pieces.remove(p)
             break
-    board.occupied[piece.row][piece.col] = 0
+    board.occupied[piece.row][piece.col] = False
     # Move the given piece over.
     piece.row = row
     piece.col = col
-    board.occupied[row][col] = 1
+    board.occupied[row][col] = True
     return board, True
 
 
@@ -343,6 +344,61 @@ def boardToUWAPI(board: Board, turn: int) -> str:
     else:
         turnChar = 'B'
     return "R_" + turnChar + "_10_9_" + strcat(slots)
+
+
+def UWAPIToBoard(position: str):
+    position = position.split("_", 5)
+    if position[1] == 'A': turn = 1
+    else: turn = -1
+    board = Board()
+    for i in range(90):
+        if position[4][i] != '-':
+            row = i//9
+            col = i%9
+            board.occupied[row][col] = True
+            if position[4][i].isupper():
+                color = 1
+            else:
+                color = -1
+            board.pieces.append(Piece(color, position[4][i], row, col))
+    return board, turn
+
+def moveToUWAPI(piece: Piece, row: int, col: int) -> str:
+    srcIdx = piece.row * 9 + piece.col
+    destIdx = row * 9 + col
+    return "M_{}_{}".format(srcIdx, destIdx)
+
+
+class RegularChineseChessVariant(AbstractGameVariant):
+    def __init__(self):
+        name = "Regular"
+        desc = "Regular Chinese Chess with default initial position."
+        status = 'stable'
+        gui_status = 'v2'
+        super(RegularChineseChessVariant, self).__init__(
+            name, desc, status=status, gui_status=gui_status
+        )
+
+    def start_position(self):
+        return boardToUWAPI(init_chess_board(), 1)
+
+    def stat(self, position):
+        return {
+            "position": position,
+            "positionValue": "draw", # TODO: connect EGTB here.
+            "remoteness": 255
+        }
+
+    def next_stats(self, position):
+        board, turn = UWAPIToBoard(position)
+        moves = generate_moves(board, turn)
+        return [{
+            "move": moveToUWAPI(*move), # TODO: come up with good move names.
+            "position": boardToUWAPI(do_move(copy.deepcopy(board), move[0], move[1], move[2])[0]),
+            "positionValue": "draw", # TODO: connect EGTB here.
+            "remoteness": 255
+        } for move in moves]
+
 
 if __name__ == "__main__":
     board = init_chess_board()
