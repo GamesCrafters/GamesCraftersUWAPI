@@ -662,14 +662,21 @@ def get_chess(variant_id):
                 "b": "bb", "n": "nn", "p": "pp"
             }
     return {
-            "defaultTheme": "regular",
+            "defaultTheme": "wikipedia",
             "themes": {
-                "regular": {
+                "wikipedia": {
                     "backgroundGeometry": [8, 8],
                     "arrowThickness": 0.1,
-                    "backgroundImage": "chess/grid.svg",
+                    "backgroundImage": "chess/wikipedia/grid.svg",
                     "centers": [[0.5 + (i % 8), 0.5 + (i // 8)] for i in range(64)],
-                    "pieces": {k: {"image": "chess/{}.svg".format(v), "scale": 1} for (k, v) in pieces.items()}
+                    "pieces": {k: {"image": "chess/wikipedia/{}.svg".format(v), "scale": 1} for (k, v) in pieces.items()}
+                },
+                "lichess": {
+                    "backgroundGeometry": [8, 8],
+                    "arrowThickness": 0.1,
+                    "backgroundImage": "chess/lichess/grid.svg",
+                    "centers": [[0.5 + (i % 8), 0.5 + (i // 8)] for i in range(64)],
+                    "pieces": {k: {"image": "chess/lichess/{}.svg".format(v), "scale": 1} for (k, v) in pieces.items()}
                 }
             }
         }
