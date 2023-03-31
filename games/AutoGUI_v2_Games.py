@@ -1212,6 +1212,35 @@ def get_beeline(variant_id):
             },
         }
     }
+
+
+def get_chinesechess(variant_id):
+    pieces = {
+        "K": "general_r", "A": "advisor_r", "R": "chariot_r", "B": "elephant_r", 
+        "N": "horse_r", "P": "soldier_r", "Q": "soldier_r", "C":"cannon_r", 
+        "k": "general_b", "a": "advisor_b", "r": "chariot_b", "b": "elephant_b", 
+        "n": "horse_b", "p": "soldier_b", "q": "soldier_b", "c":"cannon_b"
+    }
+    
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "backgroundGeometry": [9, 10],
+                "arrowThickness": 0.1,
+                "backgroundImage": "chinesechess/board.svg",
+                "centers": [[0.5 + (i % 9), 0.5 + (i // 9)] for i in range(90)],
+                "pieces": {k: {"image": "chinesechess/regular/{}.svg".format(v), "scale": 1} for (k, v) in pieces.items()}
+            },
+            "graphical": {
+                "backgroundGeometry": [9, 10],
+                "arrowThickness": 0.1,
+                "backgroundImage": "chinesechess/board.svg",
+                "centers": [[0.5 + (i % 9), 0.5 + (i // 9)] for i in range(90)],
+                "pieces": {k: {"image": "chinesechess/graphical/{}.svg".format(v), "scale": 1} for (k, v) in pieces.items()}
+            }
+        }
+    }
     
 
 """
@@ -1245,7 +1274,8 @@ autoGUIv2DataFuncs = {
     "haregame": get_haregame,
     "othello": get_othello,
     "gameofy": get_gameofy,
-    "beeline": get_beeline
+    "beeline": get_beeline,
+    "chinesechess": get_chinesechess
 }
 
 def get_autoguiV2Data(game_id, variant_id):

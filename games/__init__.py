@@ -10,6 +10,7 @@ from .TootNOtto import TootNOtto
 from .NimGameVariant import NimGameVariant, nim_custom_start
 from .DawsonsChessGameVariant import DawsonsChessGameVariant, dawsonschess_custom_start
 from .KaylesGameVariant import KaylesGameVariant, kayles_custom_start
+from .chinesechess import RegularChineseChessVariant
 
 dirname = os.path.dirname(__file__)
 
@@ -142,6 +143,14 @@ games = {
         desc="Chess",
         variants={
             '7-man': RegularChessVariant()
+        },
+        gui_status='v2'),
+
+    'chinesechess': Game(
+        name='Chinese Chess',
+        desc="Checkmate the enemy general to win the battle.",
+        variants={
+            'regular': RegularChineseChessVariant()
         },
         gui_status='v2'),
     
