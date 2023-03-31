@@ -1,5 +1,8 @@
 import copy
+import os
+from math import comb
 from .models import AbstractGameVariant
+
 
 class Piece:
     def __init__(self, color, type, row, col) -> None:
@@ -32,6 +35,29 @@ class Board:
             if piece.row == row and piece.col == col:
                 return piece
         raise ValueError("unable to get piece at ({}, {})".format(row, col))
+
+    def get_pieces(self, color: int) -> list:
+        pieces = [piece for piece in self.pieces if piece.color == color]
+        for i in range(len(pieces)):
+            if pieces[i].type == 'K' or pieces[i].type == 'k':
+                pieces[0], pieces[i] = pieces[i], pieces[0]
+                break
+        return pieces
+    
+    def get_layout(self) -> list:
+        mapping = {
+            'K': RED_K_IDX, 'k': BLACK_K_IDX, 
+            'A': RED_A_IDX, 'a': BLACK_A_IDX, 
+            'B': RED_B_IDX, 'b': BLACK_B_IDX, 
+            'P': RED_P_IDX, 'p': BLACK_P_IDX, 
+            'N': RED_N_IDX, 'n': BLACK_N_IDX, 
+            'C': RED_C_IDX, 'c': BLACK_C_IDX,
+            'R': RED_R_IDX, 'r': BLACK_R_IDX
+        }
+        layout = [INVALID_IDX]*90
+        for piece in self.pieces:
+            layout[piece.row * 9 + piece.col] = mapping[piece.type]
+        return layout
 
 
 def init_chess_board() -> Board:
@@ -158,7 +184,7 @@ def is_valid_move(board: Board, piece: Piece, row, col) -> bool:
         else:
             for i in range(min(piece.row, row), max(piece.row, row)+1):
                 cnt += board.occupied[i][col]
-        # Capture: three pieces encountered; or no capture: one piece encountered.
+        # Capture: three pieces encountered or no capture: one piece encountered.
         return (cnt == 3 and board.occupied[row][col]) or cnt == 1
     
     else:
@@ -388,6 +414,315 @@ def UWAPIToBoard(position: str):
     return board, turn
 
 
+def EGTB_load(board: Board, turn: int):
+    '''
+    Returns value, remoteness of the given board position.
+    Returns "undecided", 0 if the given board position is
+    not found in the EGTB.
+    '''
+    dir_path = "../GamesmanXiangqi/data"
+    if not os.path.exists(dir_path): # EGTB not found.
+        return "undecided", -1
+    
+    tier, h = hash_board(board, turn)
+    file_path = "{}/{}/{}".format(dir_path, tier[:12], tier)
+    stat_path = "{}.stat".format(file_path)
+    if not os.path.exists(stat_path): # Given position not solved or corrupted in EGTB.
+        return "undecided", -1
+    
+    with open(file_path, "rb") as fo: # TODO: this probing code is subject to change.
+        fo.seek(h<<1) # assuming 2-byte values
+        value = int.from_bytes(fo.read(2), "little")
+
+    if value == 0:
+        raise ValueError("querying unreachable position")
+    if value == 32768:
+        return "draw", 0
+    elif value < 32768:
+        return "lose", value - 1
+    return "win", 65535 - value
+
+
+# Hashing algorithm adapted from EGTB probing code.
+
+BOARD_RED_KING = RED_K_IDX = -2
+BOARD_BLACK_KING = BLACK_K_IDX = -1
+BOARD_RED_ADVISOR = RED_A_IDX = 0
+BOARD_BLACK_ADVISOR = BLACK_A_IDX = 1
+BOARD_RED_BISHOP = RED_B_IDX = 2
+BOARD_BLACK_BISHOP = BLACK_B_IDX = 3
+BOARD_RED_PAWN = RED_P_IDX = 4
+BOARD_BLACK_PAWN = BLACK_P_IDX = 5
+BOARD_RED_KNIGHT = RED_N_IDX = 6
+BOARD_BLACK_KNIGHT = BLACK_N_IDX = 7
+BOARD_RED_CANNON = RED_C_IDX = 8
+BOARD_BLACK_CANNON = BLACK_C_IDX = 9
+BOARD_RED_ROOK = RED_R_IDX = 10
+BOARD_BLACK_ROOK = BLACK_R_IDX = 11
+BOARD_EMPTY_CELL = INVALID_IDX = 12
+
+
+def hash_board(board: Board, turn: int):
+    '''
+    Returns tier, hash.
+    '''
+    tier = board_to_tier(board)
+    steps = board_to_steps(tier, board, turn)
+    return tier, steps_to_hash(tier, steps)
+
+
+def board_to_tier(board: Board) -> str:
+    rems = [0]*12
+    redP = []
+    blackP = []
+    layout = board.get_layout()
+    for i in range(90):
+        idx = layout[i]
+        if idx < 0 or idx == INVALID_IDX:
+            continue
+        if idx == RED_P_IDX:
+            redP.append(i // 9)
+        if idx == BLACK_P_IDX:
+            blackP.append(9 - i // 9)
+        rems[idx] += 1
+    redP.sort(reverse=True)
+    blackP.sort(reverse=True)
+    return strcat([str(x) for x in rems]) + "_" + strcat([str(x) for x in redP]) + "_" + strcat([str(x) for x in blackP])
+
+
+def set_slots(layout, step, substep = False):
+    parity = step & 1
+    if step == 0 or step == 1:
+        slots = [66 - 63*step, 68 - 63*step, 76 - 63*step, 84 - 63*step, 86 - 63*step]
+    elif step == 2 or step == 3:
+        slots = [47 - 45*parity, 51 - 45*parity, 63 - 45*parity, 67 - 45*parity, 71 - 45*parity, 83 - 45*parity, 87 - 45*parity]
+    elif step == 4 or step == 5 or step == 6 or step == 11 or step == 12 or step == 13:
+        slots = [i + 9*(step - 4) for i in range(9)]
+    elif step == 7 or step == 8 or step == 9 or step == 10:
+        if (not substep):
+            slots = [j + 9*(step - 4) for j in range(0, 9, 2)]
+        else:
+            slots = []
+            for j in range(9):
+                if layout[(step - 4)*9 + j] != BOARD_RED_PAWN + (step < 9):
+                    slots.append(j + 9*(step - 4))
+    elif step == 14:
+        slots = []
+        for i in range(90):
+            if layout[i] >= BOARD_RED_KNIGHT:
+                slots.append(i)
+    else:
+        raise RuntimeError()
+    return [layout[i] for i in slots]
+
+
+def get_pawn_begin_end(tier: str, pawnIdx: int):
+    redPawnCount = int(tier[RED_P_IDX])
+    blackPawnCount = int(tier[BLACK_P_IDX])
+    if pawnIdx == RED_P_IDX:
+        return 13, 13 + redPawnCount
+    else:
+        return 14 + redPawnCount, 14 + redPawnCount + blackPawnCount
+
+
+def tier_get_pawns_per_row(tier: str) -> list:
+    redPBegin, redPEnd = get_pawn_begin_end(tier, RED_P_IDX)
+    blackPBegin, blackPEnd = get_pawn_begin_end(tier, BLACK_P_IDX)
+    pawnsPerRow = [0]*20
+    for i in range(redPBegin, redPEnd):
+        pawnsPerRow[int(tier[i])] += 1
+    for i in range(blackPBegin, blackPEnd):
+        pawnsPerRow[19 - int(tier[i])] += 1
+    return pawnsPerRow
+
+
+def board_to_steps(tier: str, board: Board, turn: int):
+    kingSlot = ((0, 0, 0),
+                (1, 0, 2),
+                (0, 3, 0))
+    steps = [0]*16
+    rems = [0]*7
+
+    pawnsPerRow = tier_get_pawns_per_row(tier)
+    layout = board.get_layout()
+
+    # STEPS 0 & 1: KINGS AND ADVISORS.
+    for step in range(2):
+        pieces = board.get_pieces(1 if step == 0 else -1)
+        slots = set_slots(layout, step)
+        i = pieces[0].row - 7*(1 - step)
+        j = pieces[0].col - 3
+        if tier[RED_A_IDX + step] == '0': # No advisors.
+            steps[step] = 3*i + j
+        elif tier[RED_A_IDX + step] == '1':
+            if ((i + j) & 1): # King does not occupy advisor slots, 20 possible configurations.
+                rems[0] = 4; rems[1] = 0; rems[2] = 1
+                steps[step] = 5 * kingSlot[i][j] + hash_cruncher(slots, BOARD_RED_KING, BOARD_BLACK_ADVISOR, rems, 3)
+            else: # King occupies one of the advisor slots, 20 possible configurations.
+                rems[0] = 3; rems[1] = 1; rems[2] = 1
+                steps[step] = 20 + hash_cruncher(slots, BOARD_RED_KING, BOARD_BLACK_ADVISOR, rems, 3)
+        elif tier[RED_A_IDX + step] == '2':
+            if ((i + j) & 1): # King does not occupy advisor slots, 40 possible configurations.
+                rems[0] = 3; rems[1] = 0; rems[2] = 2
+                steps[step] = 10 * kingSlot[i][j] + hash_cruncher(slots, BOARD_RED_KING, BOARD_BLACK_ADVISOR, rems, 3)
+            else: # King occupies one of the advisor slots, 30 possible configurations.
+                rems[0] = 2; rems[1] = 1; rems[2] = 2
+                steps[step] = 40 + hash_cruncher(slots, BOARD_RED_KING, BOARD_BLACK_ADVISOR, rems, 3)
+
+    # STEPS 2 & 3: BISHOPS.
+    for step in range(2, 4):
+        slots = set_slots(layout, step)
+        rems[1] = int(tier[RED_B_IDX + (step & 1)])
+        rems[0] = 7 - rems[1]
+        steps[step] = hash_cruncher(slots, BOARD_RED_BISHOP, BOARD_BLACK_BISHOP, rems, 2)
+
+    # STEPS 4 - 6: RED PAWNS IN THE TOP THREE ROWS.
+    for step in range(4, 7):
+        slots = set_slots(layout, step)
+        rems[1] = pawnsPerRow[step - 4] # number of red pawns in curr row.
+        rems[0] = 9 - rems[1] # number of empty slots in curr row.
+        steps[step] = hash_cruncher(slots, BOARD_RED_PAWN, BOARD_RED_PAWN, rems, 2)
+
+    # STEPS 7 - 10: PAWNS IN ROW 3 THRU ROW 6.
+    for step in range(7, 11):
+        # Hash the more restricted pawns first.
+        slots = set_slots(layout, step, False)
+        rems[1] = pawnsPerRow[10 * (step < 9) + step - 4] # number of "more restricted" pawns in curr row.
+        rems[0] = 5 - rems[1]                             # number of empty slots at the 5 locations above.
+        steps[step] = hash_cruncher(slots, BOARD_RED_PAWN + (step < 9), BOARD_RED_PAWN + (step < 9), rems, 2)
+
+        # Then hash the less restricted pawns.
+        slots = set_slots(layout, step, True)
+        rems[1] = pawnsPerRow[10 * (step >= 9) + step - 4] # number of "less restricted" pawns in curr row.
+        rems[0] = len(slots) - rems[1]                     # number of remaining empty slots in curr row.
+        steps[step] *= comb(len(slots), rems[1]) # Must calculate this first as hash_cruncher modifies rems.
+        steps[step] += hash_cruncher(slots, BOARD_RED_PAWN + (step >= 9), BOARD_RED_PAWN + (step >= 9), rems, 2)
+
+    # STEPS 11 - 13: BLACK PAWNS IN THE BOTTOM THREE ROWS.
+    for step in range(11, 14):
+        slots = set_slots(layout, step)
+        rems[1] = pawnsPerRow[10 + step - 4] # number of black pawns in curr row.
+        rems[0] = 9 - rems[1]                # number of empty slots in curr row.
+        steps[step] = hash_cruncher(slots, BOARD_BLACK_PAWN, BOARD_BLACK_PAWN, rems, 2)
+
+    # STEP 14: KNIGHTS, CANNONS, AND ROOKS.
+    slots = set_slots(layout, 14)
+    rems[0] = len(slots)
+    for j in range(RED_N_IDX, BLACK_R_IDX + 1):
+        rems[j - RED_N_IDX + 1] = int(tier[j])
+        rems[0] -= int(tier[j])
+    steps[14] = hash_cruncher(slots, BOARD_RED_KNIGHT, BOARD_BLACK_ROOK, rems, 7)
+
+    # STEP 15: TURN BIT.
+    steps[15] = int(turn == -1)
+    return steps
+
+
+def combi_count(counts, numPieces):
+    sum = 0
+    prod = 1
+    for i in range(numPieces - 1, 0, -1):
+        sum += counts[i]
+        prod *= comb(sum + counts[i - 1], sum)
+    return prod
+
+
+def hash_cruncher(slots, pieceMin, pieceMax, rems, numPieces):
+    pieceIdxLookup = (1,1,2,2,1,1,1,1,1,2,3,4,5,6,0)
+    hash = 0
+    for i in range(len(slots) - 1, 0, -1):
+        piece = slots[i] if (slots[i] >= pieceMin and slots[i] <= pieceMax) else BOARD_EMPTY_CELL
+        pieceIdx = pieceIdxLookup[piece + 2] # +2 to accommodate the kings.
+        for j in range(pieceIdx):
+            if rems[j]:
+                rems[j] -= 1
+                hash += combi_count(rems, numPieces)
+                rems[j] += 1
+        rems[pieceIdx] -= 1
+    return hash
+
+
+def steps_to_hash(tier: str, steps: list) -> int:
+    res = 0
+    stepsMax = tier_size_steps(tier)
+    # Steps
+    for i in range(15):
+        res *= stepsMax[i]
+        res += steps[i]
+    # Turn bit
+    res = (res << 1) | steps[15]
+    return res
+
+
+def tier_size_steps(tier: str):
+    steps = [0]*15
+    redPawnBegin, redPawnEnd = get_pawn_begin_end(tier, RED_P_IDX)
+    blackPawnBegin, blackPawnEnd = get_pawn_begin_end(tier, BLACK_P_IDX)
+
+    # King and advisors.
+    for step in range(2):
+        if tier[RED_A_IDX + step] == '0': # If there are no advisors, there are 9 slots for the king.
+            steps[step] = 9
+        elif tier[RED_A_IDX + step] == '1': # King takes one of the 5 advisor slots: 5*nCr(5-1, 1);
+            # King is in one of the other 4 slots: 4*nCr(5, 1).
+            steps[step] = 40
+        elif tier[RED_A_IDX + step] == '2': # King takes one of the 5 advisor slots: 5*nCr(5-1, 2);
+            # King is in one of the other 4 slots: 4*nCr(5, 2).
+            steps[step] = 70
+        else:
+            raise RuntimeError()
+        
+    # Bishops.
+    for step in range(2, 4): # There are 7 possible slots that a bishop can be in.
+        steps[step] = comb(7, int(tier[RED_B_IDX + step - 2]))
+
+    # Define row number to be 0 thru 9 where 0 is the bottom line of
+    #  black side and 9 is the bottom line of red side.
+    for step in range(4, 7):
+        # Bottom three rows of black's half-board. No black pawns should be found.
+        #  There are nCr(9, red) ways to place red pawns on the specified row.
+        redPawnRow = 0
+        for i in range(redPawnBegin, redPawnEnd):
+            redPawnRow += (int(tier[i]) == step - 4)
+        steps[step] = comb(9, redPawnRow)
+
+    for step in range(7, 11):
+        redPawnRow = blackPawnRow = 0
+        for i in range(redPawnBegin, redPawnEnd):
+            redPawnRow += (int(tier[i]) == step - 4)
+        for i in range(blackPawnBegin, blackPawnEnd):
+            blackPawnRow += (9 - int(tier[i]) == step - 4)
+        if step < 9:
+            # Top two rows of black's half-board. Any black pawn in these two rows
+            #  can only appear in one of the 5 special columns. There are
+            #  nCr(5, black)*nCr(9-black, red) ways to place all pawns on the
+            #  specified row.
+            steps[step] = comb(5, blackPawnRow) * comb(9 - blackPawnRow, redPawnRow)
+        else:
+            # Top two rows of red's half-board. Similar to the case above.
+            #  nCr(5, red)*nCr(9-red, black).
+            steps[step] = comb(5, redPawnRow) * comb(9 - redPawnRow, blackPawnRow)
+
+    for step in range(11, 14):
+        # Bottom three rows of red's half-board. No red pawns should be found.
+        #  There are nCr(9, black) ways to place black pawns on the specified row.
+        blackPawnRow = 0
+        for i in range(blackPawnBegin, blackPawnEnd):
+            blackPawnRow += (9 - int(tier[i]) == step - 4)
+        steps[step] = comb(9, blackPawnRow)
+
+    # Kights, cannons, and rooks can reach any slot. The number of ways
+    #  to place k such pieces is nCr(90-existing_pieces, k).
+    existing = 2
+    for i in range(RED_N_IDX):
+        existing += int(tier[i])
+    steps[14] = 1
+    for i in range(RED_N_IDX, BLACK_R_IDX + 1):
+        steps[14] *= comb(90 - existing, int(tier[i]))
+        existing += int(tier[i])
+    return steps
+
+
 class RegularChineseChessVariant(AbstractGameVariant):
     def __init__(self):
         name = "Regular"
@@ -402,33 +737,38 @@ class RegularChineseChessVariant(AbstractGameVariant):
         return boardToUWAPI(init_chess_board(), 1)
 
     def stat(self, position):
+        value, remoteness = EGTB_load(*UWAPIToBoard(position))
         return {
             "position": position,
-            "positionValue": "draw", # TODO: connect EGTB here.
-            "remoteness": 255
+            "positionValue": value,
+            "remoteness": remoteness
         }
 
     def next_stats(self, position):
         board, turn = UWAPIToBoard(position)
         moves = generate_moves(board, turn)
-        return [{
-            "move": move.as_UWAPI(),
-            # "moveName": "", # TODO: come up with good move names.
-            "position": boardToUWAPI(do_move(copy.deepcopy(board), move), -turn),
-            "positionValue": "draw", # TODO: connect EGTB here.
-            "remoteness": 255
-        } for move in moves]
+        stats = []
+        for move in moves:
+            newBoard = do_move(copy.deepcopy(board), move)
+            value, remoteness = EGTB_load(newBoard, -turn)
+            stats.append({
+                "move": move.as_UWAPI(),
+                # "moveName": "", # TODO: come up with good move names.
+                "position": boardToUWAPI(newBoard, -turn),
+                "positionValue": value,
+                "remoteness": remoteness
+            })
+        return stats
 
 
 if __name__ == "__main__":
-    board = init_chess_board()
-    color = 1
-    while not is_primitive(board, color):
+    print("type in UWAPI position string >", end=None)
+    response = input()
+    while response != "exit":
+        board, turn = UWAPIToBoard(response)
         print_board(board)
-        print(boardToUWAPI(board, color))
-        moves = generate_moves(board, color)
-        for i in range(len(moves)):
-            print(str(i) + ": from [", moves[i].srcRow, moves[i].srcCol, "] to [", moves[i].destRow, moves[i].destCol, "]")
-        index = int(input())
-        board = do_move(board, moves[index])
-        color = -color
+        tier, h = hash_board(board, turn)
+        print("tier:", tier)
+        print("hash:", h)
+        print("type in UWAPI position string >", end=None)
+        response = input()
