@@ -671,12 +671,12 @@ def get_chess(variant_id):
                     "centers": [[0.5 + (i % 8), 0.5 + (i // 8)] for i in range(64)],
                     "pieces": {k: {"image": "chess/wikipedia/{}.svg".format(v), "scale": 1} for (k, v) in pieces.items()}
                 },
-                "chess.com": {
+                "lichess": {
                     "backgroundGeometry": [8, 8],
                     "arrowThickness": 0.1,
-                    "backgroundImage": "chess/chess.com/grid.svg",
+                    "backgroundImage": "chess/lichess/grid.svg",
                     "centers": [[0.5 + (i % 8), 0.5 + (i // 8)] for i in range(64)],
-                    "pieces": {k: {"image": "chess/chess.com/{}.svg".format(v), "scale": 1} for (k, v) in pieces.items()}
+                    "pieces": {k: {"image": "chess/lichess/{}.svg".format(v), "scale": 1} for (k, v) in pieces.items()}
                 }
             }
         }
