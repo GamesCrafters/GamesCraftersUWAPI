@@ -30,7 +30,7 @@ class Board:
         self.occupied = [[False for _ in range(9)] for _ in range(10)]
         self.pieces = []
 
-    def get_piece_at(self, row, col) -> Piece:
+    def get_piece_at(self, row: int, col: int) -> Piece:
         for piece in self.pieces:
             if piece.row == row and piece.col == col:
                 return piece
@@ -50,6 +50,7 @@ class Board:
             'A': RED_A_IDX, 'a': BLACK_A_IDX, 
             'B': RED_B_IDX, 'b': BLACK_B_IDX, 
             'P': RED_P_IDX, 'p': BLACK_P_IDX, 
+            'Q': RED_P_IDX, 'q': BLACK_P_IDX, 
             'N': RED_N_IDX, 'n': BLACK_N_IDX, 
             'C': RED_C_IDX, 'c': BLACK_C_IDX,
             'R': RED_R_IDX, 'r': BLACK_R_IDX
@@ -60,7 +61,7 @@ class Board:
         return layout
 
 
-def init_chess_board() -> Board:
+def get_board_default_starting() -> Board:
     '''
     Returns the default starting position of a Chinese Chess game.
     '''
@@ -76,18 +77,18 @@ def init_chess_board() -> Board:
     return board
 
 
-def legal_loc(row, col) -> bool:
+def is_legal_loc(row: int, col: int) -> bool:
     return row >= 0 and row < 10 and col >= 0 and col < 9
 
 
-def is_valid_move(board: Board, piece: Piece, row, col) -> bool:
+def is_valid_move(board: Board, piece: Piece, row: int, col: int) -> bool:
     '''
     Returns True if the given move can be carried out. Returns 
     False otherwise. Does not consider the flying general rule
     and whether the current player's king is mated after the
     move.
     '''
-    if not legal_loc(row, col):
+    if not is_legal_loc(row, col):
         return False
     
     if board.occupied[row][col]:
@@ -208,7 +209,7 @@ def flying_general_possible(board: Board) -> bool:
     return True
 
 
-def is_legal_board(board: Board, currentPlayer) -> bool:
+def is_legal_board(board: Board, turn: int) -> bool:
     '''
     Returns False if current player can directly capture the opponent's king
     or if flying general is possible. Returns True otherwise.
@@ -218,11 +219,11 @@ def is_legal_board(board: Board, currentPlayer) -> bool:
         return False
     # Find opponent player's king.
     for piece in board.pieces:
-        if piece.color != currentPlayer and (piece.type == 'K' or piece.type == 'k'):
+        if piece.color != turn and (piece.type == 'K' or piece.type == 'k'):
             oppKing = piece
             break
     for piece in board.pieces:
-        if piece.color != currentPlayer:
+        if piece.color != turn:
             continue
         # Illegal if can capture opponent's king directly.
         if is_valid_move(board, piece, oppKing.row, oppKing.col):
@@ -230,7 +231,7 @@ def is_legal_board(board: Board, currentPlayer) -> bool:
     return True
 
 
-def is_legal_move(board: Board, piece: Piece, row, col) -> bool:
+def is_legal_move(board: Board, piece: Piece, row: int, col: int) -> bool:
     '''
     Returns True if the given move is legal according to the rule.
     Returns False otherwise.
@@ -282,7 +283,7 @@ def do_move(board: Board, move: Move):
     return board
 
 
-def is_primitive(board: Board, turn):
+def is_primitive(board: Board, turn: int):
     '''
     Returns True if the position represented by board is primitive.
     Returns False otherwise.
@@ -397,6 +398,7 @@ def boardToUWAPI(board: Board, turn: int) -> str:
 
 
 def UWAPIToBoard(position: str):
+    # TODO: validate board before returning.
     position = position.split("_", 5)
     if position[1] == 'A': turn = 1
     else: turn = -1
@@ -410,25 +412,33 @@ def UWAPIToBoard(position: str):
                 color = 1
             else:
                 color = -1
-            board.pieces.append(Piece(color, position[4][i], row, col))
+            if position[4][i] == 'P' and 0 <= row <= 4:
+                board.pieces.append(Piece(color, 'Q', row, col))
+            elif position[4][i] == 'p' and 5 <= row <= 9:
+                board.pieces.append(Piece(color, 'q', row, col))
+            else:
+                board.pieces.append(Piece(color, position[4][i], row, col))
     return board, turn
 
 
 def EGTB_load(board: Board, turn: int):
     '''
     Returns value, remoteness of the given board position.
-    Returns "undecided", 0 if the given board position is
-    not found in the EGTB.
+    Returns "unsolved", 255 if the given board position is
+    not primitive and not found in the EGTB.
     '''
+    if is_primitive(board, turn): # All primitive positions are losing.
+        return "lose", 0
+
     dir_path = "../GamesmanXiangqi/data"
     if not os.path.exists(dir_path): # EGTB not found.
-        return "undecided", -1
+        return "unsolved", 1
     
     tier, h = hash_board(board, turn)
     file_path = "{}/{}/{}".format(dir_path, tier[:12], tier)
     stat_path = "{}.stat".format(file_path)
     if not os.path.exists(stat_path): # Given position not solved or corrupted in EGTB.
-        return "undecided", -1
+        return "unsolved", 1
     
     with open(file_path, "rb") as fo: # TODO: this probing code is subject to change.
         fo.seek(h<<1) # assuming 2-byte values
@@ -437,7 +447,7 @@ def EGTB_load(board: Board, turn: int):
     if value == 0:
         raise ValueError("querying unreachable position")
     if value == 32768:
-        return "draw", 0
+        return "draw", 1
     elif value < 32768:
         return "lose", value - 1
     return "win", 65535 - value
@@ -490,7 +500,7 @@ def board_to_tier(board: Board) -> str:
     return strcat([str(x) for x in rems]) + "_" + strcat([str(x) for x in redP]) + "_" + strcat([str(x) for x in blackP])
 
 
-def set_slots(layout, step, substep = False):
+def set_slots(layout: list, step: int, substep: bool = False):
     parity = step & 1
     if step == 0 or step == 1:
         slots = [66 - 63*step, 68 - 63*step, 76 - 63*step, 84 - 63*step, 86 - 63*step]
@@ -618,7 +628,7 @@ def board_to_steps(tier: str, board: Board, turn: int):
     return steps
 
 
-def combi_count(counts, numPieces):
+def combi_count(counts: list, numPieces: int):
     sum = 0
     prod = 1
     for i in range(numPieces - 1, 0, -1):
@@ -627,7 +637,7 @@ def combi_count(counts, numPieces):
     return prod
 
 
-def hash_cruncher(slots, pieceMin, pieceMax, rems, numPieces):
+def hash_cruncher(slots: list, pieceMin: int, pieceMax: int, rems: list, numPieces: int):
     pieceIdxLookup = (1,1,2,2,1,1,1,1,1,2,3,4,5,6,0)
     hash = 0
     for i in range(len(slots) - 1, 0, -1):
@@ -734,9 +744,9 @@ class RegularChineseChessVariant(AbstractGameVariant):
         )
 
     def start_position(self):
-        return boardToUWAPI(init_chess_board(), 1)
+        return boardToUWAPI(get_board_default_starting(), 1)
 
-    def stat(self, position):
+    def stat(self, position: str):
         value, remoteness = EGTB_load(*UWAPIToBoard(position))
         return {
             "position": position,
@@ -744,7 +754,7 @@ class RegularChineseChessVariant(AbstractGameVariant):
             "remoteness": remoteness
         }
 
-    def next_stats(self, position):
+    def next_stats(self, position: str):
         board, turn = UWAPIToBoard(position)
         moves = generate_moves(board, turn)
         stats = []
