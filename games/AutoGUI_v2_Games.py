@@ -662,14 +662,21 @@ def get_chess(variant_id):
                 "b": "bb", "n": "nn", "p": "pp"
             }
     return {
-            "defaultTheme": "regular",
+            "defaultTheme": "wikipedia",
             "themes": {
-                "regular": {
+                "wikipedia": {
                     "backgroundGeometry": [8, 8],
                     "arrowThickness": 0.1,
-                    "backgroundImage": "chess/grid.svg",
+                    "backgroundImage": "chess/wikipedia/grid.svg",
                     "centers": [[0.5 + (i % 8), 0.5 + (i // 8)] for i in range(64)],
-                    "pieces": {k: {"image": "chess/{}.svg".format(v), "scale": 1} for (k, v) in pieces.items()}
+                    "pieces": {k: {"image": "chess/wikipedia/{}.svg".format(v), "scale": 1} for (k, v) in pieces.items()}
+                },
+                "lichess": {
+                    "backgroundGeometry": [8, 8],
+                    "arrowThickness": 0.1,
+                    "backgroundImage": "chess/lichess/grid.svg",
+                    "centers": [[0.5 + (i % 8), 0.5 + (i // 8)] for i in range(64)],
+                    "pieces": {k: {"image": "chess/lichess/{}.svg".format(v), "scale": 1} for (k, v) in pieces.items()}
                 }
             }
         }
@@ -709,15 +716,15 @@ def get_quickcross(variant_id):
             [141.25, 48.75],#1
             [233.75, 48.75], #2
             [326.25, 48.75], #3
-            [47.5, 141.25], #4
+            [48.75, 141.25], #4
             [141.25, 141.25],#5
             [233.75, 141.25], #6
             [326.25, 141.25], #7
-            [47.5, 233.75], #8
+            [48.75, 233.75], #8
             [141.25, 233.75], #9
             [233.75, 233.75],#10
             [326.25, 233.75], #11
-            [47.5, 326.25], #12
+            [48.75, 326.25], #12
             [141.25, 326.25], #13
             [233.75, 326.25], #14
             [326.25, 326.25], #15
@@ -1248,6 +1255,34 @@ def get_1dchess(variant_id):
             },
         }
     }
+
+def get_chinesechess(variant_id):
+    pieces = {
+        "K": "general_r", "A": "advisor_r", "R": "chariot_r", "B": "elephant_r", 
+        "N": "horse_r", "P": "soldier_r", "Q": "soldier_r", "C":"cannon_r", 
+        "k": "general_b", "a": "advisor_b", "r": "chariot_b", "b": "elephant_b", 
+        "n": "horse_b", "p": "soldier_b", "q": "soldier_b", "c":"cannon_b"
+    }
+    
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "backgroundGeometry": [9, 10],
+                "arrowThickness": 0.1,
+                "backgroundImage": "chinesechess/board.svg",
+                "centers": [[0.5 + (i % 9), 0.5 + (i // 9)] for i in range(90)],
+                "pieces": {k: {"image": "chinesechess/regular/{}.svg".format(v), "scale": 1} for (k, v) in pieces.items()}
+            },
+            "graphical": {
+                "backgroundGeometry": [9, 10],
+                "arrowThickness": 0.1,
+                "backgroundImage": "chinesechess/board.svg",
+                "centers": [[0.5 + (i % 9), 0.5 + (i // 9)] for i in range(90)],
+                "pieces": {k: {"image": "chinesechess/graphical/{}.svg".format(v), "scale": 1} for (k, v) in pieces.items()}
+            }
+        }
+    }
     
 
 """
@@ -1283,6 +1318,7 @@ autoGUIv2DataFuncs = {
     "gameofy": get_gameofy,
     "beeline": get_beeline,
     "1dchess": get_1dchess,
+    "chinesechess": get_chinesechess
 }
 
 def get_autoguiV2Data(game_id, variant_id):

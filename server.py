@@ -72,7 +72,7 @@ def wrangle_next_stats(next_stats):
         return [next_stat['remoteness'] for next_stat in next_stats if next_stat['positionValue'] == position_value]
 
     def key_next_stat_by_move_value_then_delta_remoteness(next_stat):
-        VALUES = ['win', 'tie', 'draw', 'lose']
+        VALUES = ['win', 'tie', 'draw', 'lose', 'unsolved']
         move_value = next_stat['moveValue']
         delta_remotenesss = next_stat['deltaRemoteness']
         if (move_value == 'undecided'):
