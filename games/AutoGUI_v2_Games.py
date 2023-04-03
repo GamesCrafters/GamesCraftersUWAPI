@@ -1213,6 +1213,48 @@ def get_beeline(variant_id):
         }
     }
 
+def get_1dchess(variant_id):
+    return {
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "backgroundGeometry": [8, 1],
+                "backgroundImage": "1dchess/grid.svg",
+                "piecesOverArrows": False,
+                # "foregroundImage": <path to foreground image; if no foreground image, omit this attribute>,
+                "centers": [
+                    [0.5, 0.5],
+                    [1.5, 0.5],
+                    [2.5, 0.5],
+                    [3.5, 0.5],
+                    [4.5, 0.5],
+                    [5.5, 0.5],
+                    [6.5, 0.5],
+                    [7.5, 0.5]
+                ],
+                "pieces": {
+                    "K": {
+                        "image": "1dchess/nn.svg", "scale": 1
+                    },
+                    "k": {
+                        "image": "1dchess/N.svg", "scale": 1
+                    },
+                    "T": {
+                        "image": "1dchess/kk.svg", "scale": 1
+                    },
+                    "t": {
+                        "image": "1dchess/K.svg", "scale": 1
+                    },
+                    "R": {
+                        "image": "1dchess/rr.svg", "scale": 1
+                    },
+                    "r": {
+                        "image": "1dchess/R.svg", "scale": 1
+                    },
+                }
+            },
+        }
+    }
 
 def get_chinesechess(variant_id):
     pieces = {
@@ -1275,6 +1317,7 @@ autoGUIv2DataFuncs = {
     "othello": get_othello,
     "gameofy": get_gameofy,
     "beeline": get_beeline,
+    "1dchess": get_1dchess,
     "chinesechess": get_chinesechess
 }
 

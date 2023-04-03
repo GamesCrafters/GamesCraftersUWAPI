@@ -49,6 +49,21 @@ games = {
                 gui_status='v0')
         },
         gui_status='v0'),
+
+    '1dchess': Game(
+        name='1D Chess',
+        desc="A miniature version of chess played on a single line.",
+        variants={
+            'regular': GameVariant(
+                name='Regular',
+                desc='Regular',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='1dchess',
+                data_provider_variant_id=0,
+                status='available',
+                gui_status='v2')
+        },
+        gui_status='v2'),
     
     'ttt3d': Game(
         name='3D Tic-Tac-Toe',
