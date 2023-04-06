@@ -591,6 +591,37 @@ games = {
         },
         custom_variant=nim_custom_start,
         gui_status='v1'),
+
+    'notakto': Game(
+        name='NoTakTo',
+        desc='TicTacToe on N boards with only X being placed',
+        variants={
+            'regular': GameVariant(
+                name='1 Board',
+                desc='1 Board',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='notakto',
+                data_provider_variant_id=0,
+                status='available',
+                gui_status='v2'),
+            'board2': GameVariant(
+                name='2 Boards',
+                desc='2 Boards',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='notakto',
+                data_provider_variant_id=1,
+                status='available',
+                gui_status='v2'),
+            'board3': GameVariant(
+                name='3 Boards',
+                desc='3 Boards',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='notakto',
+                data_provider_variant_id=2,
+                status='available',
+                gui_status='v2')
+        },
+        gui_status='v2'),
     
     '369mm': Game(
         name="Nine Men's Morris",
