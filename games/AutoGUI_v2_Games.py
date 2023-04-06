@@ -1172,6 +1172,83 @@ def get_gameofy(variant_id):
                 },
             }
         }
+    
+def get_notakto(variant_id):
+    if variant_id == "regular":
+        return {
+            "defaultTheme": "basic",
+            "themes": {
+                "basic": {
+                    "backgroundGeometry": [3, 3],
+                    "backgroundImage": "notakto/grid1.svg",
+                    # "foregroundImage": <path to foreground image; if no foreground image, omit this attribute>,
+                    "centers": [
+                        [0.5, 0.5], [1.5, 0.5], [2.5, 0.5],
+                        [0.5, 1.5], [1.5, 1.5], [2.5, 1.5],
+                        [0.5, 2.5], [1.5, 2.5], [2.5, 2.5]
+                    ],
+                    "pieces": {
+                        "X": {
+                            "image": "notakto/x.svg", "scale": 1
+                        },
+                    }
+                },
+            }
+        }
+    elif variant_id == "board2":
+        return {
+            "defaultTheme": "basic",
+            "themes": {
+                "basic": {
+                    "backgroundGeometry": [6, 3],
+                    "backgroundImage": "notakto/grid2.svg",
+                    # "foregroundImage": <path to foreground image; if no foreground image, omit this attribute>,
+                    "centers": [
+                        [0.45, 0.5], [1.45, 0.5], [2.45, 0.5],
+                        [0.45, 1.5], [1.45, 1.5], [2.45, 1.5],
+                        [0.45, 2.5], [1.45, 2.5], [2.45, 2.5],
+                        
+                        [3.55, 0.5], [4.55, 0.5], [5.55, 0.5],
+                        [3.55, 1.5], [4.55, 1.5], [5.55, 1.5],
+                        [3.55, 2.5], [4.55, 2.5], [5.55, 2.5]
+                    ],
+                    "pieces": {
+                        "X": {
+                            "image": "notakto/x.svg", "scale": 1
+                        },
+                    }
+                },
+            }
+        }
+    elif variant_id == "board3":
+        return {
+            "defaultTheme": "basic",
+            "themes": {
+                "basic": {
+                    "backgroundGeometry": [6, 6],
+                    "backgroundImage": "notakto/grid3.svg",
+                    # "foregroundImage": <path to foreground image; if no foreground image, omit this attribute>,
+                    "centers": [
+                        [0.45, 0.5], [1.45, 0.5], [2.45, 0.5],
+                        [0.45, 1.5], [1.45, 1.5], [2.45, 1.5],
+                        [0.45, 2.5], [1.45, 2.5], [2.45, 2.5],
+                        
+                        [3.55, 0.5], [4.55, 0.5], [5.55, 0.5],
+                        [3.55, 1.5], [4.55, 1.5], [5.55, 1.5],
+                        [3.55, 2.5], [4.55, 2.5], [5.55, 2.5],
+
+                        [2.0, 3.55], [3.0, 3.55], [4.0, 3.55],
+                        [2.0, 4.55], [3.0, 4.55], [4.0, 4.55],
+                        [2.0, 5.55], [3.0, 5.55], [4.0, 5.55]
+                    ],
+                    "pieces": {
+                        "X": {
+                            "image": "notakto/x.svg", "scale": 1
+                        },
+                    }
+                },
+            }
+        }
 
 def get_beeline(variant_id):
     return {
@@ -1318,7 +1395,8 @@ autoGUIv2DataFuncs = {
     "gameofy": get_gameofy,
     "beeline": get_beeline,
     "1dchess": get_1dchess,
-    "chinesechess": get_chinesechess
+    "chinesechess": get_chinesechess,
+    "notakto": get_notakto
 }
 
 def get_autoguiV2Data(game_id, variant_id):
