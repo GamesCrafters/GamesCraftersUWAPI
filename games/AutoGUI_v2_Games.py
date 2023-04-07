@@ -1360,7 +1360,34 @@ def get_chinesechess(variant_id):
             }
         }
     }
-    
+
+def get_dao(variant_id):    
+    return {
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "backgroundGeometry": [4, 4],
+                "backgroundImage": "dao/grid.svg",
+                "arrowThickness": 0.1,
+                "piecesOverArrows": True,
+                # "foregroundImage": <path to foreground image; if no foreground image, omit this attribute>,
+                "centers": [
+                    [0.5, 0.5], [1.5, 0.5], [2.5, 0.5], [3.5, 0.5],
+                    [0.5, 1.5], [1.5, 1.5], [2.5, 1.5], [3.5, 1.5],
+                    [0.5, 2.5], [1.5, 2.5], [2.5, 2.5], [3.5, 2.5],
+                    [0.5, 3.5], [1.5, 3.5], [2.5, 3.5], [3.5, 3.5],
+                ],
+                "pieces": {
+                    "O": {
+                        "image": "dao/W.svg", "scale": 1
+                    },
+                    "X": {
+                        "image": "dao/B.svg", "scale": 1
+                    }
+                }
+            },
+        }
+    }
 
 """
 ===== STEP 2 ===== 
@@ -1396,7 +1423,8 @@ autoGUIv2DataFuncs = {
     "beeline": get_beeline,
     "1dchess": get_1dchess,
     "chinesechess": get_chinesechess,
-    "notakto": get_notakto
+    "notakto": get_notakto,
+    "dao": get_dao,
 }
 
 def get_autoguiV2Data(game_id, variant_id):

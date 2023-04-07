@@ -306,21 +306,6 @@ games = {
             ),
         },
         gui_status='v1'),
-    
-    'dao': Game(
-        name='Dao',
-        desc="Each player moves their pieces (one per turn) as far as possible during each turn, till their pieces reach the end of the board or till their pieces reach another one of own pieces (in any direction). To win, the player can either form a straight line with 4 of their own pieces, occupy the four corners of the board, or forming a 2 x 2 square with their pieces anywhere on the playing board.",
-        variants={
-            'regular': GameVariant(
-                name='Regular',
-                desc='Regular',
-                data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='dao',
-                data_provider_variant_id=-1,
-                status='dev',
-                gui_status='v1')
-        },
-        gui_status='v1'),
         
     'dawsonschess': Game(
         name='Dawson\'s Chess',
@@ -620,6 +605,21 @@ games = {
                 data_provider_variant_id=2,
                 status='available',
                 gui_status='v2')
+        },
+        gui_status='v2'),
+
+    'dao': Game(
+        name='Dao',
+        desc="Each player moves their pieces (one per turn) as far as possible during each turn, till their pieces reach the end of the board or till their pieces reach another one of own pieces (in any direction). To win, the player can either form a straight line with 4 of their own pieces, occupy the four corners of the board, or forming a 2 x 2 square with their pieces anywhere on the playing board.",
+        variants={
+            'regular': GameVariant(
+                name='Regular',
+                desc='Regular',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='dao',
+                data_provider_variant_id=0,
+                status='available',
+                gui_status='v2'),
         },
         gui_status='v2'),
     
