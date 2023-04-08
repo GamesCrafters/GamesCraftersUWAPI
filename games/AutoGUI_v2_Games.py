@@ -982,17 +982,17 @@ def get_quickchess(variant_id):
                     ],
                     "pieces": {
                         "Q": {
-                            "image": "chess/Q.svg", "scale": 1.0
+                            "image": "chess/wikipedia/Q.svg", "scale": 1.0
                         }, "R": {
-                            "image": "chess/R.svg", "scale": 1.0
+                            "image": "chess/wikipedia/R.svg", "scale": 1.0
                         }, "K": {
-                            "image": "chess/K.svg", "scale": 1.0
+                            "image": "chess/wikipedia/K.svg", "scale": 1.0
                         }, "q": {
-                            "image": "chess/qq.svg", "scale": 1.0
+                            "image": "chess/wikipedia/qq.svg", "scale": 1.0
                         }, "r": {
-                            "image": "chess/rr.svg", "scale": 1.0
+                            "image": "chess/wikipedia/rr.svg", "scale": 1.0
                         }, "k": {
-                            "image": "chess/kk.svg", "scale": 1.0
+                            "image": "chess/wikipedia/kk.svg", "scale": 1.0
                         }
                     }
                 }
