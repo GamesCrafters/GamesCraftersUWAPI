@@ -833,7 +833,7 @@ games = {
         },
         gui_status='v2'),
     
-    'FiveFieldKono': Game(
+    'fivefieldkono': Game(
         name='Five Field Kono',
         desc="Largest game in GamesmanUni that can't be separated into tiers.",
         variants={
@@ -845,5 +845,6 @@ games = {
                 data_provider_variant_id=-1,
                 status='available',
                 gui_status='v2')
-        }),
+        },
+        gui_status='v2'),
 }

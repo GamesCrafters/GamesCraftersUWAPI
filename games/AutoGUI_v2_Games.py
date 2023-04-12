@@ -1372,14 +1372,15 @@ def get_fivefieldkono(variant_id):
                     ],
                     "backgroundImage": "fivefieldkono/board.svg",
                     "piecesOverArrows": True,
+                    "arrowThickness": 5,
                     "centers": [[20 + 40 * i, 20 + 40 * j] for j in range(0,5) for i in range(0,5)],
                     "pieces": {
                         "x": {
                             # White pieces for X
-                            "image": "369mm/O.svg", "scale": 10.0
+                            "image": "369mm/O.svg", "scale": 25.0
                         }, "o": {
                             # Black pieces for O
-                            "image": "369mm/X.svg", "scale": 10.0
+                            "image": "369mm/X.svg", "scale": 25.0
                         }
                     }
                 }
@@ -1421,7 +1422,8 @@ autoGUIv2DataFuncs = {
     "beeline": get_beeline,
     "1dchess": get_1dchess,
     "chinesechess": get_chinesechess,
-    "notakto": get_notakto
+    "notakto": get_notakto,
+    "fivefieldkono": get_fivefieldkono
 }
 
 def get_autoguiV2Data(game_id, variant_id):
