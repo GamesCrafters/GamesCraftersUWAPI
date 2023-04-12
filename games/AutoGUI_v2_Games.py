@@ -1361,6 +1361,31 @@ def get_chinesechess(variant_id):
         }
     }
     
+def get_fivefieldkono(variant_id):
+    return {
+        "regular": {
+            "defaultTheme": "regular",
+            "themes": {
+                "regular": {
+                    "backgroundGeometry": [
+                        200, 200
+                    ],
+                    "backgroundImage": "fivefieldkono/board.svg",
+                    "piecesOverArrows": True,
+                    "centers": [[20 + 40 * i, 20 + 40 * j] for j in range(0,5) for i in range(0,5)],
+                    "pieces": {
+                        "x": {
+                            # White pieces for X
+                            "image": "369mm/O.svg", "scale": 10.0
+                        }, "o": {
+                            # Black pieces for O
+                            "image": "369mm/X.svg", "scale": 10.0
+                        }
+                    }
+                }
+            }
+        }
+    }.get(variant_id, None)
 
 """
 ===== STEP 2 ===== 
