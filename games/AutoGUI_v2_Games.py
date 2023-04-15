@@ -1362,11 +1362,13 @@ def get_chinesechess(variant_id):
     }
     
 def get_fivefieldkono(variant_id):
+    if variant_id not in ["regular", "delta", "omega"]:
+        return None
     return {
-        "regular": {
-            "defaultTheme": "regular",
+        variant_id: {
+            "defaultTheme": variant_id,
             "themes": {
-                "regular": {
+                variant_id: {
                     "backgroundGeometry": [
                         200, 200
                     ],
