@@ -1360,6 +1360,61 @@ def get_chinesechess(variant_id):
             }
         }
     }
+
+def get_dao(variant_id):    
+    return {
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "backgroundGeometry": [4, 4],
+                "backgroundImage": "dao/grid.svg",
+                "arrowThickness": 0.1,
+                "piecesOverArrows": True,
+                # "foregroundImage": <path to foreground image; if no foreground image, omit this attribute>,
+                "centers": [
+                    [0.5, 0.5], [1.5, 0.5], [2.5, 0.5], [3.5, 0.5],
+                    [0.5, 1.5], [1.5, 1.5], [2.5, 1.5], [3.5, 1.5],
+                    [0.5, 2.5], [1.5, 2.5], [2.5, 2.5], [3.5, 2.5],
+                    [0.5, 3.5], [1.5, 3.5], [2.5, 3.5], [3.5, 3.5],
+                ],
+                "pieces": {
+                    "O": {
+                        "image": "dao/W.svg", "scale": 1
+                    },
+                    "X": {
+                        "image": "dao/B.svg", "scale": 1
+                    }
+                }
+            },
+        }
+    }
+
+def get_change(variant_id):
+    return {
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "backgroundGeometry": [80, 80],
+                "backgroundImage": "change/graph.svg",
+                "arrowThickness": 1,
+                "piecesOverArrows": True,
+                "centers": [
+                    [70, 26], [70, 44], [70, 62],
+                    [50, 17], [50, 35], [50, 53], [50, 71],
+                    [30, 8], [30, 26], [30, 44], [30, 62],
+                    [10, 17], [10, 35], [10, 53]
+                ],
+                "pieces": {
+                    "o": {
+                        "image": "general/red_circle.svg", "scale": 10
+                    },
+                    "x": {
+                        "image": "general/blue_circle.svg", "scale": 10
+                    }
+                }
+            },
+        }
+    }
     
 def get_fivefieldkono(variant_id):
     if variant_id not in ["regular", "delta", "omega"]:
@@ -1425,6 +1480,8 @@ autoGUIv2DataFuncs = {
     "1dchess": get_1dchess,
     "chinesechess": get_chinesechess,
     "notakto": get_notakto,
+    "dao": get_dao,
+    "change": get_change,
     "fivefieldkono": get_fivefieldkono
 }
 
