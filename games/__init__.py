@@ -617,9 +617,25 @@ games = {
                 desc='Regular',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='dao',
-                data_provider_variant_id=0,
+                data_provider_variant_id=-1,
                 status='available',
                 gui_status='v2'),
+        },
+        gui_status='v2'),
+    
+    'change': Game(
+        name='Change!',
+        desc="Markers cannot turn corners, jump or go backwards. The first person to occupy his opponent's initial spaces or traps his opponent's piece wins.",
+        variants={
+            'regular': GameVariant(
+                name='Regular',
+                desc='Regular',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='change',
+                data_provider_variant_id=3,
+                status='available',
+                gui_status='v2'
+            )
         },
         gui_status='v2'),
     

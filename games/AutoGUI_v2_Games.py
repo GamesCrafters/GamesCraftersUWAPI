@@ -1389,6 +1389,33 @@ def get_dao(variant_id):
         }
     }
 
+def get_change(variant_id):
+    return {
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "backgroundGeometry": [80, 80],
+                "backgroundImage": "change/graph.svg",
+                "arrowThickness": 1,
+                "piecesOverArrows": True,
+                "centers": [
+                    [70, 26], [70, 44], [70, 62],
+                    [50, 17], [50, 35], [50, 53], [50, 71],
+                    [30, 8], [30, 26], [30, 44], [30, 62],
+                    [10, 17], [10, 35], [10, 53]
+                ],
+                "pieces": {
+                    "o": {
+                        "image": "general/red_circle.svg", "scale": 10
+                    },
+                    "x": {
+                        "image": "general/blue_circle.svg", "scale": 10
+                    }
+                }
+            },
+        }
+    }
+
 """
 ===== STEP 2 ===== 
 Add your function to the autoGUIv2DataFuncs dict.
@@ -1425,6 +1452,7 @@ autoGUIv2DataFuncs = {
     "chinesechess": get_chinesechess,
     "notakto": get_notakto,
     "dao": get_dao,
+    "change": get_change
 }
 
 def get_autoguiV2Data(game_id, variant_id):
