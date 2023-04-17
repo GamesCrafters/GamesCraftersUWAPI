@@ -982,17 +982,17 @@ def get_quickchess(variant_id):
                     ],
                     "pieces": {
                         "Q": {
-                            "image": "chess/Q.svg", "scale": 1.0
+                            "image": "chess/wikipedia/Q.svg", "scale": 1.0
                         }, "R": {
-                            "image": "chess/R.svg", "scale": 1.0
+                            "image": "chess/wikipedia/R.svg", "scale": 1.0
                         }, "K": {
-                            "image": "chess/K.svg", "scale": 1.0
+                            "image": "chess/wikipedia/K.svg", "scale": 1.0
                         }, "q": {
-                            "image": "chess/qq.svg", "scale": 1.0
+                            "image": "chess/wikipedia/qq.svg", "scale": 1.0
                         }, "r": {
-                            "image": "chess/rr.svg", "scale": 1.0
+                            "image": "chess/wikipedia/rr.svg", "scale": 1.0
                         }, "k": {
-                            "image": "chess/kk.svg", "scale": 1.0
+                            "image": "chess/wikipedia/kk.svg", "scale": 1.0
                         }
                     }
                 }
@@ -1415,6 +1415,35 @@ def get_change(variant_id):
             },
         }
     }
+    
+def get_fivefieldkono(variant_id):
+    if variant_id not in ["regular", "delta", "omega"]:
+        return None
+    return {
+        variant_id: {
+            "defaultTheme": variant_id,
+            "themes": {
+                variant_id: {
+                    "backgroundGeometry": [
+                        200, 200
+                    ],
+                    "backgroundImage": "fivefieldkono/board.svg",
+                    "piecesOverArrows": True,
+                    "arrowThickness": 5,
+                    "centers": [[20 + 40 * i, 20 + 40 * j] for j in range(0,5) for i in range(0,5)],
+                    "pieces": {
+                        "x": {
+                            # White pieces for X
+                            "image": "369mm/O.svg", "scale": 25.0
+                        }, "o": {
+                            # Black pieces for O
+                            "image": "369mm/X.svg", "scale": 25.0
+                        }
+                    }
+                }
+            }
+        }
+    }.get(variant_id, None)
 
 """
 ===== STEP 2 ===== 
@@ -1452,7 +1481,8 @@ autoGUIv2DataFuncs = {
     "chinesechess": get_chinesechess,
     "notakto": get_notakto,
     "dao": get_dao,
-    "change": get_change
+    "change": get_change,
+    "fivefieldkono": get_fivefieldkono
 }
 
 def get_autoguiV2Data(game_id, variant_id):
