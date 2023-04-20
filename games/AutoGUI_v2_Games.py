@@ -1477,27 +1477,27 @@ def get_fivefieldkono(variant_id):
 
 def get_swans(variant_id):
     return {
-            "defaultTheme": "basic",
-            "themes": {
-                "basic": {
-                    "backgroundGeometry": [
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "backgroundGeometry": [
                         40, 40
-                    ],
-                    "backgroundImage": "swans/grid4.svg",
-                    "piecesOverArrows": True,
-                    "centers": [[5 + 10 * i, 5 + 10 * j] for j in range(0,4) for i in range(0,4)],
-                    "pieces": {
-                        "x": {
-                            "image": "swans/x.png", "scale": 8
-                        }, 
-                        "o": {
-                            "image": "swans/o.svg", "scale": 6
-                        }
-                    },
-                    "animationType": "simpleSlidePlaceRemove"
-                }
+                ],
+                "backgroundImage": "swans/grid4.svg",
+                "piecesOverArrows": True,
+                "centers": [[5 + 10 * i, 5 + 10 * j] for j in range(0,4) for i in range(0,4)],
+                "pieces": {
+                    "x": {
+                        "image": "swans/x.png", "scale": 8
+                    }, 
+                    "o": {
+                        "image": "swans/o.svg", "scale": 6
+                    }
+                },
+                "animationType": "simpleSlidePlaceRemove"
             }
         }
+    }
 
 """
 ===== STEP 2 ===== 

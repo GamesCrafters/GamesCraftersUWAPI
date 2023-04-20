@@ -735,9 +735,9 @@ games = {
                 data_provider_game_id='sim',
                 data_provider_variant_id=-1,
                 status='dev',
-                gui_status='v0')
+                gui_status='v2')
         },
-        gui_status='v0'),
+        gui_status='v2'),
     
     'stt': Game(
         name='Shift Tac Toe',
