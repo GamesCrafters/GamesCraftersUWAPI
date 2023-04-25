@@ -53,6 +53,36 @@ EXAMPLE:
 
 """
 
+def get_jenga(variant_id):
+    if variant_id == "regular":
+        data = {
+            "defaultTheme": "simple",
+            "themes": {
+                "simple": {
+                    "backgroundGeometry": [6, 12], 
+                    "backgroundImage": "jenga/JengaBoard.svg",
+                    "centers": [                                    [3.5, 11.5], [4.5, 11.5], [5.5, 11.5], 
+                                [0.5, 10.5], [1.5, 10.5], [2.5, 10.5],   
+                                                                    [3.5, 9.5], [4.5, 9.5], [5.5, 9.5], 
+                                [0.5, 8.5], [1.5, 8.5], [2.5, 8.5],   
+                                                                    [3.5, 7.5], [4.5, 7.5], [5.5, 7.5], 
+                                [0.5, 6.5], [1.5, 6.5], [2.5, 6.5],                                    
+                                                                    [3.5, 5.5], [4.5, 5.5], [5.5, 5.5], 
+                                [0.5, 4.5], [1.5, 4.5], [2.5, 4.5], 
+                                                                    [3.5, 3.5], [4.5, 3.5], [5.5, 3.5], 
+                                [0.5, 2.5], [1.5, 2.5], [2.5, 2.5], 
+                                                                    [3.5, 1.5], [4.5, 1.5], [5.5, 1.5], 
+                                [0.5, 0.5], [1.5, 0.5], [2.5, 0.5]],
+               
+                    "pieces": { "J": {"image": "jenga/JengaPiece.svg", "scale": 1.0}}
+
+                }
+            }
+        }
+        return data
+    else:
+        return None
+
 def get_lite3(variant_id):
     if variant_id not in ['three-in-a-row', 'surround', 'both']:
         return None
@@ -1291,6 +1321,7 @@ Add your function to the autoGUIv2DataFuncs dict.
 """
 
 autoGUIv2DataFuncs = {
+    "jenga": get_jenga,
     "quickcross": get_quickcross,
     "baghchal": get_baghchal,
     "3spot": get_3spot,
