@@ -1520,7 +1520,7 @@ def get_forestfox(variant_id):
                 "centers": [
                     [125, 150], [275, 150], [425, 150], [575, 150], [725, 150], [875, 150], [1025, 150],
                     [125, 750], [275, 750], [425, 750], [575, 750], [725, 750], [875, 750], [1025, 750],
-                    [200, 450], [950, 450], [425, 450], [650, 450], [0, 0], [0, 1]  # the last two place null.svg
+                    [200, 450], [950, 450], [425, 450], [650, 450], [0, 0]  # the last places null.svg
                 ], # first card, second card, score, decree card
                 "pieces": {k: {"image": "forestfox/{}.svg".format(v), "scale": 0.2} for (k, v) in pieces.items()},
                 "animationType": "simpleSlidePlaceRemove"
