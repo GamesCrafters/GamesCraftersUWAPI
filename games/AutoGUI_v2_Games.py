@@ -1505,8 +1505,7 @@ def get_forestfox(variant_id):
         "f": "key1", "g": "key2", "h":"key3", "i": "key4", "j": "key5", 
         "k": "moon1", "l": "moon2", "m": "moon3", "n": "moon4", "o": "moon5", 
         "0": "num0", "1": "num1", "2": "num2", "3": "num3", "4": "num4",
-        "5": "num5", "6": "num6", "7": "num7",
-        "y": "null", "n": "null"
+        "5": "num5", "6": "num6", "7": "num7"
     }
         
     return {
