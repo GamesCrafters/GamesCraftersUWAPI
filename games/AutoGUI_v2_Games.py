@@ -1519,7 +1519,7 @@ def get_forestfox(variant_id):
                     [125, 750], [275, 750], [425, 750], [575, 750], [725, 750],
                     [425, 450]
                 ],
-                "pieces": {k: {"image": "forestfox/{}.svg".format(v), "scale": 1} for (k, v) in pieces.items()},
+                "pieces": {k: {"image": "forestfox/{}.svg".format(v), "scale": 0.2} for (k, v) in pieces.items()},
                 "animationType": "simpleSlidePlaceRemove"
             }
         }
