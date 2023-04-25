@@ -1501,9 +1501,9 @@ def get_swans(variant_id):
 
 def get_forestfox(variant_id):
     pieces = {
-        "1": "bell1", "2": "bell2", "3": "bell3", "4": "bell4", "5": "bell5", 
-        "6": "key1", "7": "key2", "8":"key3", "9": "key4", "10": "key5", 
-        "11": "moon1", "12": "moon2", "13": "moon3", "14": "moon4", "15": "moon5"
+        "a": "bell1", "b": "bell2", "c": "bell3", "d": "bell4", "e": "bell5", 
+        "f": "key1", "g": "key2", "h":"key3", "i": "key4", "j": "key5", 
+        "k": "moon1", "l": "moon2", "m": "moon3", "n": "moon4", "o": "moon5"
     }
         
     return {
