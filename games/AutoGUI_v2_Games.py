@@ -1499,6 +1499,33 @@ def get_swans(variant_id):
         }
     }
 
+def get_forestfox(variant_id):
+    pieces = {
+        "1": "bell1", "2": "bell2", "3": "bell3", "4": "bell4", "5": "bell5", 
+        "6": "key1", "7": "key2", "8":"key3", "9": "key4", "10": "key5", 
+        "11": "moon1", "12": "moon2", "13": "moon3", "14": "moon4", "15": "moon5"
+    }
+        
+    return {
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "backgroundGeometry": [850, 900],
+                "backgroundImage": "forestfox/cardboard.svg",
+                "arrowThickness": 0.1,
+                "defaultMoveTokenRadius": 6.5,
+                "centers": [
+                    [125, 150], [275, 150], [425, 150], [575, 150], [725, 150],
+                    [125, 750], [275, 750], [425, 750], [575, 750], [725, 750],
+                    [425, 450]
+                ],
+                "pieces": {k: {"image": "forestfox/{}.svg".format(v), "scale": 1} for (k, v) in pieces.items()},
+                "animationType": "simpleSlidePlaceRemove"
+            }
+        }
+    }
+
+
 """
 ===== STEP 2 ===== 
 Add your function to the autoGUIv2DataFuncs dict.
@@ -1537,7 +1564,8 @@ autoGUIv2DataFuncs = {
     "dao": get_dao,
     "change": get_change,
     "fivefieldkono": get_fivefieldkono,
-    "swans": get_swans
+    "swans": get_swans,
+    "forestfox": get_forestfox
 }
 
 def get_autoguiV2Data(game_id, variant_id):

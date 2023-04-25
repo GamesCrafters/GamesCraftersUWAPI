@@ -344,6 +344,21 @@ games = {
         },
         gui_status='v2'),
 
+    'forestfox': Game(
+        name='Forest Fox',
+        desc="This is a card game adapted from The Fox in the Forest",
+        variants={
+            'regular': GameVariant(
+                name='Regular',
+                desc='Regular',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='forestfox',
+                data_provider_variant_id=-1,
+                status='stable',
+                gui_status='v2')
+        },
+        gui_status='v2'),
+
     'gameofy': Game(
         name='Game of Y',
         desc="Place your piece onto an open space. Wins when you connect three in a row horizontally, vertically, or diagonally.",
