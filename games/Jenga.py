@@ -8,8 +8,8 @@ from .models import AbstractGameVariant
 class Jenga(AbstractGameVariant):
 
     def __init__(self):
-        name = "jenga"
-        desc=""
+        name = "Jenga"
+        desc="Regular - 15 pieces"
         status = "stable"
         gui_status = 'v2'
 
@@ -36,7 +36,6 @@ class Jenga(AbstractGameVariant):
                     #Parsed_Line formatting to be changed
                     parsed_Lines = line.split(" ")
                     if parsed_Lines[2].strip("\n") == position.split("_")[4]:
-                        print("Matched: " + position)
                         response = {
                             "position": position,
                             "positionValue": parsed_Lines[1],

@@ -19,7 +19,7 @@ games = {
 
     #new game sp23 - Nakul
     'jenga': Game(
-        name='jenga',
+        name='Jenga',
         desc='Pick any Jenga piece and place on the top of the stack. Pieces are built in a horizontal|vertical|horizontal pattern. The topmost complete level and above an unaccessible for making a move. If you run out of moves to make or make a move that causes the tower to fall you lose.',
         variants={
             "regular" : Jenga()
