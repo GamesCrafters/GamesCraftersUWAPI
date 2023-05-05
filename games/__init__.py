@@ -11,12 +11,21 @@ from .NimGameVariant import NimGameVariant, nim_custom_start
 from .DawsonsChessGameVariant import DawsonsChessGameVariant, dawsonschess_custom_start
 from .KaylesGameVariant import KaylesGameVariant, kayles_custom_start
 from .chinesechess import RegularChineseChessVariant
+from .Jenga import Jenga
 from .EuclidsGame import EuclidsGame
 
 dirname = os.path.dirname(__file__)
 
 games = {
 
+    #new game sp23 - Nakul
+    'jenga': Game(
+        name='Jenga',
+        desc='Pick any Jenga piece and place on the top of the stack. Pieces are built in a horizontal|vertical|horizontal pattern. The topmost complete level and above an unaccessible for making a move. If you run out of moves to make or make a move that causes the tower to fall you lose.',
+        variants={
+            "regular" : Jenga()
+        },
+        gui_status='v2'),
 
    'quickcross': Game(   
        name='Quick Cross',
