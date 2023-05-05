@@ -53,6 +53,36 @@ EXAMPLE:
 
 """
 
+def get_jenga(variant_id):
+    if variant_id == "regular":
+        data = {
+            "defaultTheme": "simple",
+            "themes": {
+                "simple": {
+                    "backgroundGeometry": [6, 12], 
+                    "backgroundImage": "jenga/JengaBoard.svg",
+                    "centers": [                                    [3.5, 11.5], [4.5, 11.5], [5.5, 11.5], 
+                                [0.5, 10.5], [1.5, 10.5], [2.5, 10.5],   
+                                                                    [3.5, 9.5], [4.5, 9.5], [5.5, 9.5], 
+                                [0.5, 8.5], [1.5, 8.5], [2.5, 8.5],   
+                                                                    [3.5, 7.5], [4.5, 7.5], [5.5, 7.5], 
+                                [0.5, 6.5], [1.5, 6.5], [2.5, 6.5],                                    
+                                                                    [3.5, 5.5], [4.5, 5.5], [5.5, 5.5], 
+                                [0.5, 4.5], [1.5, 4.5], [2.5, 4.5], 
+                                                                    [3.5, 3.5], [4.5, 3.5], [5.5, 3.5], 
+                                [0.5, 2.5], [1.5, 2.5], [2.5, 2.5], 
+                                                                    [3.5, 1.5], [4.5, 1.5], [5.5, 1.5], 
+                                [0.5, 0.5], [1.5, 0.5], [2.5, 0.5]],
+               
+                    "pieces": { "J": {"image": "jenga/JengaPiece.svg", "scale": 1.0}}
+
+                }
+            }
+        }
+        return data
+    else:
+        return None
+
 def get_lite3(variant_id):
     if variant_id not in ['three-in-a-row', 'surround', 'both']:
         return None
@@ -1525,7 +1555,42 @@ def get_forestfox(variant_id):
             }
         }
     }
-
+    
+def get_euclidsgame(variant_id):
+    return {
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "backgroundGeometry": [10, 10],
+                "backgroundImage": "euclidsgame/EuclidBoard.svg",
+                "centers": [[0.5 + i, 0.5 + j] for j in range(10) for i in range(10)] + [[2.5 + k, 10.5] for k in range(6)],
+                "pieces": {
+                    "X": { "image": "euclidsgame/cut.svg", "scale": 0.9
+                    }, "0": {
+                        "image": "general/0.svg", "scale": 1.2
+                    }, "1": {
+                        "image": "general/1.svg", "scale": 1.2
+                    }, "2": {
+                        "image": "general/2.svg", "scale": 1.2
+                    }, "3": {
+                        "image": "general/3.svg", "scale": 1.2
+                    }, "4": {
+                        "image": "general/4.svg", "scale": 1.2
+                    }, "5": {
+                        "image": "general/5.svg", "scale": 1.2
+                    }, "6": {
+                        "image": "general/6.svg", "scale": 1.2
+                    }, "7": {
+                        "image": "general/7.svg", "scale": 1.2
+                    }, "8": {
+                        "image": "general/8.svg", "scale": 1.2
+                    }, "9": {
+                        "image": "general/9.svg", "scale": 1.2
+                    }
+                }
+            }
+        }
+    }
 
 """
 ===== STEP 2 ===== 
@@ -1533,6 +1598,7 @@ Add your function to the autoGUIv2DataFuncs dict.
 """
 
 autoGUIv2DataFuncs = {
+    "jenga": get_jenga,
     "quickcross": get_quickcross,
     "baghchal": get_baghchal,
     "3spot": get_3spot,
@@ -1566,7 +1632,8 @@ autoGUIv2DataFuncs = {
     "change": get_change,
     "fivefieldkono": get_fivefieldkono,
     "swans": get_swans,
-    "forestfox": get_forestfox
+    "forestfox": get_forestfox,
+    "euclidsgame": get_euclidsgame
 }
 
 def get_autoguiV2Data(game_id, variant_id):
