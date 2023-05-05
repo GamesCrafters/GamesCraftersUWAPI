@@ -6,6 +6,7 @@ from flask_cors import CORS
 from games import games, GamesmanClassicDataProvider
 from games.AutoGUI_v2_Games import *
 from games.AutoGUI_v3_Games import *
+from games.randomized_start import *
 
 from md_api import read_from_link
 
@@ -214,6 +215,18 @@ def handle_position_moves(game_id, variant_id, position):
         return format_response_err('Game/Variant not found')
     return format_response_ok(wrangle_next_stats(variant.next_stats(position)))
 
+@app.route('/games/<game_id>/<variant_id>/randpos/')
+def game_randpos(game_id, variant_id):
+    random_start = get_random_start(game_id, variant_id)
+    if random_start is None:
+        variant = get_game_variant(game_id, variant_id)
+        if not variant:
+            return format_response_err('Game/Variant not found')
+        random_start = variant.start_position()
+    response = {
+        "position": random_start
+    }
+    return format_response_ok(response)
 
 @app.route('/internal/classic-games/')
 def handle_classic_games():
