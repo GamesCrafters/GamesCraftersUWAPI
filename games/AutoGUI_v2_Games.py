@@ -1499,6 +1499,42 @@ def get_swans(variant_id):
         }
     }
 
+def get_euclidsgame(variant_id):
+    return {
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "backgroundGeometry": [10, 10],
+                "backgroundImage": "euclidsgame/EuclidBoard.svg",
+                "centers": [[0.5 + i, 0.5 + j] for j in range(10) for i in range(10)] + [[2.5 + k, 10.5] for k in range(6)],
+                "pieces": {
+                    "X": { "image": "euclidsgame/cut.svg", "scale": 0.9
+                    }, "0": {
+                        "image": "general/0.svg", "scale": 1.2
+                    }, "1": {
+                        "image": "general/1.svg", "scale": 1.2
+                    }, "2": {
+                        "image": "general/2.svg", "scale": 1.2
+                    }, "3": {
+                        "image": "general/3.svg", "scale": 1.2
+                    }, "4": {
+                        "image": "general/4.svg", "scale": 1.2
+                    }, "5": {
+                        "image": "general/5.svg", "scale": 1.2
+                    }, "6": {
+                        "image": "general/6.svg", "scale": 1.2
+                    }, "7": {
+                        "image": "general/7.svg", "scale": 1.2
+                    }, "8": {
+                        "image": "general/8.svg", "scale": 1.2
+                    }, "9": {
+                        "image": "general/9.svg", "scale": 1.2
+                    }
+                }
+            }
+        }
+    }
+
 """
 ===== STEP 2 ===== 
 Add your function to the autoGUIv2DataFuncs dict.
@@ -1537,7 +1573,8 @@ autoGUIv2DataFuncs = {
     "dao": get_dao,
     "change": get_change,
     "fivefieldkono": get_fivefieldkono,
-    "swans": get_swans
+    "swans": get_swans,
+    "euclidsgame": get_euclidsgame
 }
 
 def get_autoguiV2Data(game_id, variant_id):

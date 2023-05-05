@@ -11,11 +11,12 @@ from .NimGameVariant import NimGameVariant, nim_custom_start
 from .DawsonsChessGameVariant import DawsonsChessGameVariant, dawsonschess_custom_start
 from .KaylesGameVariant import KaylesGameVariant, kayles_custom_start
 from .chinesechess import RegularChineseChessVariant
+from .EuclidsGame import EuclidsGame
 
 dirname = os.path.dirname(__file__)
 
 games = {
-    
+
 
    'quickcross': Game(   
        name='Quick Cross',
@@ -158,6 +159,14 @@ games = {
         desc="Chess",
         variants={
             '7-man': RegularChessVariant()
+        },
+        gui_status='v2'),
+
+    'euclidsgame': Game(
+        name="Euclid's Game",
+        desc="Euclid's Gane",
+        variants={
+            'regular': EuclidsGame()
         },
         gui_status='v2'),
 
