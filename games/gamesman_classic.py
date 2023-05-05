@@ -5,6 +5,7 @@ from requests.exceptions import HTTPError
 
 from .models import DataProvider
 from .multipart_handler import multipart_solve
+from .randomized_start import *
 
 class GamesmanClassicDataProvider(DataProvider):
     # Use first url when running on a different machine,
@@ -14,6 +15,8 @@ class GamesmanClassicDataProvider(DataProvider):
 
     @staticmethod
     def start_position(game_id, variant_id):
+        if game_id in random_start_funcs:
+            return get_random_start(game_id, variant_id)
         return GamesmanClassicDataProvider.getStart(game_id, variant_id)
 
     @staticmethod
