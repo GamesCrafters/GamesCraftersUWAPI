@@ -12,6 +12,7 @@ from .DawsonsChessGameVariant import DawsonsChessGameVariant, dawsonschess_custo
 from .KaylesGameVariant import KaylesGameVariant, kayles_custom_start
 from .chinesechess import RegularChineseChessVariant
 from .Jenga import Jenga
+from .EuclidsGame import EuclidsGame
 
 dirname = os.path.dirname(__file__)
 
@@ -170,6 +171,14 @@ games = {
         },
         gui_status='v2'),
 
+    'euclidsgame': Game(
+        name="Euclid's Game",
+        desc="Euclid's Gane",
+        variants={
+            'regular': EuclidsGame()
+        },
+        gui_status='v2'),
+
     'chinesechess': Game(
         name='Chinese Chess',
         desc="Checkmate the enemy general to win the battle.",
@@ -313,21 +322,6 @@ games = {
                 status='unavailable',
                 gui_status='v0'
             ),
-        },
-        gui_status='v1'),
-    
-    'dao': Game(
-        name='Dao',
-        desc="Each player moves their pieces (one per turn) as far as possible during each turn, till their pieces reach the end of the board or till their pieces reach another one of own pieces (in any direction). To win, the player can either form a straight line with 4 of their own pieces, occupy the four corners of the board, or forming a 2 x 2 square with their pieces anywhere on the playing board.",
-        variants={
-            'regular': GameVariant(
-                name='Regular',
-                desc='Regular',
-                data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='dao',
-                data_provider_variant_id=-1,
-                status='dev',
-                gui_status='v1')
         },
         gui_status='v1'),
         
@@ -600,6 +594,68 @@ games = {
         },
         custom_variant=nim_custom_start,
         gui_status='v1'),
+
+    'notakto': Game(
+        name='NoTakTo',
+        desc='TicTacToe on N boards with only X being placed',
+        variants={
+            'regular': GameVariant(
+                name='1 Board',
+                desc='1 Board',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='notakto',
+                data_provider_variant_id=0,
+                status='available',
+                gui_status='v2'),
+            'board2': GameVariant(
+                name='2 Boards',
+                desc='2 Boards',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='notakto',
+                data_provider_variant_id=1,
+                status='available',
+                gui_status='v2'),
+            'board3': GameVariant(
+                name='3 Boards',
+                desc='3 Boards',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='notakto',
+                data_provider_variant_id=2,
+                status='available',
+                gui_status='v2')
+        },
+        gui_status='v2'),
+
+    'dao': Game(
+        name='Dao',
+        desc="Each player moves their pieces (one per turn) as far as possible during each turn, till their pieces reach the end of the board or till their pieces reach another one of own pieces (in any direction). To win, the player can either form a straight line with 4 of their own pieces, occupy the four corners of the board, or forming a 2 x 2 square with their pieces anywhere on the playing board.",
+        variants={
+            'regular': GameVariant(
+                name='Regular',
+                desc='Regular',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='dao',
+                data_provider_variant_id=-1,
+                status='available',
+                gui_status='v2'),
+        },
+        gui_status='v2'),
+    
+    'change': Game(
+        name='Change!',
+        desc="Markers cannot turn corners, jump or go backwards. The first person to occupy his opponent's initial spaces or traps his opponent's piece wins.",
+        variants={
+            'regular': GameVariant(
+                name='Regular',
+                desc='Regular',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='change',
+                data_provider_variant_id=3,
+                status='available',
+                gui_status='v2'
+            )
+        },
+        gui_status='v2'),
     
     '369mm': Game(
         name="Nine Men's Morris",
@@ -697,9 +753,9 @@ games = {
                 data_provider_game_id='sim',
                 data_provider_variant_id=-1,
                 status='dev',
-                gui_status='v0')
+                gui_status='v2')
         },
-        gui_status='v0'),
+        gui_status='v2'),
     
     'stt': Game(
         name='Shift Tac Toe',
@@ -808,6 +864,37 @@ games = {
                 status='available',
                 gui_status='v2'
             )
+        },
+        gui_status='v2'),
+    
+    'fivefieldkono': Game(
+        name='Five Field Kono',
+        desc="Largest game in GamesmanUni that can't be separated into tiers.",
+        variants={
+            'regular': GameVariant(
+                name='Regular',
+                desc='Stalemate=Tie',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='fivefieldkono',
+                data_provider_variant_id=0,
+                status='available',
+                gui_status='v2'),
+            'delta': GameVariant(
+                name='Delta',
+                desc='Stalemate=Lose',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='fivefieldkono',
+                data_provider_variant_id=1,
+                status='available',
+                gui_status='v2'),
+            'omega': GameVariant(
+                name='Omega',
+                desc='Stalemate=Win',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='fivefieldkono',
+                data_provider_variant_id=2,
+                status='available',
+                gui_status='v2')
         },
         gui_status='v2'),
 }
