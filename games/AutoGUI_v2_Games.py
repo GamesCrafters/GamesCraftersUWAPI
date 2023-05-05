@@ -1529,6 +1529,33 @@ def get_swans(variant_id):
         }
     }
 
+def get_forestfox(variant_id):
+    pieces = {
+        "a": "bell1", "b": "bell2", "c": "bell3", "d": "bell4", "e": "bell5", 
+        "f": "key1", "g": "key2", "h":"key3", "i": "key4", "j": "key5", 
+        "k": "moon1", "l": "moon2", "m": "moon3", "n": "moon4", "o": "moon5", 
+        "0": "num0", "1": "num1", "2": "num2", "3": "num3", "4": "num4",
+        "5": "num5", "6": "num6", "7": "num7"
+    }
+        
+    return {
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "backgroundGeometry": [1150, 900],
+                "backgroundImage": "forestfox/cardboard.svg",
+                "arrowThickness": 2,
+                "defaultMoveTokenRadius": 6.5,
+                "centers": [
+                    [125, 150], [275, 150], [425, 150], [575, 150], [725, 150], [875, 150], [1025, 150],
+                    [125, 750], [275, 750], [425, 750], [575, 750], [725, 750], [875, 750], [1025, 750],
+                    [575, 450], [200, 450], [950, 450], [425, 450], [725, 450]
+                ], # decree card, first card, second card, 1st score, 2nd score
+                "pieces": {k: {"image": "forestfox/{}.svg".format(v), "scale": 200} for (k, v) in pieces.items()}
+            }
+        }
+    }
+    
 def get_euclidsgame(variant_id):
     return {
         "defaultTheme": "basic",
@@ -1605,6 +1632,7 @@ autoGUIv2DataFuncs = {
     "change": get_change,
     "fivefieldkono": get_fivefieldkono,
     "swans": get_swans,
+    "forestfox": get_forestfox,
     "euclidsgame": get_euclidsgame
 }
 
