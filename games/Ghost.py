@@ -1,9 +1,10 @@
-from .models import EfficientGameVariant
+#from .models import EfficientGameVariant
 import sys, pickle, os
 
 dirname = os.path.dirname(__file__)
 
-class Ghost(EfficientGameVariant):
+#class Ghost(EfficientGameVariant):
+class Ghost:
     def __init__(self, minimum_length=4):
         name, desc = "Regular", f"Min Length = {minimum_length}"
         self.minimum_length = minimum_length
@@ -158,7 +159,7 @@ if __name__ == '__main__':
     with open(word_list_path) as words_file:
         for word in words_file:
             cleaned = word.rstrip().upper()
-            if len(cleaned) > max_length:
+            if len(cleaned) > max_length and cleaned.isalpha():
                 max_length = len(cleaned)
                 argmax_length = cleaned
             trie.insert(cleaned)
