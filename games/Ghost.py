@@ -1,10 +1,10 @@
-#from .models import EfficientGameVariant
+from .models import EfficientGameVariant
 import sys, pickle, os
 
 dirname = os.path.dirname(__file__)
 
-#class Ghost(EfficientGameVariant):
-class Ghost:
+class Ghost(EfficientGameVariant):
+#class Ghost:
     def __init__(self, minimum_length=4):
         name, desc = "Regular", f"Min Length = {minimum_length}"
         self.minimum_length = minimum_length
