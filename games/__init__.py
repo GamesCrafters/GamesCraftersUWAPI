@@ -13,6 +13,7 @@ from .KaylesGameVariant import KaylesGameVariant, kayles_custom_start
 from .chinesechess import RegularChineseChessVariant
 from .Jenga import Jenga
 from .EuclidsGame import EuclidsGame
+from .Ghost import Ghost
 
 dirname = os.path.dirname(__file__)
 
@@ -415,6 +416,18 @@ games = {
                 gui_status='v2'),
         },
         gui_status='v2'),
+
+    'ghost': Game(
+        name='Ghost',
+        desc='Avoid placing a letter that completes a long-enough valid English word or creates an invalid prefix.',
+        variants={
+            '3': Ghost(minimum_length = 3),
+            '4': Ghost(minimum_length = 4),
+            '5': Ghost(minimum_length = 5),
+            '6': Ghost(minimum_length = 6)
+        },
+        gui_status='v2'
+    ),
 
     'haregame': Game(
         name='Hare and Hounds',

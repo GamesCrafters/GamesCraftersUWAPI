@@ -43,6 +43,11 @@ class AbstractGameVariant:
 
     def next_stats(self, position):
         return None
+    
+
+class EfficientGameVariant(AbstractGameVariant):
+    def full_stats(self, position):
+        return None
 
 
 class GameVariant(AbstractGameVariant):

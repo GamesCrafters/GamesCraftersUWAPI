@@ -1592,6 +1592,23 @@ def get_euclidsgame(variant_id):
         }
     }
 
+def get_ghost(variant_id):
+    return {
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "backgroundGeometry": [25, 25],
+                "backgroundImage": "ghost/gray_background.svg",
+                "centers": [[0.5 + i, 2.5] for i in range(25)] + [[1 + i, 2.5] for i in range(24)] + [[6.5 + 2 * i, 7.5] for i in range(7)] + [[6.5 + 2 * i, 9.5] for i in range(7)] + [[6.5 + 2 * i, 11.5] for i in range(7)] + [[8.5 + 2 * i, 13.5] for i in range(5)],
+                "pieces": {
+                    f'{letter}': {
+                        "image": f'general/{letter.upper()}.svg', "scale": 1 if letter.isupper() else 2
+                    } for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+                }
+            }
+        }
+    }
+
 """
 ===== STEP 2 ===== 
 Add your function to the autoGUIv2DataFuncs dict.
@@ -1633,7 +1650,8 @@ autoGUIv2DataFuncs = {
     "fivefieldkono": get_fivefieldkono,
     "swans": get_swans,
     "forestfox": get_forestfox,
-    "euclidsgame": get_euclidsgame
+    "euclidsgame": get_euclidsgame,
+    "ghost": get_ghost
 }
 
 def get_autoguiV2Data(game_id, variant_id):

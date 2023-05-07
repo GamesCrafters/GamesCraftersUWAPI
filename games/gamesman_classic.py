@@ -55,21 +55,6 @@ class GamesmanClassicDataProvider(DataProvider):
         stat['moves'] = list(map(wrangle_next_stat,list(filter(filter_multipart_by_frompos, stat['moves']))))
         return stat
 
-    @staticmethod
-    def getGames():
-        """Gets dictionary of all games (not fully implemented, try loading it)
-        """
-        try:
-            tempurl = GamesmanClassicDataProvider.url + "getGames"
-            response = requests.get(tempurl)
-
-            response.raise_for_status()
-        except HTTPError as http_err:
-            print(f'HTTP error occurred: {http_err}')
-        except Exception as err:
-            print(f'Other error occurred: {err}')
-        else:
-            return json.loads(response.content)["response"]
 
     @staticmethod
     def getStart(game, variation=-1):
@@ -89,6 +74,7 @@ class GamesmanClassicDataProvider(DataProvider):
         else:
             return json.loads(response.content)["response"]
 
+
     @staticmethod
     def getEnd(game, board, variation=-1):
         """Check ending position of game
@@ -106,6 +92,7 @@ class GamesmanClassicDataProvider(DataProvider):
             print(f'Other error occurred: {err}')
         else:
             return json.loads(response.content)["response"]
+
 
     @staticmethod
     def getNextMoveValues(game, board, variation=-1):
@@ -134,6 +121,7 @@ class GamesmanClassicDataProvider(DataProvider):
                 content["response"]["moves"] = m
                 content["response"].pop("multipart")
             return content["response"]
+
 
     @staticmethod
     def getMoveValue(game, board, variation=-1):

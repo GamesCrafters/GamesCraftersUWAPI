@@ -7,6 +7,8 @@ from games import games, GamesmanClassicDataProvider
 from games.AutoGUI_v2_Games import *
 from games.AutoGUI_v3_Games import *
 from games.randomized_start import *
+from games.models import EfficientGameVariant
+from games.Ghost import Node, Trie
 
 from md_api import read_from_link
 
@@ -64,6 +66,7 @@ def get_game_variant(game_id, variant_id):
     if not game:
         return None
     return game.variant(variant_id)
+
 
 def wrangle_next_stats(next_stats):
     if not next_stats:
@@ -168,6 +171,7 @@ def handle_game(game_id):
         'custom': custom_variant
     })
 
+
 @app.route('/games/<game_id>/variants/<variant_id>/')
 def handle_variant(game_id, variant_id):
     variant = get_game_variant(game_id, variant_id)
@@ -186,14 +190,20 @@ def handle_variant(game_id, variant_id):
         ]
     })
 
+
 @app.route('/games/<game_id>/variants/<variant_id>/positions/<position>/')
 def handle_position(game_id, variant_id, position):
     variant = get_game_variant(game_id, variant_id)
     if not variant:
         return format_response_err('Game/Variant not found')
-    if hasattr(variant, 'data_provider') and variant.data_provider == GamesmanClassicDataProvider:
+    if (hasattr(variant, 'data_provider') and variant.data_provider == GamesmanClassicDataProvider):
         # Get all information from one API call instead of 2
         result = variant.next_stats(position)
+        if result is None:
+            return format_response_err('Passed in Invalid Game State')
+        result['moves'] = wrangle_next_stats(result['moves'])
+    elif isinstance(variant, EfficientGameVariant):
+        result = variant.full_stats(position)
         if result is None:
             return format_response_err('Passed in Invalid Game State')
         result['moves'] = wrangle_next_stats(result['moves'])
@@ -204,16 +214,8 @@ def handle_position(game_id, variant_id, position):
         result['moves'] = wrangle_next_stats(variant.next_stats(position))
     if result['remoteness'] == 0:
         result['moves'] = []
-    else:
-        result['moves'] = get_autoguiV3Data(game_id, variant_id, position, result['moves'])
     return format_response_ok(result)
 
-@app.route('/games/<game_id>/variants/<variant_id>/positions/<position>/moves/')
-def handle_position_moves(game_id, variant_id, position):
-    variant = get_game_variant(game_id, variant_id)
-    if not variant:
-        return format_response_err('Game/Variant not found')
-    return format_response_ok(wrangle_next_stats(variant.next_stats(position)))
 
 @app.route('/games/<game_id>/<variant_id>/randpos/')
 def game_randpos(game_id, variant_id):
@@ -227,10 +229,6 @@ def game_randpos(game_id, variant_id):
         "position": random_start
     }
     return format_response_ok(response)
-
-@app.route('/internal/classic-games/')
-def handle_classic_games():
-    return GamesmanClassicDataProvider.getGames()
 
 
 if __name__ == '__main__':
