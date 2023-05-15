@@ -121,9 +121,10 @@ def get_baghchal(variant_id):
                     "arrowThickness": 0.05,
                     "centers": [[0.5 + (i % 5), 0.5 + (i // 5)] for i in range(25)] + [[3.75,5.2], [3.95,5.2], [-1,-1], [3.75,5.55], [3.95,5.55]],
                     "piecesToBeIntroduced": "G",
+                    "piecesOverArrows": True,
                     "pieces": {
                         "G": {
-                            "image": "baghchal/G.png", "scale": 0.75
+                            "image": "baghchal/G.png", "scale": 0.7
                         }, "T": {
                             "image": "baghchal/T.png", "scale": 0.75
                         }, "0": {
