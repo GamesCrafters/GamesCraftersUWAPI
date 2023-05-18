@@ -901,7 +901,7 @@ games = {
         variants={
             'regular': GameVariant(
                 name='Regular',
-                desc='Stalemate=Tie',
+                desc="Tie if You Can't Move",
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='fivefieldkono',
                 data_provider_variant_id=0,
@@ -909,7 +909,7 @@ games = {
                 gui_status='v2'),
             'delta': GameVariant(
                 name='Delta',
-                desc='Stalemate=Lose',
+                desc="Lose if You Can't Move",
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='fivefieldkono',
                 data_provider_variant_id=1,
@@ -917,7 +917,7 @@ games = {
                 gui_status='v2'),
             'omega': GameVariant(
                 name='Omega',
-                desc='Stalemate=Win',
+                desc="Win if You Can't Move",
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='fivefieldkono',
                 data_provider_variant_id=2,
