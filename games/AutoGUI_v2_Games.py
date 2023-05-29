@@ -1610,6 +1610,31 @@ def get_ghost(variant_id):
         }
     }
 
+def get_slide5(variant_id):
+    return {
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "backgroundGeometry": [300, 300],
+                "foregroundImage": "slide5/foreground5x5.svg",
+                "centers": [
+                    [50, 175], [75, 200], [100, 225], [125, 250], [150, 275],
+                    [75, 150], [100, 175], [125, 200], [150, 225], [175, 250],
+                    [100, 125], [125, 150], [150, 175], [175, 200], [200, 225],
+                    [125, 100], [150, 125], [175, 150], [200, 175], [225, 200],
+                    [150, 75], [175, 100], [200, 125], [225, 150], [250, 175],
+                    [5, 130], [35, 160], [30, 105], [60, 135], [55, 80], [85, 110], [80, 55], [110, 85], [105, 30], [135, 60],
+                    [195, 30], [165, 60], [220, 55], [190, 85], [245, 80], [215, 110], [270, 105], [240, 135], [295, 130], [265, 160]
+                ],
+                "arrowThickness": 5,
+                "pieces": {
+                    "X": { "image": "connect4/X.svg", "scale": 33 }, 
+                    "O": { "image": "connect4/O.svg", "scale": 33 }
+                }
+            }
+        }
+    }
+
 """
 ===== STEP 2 ===== 
 Add your function to the autoGUIv2DataFuncs dict.
@@ -1652,7 +1677,8 @@ autoGUIv2DataFuncs = {
     "swans": get_swans,
     "forestfox": get_forestfox,
     "euclidsgame": get_euclidsgame,
-    "ghost": get_ghost
+    "ghost": get_ghost,
+    "slide5": get_slide5
 }
 
 def get_autoguiV2Data(game_id, variant_id):

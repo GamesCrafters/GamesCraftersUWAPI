@@ -925,4 +925,20 @@ games = {
                 gui_status='v2')
         },
         gui_status='v2'),
+
+    'slide5': Game(
+        name="Slide-5",
+        desc="Slide 5",
+        variants={
+            'regular':  GameVariant(
+                name="Standard",
+                desc="Standard",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='slide5',
+                data_provider_variant_id=-1,
+                status='available',
+                gui_status='v2'
+            )
+        },
+        gui_status='v2'),
 }
