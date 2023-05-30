@@ -1506,7 +1506,7 @@ def get_fivefieldkono(variant_id):
         }
     }.get(variant_id, None)
 
-def get_swans(variant_id):
+def get_dragonsandswans(variant_id):
     return {
         "defaultTheme": "basic",
         "themes": {
@@ -1674,7 +1674,7 @@ autoGUIv2DataFuncs = {
     "dao": get_dao,
     "change": get_change,
     "fivefieldkono": get_fivefieldkono,
-    "swans": get_swans,
+    "dragonsandswans": get_dragonsandswans,
     "forestfox": get_forestfox,
     "euclidsgame": get_euclidsgame,
     "ghost": get_ghost,

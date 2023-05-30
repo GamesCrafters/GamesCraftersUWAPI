@@ -18,34 +18,7 @@ from .Ghost import Ghost
 dirname = os.path.dirname(__file__)
 
 games = {
-
-    #new game sp23 - Nakul
-    'jenga': Game(
-        name='Jenga',
-        desc='Pick any Jenga piece and place on the top of the stack. Pieces are built in a horizontal|vertical|horizontal pattern. The topmost complete level and above an unaccessible for making a move. If you run out of moves to make or make a move that causes the tower to fall you lose.',
-        variants={
-            "regular" : Jenga()
-        },
-        gui_status='v2'),
-
-   'quickcross': Game(   
-       name='Quick Cross',
-       desc="Place your piece (vertically/horizontally) onto an open square (looks like a + sign) or rotate an existing piece. " +
-       "Wins when you connect 4 in a row horizontally, vertically, or diagonally.",
-       variants={
-           'regular': GameVariant(
-               name='Regular',
-               desc='Regular',
-               data_provider=GamesmanClassicDataProvider,
-               data_provider_game_id='qx',
-               data_provider_variant_id=9,
-               gui_status='v2',
-               status='stable'),
-       }, 
-       gui_status='v2'),
   
-
-    
     '0to10by1or2': Game(
         name='0 to 10 by 1 or 2',
         desc="A player may either place 1 or 2 pieces on their turn. Wins when player reaches 10.",
@@ -192,7 +165,6 @@ games = {
         name='Chomp',
         desc='Players take turn eating chocolate',
         variants={
-            '3x2': JSONGameVariant(os.path.join(dirname, 'solutions/chomp/3x2.json'), gui_status='v2'),
             '4x7': JSONGameVariant(os.path.join(dirname, 'solutions/chomp/4x7.json'), gui_status='v2'),
         },
         gui_status='v2'),
@@ -363,6 +335,76 @@ games = {
         },
         gui_status='v2'),
 
+    'dragonsandswans': Game(
+        name='Dragons & Swans',
+        desc="Swan places a piece onto the board if there are remaining pieces from the initial pile, otherwise move piece to an orthogonally adjacent empty board position. Dragon can either move a piece to an orthogonally adjacent empty square, or captures a swan by jumping over it to an empty square the other side. Swans wins when they surround all the dragons and dragons win when they eat all the swans.",
+        variants={
+            '1': GameVariant(
+                name='1 Dragon',
+                desc='1 Dragon',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='swans',
+                data_provider_variant_id=-1,
+                status='dev',
+                gui_status='v2'),
+            '2': GameVariant(
+                name='2 Dragons',
+                desc='2 Dragons',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='swans',
+                data_provider_variant_id=5,
+                status='dev',
+                gui_status='v2'),
+            '3': GameVariant(
+                name='3 Dragons',
+                desc='3 Dragons',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='swans',
+                data_provider_variant_id=9,
+                status='dev',
+                gui_status='v2'),
+            '4': GameVariant(
+                name='4 Dragons',
+                desc='4 Dragons',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='swans',
+                data_provider_variant_id=13,
+                status='dev',
+                gui_status='v2')
+        },
+        gui_status='v2'),
+
+    'fivefieldkono': Game(
+        name='Five Field Kono',
+        desc="Largest game in GamesmanUni that can't be separated into tiers.",
+        variants={
+            'regular': GameVariant(
+                name='Regular',
+                desc="Tie if you can't move",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='fivefieldkono',
+                data_provider_variant_id=0,
+                status='available',
+                gui_status='v2'),
+            'delta': GameVariant(
+                name='Delta',
+                desc="Lose if you can't move",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='fivefieldkono',
+                data_provider_variant_id=1,
+                status='available',
+                gui_status='v2'),
+            'omega': GameVariant(
+                name='Omega',
+                desc="Win if you can't move",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='fivefieldkono',
+                data_provider_variant_id=2,
+                status='available',
+                gui_status='v2')
+        },
+        gui_status='v2'),
+
     'forestfox': Game(
         name='Forest Fox',
         desc="This is a card game adapted from The Fox in the Forest",
@@ -483,45 +525,14 @@ games = {
                 gui_status='v2')
         },
         gui_status='v2'),
-    
-    'swans': Game(
-        name='Dragons & Swans',
-        desc="Swan places a piece onto the board if there are remaining pieces from the initial pile, otherwise move piece to an orthogonally adjacent empty board position. Dragon can either move a piece to an orthogonally adjacent empty square, or captures a swan by jumping over it to an empty square the other side. Swans wins when they surround all the dragons and dragons win when they eat all the swans.",
+
+    'jenga': Game(
+        name='Jenga',
+        desc='Pick any Jenga piece and place on the top of the stack. Pieces are built in a horizontal|vertical|horizontal pattern. The topmost complete level and above an unaccessible for making a move. If you run out of moves to make or make a move that causes the tower to fall you lose.',
         variants={
-            '1': GameVariant(
-                name='1 Dragon',
-                desc='1 Dragon',
-                data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='swans',
-                data_provider_variant_id=-1,
-                status='dev',
-                gui_status='v1'),
-            '2': GameVariant(
-                name='2 Dragons',
-                desc='2 Dragons',
-                data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='swans',
-                data_provider_variant_id=5,
-                status='dev',
-                gui_status='v1'),
-            '3': GameVariant(
-                name='3 Dragons',
-                desc='3 Dragons',
-                data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='swans',
-                data_provider_variant_id=9,
-                status='dev',
-                gui_status='v1'),
-            '4': GameVariant(
-                name='4 Dragons',
-                desc='4 Dragons',
-                data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='swans',
-                data_provider_variant_id=13,
-                status='dev',
-                gui_status='v1')
+            "regular" : Jenga()
         },
-        gui_status='v1'),
+        gui_status='v2'),
     
     'kayles': Game(
         name='Kayles',
@@ -769,6 +780,22 @@ games = {
                 gui_status='v2')
         },
         gui_status='v2'),
+
+    'quickcross': Game(   
+       name='Quick Cross',
+       desc="Place your piece (vertically/horizontally) onto an open square (looks like a + sign) or rotate an existing piece. " +
+       "Wins when you connect 4 in a row horizontally, vertically, or diagonally.",
+       variants={
+           'regular': GameVariant(
+               name='Regular',
+               desc='Regular',
+               data_provider=GamesmanClassicDataProvider,
+               data_provider_game_id='qx',
+               data_provider_variant_id=9,
+               gui_status='v2',
+               status='stable'),
+       }, 
+       gui_status='v2'),
     
     'sim': Game(
         name='Sim',
@@ -785,21 +812,22 @@ games = {
         },
         gui_status='v2'),
     
-    'stt': Game(
-        name='Shift Tac Toe',
-        desc='',
+    'slide5': Game(
+        name="Slide-5",
+        desc="Slide 5",
         variants={
-            'default': GameVariant(
-                name='Regular',
-                desc='Regular',
+            'regular':  GameVariant(
+                name="Standard",
+                desc="Standard",
                 data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='stt',
+                data_provider_game_id='slide5',
                 data_provider_variant_id=-1,
                 status='available',
-                gui_status='v2')
+                gui_status='v2'
+            )
         },
         gui_status='v2'),
-    
+
     'snake': Game(
         name='Snake',
         desc="Move one step up, left, or right. Wins when your opponent has no more moves given the current position.",
@@ -813,6 +841,21 @@ games = {
                 status='available',
                 gui_status='v2')
             },
+        gui_status='v2'),
+    
+    'stt': Game(
+        name='Shift Tac Toe',
+        desc='',
+        variants={
+            'default': GameVariant(
+                name='Regular',
+                desc='Regular',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='stt',
+                data_provider_variant_id=-1,
+                status='available',
+                gui_status='v2')
+        },
         gui_status='v2'),
     
     'tactix': Game(
@@ -893,52 +936,5 @@ games = {
                 gui_status='v2'
             )
         },
-        gui_status='v2'),
-    
-    'fivefieldkono': Game(
-        name='Five Field Kono',
-        desc="Largest game in GamesmanUni that can't be separated into tiers.",
-        variants={
-            'regular': GameVariant(
-                name='Regular',
-                desc="Tie if you can't move",
-                data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='fivefieldkono',
-                data_provider_variant_id=0,
-                status='available',
-                gui_status='v2'),
-            'delta': GameVariant(
-                name='Delta',
-                desc="Lose if you can't move",
-                data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='fivefieldkono',
-                data_provider_variant_id=1,
-                status='available',
-                gui_status='v2'),
-            'omega': GameVariant(
-                name='Omega',
-                desc="Win if you can't move",
-                data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='fivefieldkono',
-                data_provider_variant_id=2,
-                status='available',
-                gui_status='v2')
-        },
-        gui_status='v2'),
-
-    'slide5': Game(
-        name="Slide-5",
-        desc="Slide 5",
-        variants={
-            'regular':  GameVariant(
-                name="Standard",
-                desc="Standard",
-                data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='slide5',
-                data_provider_variant_id=-1,
-                status='available',
-                gui_status='v2'
-            )
-        },
-        gui_status='v2'),
+        gui_status='v2')
 }
