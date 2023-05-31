@@ -723,6 +723,32 @@ def get_chess(variant_id):
             }
         }
 
+def get_foxesandhounds(variant_id):
+    if variant_id != "regular":
+        return None
+    return {
+            "defaultTheme": "lichess",
+            "themes": {
+                "lichess": {
+                    "backgroundGeometry": [8, 8],
+                    "arrowThickness": 0.1,
+                    "backgroundImage": "chess/lichess/grid.svg",
+                    "centers": [[0.5 + (i % 8), 0.5 + (i // 8)] for i in 
+                                (1,3,5,7,8,10,12,14,17,19,21,23,24,26,28,30,
+                                 33,35,37,39,40,42,44,46,49,51,53,55,56,58,60,62)],
+                    "piecesOverArrows": True,
+                    "pieces": {
+                        'F': {
+                            'image': 'foxesandhounds/F.png', 'scale': 1
+                        }, 'G': {
+                            'image': 'foxesandhounds/G.png', 'scale': 1
+                        },
+                    },
+                    "animationType": "simpleSlidePlaceRemove"
+                }
+            }
+        }
+
 def get_snake(variant_id):
     if variant_id != "regular":
         return None
@@ -1678,7 +1704,8 @@ autoGUIv2DataFuncs = {
     "forestfox": get_forestfox,
     "euclidsgame": get_euclidsgame,
     "ghost": get_ghost,
-    "slide5": get_slide5
+    "slide5": get_slide5,
+    'foxesandhounds': get_foxesandhounds
 }
 
 def get_autoguiV2Data(game_id, variant_id):
