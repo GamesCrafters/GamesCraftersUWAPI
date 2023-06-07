@@ -661,7 +661,8 @@ def get_chomp(variant_id):
                         "x" : {
                             "image": "chomp/x.svg", "scale": 1.0
                         }
-                    }
+                    },
+                    "animationType": "simpleSlidePlaceRemove"
                 }
             }
         }
@@ -721,7 +722,7 @@ def get_chess(variant_id):
             }
         }
 
-def get_foxesandhounds(variant_id):
+def get_foxandhounds(variant_id):
     if variant_id != "regular":
         return None
     return {
@@ -737,9 +738,9 @@ def get_foxesandhounds(variant_id):
                     "piecesOverArrows": True,
                     "pieces": {
                         'F': {
-                            'image': 'foxesandhounds/F.png', 'scale': 1
+                            'image': 'foxandhounds/F.png', 'scale': 1
                         }, 'G': {
-                            'image': 'foxesandhounds/G.png', 'scale': 1
+                            'image': 'foxandhounds/G.png', 'scale': 1
                         },
                     },
                     "animationType": "simpleSlidePlaceRemove"
@@ -999,7 +1000,8 @@ def get_achi(variant_id):
                     "o": {
                         "image": "369mm/O.svg", "scale": 15
                     }
-                }
+                },
+                "animationType": "simpleSlidePlaceRemove"
             }
         }
     }
@@ -1067,7 +1069,8 @@ def get_quickchess(variant_id):
                         }, "k": {
                             "image": "chess/wikipedia/kk.svg", "scale": 1.0
                         }
-                    }
+                    },
+                    "animationType": "simpleSlidePlaceRemove"
                 }
             }
         }
@@ -1194,7 +1197,6 @@ def get_gameofy(variant_id):
                 "basic": {
                     "backgroundGeometry": [8, 6],
                     "backgroundImage": "gameofy/dim4.svg",
-                    # "foregroundImage": <path to foreground image; if no foreground image, omit this attribute>,
                     "centers": [
                         [4, 1.2], [3.47, 2.1], [4.53, 2.1], [2.97, 3], 
                         [4, 3], [5.03, 3], [2.44, 3.9], [3.47, 3.9], 
@@ -1218,7 +1220,6 @@ def get_gameofy(variant_id):
                 "basic": {
                     "backgroundGeometry": [8, 6],
                     "backgroundImage": "gameofy/dim5.svg",
-                    # "foregroundImage": <path to foreground image; if no foreground image, omit this attribute>,
                     "centers": [
                         [4, 1.2], 
                         [3.47, 2.1], 
@@ -1257,7 +1258,6 @@ def get_notakto(variant_id):
                 "basic": {
                     "backgroundGeometry": [3, 3],
                     "backgroundImage": "notakto/grid1.svg",
-                    # "foregroundImage": <path to foreground image; if no foreground image, omit this attribute>,
                     "centers": [
                         [0.5, 0.5], [1.5, 0.5], [2.5, 0.5],
                         [0.5, 1.5], [1.5, 1.5], [2.5, 1.5],
@@ -1279,7 +1279,6 @@ def get_notakto(variant_id):
                 "basic": {
                     "backgroundGeometry": [6, 3],
                     "backgroundImage": "notakto/grid2.svg",
-                    # "foregroundImage": <path to foreground image; if no foreground image, omit this attribute>,
                     "centers": [
                         [0.45, 0.5], [1.45, 0.5], [2.45, 0.5],
                         [0.45, 1.5], [1.45, 1.5], [2.45, 1.5],
@@ -1305,7 +1304,6 @@ def get_notakto(variant_id):
                 "basic": {
                     "backgroundGeometry": [6, 6],
                     "backgroundImage": "notakto/grid3.svg",
-                    # "foregroundImage": <path to foreground image; if no foreground image, omit this attribute>,
                     "centers": [
                         [0.45, 0.5], [1.45, 0.5], [2.45, 0.5],
                         [0.45, 1.5], [1.45, 1.5], [2.45, 1.5],
@@ -1338,7 +1336,6 @@ def get_beeline(variant_id):
                 "backgroundImage": "beeline/board.svg",
                 "arrowThickness": 0.1,
                 "piecesOverArrows": True,
-                # "foregroundImage": <path to foreground image; if no foreground image, omit this attribute>,
                 "centers": [
                     [1.25, 4.75], # 0
                     [2.5, 4.05], # 1
@@ -1378,7 +1375,7 @@ def get_1dchess(variant_id):
                 "backgroundGeometry": [8, 1],
                 "backgroundImage": "1dchess/grid.svg",
                 "piecesOverArrows": False,
-                # "foregroundImage": <path to foreground image; if no foreground image, omit this attribute>,
+                "arrowThickness": 0.1,
                 "centers": [
                     [0.5, 0.5],
                     [1.5, 0.5],
@@ -1408,7 +1405,8 @@ def get_1dchess(variant_id):
                     "r": {
                         "image": "1dchess/R.svg", "scale": 1
                     },
-                }
+                },
+                "animationType": "simpleSlidePlaceRemove"
             },
         }
     }
@@ -1452,7 +1450,6 @@ def get_dao(variant_id):
                 "backgroundImage": "dao/grid.svg",
                 "arrowThickness": 0.1,
                 "piecesOverArrows": True,
-                # "foregroundImage": <path to foreground image; if no foreground image, omit this attribute>,
                 "centers": [
                     [0.5, 0.5], [1.5, 0.5], [2.5, 0.5], [3.5, 0.5],
                     [0.5, 1.5], [1.5, 1.5], [2.5, 1.5], [3.5, 1.5],
@@ -1703,7 +1700,7 @@ autoGUIv2DataFuncs = {
     "euclidsgame": get_euclidsgame,
     "ghost": get_ghost,
     "slide5": get_slide5,
-    'foxesandhounds': get_foxesandhounds
+    'foxandhounds': get_foxandhounds
 }
 
 def get_autoguiV2Data(game_id, variant_id):

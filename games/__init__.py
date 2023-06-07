@@ -420,8 +420,8 @@ games = {
         },
         gui_status='v2'),
 
-    'foxesandhounds': Game(
-        name='Foxes & Hounds',
+    'foxandhounds': Game(
+        name='Fox and Hounds',
         desc="Hounds try to prevent the fox from getting to the other side.",
         variants={
             'regular': GameVariant(
@@ -618,8 +618,8 @@ games = {
         gui_status='v0'),
     
     'mutorere': Game(
-        name='Mu Torere',
-        desc='Mu Torere',
+        name='Mū Tōrere',
+        desc='Mū Tōrere',
         variants={
             'regular': GameVariant(
                 name='Standard',
@@ -823,9 +823,9 @@ games = {
                 data_provider_game_id='sim',
                 data_provider_variant_id=-1,
                 status='dev',
-                gui_status='v2')
+                gui_status='v3')
         },
-        gui_status='v2'),
+        gui_status='v3'),
     
     'slide5': Game(
         name="Slide-5",
@@ -900,7 +900,7 @@ games = {
                 data_provider_game_id='ttt',
                 data_provider_variant_id=-1,
                 status='stable',
-                gui_status='v2'),
+                gui_status='v3'),
             'misere': GameVariant(
                 name='Misere',
                 desc='Misere',
@@ -908,9 +908,9 @@ games = {
                 data_provider_game_id='ttt',
                 data_provider_variant_id=1,
                 status='stable',
-                gui_status='v2')
+                gui_status='v3')
         },
-        gui_status='v2'),
+        gui_status='v3'),
 
     'tttwo': Game(
         name='Tic-Tac-Two',
