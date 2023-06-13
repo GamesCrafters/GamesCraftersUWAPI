@@ -10,9 +10,13 @@ get_<game>(variant_id) should return JSON of the following form:
         "themes": {
             <name of theme1>: {
                 "backgroundGeometry": [<width>, <height>],
-                "backgroundImage": <path to background image; if no background image, omit this attribute>,
-                "foregroundImage": <path to foreground image; if no foreground image, omit this attribute>,
-                "centers": [ [<x0>,<y0>], [<x1>, <y1>], [<x2>, <y2>], [<x3>, <y3>], ... ]
+                "backgroundImage": <optional, path to background image>,
+                "foregroundImage": <optional, path to foreground image>,
+                "centers": [ [<x0>,<y0>], [<x1>, <y1>], [<x2>, <y2>], [<x3>, <y3>], ... ],
+                "arrowWidth": <optional, width of all arrow move buttons>,
+                "lineWidth": <optional, width of all line move buttons>,
+                "defaultMoveTokenRadius: <optional, radius of all default move buttons>,
+                "piecesOverArrows": <optional, Boolean, whether pieces are drawn over arrows or not>,
                 "pieces": {
                     <char1>: {
                         "image": <path to piece image>, "scale": <image scale>
@@ -118,7 +122,7 @@ def get_baghchal(variant_id):
                 "stolen_art": {
                     "backgroundGeometry": [5, 6],
                     "backgroundImage": "baghchal/grid5Diag.svg",
-                    "arrowThickness": 0.05,
+                    "arrowWidth": 0.05,
                     "centers": [[0.5 + (i % 5), 0.5 + (i // 5)] for i in range(25)] + [[3.75,5.2], [3.95,5.2], [-1,-1], [3.75,5.55], [3.95,5.55]],
                     "piecesToBeIntroduced": "G",
                     "piecesOverArrows": True,
@@ -221,7 +225,7 @@ def get_369mm(variant_id):
                         300, 300
                     ],
                     "backgroundImage": "369mm/board.svg",
-                    "arrowThickness": 5,
+                    "arrowWidth": 5,
                     "centers": [
                         [145, 140], [-999, -999], [-999, -999], [-999, -999], [-999, -999], [-999, -999], [175, 140], 
                         [40, 20], [-999, -999], [-999, -999], [160, 20], [-999, -999], [-999, -999], [280, 20], 
@@ -483,7 +487,7 @@ def get_stt(variant_id):
                     "backgroundGeometry": [
                         9, 6
                     ],
-                    "arrowThickness": 0.15,
+                    "arrowWidth": 0.10,
                     "foregroundImage": "stt/foreground.svg",
                     "centers": [
                         [3.5, 0.5], [4.5, 0.5], [5.5, 0.5], 
@@ -507,7 +511,7 @@ def get_stt(variant_id):
                     "piecesToBeIntroduced" : "xo",
                     "pieces": {
                         "S": {
-                            "image": "stt/S.svg", "scale": 5.0
+                            "image": "stt/S.svg", "scale": 10.0
                         }, "x": {
                             "image": "stt/x.svg", "scale": 1.0
                         }, "o": {
@@ -705,7 +709,7 @@ def get_chess(variant_id):
             "themes": {
                 "wikipedia": {
                     "backgroundGeometry": [8, 8],
-                    "arrowThickness": 0.1,
+                    "arrowWidth": 0.1,
                     "backgroundImage": "chess/wikipedia/grid.svg",
                     "centers": [[0.5 + (i % 8), 0.5 + (i // 8)] for i in range(64)],
                     "pieces": {k: {"image": "chess/wikipedia/{}.svg".format(v), "scale": 1} for (k, v) in pieces.items()},
@@ -713,7 +717,7 @@ def get_chess(variant_id):
                 },
                 "lichess": {
                     "backgroundGeometry": [8, 8],
-                    "arrowThickness": 0.1,
+                    "arrowWidth": 0.1,
                     "backgroundImage": "chess/lichess/grid.svg",
                     "centers": [[0.5 + (i % 8), 0.5 + (i // 8)] for i in range(64)],
                     "pieces": {k: {"image": "chess/lichess/{}.svg".format(v), "scale": 1} for (k, v) in pieces.items()},
@@ -730,7 +734,7 @@ def get_foxandhounds(variant_id):
             "themes": {
                 "lichess": {
                     "backgroundGeometry": [8, 8],
-                    "arrowThickness": 0.1,
+                    "arrowWidth": 0.1,
                     "backgroundImage": "chess/lichess/grid.svg",
                     "centers": [[0.5 + (i % 8), 0.5 + (i // 8)] for i in 
                                 (1,3,5,7,8,10,12,14,17,19,21,23,24,26,28,30,
@@ -778,7 +782,6 @@ def get_snake(variant_id):
 def get_quickcross(variant_id):
     if variant_id != "regular": # 4x4 variant (option-9)
         return None
-    #48.75,141.25,233.75,326.25
     center_maps = [
             [48.75, 48.75], #0
             [141.25, 48.75],#1
@@ -840,7 +843,7 @@ def get_haregame(variant_id):
                 "regular": {
                     "backgroundGeometry": [180, 100],
                     "piecesOverArrows": True,
-                    "arrowThickness": 2,
+                    "arrowWidth": 2,
                     "backgroundImage": "haregame/boardsmall.svg",
                     "centers": [[10, 50]] + [[40*i + 50, 40*j + 10] for i in range(3) for j in range(3)] + [[170, 50]],
                     "pieces": {
@@ -861,7 +864,7 @@ def get_haregame(variant_id):
                 "regular": {
                     "backgroundGeometry": [260, 100],
                     "piecesOverArrows": True,
-                    "arrowThickness": 2,
+                    "arrowWidth": 2,
                     "backgroundImage": "haregame/boardmedium.svg",
                     "centers": [[10, 50]] + [[40*i + 50, 40*j + 10] for i in range(5) for j in range(3)] + [[250, 50]],
                     "pieces": {
@@ -882,7 +885,7 @@ def get_haregame(variant_id):
                 "regular": {
                     "backgroundGeometry": [340, 100],
                     "piecesOverArrows": True,
-                    "arrowThickness": 2,
+                    "arrowWidth": 2,
                     "backgroundImage": "haregame/boardlarge.svg",
                     "centers": [[10, 50]] + [[40*i + 50, 40*j + 10] for i in range(7) for j in range(3)] + [[330, 50]],
                     "pieces": {
@@ -979,7 +982,7 @@ def get_achi(variant_id):
                 "backgroundGeometry": [100, 100],
                 "backgroundImage": "achi/achiboard.svg",
                 "piecesOverArrows": True,
-                "arrowThickness": 4,
+                "arrowWidth": 4,
                 "defaultMoveTokenRadius": 6.5,
                 "centers": [
                     [10, 10],
@@ -1016,7 +1019,7 @@ def get_dinododgem(variant_id):
                         6, 6
                     ],
                     "piecesOverArrows": True,
-                    "arrowThickness": 0.09,
+                    "arrowWidth": 0.09,
                     "backgroundImage": "dinododgem/new_grid.svg",
                     "centers": [
                         [0.5, 5.5], [0.5, 4.5], [0.5, 3.5], [0.5, 2.5], [0.5, 1.5], 
@@ -1277,21 +1280,20 @@ def get_notakto(variant_id):
             "defaultTheme": "basic",
             "themes": {
                 "basic": {
-                    "backgroundGeometry": [6, 3],
+                    "backgroundGeometry": [136, 66],
                     "backgroundImage": "notakto/grid2.svg",
                     "centers": [
-                        [0.45, 0.5], [1.45, 0.5], [2.45, 0.5],
-                        [0.45, 1.5], [1.45, 1.5], [2.45, 1.5],
-                        [0.45, 2.5], [1.45, 2.5], [2.45, 2.5],
-                        
-                        [3.55, 0.5], [4.55, 0.5], [5.55, 0.5],
-                        [3.55, 1.5], [4.55, 1.5], [5.55, 1.5],
-                        [3.55, 2.5], [4.55, 2.5], [5.55, 2.5]
+                        [11, 11], [33, 11], [55, 11],
+                        [11, 33], [33, 33], [55, 33],
+                        [11, 55], [33, 55], [55, 55],  
+                        [81, 11], [103, 11], [125, 11],
+                        [81, 33], [103, 33], [125, 33],
+                        [81, 55], [103, 55], [125, 55]
                     ],
                     "piecesToBeIntroduced" : "X",
                     "pieces": {
                         "X": {
-                            "image": "notakto/x.svg", "scale": 1
+                            "image": "notakto/x.svg", "scale": 22
                         },
                     }
                 },
@@ -1302,25 +1304,23 @@ def get_notakto(variant_id):
             "defaultTheme": "basic",
             "themes": {
                 "basic": {
-                    "backgroundGeometry": [6, 6],
+                    "backgroundGeometry": [136, 136],
                     "backgroundImage": "notakto/grid3.svg",
                     "centers": [
-                        [0.45, 0.5], [1.45, 0.5], [2.45, 0.5],
-                        [0.45, 1.5], [1.45, 1.5], [2.45, 1.5],
-                        [0.45, 2.5], [1.45, 2.5], [2.45, 2.5],
-                        
-                        [3.55, 0.5], [4.55, 0.5], [5.55, 0.5],
-                        [3.55, 1.5], [4.55, 1.5], [5.55, 1.5],
-                        [3.55, 2.5], [4.55, 2.5], [5.55, 2.5],
-
-                        [2.0, 3.55], [3.0, 3.55], [4.0, 3.55],
-                        [2.0, 4.55], [3.0, 4.55], [4.0, 4.55],
-                        [2.0, 5.55], [3.0, 5.55], [4.0, 5.55]
+                        [11, 11], [33, 11], [55, 11],
+                        [11, 33], [33, 33], [55, 33],
+                        [11, 55], [33, 55], [55, 55],
+                        [81, 11], [103, 11], [125, 11],
+                        [81, 33], [103, 33], [125, 33],
+                        [81, 55], [103, 55], [125, 55],
+                        [46, 81], [68, 81], [90, 81],
+                        [46, 103], [68, 103], [90, 103],
+                        [46, 125], [68, 125], [90, 125]
                     ],
                     "piecesToBeIntroduced" : "X",
                     "pieces": {
                         "X": {
-                            "image": "notakto/x.svg", "scale": 1
+                            "image": "notakto/x.svg", "scale": 22
                         },
                     }
                 },
@@ -1334,7 +1334,7 @@ def get_beeline(variant_id):
             "basic": {
                 "backgroundGeometry": [10, 8],
                 "backgroundImage": "beeline/board.svg",
-                "arrowThickness": 0.1,
+                "arrowWidth": 0.1,
                 "piecesOverArrows": True,
                 "centers": [
                     [1.25, 4.75], # 0
@@ -1375,7 +1375,7 @@ def get_1dchess(variant_id):
                 "backgroundGeometry": [8, 1],
                 "backgroundImage": "1dchess/grid.svg",
                 "piecesOverArrows": False,
-                "arrowThickness": 0.1,
+                "arrowWidth": 0.1,
                 "centers": [
                     [0.5, 0.5],
                     [1.5, 0.5],
@@ -1424,7 +1424,7 @@ def get_chinesechess(variant_id):
         "themes": {
             "regular": {
                 "backgroundGeometry": [9, 10],
-                "arrowThickness": 0.1,
+                "arrowWidth": 0.1,
                 "backgroundImage": "chinesechess/board.svg",
                 "centers": [[0.5 + (i % 9), 0.5 + (i // 9)] for i in range(90)],
                 "pieces": {k: {"image": "chinesechess/regular/{}.svg".format(v), "scale": 1} for (k, v) in pieces.items()},
@@ -1432,7 +1432,7 @@ def get_chinesechess(variant_id):
             },
             "graphical": {
                 "backgroundGeometry": [9, 10],
-                "arrowThickness": 0.1,
+                "arrowWidth": 0.1,
                 "backgroundImage": "chinesechess/board.svg",
                 "centers": [[0.5 + (i % 9), 0.5 + (i // 9)] for i in range(90)],
                 "pieces": {k: {"image": "chinesechess/graphical/{}.svg".format(v), "scale": 1} for (k, v) in pieces.items()},
@@ -1448,7 +1448,7 @@ def get_dao(variant_id):
             "basic": {
                 "backgroundGeometry": [4, 4],
                 "backgroundImage": "dao/grid.svg",
-                "arrowThickness": 0.1,
+                "arrowWidth": 0.1,
                 "piecesOverArrows": True,
                 "centers": [
                     [0.5, 0.5], [1.5, 0.5], [2.5, 0.5], [3.5, 0.5],
@@ -1458,10 +1458,10 @@ def get_dao(variant_id):
                 ],
                 "pieces": {
                     "O": {
-                        "image": "dao/W.svg", "scale": 1
+                        "image": "dao/W.svg", "scale": 0.9
                     },
                     "X": {
-                        "image": "dao/B.svg", "scale": 1
+                        "image": "dao/B.svg", "scale": 0.9
                     }
                 },
                 "animationType": "simpleSlidePlaceRemove"
@@ -1476,7 +1476,7 @@ def get_change(variant_id):
             "basic": {
                 "backgroundGeometry": [80, 80],
                 "backgroundImage": "change/graph.svg",
-                "arrowThickness": 1,
+                "arrowWidth": 1,
                 "piecesOverArrows": True,
                 "centers": [
                     [70, 26], [70, 44], [70, 62],
@@ -1510,7 +1510,7 @@ def get_fivefieldkono(variant_id):
                     ],
                     "backgroundImage": "fivefieldkono/board.svg",
                     "piecesOverArrows": True,
-                    "arrowThickness": 5,
+                    "arrowWidth": 5,
                     "centers": [[20 + 40 * i, 20 + 40 * j] for j in range(0,5) for i in range(0,5)],
                     "pieces": {
                         "x": {
@@ -1566,7 +1566,7 @@ def get_forestfox(variant_id):
             "basic": {
                 "backgroundGeometry": [1150, 900],
                 "backgroundImage": "forestfox/cardboard.svg",
-                "arrowThickness": 2,
+                "arrowWidth": 2,
                 "defaultMoveTokenRadius": 6.5,
                 "centers": [
                     [125, 150], [275, 150], [425, 150], [575, 150], [725, 150], [875, 150], [1025, 150],
@@ -1647,7 +1647,7 @@ def get_slide5(variant_id):
                     [5, 130], [35, 160], [30, 105], [60, 135], [55, 80], [85, 110], [80, 55], [110, 85], [105, 30], [135, 60],
                     [195, 30], [165, 60], [220, 55], [190, 85], [245, 80], [215, 110], [270, 105], [240, 135], [295, 130], [265, 160]
                 ],
-                "arrowThickness": 5,
+                "arrowWidth": 5,
                 "pieces": {
                     "X": { "image": "connect4/X.svg", "scale": 33 }, 
                     "O": { "image": "connect4/O.svg", "scale": 33 }
