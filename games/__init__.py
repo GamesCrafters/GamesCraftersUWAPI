@@ -831,12 +831,21 @@ games = {
         name="Slide-5",
         desc="Slide 5",
         variants={
-            'regular':  GameVariant(
+            'regular': GameVariant(
                 name="Standard",
                 desc="Standard",
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='slide5',
                 data_provider_variant_id=-1,
+                status='available',
+                gui_status='v2'
+            ),
+            'ties': GameVariant(
+                name="Tie Rule Enabled",
+                desc="Tie Rule Enabled",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='slide5',
+                data_provider_variant_id=1,
                 status='available',
                 gui_status='v2'
             )
