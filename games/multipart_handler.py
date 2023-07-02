@@ -36,7 +36,7 @@ class Node:
                                         self.move_name, ','.join([('%s' % e) for e in self.edges_in]))
 
 
-def multipart_solve(position, input_dict, output_type=0):
+def multipart_solve(position, input_dict):
     if not input_dict:
         return None
     position_is_intermediate = False
@@ -46,8 +46,8 @@ def multipart_solve(position, input_dict, output_type=0):
     move_name_dict = {}
 
     # Get multipart edges
-    mp_response = input_dict.get('multipart')
-    if output_type == 1 and not mp_response:
+    mp_response = input_dict['multipart']
+    if not mp_response:
         return None
     for r in mp_response:
         from_pos = r.get('from')
@@ -71,7 +71,7 @@ def multipart_solve(position, input_dict, output_type=0):
         edge_list.append(edge)
 
     # Get terminal nodes
-    response = input_dict.get('response')  # Response is a list of dicts
+    response = input_dict['moves']  # Response is a list of dicts
     for r in response:
         board = r.get('board')
         remoteness = r.get('remoteness')
@@ -82,6 +82,8 @@ def multipart_solve(position, input_dict, output_type=0):
             value = 'lose'
         elif value == 'lose':
             value = 'win'
+        elif value == 'tie' and remoteness == 255:
+            value = 'draw'
 
         move = r.get('move')
         move_name = r.get('moveName')
@@ -112,7 +114,7 @@ def multipart_solve(position, input_dict, output_type=0):
         mp_remoteness += 1
         for edge in n.edges_in:
             parent = edge.from_node
-            remoteness_increment = 1 if n in terminal_nodes else 0
+            remoteness_increment = 1 if n in terminal_nodes and n.value != 'draw' else 0
 
             if not parent.value:
                 parent.value = n.value
@@ -138,28 +140,25 @@ def multipart_solve(position, input_dict, output_type=0):
     for n in terminal_nodes:
         dfs(n, 0)
 
-    if output_type == 0:
-        moves = []
-        for e in edge_list:
-            move_name = move_name_dict.get(e.move)  # Move name from edge
-            if not move_name:
-                move_name = e.to_node.move_name  # Move name from node
-            move_dict = {
-                'fromPos': e.from_node.board,
-                'move': e.part_move,
-                'board': e.to_node.board,
-                'moveValue': e.to_node.value,
-                'value': e.to_node.value if e.to_node.mp_remoteness else {'lose': 'win', 'tie': 'tie', 'win': 'lose'}[e.to_node.value],
-                'remoteness': e.to_node.remoteness,
-                'moveName': move_name
-                #'isTerminal': move_name != None
-            }
-            moves.append(move_dict)
-        return moves
-    else:
-        pos_dict = {
-            'board': position, 
-            'remoteness': node_dict.get(position).remoteness,
-            'value': node_dict.get(position).value
+    moves = []
+    value_to_return = input_dict["value"]
+    remoteness_to_return = input_dict["remoteness"]
+    for e in edge_list:
+        move_name = move_name_dict.get(e.move)  # Move name from edge
+        if not move_name:
+            move_name = e.to_node.move_name  # Move name from node
+        if e.from_node.board == position:
+            value_to_return = e.from_node.value
+            remoteness_to_return = e.from_node.remoteness
+        move_dict = {
+            'fromPos': e.from_node.board,
+            'move': e.part_move,
+            'board': e.to_node.board,
+            'moveValue': e.to_node.value,
+            'value': e.to_node.value if e.to_node.mp_remoteness else {'lose': 'win', 'tie': 'tie', 'win': 'lose', 'draw': 'draw'}[e.to_node.value],
+            'remoteness': e.to_node.remoteness,
+            'moveName': move_name
+            #'isTerminal': move_name != None
         }
-        return pos_dict
+        moves.append(move_dict)
+    return value_to_return, remoteness_to_return, moves

@@ -15,8 +15,9 @@ class DawsonsChessGameVariant(AbstractGameVariant):
         name = "custom"
         desc = "custom"
         status = "stable"
+        gui_status = "v2"
         self.board_str = ''.join(['b' for i in range(board_len)])
-        super(DawsonsChessGameVariant, self).__init__(name, desc, status)
+        super(DawsonsChessGameVariant, self).__init__(name, desc, status, gui_status)
 
     def start_position(self):
         return DawsonsChessGameVariant.getUWAPIPos(1, len(self.board_str), self.board_str, "A")

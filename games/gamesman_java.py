@@ -100,11 +100,12 @@ class GamesmanJavaConnect4GameVariant(AbstractGameVariant):
 
     game_id = 'connect4'
 
-    def __init__(self, width, height, pieces, status='stable'):
+    def __init__(self, width, height, pieces, status='stable', gui_status='v0'):
         super(GamesmanJavaConnect4GameVariant, self).__init__(
             name=f"{width}x{height}x{pieces}",
             desc=f"{width}x{height} board with {pieces} pieces in a row",
-            status=status
+            status=status,
+            gui_status=gui_status
         )
         self.width = width
         self.height = height

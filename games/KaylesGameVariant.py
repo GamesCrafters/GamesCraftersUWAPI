@@ -17,8 +17,9 @@ class KaylesGameVariant(AbstractGameVariant):
         name = "custom"
         desc = "custom"
         status = "stable"
+        gui_status = "v1"
         self.board_str = ''.join(['-' for i in range(board_len)])
-        super(KaylesGameVariant, self).__init__(name, desc, status)
+        super(KaylesGameVariant, self).__init__(name, desc, status, gui_status)
 
     def start_position(self):
         return KaylesGameVariant.createUWAPIPos(1, len(self.board_str), self.board_str, "A")

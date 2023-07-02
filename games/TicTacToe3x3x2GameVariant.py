@@ -5,7 +5,7 @@ class TicTacToe3x3x2GameVariant(AbstractGameVariant):
     """Class for 3x3x2 Tic Tac Toe
     """
 
-    def __init__(self, name, desc, filepath, status='stable'):
+    def __init__(self, name, desc, filepath, status='stable', gui_status='v0'):
         assert isinstance(name, str), 'name must be a string'
         assert isinstance(desc, str), 'desc must be a string'
         assert isinstance(filepath, str), 'filepath must be a string'
@@ -21,6 +21,7 @@ class TicTacToe3x3x2GameVariant(AbstractGameVariant):
             self.status = 'unavailable'
         else:
             self.status = status
+        self.gui_status = gui_status
 
     def __del__(self):
         if self.file:

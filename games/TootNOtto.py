@@ -74,8 +74,9 @@ class TootNOtto(AbstractGameVariant):
 
         s += SPACER*3
         #s += ("T" if Ts > 0 else "█") * self.COLS
-        for col in range(self.COLS):
-            s += ("T" if (Ts > 0 and position[((self.ROWS-1)*self.COLS)+col]=="-") else SPACER)
+        # for col in range(self.COLS):
+        #     s += ("T" if (Ts > 0 and position[((self.ROWS-1)*self.COLS)+col]=="-") else SPACER)
+        s += SPACER * self.COLS
 
         s += SPACER*3
 
@@ -88,8 +89,9 @@ class TootNOtto(AbstractGameVariant):
             s += ("O" if Osx == 6 else SPACER)
         s += SPACER
         #s += ("O" if Os > 0 else "█") * self.COLS
-        for col in range(self.COLS):
-            s += ("O" if (Os > 0 and position[((self.ROWS-1)*self.COLS)+col]=="-") else SPACER)
+        # for col in range(self.COLS):
+        #     s += ("O" if (Os > 0 and position[((self.ROWS-1)*self.COLS)+col]=="-") else SPACER)
+        s += SPACER * self.COLS
         s += SPACER
         if self.COLS < 6:
             s += SPACER*2
@@ -172,7 +174,7 @@ class TootNOtto(AbstractGameVariant):
                "".join(map(str,TOs))
 
     def MoveToUWAPI(self, position, move):
-        return "A_"+move[1]+"_"+str(3+int(move[0])+((self.COLS+6) if move[1] == "O" else 0))
+        return "A_"+move[1].lower()+"_"+str(3+int(move[0])+((self.COLS+6) if move[1] == "O" else 0))
 
     def __init__(self, COLS):
 
@@ -185,8 +187,9 @@ class TootNOtto(AbstractGameVariant):
         name   = "" + str(self.ROWS) + "x" + str(self.COLS) + " Toot-N-Otto"
         desc   = str(COLS) + "x4"
         status = "stable"
+        gui_status = 'v2'
 
-        super(TootNOtto, self).__init__(name, desc, status=status)
+        super(TootNOtto, self).__init__(name, desc, status=status, gui_status=gui_status)
 
     def start_position(self):
         #return "R_A_1_3_RL-"
@@ -216,6 +219,7 @@ class TootNOtto(AbstractGameVariant):
                 next_UWAPI_position = self.pos_to_UWAPI(next_position)+"_"+next_position
                 next_res = {
                     "move": UWAPI_move,
+                    "moveName": f'{move[1]}-{move[0] + 1}',
                     **self.stat(next_UWAPI_position)
                 }
                 response.append(next_res)

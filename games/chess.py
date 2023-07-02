@@ -50,6 +50,10 @@ def makeUWAPIMoveString(move):
     return "M_{}_{}".format(8 * (8 - int(move[1])) + (ord(move[0]) - ord('a')),
                             8 * (8 - int(move[3])) + (ord(move[2]) - ord('a')))
 
+def makeUWAPIAnimationData(move):
+    from_idx = 8 * (8 - int(move[1])) + (ord(move[0]) - ord('a'))
+    to_idx = 8 * (8 - int(move[3])) + (ord(move[2]) - ord('a'))
+    return ["m_{}_{}".format(from_idx, to_idx), "o_{}".format(to_idx)]
 
 def makeMove(position, move):
     fen = convertUWAPIRegular2DPositionStringToFEN(position)
@@ -83,7 +87,7 @@ def syz_stat(position):
         response = {
             "position": position,
             "positionValue": positionValue(data),
-            "remoteness": 0 if data['dtm'] is None else abs(data['dtm']),
+            "remoteness": 255 if data['dtm'] is None else abs(data['dtm']),
         }
         return response
 
@@ -104,6 +108,7 @@ def syz_next_stats(position):
             "moveName": move['san'],
             "position": makeMove(position, move['uci']),
             "positionValue": positionValue(move),
+            "animationPhases": [makeUWAPIAnimationData(move['uci'])],
             "remoteness": 0 if move['dtm'] is None else abs(move['dtm'])
         } for move in data['moves']]
         return response
@@ -115,7 +120,8 @@ class RegularChessVariant(AbstractGameVariant):
         name = "Regular"
         desc = "Regular 7-man Chess"
         status = 'stable'
-        super(RegularChessVariant, self).__init__(name, desc, status=status)
+        gui_status = 'v2'
+        super(RegularChessVariant, self).__init__(name, desc, status=status, gui_status=gui_status)
 
     def start_position(self):
         return "R_A_8_8_" + "--------" + "------R-" + "------k-" + "p--pB---" + "--------" + "--------" + "r-------" + "------K-" + "_b_-_-_0_1"
