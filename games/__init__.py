@@ -107,6 +107,29 @@ games = {
         },
         gui_status='v2'),
     
+    'adugo': Game(
+        name='Adugo',
+        desc="Adugo",
+        variants={
+            '3x3': GameVariant(
+                name='3x3',
+                desc='3x3',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='adugo',
+                data_provider_variant_id=0,
+                status='available',
+                gui_status='v2'),
+            '5x5': GameVariant(
+                name='5x5',
+                desc='5x5',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='adugo',
+                data_provider_variant_id=1,
+                status='available',
+                gui_status='v2'),
+        },
+        gui_status='v2'),
+    
     'baghchal': Game(
         name='Bagh-Chal',
         desc="In the first phase the goats are placed on the board while the tigers are moved. In the second phase both the goats and the tigers are moved. For the tigers, the objective is to 'capture' five goats to win. Capturing is performed as in alquerque and draughts, by jumping over the goats, although capturing is not obligatory. The goats win by blocking all the tigers' legal moves.",
@@ -555,6 +578,45 @@ games = {
         variants={},
         custom_variant=kayles_custom_start,
         gui_status='v1'),
+
+    'konane': Game(
+        name='Konane',
+        desc="Checkers, restricted to jumping only.",
+        variants={
+            '4x4': GameVariant(
+                name='4x4',
+                desc='4x4',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='konane',
+                data_provider_variant_id=0,
+                status='available',
+                gui_status='v2'),
+            '4x5': GameVariant(
+                name='4x5',
+                desc='4x5',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='konane',
+                data_provider_variant_id=1,
+                status='available',
+                gui_status='v2'),
+            '5x5': GameVariant(
+                name='5x5',
+                desc='5x5',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='konane',
+                data_provider_variant_id=2,
+                status='available',
+                gui_status='v2'),
+            '5x6': GameVariant(
+                name='5x6',
+                desc='5x6',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='konane',
+                data_provider_variant_id=3,
+                status='available',
+                gui_status='v2'),
+        },
+        gui_status='v2'),
     
     'Lgame': Game(
         name='L-game',
@@ -959,6 +1021,37 @@ games = {
                 status='available',
                 gui_status='v2'
             )
+        },
+        gui_status='v2'),
+
+    'yote': Game(
+        name='Yote',
+        desc="Yote",
+        variants={
+            '3x3': GameVariant(
+                name='3x3',
+                desc='3x3',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='yote',
+                data_provider_variant_id=0,
+                status='available',
+                gui_status='v2'),
+            '3x4': GameVariant(
+                name='3x4',
+                desc='3x4',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='yote',
+                data_provider_variant_id=1,
+                status='available',
+                gui_status='v2'),
+            '4x4': GameVariant(
+                name='4x4',
+                desc='4x4',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='yote',
+                data_provider_variant_id=2,
+                status='available',
+                gui_status='v2'),
         },
         gui_status='v2')
 }

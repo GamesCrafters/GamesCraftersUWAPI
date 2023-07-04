@@ -1092,39 +1092,39 @@ def get_tactix(variant_id):
                             [0.5, 1.5], [1.5, 1.5], [2.5, 1.5], [3.5, 1.5], 
                             [0.5, 2.5], [1.5, 2.5], [2.5, 2.5], [3.5, 2.5], 
                             [0.5, 3.5], [1.5, 3.5], [2.5, 3.5], [3.5, 3.5], 
-                            [0.05, 0.08000000000000002], [1.95, 0.08000000000000002], 
-                            [1.05, 0.4], [2.95, 0.4], [2.05, 0.08000000000000002], 
-                            [3.95, 0.08000000000000002], [0.05, 0.16000000000000003], 
-                            [2.95, 0.16000000000000003], [1.05, 0.32], [3.95, 0.32], 
-                            [0.05, 0.24000000000000002], [3.95, 0.24000000000000002], 
-                            [0.05, 1.0799999999999998], [1.95, 1.0799999999999998], 
-                            [1.05, 1.4], [2.95, 1.4], [2.05, 1.0799999999999998], 
-                            [3.95, 1.0799999999999998], [0.05, 1.16], [2.95, 1.16], 
-                            [1.05, 1.3199999999999998], [3.95, 1.3199999999999998], 
+                            [0.05, 0.08], [1.95, 0.08], 
+                            [1.05, 0.4], [2.95, 0.4], [2.05, 0.08], 
+                            [3.95, 0.08], [0.05, 0.16], 
+                            [2.95, 0.16], [1.05, 0.32], [3.95, 0.32], 
+                            [0.05, 0.24], [3.95, 0.24], 
+                            [0.05, 1.08], [1.95, 1.08], 
+                            [1.05, 1.4], [2.95, 1.4], [2.05, 1.08], 
+                            [3.95, 1.08], [0.05, 1.16], [2.95, 1.16], 
+                            [1.05, 1.32], [3.95, 1.32], 
                             [0.05, 1.24], [3.95, 1.24], [0.05, 2.08], [1.95, 2.08], 
                             [1.05, 2.4], [2.95, 2.4], [2.05, 2.08], [3.95, 2.08], 
                             [0.05, 2.16], [2.95, 2.16], [1.05, 2.32], [3.95, 2.32], 
-                            [0.05, 2.2399999999999998], [3.95, 2.2399999999999998], 
+                            [0.05, 2.24], [3.95, 2.24], 
                             [0.05, 3.08], [1.95, 3.08], [1.05, 3.4], [2.95, 3.4], 
                             [2.05, 3.08], [3.95, 3.08], [0.05, 3.16], [2.95, 3.16], 
-                            [1.05, 3.32], [3.95, 3.32], [0.05, 3.2399999999999998], 
-                            [3.95, 3.2399999999999998], [0.08000000000000002, 0.05], 
-                            [0.08000000000000002, 1.95], [0.4, 1.05], [0.4, 2.95], 
-                            [0.08000000000000002, 2.05], [0.08000000000000002, 3.95], 
-                            [0.16000000000000003, 0.05], [0.16000000000000003, 2.95], 
-                            [0.32, 1.05], [0.32, 3.95], [0.24000000000000002, 0.05], 
-                            [0.24000000000000002, 3.95], [1.0799999999999998, 0.05], 
-                            [1.0799999999999998, 1.95], [1.4, 1.05], [1.4, 2.95], 
-                            [1.0799999999999998, 2.05], [1.0799999999999998, 3.95], 
-                            [1.16, 0.05], [1.16, 2.95], [1.3199999999999998, 1.05], 
-                            [1.3199999999999998, 3.95], [1.24, 0.05], [1.24, 3.95], 
+                            [1.05, 3.32], [3.95, 3.32], [0.05, 3.24], 
+                            [3.95, 3.24], [0.08, 0.05], 
+                            [0.08, 1.95], [0.4, 1.05], [0.4, 2.95], 
+                            [0.08, 2.05], [0.08, 3.95], 
+                            [0.16, 0.05], [0.16, 2.95], 
+                            [0.32, 1.05], [0.32, 3.95], [0.24, 0.05], 
+                            [0.24, 3.95], [1.08, 0.05], 
+                            [1.08, 1.95], [1.4, 1.05], [1.4, 2.95], 
+                            [1.08, 2.05], [1.08, 3.95], 
+                            [1.16, 0.05], [1.16, 2.95], [1.32, 1.05], 
+                            [1.32, 3.95], [1.24, 0.05], [1.24, 3.95], 
                             [2.08, 0.05], [2.08, 1.95], [2.4, 1.05], [2.4, 2.95], 
                             [2.08, 2.05], [2.08, 3.95], [2.16, 0.05], [2.16, 2.95], 
-                            [2.32, 1.05], [2.32, 3.95], [2.2399999999999998, 0.05], 
-                            [2.2399999999999998, 3.95], [3.08, 0.05], [3.08, 1.95], 
+                            [2.32, 1.05], [2.32, 3.95], [2.24, 0.05], 
+                            [2.24, 3.95], [3.08, 0.05], [3.08, 1.95], 
                             [3.4, 1.05], [3.4, 2.95], [3.08, 2.05], [3.08, 3.95], 
                             [3.16, 0.05], [3.16, 2.95], [3.32, 1.05], [3.32, 3.95], 
-                            [3.2399999999999998, 0.05], [3.2399999999999998, 3.95]],
+                            [3.24, 0.05], [3.24, 3.95]],
                 "pieces": {
                     "O": {
                         "image": "Lgame/S2.svg", "scale": 1
@@ -1656,6 +1656,241 @@ def get_slide5(variant_id):
         }
     }
 
+def get_konane(variant_id):
+    if variant_id == "4x4":
+        return {
+            "defaultTheme": "regular",
+            "themes": {
+                "regular": {
+                    "backgroundGeometry": [40, 40],
+                    "backgroundImage": "konane/grid4x4.svg",
+                    "defaultMoveTokenRadius": 1.5,
+                    "centers": [[5+10*i, 5+10*j] for j in range(0,4) for i in range(0,4)],
+                    "pieces": {
+                        "x": {
+                            "image": "konane/B.svg", "scale": 9
+                        },
+                        "o": {
+                            "image": "konane/W.svg", "scale": 9
+                        }
+                    }
+                }
+            }
+        }
+    elif variant_id == "4x5":
+        return {
+            "defaultTheme": "regular",
+            "themes": {
+                "regular": {
+                    "backgroundGeometry": [50, 40],
+                    "backgroundImage": "konane/grid4x5.svg",
+                    "defaultMoveTokenRadius": 1.5,
+                    "centers": [[5+10*i, 5+10*j] for j in range(0,4) for i in range(0,5)],
+                    "pieces": {
+                        "x": {
+                            "image": "konane/B.svg", "scale": 9
+                        },
+                        "o": {
+                            "image": "konane/W.svg", "scale": 9
+                        }
+                    }
+                }
+            }
+        }
+    elif variant_id == "5x5":
+        return {
+            "defaultTheme": "regular",
+            "themes": {
+                "regular": {
+                    "backgroundGeometry": [50, 50],
+                    "backgroundImage": "konane/grid5x5.svg",
+                    "defaultMoveTokenRadius": 1.5,
+                    "centers": [[5+10*i, 5+10*j] for j in range(0,5) for i in range(0,5)],
+                    "pieces": {
+                        "x": {
+                            "image": "konane/B.svg", "scale": 9
+                        },
+                        "o": {
+                            "image": "konane/W.svg", "scale": 9
+                        }
+                    }
+                }
+            }
+        }
+    
+    elif variant_id == "5x6":
+        return {
+            "defaultTheme": "regular",
+            "themes": {
+                "regular": {
+                    "backgroundGeometry": [60, 50],
+                    "backgroundImage": "konane/grid5x6.svg",
+                    "defaultMoveTokenRadius": 1.5,
+                    "centers": [[5+10*i, 5+10*j] for j in range(0,5) for i in range(0,6)],
+                    "pieces": {
+                        "x": {
+                            "image": "konane/B.svg", "scale": 9
+                        },
+                        "o": {
+                            "image": "konane/W.svg", "scale": 9
+                        }
+                    }
+                }
+            }
+        }
+    elif variant_id == "6x6":
+        return {
+            "defaultTheme": "regular",
+            "themes": {
+                "regular": {
+                    "backgroundGeometry": [60, 60],
+                    "backgroundImage": "konane/grid6x6.svg",
+                    "defaultMoveTokenRadius": 1.5,
+                    "centers": [[5+10*i, 5+10*j] for j in range(0,6) for i in range(0,6)],
+                    "pieces": {
+                        "x": {
+                            "image": "konane/B.svg", "scale": 9
+                        },
+                        "o": {
+                            "image": "konane/W.svg", "scale": 9
+                        }
+                    }
+                }
+            }
+        }
+
+    
+def get_yote(variant_id):
+    if variant_id == "3x3":
+        return {
+            "defaultTheme": "regular",
+            "themes": {
+                "regular": {
+                    "backgroundGeometry": [30, 40],
+                    "backgroundImage": "yote/grid3x3.svg",
+                    "centers": [[5, 5], [25, 5], [100, 100], [100, 100],[100, 100],[100, 100],[100, 100]]+
+                                [[5+10*i, 15+10*j] for j in range(0,3) for i in range(0,3)],
+                    "pieces": {
+                        "0": {
+                            "image": "general/0.svg", "scale": 9
+                        }, "1": {
+                            "image": "general/1.svg", "scale": 9
+                        }, "2": {
+                            "image": "general/2.svg", "scale": 9
+                        }, "3": {
+                            "image": "general/3.svg", "scale": 9
+                        }, "B": {
+                            "image": "yote/B.svg", "scale": 9
+                        }, "W": {
+                            "image": "yote/W.svg", "scale": 9
+                        }
+                    }
+                }
+            }
+        }
+    elif variant_id == "3x4":
+        return {
+            "defaultTheme": "regular",
+            "themes": {
+                "regular": {
+                    "backgroundGeometry": [40, 40],
+                    "backgroundImage": "yote/grid3x4.svg",
+                    "centers": [[5, 5], [35, 5], [100, 100], [100, 100],[100, 100],[100, 100],[100, 100]]+
+                                [[5+10*i, 15+10*j] for j in range(0,3) for i in range(0,4)],
+                    "pieces": {
+                        "0": {
+                            "image": "general/0.svg", "scale": 9
+                        }, "1": {
+                            "image": "general/1.svg", "scale": 9
+                        }, "2": {
+                            "image": "general/2.svg", "scale": 9
+                        }, "3": {
+                            "image": "general/3.svg", "scale": 9
+                        }, "4": {
+                            "image": "general/4.svg", "scale": 9
+                        }, "B": {
+                            "image": "yote/B.svg", "scale": 9
+                        }, "W": {
+                            "image": "yote/W.svg", "scale": 9
+                        }
+                    }
+                }
+            }
+        }
+    elif variant_id == "4x4":
+        return {
+            "defaultTheme": "regular",
+            "themes": {
+                "regular": {
+                    "backgroundGeometry": [40, 50],
+                    "backgroundImage": "yote/grid4x4.svg",
+                    "centers": [[5, 5], [35, 5], [100, 100], [100, 100],[100, 100],[100, 100],[100, 100]]+
+                                [[5+10*i, 15+10*j] for j in range(0,4) for i in range(0,4)],
+                    "pieces": {
+                        "0": {
+                            "image": "general/0.svg", "scale": 9
+                        }, "1": {
+                            "image": "general/1.svg", "scale": 9
+                        }, "2": {
+                            "image": "general/2.svg", "scale": 9
+                        }, "3": {
+                            "image": "general/3.svg", "scale": 9
+                        }, "4": {
+                            "image": "general/4.svg", "scale": 9
+                        }, "5": {
+                            "image": "general/5.svg", "scale": 9
+                        }, "6": {
+                            "image": "general/6.svg", "scale": 9
+                        }, "B": {
+                            "image": "yote/B.svg", "scale": 9
+                        }, "W": {
+                            "image": "yote/W.svg", "scale": 9
+                        }
+                    }
+                }
+            }
+        }
+    
+def get_adugo(variant_id):
+    if variant_id == "5x5":
+        return {
+            "defaultTheme": "regular",
+            "themes": {
+                "regular": {
+                    "backgroundGeometry": [50, 50],
+                    "backgroundImage": "adugo/grid5x5.svg",
+                    "centers": [[100, 100]]+
+                                [[5+10*i, 5+10*j] for j in range(0,5) for i in range(0,5)],
+                    "pieces": {
+                        "B": {
+                            "image": "adugo/B.svg", "scale": 9
+                        }, "W": {
+                            "image": "adugo/W.svg", "scale": 9
+                        }
+                    }
+                }
+            }
+        }
+    elif variant_id == "3x3":
+        return {
+            "defaultTheme": "regular",
+            "themes": {
+                "regular": {
+                    "backgroundGeometry": [30, 30],
+                    "backgroundImage": "adugo/grid3x3.svg",
+                    "centers": [[100, 100]]+
+                                [[5+10*i, 5+10*j] for j in range(0,3) for i in range(0,3)],
+                    "pieces": {
+                        "B": {
+                            "image": "adugo/B.svg", "scale": 9
+                        }, "W": {
+                            "image": "adugo/W.svg", "scale": 9
+                        }
+                    }
+                }
+            }
+        }
+
 """
 ===== STEP 2 ===== 
 Add your function to the autoGUIv2DataFuncs dict.
@@ -1700,7 +1935,10 @@ autoGUIv2DataFuncs = {
     "euclidsgame": get_euclidsgame,
     "ghost": get_ghost,
     "slide5": get_slide5,
-    'foxandhounds': get_foxandhounds
+    "foxandhounds": get_foxandhounds,
+    "adugo": get_adugo,
+    "yote": get_yote,
+    "konane": get_konane
 }
 
 def get_autoguiV2Data(game_id, variant_id):
