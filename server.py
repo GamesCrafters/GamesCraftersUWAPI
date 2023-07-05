@@ -68,7 +68,7 @@ def get_game_variant(game_id, variant_id):
     return game.variant(variant_id)
 
 
-def wrangle_next_stats(next_stats):
+def wrangle_next_stats(position, next_stats):
     if not next_stats:
         return next_stats
 
@@ -100,27 +100,26 @@ def wrangle_next_stats(next_stats):
     def wrangle_next_stat(next_stat):
         position_value = next_stat['positionValue']
         remoteness = next_stat['remoteness']
-        move_value = next_stat.get('moveValue', None)
+        move_value = next_stat.get('moveValue', position_value)
 
-        # Get move value from next position value
-        if not move_value:
+        # If not using UWAPI position string, assume turn switching; otherwise, determine whether turn character changed. 
+        if position[:2] != 'R_' or next_stat['position'][2] != position[2]:
             if position_value == 'win':
                 move_value = 'lose'
             elif position_value == 'lose':
                 move_value = 'win'
-            else:
-                move_value = position_value
-            next_stat['moveValue'] = move_value
+            
+        next_stat['moveValue'] = move_value
 
         # Delta remoteness (grouped by move value)
+        delta_remoteness = 0
         if move_value == 'win':
             delta_remoteness = remoteness - best_next_stats_remoteness_where_move_value_win
         elif move_value == 'lose':
             delta_remoteness = best_next_stats_remoteness_where_move_value_lose - remoteness
         elif move_value == 'tie':
             delta_remoteness = remoteness - best_next_stats_remoteness_where_move_value_tie
-        else:
-            delta_remoteness = 0
+        
         next_stat['deltaRemoteness'] = delta_remoteness
 
         return next_stat
@@ -201,17 +200,17 @@ def handle_position(game_id, variant_id, position):
         result = variant.next_stats(position)
         if result is None:
             return format_response_err('Passed in Invalid Game State')
-        result['moves'] = wrangle_next_stats(result['moves'])
+        result['moves'] = wrangle_next_stats(position, result['moves'])
     elif isinstance(variant, EfficientGameVariant):
         result = variant.full_stats(position)
         if result is None:
             return format_response_err('Passed in Invalid Game State')
-        result['moves'] = wrangle_next_stats(result['moves'])
+        result['moves'] = wrangle_next_stats(position, result['moves'])
     else:
         result = variant.stat(position)
         if result is None:
             return format_response_err('Passed in Invalid Game State')
-        result['moves'] = wrangle_next_stats(variant.next_stats(position))
+        result['moves'] = wrangle_next_stats(position, variant.next_stats(position))
     if result['remoteness'] == 0:
         result['moves'] = []
     return format_response_ok(result)
