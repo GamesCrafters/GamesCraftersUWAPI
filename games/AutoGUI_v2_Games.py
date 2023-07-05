@@ -259,9 +259,9 @@ def get_369mm(variant_id):
                         }, "9": {
                             "image": "general/9.svg", "scale": 100.0
                         }, "B": {
-                            "image": "369mm/X.svg", "scale": 28.6
+                            "image": "general/blackpiece.svg", "scale": 28.6
                         }, "W": {
-                            "image": "369mm/O.svg", "scale": 28.6
+                            "image": "general/whitepiece.svg", "scale": 28.6
                         }
                     }
                 }
@@ -998,10 +998,10 @@ def get_achi(variant_id):
                 "piecesToBeIntroduced" : "xo",
                 "pieces": {
                     "x": {
-                        "image": "369mm/X.svg", "scale": 15
+                        "image": "general/blackpiece.svg", "scale": 15
                     },
                     "o": {
-                        "image": "369mm/O.svg", "scale": 15
+                        "image": "general/whitepiece.svg", "scale": 15
                     }
                 },
                 "animationType": "simpleSlidePlaceRemove"
@@ -1515,10 +1515,10 @@ def get_fivefieldkono(variant_id):
                     "pieces": {
                         "x": {
                             # White pieces for X
-                            "image": "369mm/O.svg", "scale": 25.0
+                            "image": "general/whitepiece.svg", "scale": 25.0
                         }, "o": {
                             # Black pieces for O
-                            "image": "369mm/X.svg", "scale": 25.0
+                            "image": "general/blackpiece.svg", "scale": 25.0
                         }
                     },
                     "animationType": "simpleSlidePlaceRemove"
@@ -1668,10 +1668,10 @@ def get_konane(variant_id):
                     "centers": [[5+10*i, 5+10*j] for j in range(0,4) for i in range(0,4)],
                     "pieces": {
                         "x": {
-                            "image": "konane/B.svg", "scale": 9
+                            "image": "general/blackpiece.svg", "scale": 9
                         },
                         "o": {
-                            "image": "konane/W.svg", "scale": 9
+                            "image": "general/whitepiece.svg", "scale": 9
                         }
                     }
                 }
@@ -1688,10 +1688,10 @@ def get_konane(variant_id):
                     "centers": [[5+10*i, 5+10*j] for j in range(0,4) for i in range(0,5)],
                     "pieces": {
                         "x": {
-                            "image": "konane/B.svg", "scale": 9
+                            "image": "general/blackpiece.svg", "scale": 9
                         },
                         "o": {
-                            "image": "konane/W.svg", "scale": 9
+                            "image": "general/whitepiece.svg", "scale": 9
                         }
                     }
                 }
@@ -1708,10 +1708,10 @@ def get_konane(variant_id):
                     "centers": [[5+10*i, 5+10*j] for j in range(0,5) for i in range(0,5)],
                     "pieces": {
                         "x": {
-                            "image": "konane/B.svg", "scale": 9
+                            "image": "general/blackpiece.svg", "scale": 9
                         },
                         "o": {
-                            "image": "konane/W.svg", "scale": 9
+                            "image": "general/whitepiece.svg", "scale": 9
                         }
                     }
                 }
@@ -1729,10 +1729,10 @@ def get_konane(variant_id):
                     "centers": [[5+10*i, 5+10*j] for j in range(0,5) for i in range(0,6)],
                     "pieces": {
                         "x": {
-                            "image": "konane/B.svg", "scale": 9
+                            "image": "general/blackpiece.svg", "scale": 9
                         },
                         "o": {
-                            "image": "konane/W.svg", "scale": 9
+                            "image": "general/whitepiece.svg", "scale": 9
                         }
                     }
                 }
@@ -1749,10 +1749,10 @@ def get_konane(variant_id):
                     "centers": [[5+10*i, 5+10*j] for j in range(0,6) for i in range(0,6)],
                     "pieces": {
                         "x": {
-                            "image": "konane/B.svg", "scale": 9
+                            "image": "general/blackpiece.svg", "scale": 9
                         },
                         "o": {
-                            "image": "konane/W.svg", "scale": 9
+                            "image": "general/whitepiece.svg", "scale": 9
                         }
                     }
                 }
@@ -1780,9 +1780,9 @@ def get_yote(variant_id):
                         }, "3": {
                             "image": "general/3.svg", "scale": 9
                         }, "B": {
-                            "image": "yote/B.svg", "scale": 9
+                            "image": "general/blackpiece.svg", "scale": 9
                         }, "W": {
-                            "image": "yote/W.svg", "scale": 9
+                            "image": "general/whitepiece.svg", "scale": 9
                         }
                     }
                 }
@@ -1809,9 +1809,9 @@ def get_yote(variant_id):
                         }, "4": {
                             "image": "general/4.svg", "scale": 9
                         }, "B": {
-                            "image": "yote/B.svg", "scale": 9
+                            "image": "general/blackpiece.svg", "scale": 9
                         }, "W": {
-                            "image": "yote/W.svg", "scale": 9
+                            "image": "general/whitepiece.svg", "scale": 9
                         }
                     }
                 }
@@ -1842,9 +1842,9 @@ def get_yote(variant_id):
                         }, "6": {
                             "image": "general/6.svg", "scale": 9
                         }, "B": {
-                            "image": "yote/B.svg", "scale": 9
+                            "image": "general/blackpiece.svg", "scale": 9
                         }, "W": {
-                            "image": "yote/W.svg", "scale": 9
+                            "image": "general/whitepiece.svg", "scale": 9
                         }
                     }
                 }
@@ -1863,9 +1863,9 @@ def get_adugo(variant_id):
                                 [[5+10*i, 5+10*j] for j in range(0,5) for i in range(0,5)],
                     "pieces": {
                         "B": {
-                            "image": "adugo/B.svg", "scale": 9
+                            "image": "general/blackpiece.svg", "scale": 9
                         }, "W": {
-                            "image": "adugo/W.svg", "scale": 9
+                            "image": "general/whitepiece.svg", "scale": 9
                         }
                     }
                 }
@@ -1882,9 +1882,9 @@ def get_adugo(variant_id):
                                 [[5+10*i, 5+10*j] for j in range(0,3) for i in range(0,3)],
                     "pieces": {
                         "B": {
-                            "image": "adugo/B.svg", "scale": 9
+                            "image": "general/blackpiece.svg", "scale": 9
                         }, "W": {
-                            "image": "adugo/W.svg", "scale": 9
+                            "image": "general/whitepiece.svg", "scale": 9
                         }
                     }
                 }
