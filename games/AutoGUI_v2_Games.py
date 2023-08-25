@@ -774,8 +774,7 @@ def get_snake(variant_id):
                     "t": {
                         "image": "snake/t.svg", "scale": 1.0
                     }
-                },
-                "animationType": "simpleSlidePlaceRemove"
+                }
             }
         }
     }
