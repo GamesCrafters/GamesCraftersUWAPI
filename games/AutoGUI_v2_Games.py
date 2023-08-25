@@ -774,7 +774,8 @@ def get_snake(variant_id):
                     "t": {
                         "image": "snake/t.svg", "scale": 1.0
                     }
-                }
+                },
+                "animationType": "simpleSlidePlaceRemove"
             }
         }
     }
@@ -1514,11 +1515,15 @@ def get_fivefieldkono(variant_id):
                     "centers": [[20 + 40 * i, 20 + 40 * j] for j in range(0,5) for i in range(0,5)],
                     "pieces": {
                         "x": {
-                            # White pieces for X
                             "image": "general/whitepiece.svg", "scale": 25.0
                         }, "o": {
-                            # Black pieces for O
                             "image": "general/blackpiece.svg", "scale": 25.0
+                        }
+                    },
+                    "animation": {
+                        "type": "simpleSlidePlaceRemove",
+                        "sfx": {
+                            "A": "d.mp3"
                         }
                     },
                     "animationType": "simpleSlidePlaceRemove"
@@ -1546,7 +1551,20 @@ def get_dragonsandswans(variant_id):
                         "image": "swans/o.svg", "scale": 6
                     }
                 },
-                "animationType": "simpleSlidePlaceRemove"
+                "animationType": "simpleSlidePlaceRemove",
+                "animation": {
+                    "type": "simpleSlidePlaceRemove",
+                    "sounds": {
+                        "D": {
+                            "path": "Dragon.mp3",
+                            "volume": 1
+                        },
+                        "S": {
+                            "path": "Swan.mp3",
+                            "volume": 1
+                        }
+                    }
+                },
             }
         }
     }

@@ -45,9 +45,9 @@ games = {
                 data_provider_game_id='1dchess',
                 data_provider_variant_id=0,
                 status='available',
-                gui_status='v2')
+                gui_status='v3')
         },
-        gui_status='v2'),
+        gui_status='v3'),
     
     'ttt3d': Game(
         name='3D Tic-Tac-Toe',
@@ -103,9 +103,9 @@ games = {
                 data_provider_game_id='achi',
                 data_provider_variant_id=-1,
                 status='stable',
-                gui_status='v2')
+                gui_status='v3')
         },
-        gui_status='v2'),
+        gui_status='v3'),
     
     'adugo': Game(
         name='Adugo',
@@ -156,9 +156,9 @@ games = {
                 data_provider_game_id='beeline',
                 data_provider_variant_id=0,
                 status='available',
-                gui_status='v2')
+                gui_status='v3')
         },
-        gui_status='v2'),
+        gui_status='v3'),
     
     'chess': Game(
         name='Chess',
@@ -182,7 +182,7 @@ games = {
         variants={
             'regular': RegularChineseChessVariant()
         },
-        gui_status='v2'),
+        gui_status='v3'),
     
     'chomp': Game(
         name='Chomp',
@@ -369,7 +369,7 @@ games = {
                 data_provider_game_id='swans',
                 data_provider_variant_id=-1,
                 status='dev',
-                gui_status='v2'),
+                gui_status='v3'),
             '2': GameVariant(
                 name='2 Dragons',
                 desc='2 Dragons',
@@ -377,7 +377,7 @@ games = {
                 data_provider_game_id='swans',
                 data_provider_variant_id=5,
                 status='dev',
-                gui_status='v2'),
+                gui_status='v3'),
             '3': GameVariant(
                 name='3 Dragons',
                 desc='3 Dragons',
@@ -385,7 +385,7 @@ games = {
                 data_provider_game_id='swans',
                 data_provider_variant_id=9,
                 status='dev',
-                gui_status='v2'),
+                gui_status='v3'),
             '4': GameVariant(
                 name='4 Dragons',
                 desc='4 Dragons',
@@ -393,9 +393,9 @@ games = {
                 data_provider_game_id='swans',
                 data_provider_variant_id=13,
                 status='dev',
-                gui_status='v2')
+                gui_status='v3')
         },
-        gui_status='v2'),
+        gui_status='v3'),
 
     'fivefieldkono': Game(
         name='Five Field Kono',
@@ -408,7 +408,7 @@ games = {
                 data_provider_game_id='fivefieldkono',
                 data_provider_variant_id=0,
                 status='available',
-                gui_status='v2'),
+                gui_status='v3'),
             'delta': GameVariant(
                 name='Delta',
                 desc="Lose if you can't move",
@@ -416,7 +416,7 @@ games = {
                 data_provider_game_id='fivefieldkono',
                 data_provider_variant_id=1,
                 status='available',
-                gui_status='v2'),
+                gui_status='v3'),
             'omega': GameVariant(
                 name='Omega',
                 desc="Win if you can't move",
@@ -424,9 +424,9 @@ games = {
                 data_provider_game_id='fivefieldkono',
                 data_provider_variant_id=2,
                 status='available',
-                gui_status='v2')
+                gui_status='v3')
         },
-        gui_status='v2'),
+        gui_status='v3'),
 
     'forestfox': Game(
         name='Forest Fox',
@@ -454,9 +454,9 @@ games = {
                 data_provider_game_id='foxes',
                 data_provider_variant_id=1,
                 status='stable',
-                gui_status='v2')
+                gui_status='v3')
         },
-        gui_status='v2'),
+        gui_status='v3'),
 
     'gameofy': Game(
         name='Game of Y',
@@ -520,7 +520,7 @@ games = {
                 data_provider_game_id='haregame',
                 data_provider_variant_id=1,
                 status='stable',
-                gui_status='v2'),
+                gui_status='v3'),
             's-hare-first': GameVariant(
                 name='Small, Hare First',
                 desc='Small, Hare First',
@@ -528,7 +528,7 @@ games = {
                 data_provider_game_id='haregame',
                 data_provider_variant_id=2,
                 status='stable',
-                gui_status='v2'),
+                gui_status='v3'),
             'm-hounds-first': GameVariant(
                 name='Medium, Hounds First',
                 desc='Medium, Hounds First',
@@ -536,7 +536,7 @@ games = {
                 data_provider_game_id='haregame',
                 data_provider_variant_id=3,
                 status='stable',
-                gui_status='v2'),
+                gui_status='v3'),
             'm-hare-first': GameVariant(
                 name='Medium, Hare First',
                 desc='Medium, Hare First',
@@ -544,7 +544,7 @@ games = {
                 data_provider_game_id='haregame',
                 data_provider_variant_id=4,
                 status='stable',
-                gui_status='v2'),
+                gui_status='v3'),
             'l-hounds-first': GameVariant(
                 name='Large, Hounds First',
                 desc='Large, Hounds First',
@@ -552,7 +552,7 @@ games = {
                 data_provider_game_id='haregame',
                 data_provider_variant_id=5,
                 status='stable',
-                gui_status='v2'),
+                gui_status='v3'),
             'l-hare-first': GameVariant(
                 name='Large, Hare First',
                 desc='Large, Hare First',
@@ -560,9 +560,9 @@ games = {
                 data_provider_game_id='haregame',
                 data_provider_variant_id=6,
                 status='stable',
-                gui_status='v2')
+                gui_status='v3')
         },
-        gui_status='v2'),
+        gui_status='v3'),
 
     'jenga': Game(
         name='Jenga',
@@ -690,7 +690,7 @@ games = {
                 data_provider_game_id='tore',
                 data_provider_variant_id=2,
                 status='available',
-                gui_status='v2'),
+                gui_status='v3'),
             'misere': GameVariant(
                 name='Misere',
                 desc='Misere',
@@ -698,9 +698,9 @@ games = {
                 data_provider_game_id='tore',
                 data_provider_variant_id=1,
                 status='available',
-                gui_status='v2')
+                gui_status='v3')
         },
-        gui_status='v2'),
+        gui_status='v3'),
     
     'nim': Game(
         name='Nim',
@@ -753,9 +753,9 @@ games = {
                 data_provider_game_id='dao',
                 data_provider_variant_id=-1,
                 status='available',
-                gui_status='v2'),
+                gui_status='v3'),
         },
-        gui_status='v2'),
+        gui_status='v3'),
     
     'change': Game(
         name='Change!',
@@ -768,10 +768,10 @@ games = {
                 data_provider_game_id='change',
                 data_provider_variant_id=3,
                 status='available',
-                gui_status='v2'
+                gui_status='v3'
             )
         },
-        gui_status='v2'),
+        gui_status='v3'),
     
     '369mm': Game(
         name="Nine Men's Morris",
@@ -854,9 +854,9 @@ games = {
                 data_provider_game_id='quickchess',
                 data_provider_variant_id=-1,
                 status='available',
-                gui_status='v2')
+                gui_status='v3')
         },
-        gui_status='v2'),
+        gui_status='v3'),
 
     'quickcross': Game(   
        name='Quick Cross',
