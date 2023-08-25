@@ -375,21 +375,24 @@ def print_board(board: Board) -> None:
     for i in range(len(graph)):
         graph[i] = [c for c in graph[i]]
     for piece in board.pieces:
-        graph[piece.row<<1][piece.col<<1] = str(piece.type)
+        graph[piece.row * 2][piece.col * 2] = str(piece.type)
 
     print("\n  0 1 2 3 4 5 6 7 8")
     for i in range(len(graph)):
         if (i & 1):
             print(" ", strcat(graph[i]))
         else:
-            print(str(i>>1), strcat(graph[i]), str(i>>1))
+            print(str(i // 2), strcat(graph[i]), str(i // 2))
     print("  0 1 2 3 4 5 6 7 8\n")
 
 
 def boardToUWAPI(board: Board, turn: int) -> str:
     slots = ['-' for _ in range(90)]
     for piece in board.pieces:
-        slots[piece.row * 9 + piece.col] = piece.type
+        appending = piece.type
+        if appending == 'Q': appending = 'P'
+        if appending == 'q': appending = 'p'
+        slots[piece.row * 9 + piece.col] = appending
     if turn == 1:
         turnChar = 'A'
     else:
@@ -441,7 +444,7 @@ def EGTB_load(board: Board, turn: int):
         return "unsolved", 1
     
     with open(file_path, "rb") as fo: # TODO: this probing code is subject to change.
-        fo.seek(h<<1) # assuming 2-byte values
+        fo.seek(h * 2) # assuming 2-byte values
         value = int.from_bytes(fo.read(2), "little")
 
     if value == 0:
