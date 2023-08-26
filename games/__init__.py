@@ -469,7 +469,7 @@ games = {
                 data_provider_game_id='gameofy',
                 data_provider_variant_id=0,
                 status='stable',
-                gui_status='v2'),
+                gui_status='v3'),
             'dim5': GameVariant(
                 name='Dimension 5',
                 desc='Dimension 5',
@@ -477,7 +477,7 @@ games = {
                 data_provider_game_id='gameofy',
                 data_provider_variant_id=1,
                 status='stable',
-                gui_status='v2'),
+                gui_status='v3'),
             'dim4-misere': GameVariant(
                 name='Dimension 4 Misère',
                 desc='Dimension 4 Misère',
@@ -485,7 +485,7 @@ games = {
                 data_provider_game_id='gameofy',
                 data_provider_variant_id=4,
                 status='stable',
-                gui_status='v2'),
+                gui_status='v3'),
             'dim5-misere': GameVariant(
                 name='Dimension 5 Misère',
                 desc='Dimension 5 Misère',
@@ -493,9 +493,9 @@ games = {
                 data_provider_game_id='gameofy',
                 data_provider_variant_id=5,
                 status='stable',
-                gui_status='v2'),
+                gui_status='v3'),
         },
-        gui_status='v2'),
+        gui_status='v3'),
 
     'ghost': Game(
         name='Ghost',

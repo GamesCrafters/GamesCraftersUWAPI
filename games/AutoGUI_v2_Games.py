@@ -669,23 +669,6 @@ def get_ctoi(variant_id):
 
 def get_chomp(variant_id):
     return {
-        "3x2": {
-            "defaultTheme": "choco",
-            "themes": {
-                "choco": {
-                    "backgroundGeometry": [2, 3],
-                    "centers": [
-                        [0.5, 0.5], [1.5, 0.5], [0.5, 1.5], 
-                        [1.5, 1.5], [0.5, 2.5], [1.5, 2.5]
-                    ],
-                    "pieces": {
-                        "x" : {
-                            "image": "chomp/x.svg", "scale": 1.0
-                        }
-                    }
-                }
-            }
-        },
         "4x7": {
             "defaultTheme": "choco",
             "themes": {
@@ -702,9 +685,8 @@ def get_chomp(variant_id):
                         [4.5, 3.5], [5.5, 3.5], [6.5, 3.5]
                     ],
                     "pieces": {
-                        "x" : {
-                            "image": "chomp/x.svg", "scale": 1.0
-                        }
+                        "x" : { "image": "chomp/x.svg", "scale": 1.0 },
+                        "p" : { "image": "chomp/p.svg", "scale": 1.0 }
                     },
                     "animationType": "simpleSlidePlaceRemove"
                 }
@@ -1245,14 +1227,14 @@ def get_gameofy(variant_id):
                         [4, 3], [5.03, 3], [2.44, 3.9], [3.47, 3.9], 
                         [4.53, 3.9], [5.56, 3.9]
                     ],
-                    "piecesToBeIntroduced" : "WB",
                     "pieces": {
                         "W": {
                             "image": "gameofy/blue_circle.svg", "scale": 0.8
                         }, "B": {
                             "image": "gameofy/red_circle.svg", "scale": 0.8
                         }
-                    }
+                    },
+                    "animationType": "simpleSlidePlaceRemove"
                 },
             }
         }
@@ -1281,14 +1263,14 @@ def get_gameofy(variant_id):
                         [6.09, 4.8], 
                         [6.62, 4.8], 
                     ],
-                    "piecesToBeIntroduced" : "WB",
                     "pieces": {
                         "W": {
                             "image": "gameofy/blue_circle.svg", "scale": 0.8
                         }, "B": {
                             "image": "gameofy/red_circle.svg", "scale": 0.8
                         }
-                    }
+                    },
+                    "animationType": "simpleSlidePlaceRemove"
                 },
             }
         }
@@ -1306,7 +1288,6 @@ def get_notakto(variant_id):
                         [0.5, 1.5], [1.5, 1.5], [2.5, 1.5],
                         [0.5, 2.5], [1.5, 2.5], [2.5, 2.5]
                     ],
-                    "piecesToBeIntroduced" : "X",
                     "pieces": {
                         "X": {
                             "image": "notakto/x.svg", "scale": 1
