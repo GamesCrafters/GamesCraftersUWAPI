@@ -1,5 +1,3 @@
-import json
-
 class Edge:
     def __init__(self, from_node, to_node, part_move, move, move_name=None):
         self.from_node = from_node
