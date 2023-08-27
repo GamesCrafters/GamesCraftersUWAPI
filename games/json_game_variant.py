@@ -36,8 +36,20 @@ class JSONGameVariant(AbstractGameVariant):
         except Exception as err:
             print(f'Other error occurred: {err}')
         else:
-            response = [{
-                "move": move,
-                **self.stat(position)
-            } for move, position in moves.items()]
+            response = []
+            for move, position in moves.items():
+                move_name = move
+                move_button_data = move.split('_')
+                if len(move_button_data) >= 2:
+                    if move_button_data[0] == 'A': 
+                        move_name = move_button_data[2]
+                    else:
+                        move_name = move_button_data[1] + ' ' + move_button_data[2]
+                response.append(
+                    {
+                        "move": move,
+                        "moveName": move_name,
+                        **self.stat(position)
+                    }
+                )
             return response
