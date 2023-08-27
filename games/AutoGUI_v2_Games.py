@@ -101,7 +101,6 @@ def get_lite3(variant_id):
                     [5, 15], [15, 15], [25, 15],
                     [5, 25], [15, 25], [25, 25]
                 ],
-                "piecesToBeIntroduced" : "3c",
                 "pieces": {
                     "a": {"image": "lite3/o.svg", "scale": 3.0},
                     "b": {"image": "lite3/o.svg", "scale": 6.0},
@@ -109,7 +108,8 @@ def get_lite3(variant_id):
                     "1": {"image": "lite3/x.svg", "scale": 3.0},
                     "2": {"image": "lite3/x.svg", "scale": 6.0},
                     "3": {"image": "lite3/x.svg", "scale": 9.0}
-                }
+                },
+                "animationType": "naiveInterpolate"
             }
         }
     }
@@ -124,7 +124,6 @@ def get_baghchal(variant_id):
                     "backgroundImage": "baghchal/grid5Diag.svg",
                     "arrowWidth": 0.05,
                     "centers": [[0.5 + (i % 5), 0.5 + (i // 5)] for i in range(25)] + [[3.75,5.2], [3.95,5.2], [-1,-1], [3.75,5.55], [3.95,5.55]],
-                    "piecesToBeIntroduced": "G",
                     "piecesOverArrows": True,
                     "pieces": {
                         "G": {
@@ -153,7 +152,8 @@ def get_baghchal(variant_id):
                             "image": "general/9.svg", "scale": 1.2
                         }
                     },
-                    "animationType": "simpleSlidePlaceRemove"
+                    "animationType": "simpleSlidePlaceRemove",
+                    "animationWindow": [0, 25]
                 }
             }
         }
@@ -261,7 +261,9 @@ def get_369mm(variant_id):
                         }, "z": {
                             "image": "369mm/z.svg", "scale": 38
                         }
-                    }
+                    },
+                    "animationType": "simpleSlidePlaceRemove",
+                    "animationWindow": [0, 24]
                 }
             }
         },
@@ -272,7 +274,6 @@ def get_369mm(variant_id):
                     "backgroundGeometry": [
                         220, 220
                     ],
-                    "piecesOverArrows": True,
                     "backgroundImage": "369mm/board6mm.svg",
                     "arrowWidth": 4,
                     "centers": [
@@ -303,7 +304,9 @@ def get_369mm(variant_id):
                         }, "z": {
                             "image": "369mm/z.svg", "scale": 31
                         }
-                    }
+                    },
+                    "animationType": "simpleSlidePlaceRemove",
+                    "animationWindow": [0, 16]
                 }
             }
         }
@@ -487,7 +490,6 @@ def get_tttwo(variant_id):
                         [12, 92], [32, 92], [52, 92], [72, 92], [92, 92], 
                         [12, 112], [92, 112], [999, 999], [999, 999], [52, 112]
                     ],
-                    "piecesToBeIntroduced" : "xo",
                     "pieces": {
                         "x": {
                             "image": "tttwo/a.svg", "scale": 56.0
@@ -548,7 +550,6 @@ def get_stt(variant_id):
                         [4.5, 3.5], [5.5, 3.5], [3.5, 4.5], 
                         [4.5, 4.5], [5.5, 4.5]
                     ],
-                    "piecesToBeIntroduced" : "xo",
                     "pieces": {
                         "S": {
                             "image": "stt/S.svg", "scale": 10.0
@@ -604,7 +605,6 @@ def get_tootnottopy(variant_id):
                         [65, 65], [75, 65], [85, 65], 
                         [99, 99], [105, 65], [115, 65]
                     ],
-                    "piecesToBeIntroduced" : "TO",
                     "pieces": {
                         "T": {
                             "image": "tootnotto/T.svg", "scale": 10.0
@@ -688,7 +688,7 @@ def get_chomp(variant_id):
                         "x" : { "image": "chomp/x.svg", "scale": 1.0 },
                         "p" : { "image": "chomp/p.svg", "scale": 1.0 }
                     },
-                    "animationType": "simpleSlidePlaceRemove"
+                    "animationType": "naiveInterpolate"
                 }
             }
         }
@@ -702,7 +702,6 @@ def get_dawsonschess(variant_id):
             "kings": {
                 "backgroundGeometry": [size, 1],
                 "centers": [[0.5 + i, 0.5] for i in range(size)],
-                "piecesToBeIntroduced" : "xob",
                 "pieces": {
                     "b": {
                         "image": "dawsonschess/b.svg", "scale": 1
@@ -713,7 +712,8 @@ def get_dawsonschess(variant_id):
                     "o": {
                         "image": "dawsonschess/o.svg", "scale": 1
                     }
-                }
+                },
+                "animationType": "naiveInterpolate"
             }
         }
     }
@@ -785,7 +785,6 @@ def get_snake(variant_id):
                 "piecesOverArrows": True,
                 "backgroundImage": "snake/background.svg",
                 "centers": [[0.5 + i % 4, 0.5 + i // 4] for i in range(16)],
-                "piecesToBeIntroduced" : "b",
                 "pieces": {
                     "b": {
                         "image": "snake/b.svg", "scale": 1.0
@@ -796,7 +795,8 @@ def get_snake(variant_id):
                     "t": {
                         "image": "snake/t.svg", "scale": 1.0
                     }
-                }
+                },
+                "animationType": "simpleSlidePlaceRemove"
             }
         }
     }
@@ -841,7 +841,6 @@ def get_quickcross(variant_id):
                 #centers[48->63]: top coordinate for vertical piece
                 #centers[64->79]: bottom coordinate for vertical piece.
                 "centers": mapping_list,
-                "piecesToBeIntroduced" : "hv",
                 "pieces": {
                     "v": {
                         "image": "quickcross/V.svg", "scale": 70.0
@@ -852,7 +851,8 @@ def get_quickcross(variant_id):
                     "r": {
                         "image": "quickcross/rotate.svg", "scale": 30.0
                     }
-                }
+                },
+                "animationType": "naiveInterpolate"
             }
         }
     }
@@ -932,7 +932,6 @@ def get_connect4c(variant_id):
                     "backgroundGeometry": [6, 7],
                     "foregroundImage": "connect4/foreground6x6.svg",
                     "centers": [[0.5 + i // 6, 1.5 + i % 6] for i in range(36)] + [[0.5 + i, 0.5] for i in range(6)],
-                    "piecesToBeIntroduced" : "XO",
                     "pieces": {
                         "X": {
                             "image": "connect4/X.svg", "scale": 1.0
@@ -953,7 +952,6 @@ def get_connect4c(variant_id):
                     "backgroundGeometry": [7, 7],
                     "foregroundImage": "connect4/foreground6x7.svg",
                     "centers": [[0.5 + i // 6, 1.5 + i % 6] for i in range(42)] + [[0.5 + i, 0.5] for i in range(7)],
-                    "piecesToBeIntroduced" : "XO",
                     "pieces": {
                         "X": {
                             "image": "connect4/X.svg", "scale": 1.0
@@ -1017,7 +1015,6 @@ def get_achi(variant_id):
                     [50, 90],
                     [90, 90],
                 ],
-                "piecesToBeIntroduced" : "xo",
                 "pieces": {
                     "x": {
                         "image": "general/blackpiece.svg", "scale": 15
@@ -1151,7 +1148,8 @@ def get_tactix(variant_id):
                     "O": {
                         "image": "Lgame/S2.svg", "scale": 1
                     }
-                }
+                },
+                "animationType": "naiveInterpolate"
             }
         }
     }
@@ -1171,7 +1169,6 @@ def get_othello(variant_id):
                             [8, 45], [12, 45], 
                             [-1, -1], 
                             [28, 45], [32, 45]],
-                "piecesToBeIntroduced" : "BW",
                 "pieces": {
                     "B": {
                         "image": "othello/B.svg", "scale": 9
@@ -1209,7 +1206,8 @@ def get_othello(variant_id):
                     "9": {
                         "image": "general/9.svg", "scale": 20.0
                     }
-                }
+                },
+                "animationType": "naiveInterpolate"
             }
         }
     }
@@ -1311,7 +1309,6 @@ def get_notakto(variant_id):
                         [81, 33], [103, 33], [125, 33],
                         [81, 55], [103, 55], [125, 55]
                     ],
-                    "piecesToBeIntroduced" : "X",
                     "pieces": {
                         "X": {
                             "image": "notakto/x.svg", "scale": 22
@@ -1338,7 +1335,6 @@ def get_notakto(variant_id):
                         [46, 103], [68, 103], [90, 103],
                         [46, 125], [68, 125], [90, 125]
                     ],
-                    "piecesToBeIntroduced" : "X",
                     "pieces": {
                         "X": {
                             "image": "notakto/x.svg", "scale": 22

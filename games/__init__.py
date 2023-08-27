@@ -141,9 +141,9 @@ games = {
                 data_provider_game_id='baghchal',
                 data_provider_variant_id=5,
                 status='available',
-                gui_status='v2')
+                gui_status='v3')
         },
-        gui_status='v2'),
+        gui_status='v3'),
 
     'beeline': Game(
         name='Beeline',
@@ -190,7 +190,7 @@ games = {
         variants={
             '4x7': JSONGameVariant(os.path.join(dirname, 'solutions/chomp/4x7.json'), gui_status='v2'),
         },
-        gui_status='v2'),
+        gui_status='v3'),
     
     'ctoi': Game(
         name='Chung-Toi',
@@ -326,7 +326,7 @@ games = {
         desc='Players take turns blocking out spaces on the board.',
         variants={},
         custom_variant=dawsonschess_custom_start,
-        gui_status='v2'),
+        gui_status='v3'),
     
     'dinododgem': Game(
         name='Dino Dodgem',
@@ -644,7 +644,7 @@ games = {
                 data_provider_game_id='lite3',
                 data_provider_variant_id=1,
                 status='stable',
-                gui_status='v2'),
+                gui_status='v3'),
             'surround': GameVariant(
                 name='Surround',
                 desc='Surround Wins',
@@ -652,7 +652,7 @@ games = {
                 data_provider_game_id='lite3',
                 data_provider_variant_id=2,
                 status='stable',
-                gui_status='v2'),
+                gui_status='v3'),
             'both': GameVariant(
                 name='Both',
                 desc='Three-In-A-Row and Surround BOTH win',
@@ -660,9 +660,9 @@ games = {
                 data_provider_game_id='lite3',
                 data_provider_variant_id=3,
                 status='stable',
-                gui_status='v2')
+                gui_status='v3')
         },
-        gui_status='v2'),
+        gui_status='v3'),
     
     'mancala': Game(
         name='Mancala',
@@ -784,7 +784,7 @@ games = {
                 data_provider_game_id='369mm',
                 data_provider_variant_id=12,
                 status='available',
-                gui_status='v2'
+                gui_status='v3'
             ),
             '6mmNoFly':  GameVariant(
                 name="Standard 6 Men's Morris",
@@ -793,10 +793,10 @@ games = {
                 data_provider_game_id='369mm',
                 data_provider_variant_id=6,
                 status='available',
-                gui_status='v2'
+                gui_status='v3'
             )
         },
-        gui_status='v2'),
+        gui_status='v3'),
     
     'ooe': Game(
         name='Odd or Even',
@@ -824,9 +824,9 @@ games = {
                 data_provider_game_id='othello',
                 data_provider_variant_id=-1,
                 status='stable',
-                gui_status='v2')
+                gui_status='v3')
         },
-        gui_status='v2'),
+        gui_status='v3'),
     
     'quarto': Game(
         name='Quarto',
@@ -869,10 +869,10 @@ games = {
                data_provider=GamesmanClassicDataProvider,
                data_provider_game_id='qx',
                data_provider_variant_id=9,
-               gui_status='v2',
+               gui_status='v3',
                status='stable'),
        }, 
-       gui_status='v2'),
+       gui_status='v3'),
     
     'sim': Game(
         name='Sim',
@@ -925,9 +925,9 @@ games = {
                 data_provider_game_id='snake',
                 data_provider_variant_id=-1,
                 status='available',
-                gui_status='v2')
+                gui_status='v3')
             },
-        gui_status='v2'),
+        gui_status='v3'),
     
     'stt': Game(
         name='Shift Tac Toe',
@@ -955,9 +955,9 @@ games = {
                 data_provider_game_id='tactix',
                 data_provider_variant_id=1,
                 status='available',
-                gui_status='v2')
+                gui_status='v3')
             },
-        gui_status='v2'
+        gui_status='v3'
         ),
     
     'ttt': Game(
