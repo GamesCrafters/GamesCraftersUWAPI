@@ -87,7 +87,7 @@ class DawsonsChessGameVariant(AbstractGameVariant):
 
 
     def get_moves(position, player):
-        move_arr = ["A", '-', 0]
+        move_arr = ["A", '-', 0, 'x']
         moves = {}
         for i in range(len(position)):
             if position[i] == 'b':

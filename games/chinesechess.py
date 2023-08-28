@@ -19,10 +19,11 @@ class Move:
         self.destRow: int = destRow
         self.destCol: int = destCol
 
-    def as_UWAPI(self) -> str:
+    def as_UWAPI(self, occupied) -> str:
         srcIdx = self.srcRow * 9 + self.srcCol
         destIdx = self.destRow * 9 + self.destCol
-        return "M_{}_{}".format(srcIdx, destIdx)
+        soundChar = 'y' if occupied[self.destRow][self.destCol] else 'x'
+        return "M_{}_{}_{}".format(srcIdx, destIdx, soundChar)
 
 
 class Board:
@@ -765,7 +766,7 @@ class RegularChineseChessVariant(AbstractGameVariant):
             newBoard = do_move(copy.deepcopy(board), move)
             value, remoteness = EGTB_load(newBoard, -turn)
             stats.append({
-                "move": move.as_UWAPI(),
+                "move": move.as_UWAPI(board.occupied),
                 # "moveName": "", # TODO: come up with good move names.
                 "position": boardToUWAPI(newBoard, -turn),
                 "positionValue": value,
