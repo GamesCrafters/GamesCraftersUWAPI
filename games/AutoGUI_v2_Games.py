@@ -704,7 +704,7 @@ def get_chomp(variant_id):
                         "p" : { "image": "chomp/p.svg", "scale": 1.0 }
                     },
                     "sounds": {
-                        "x": "chomp/munch.mp3"
+                        "x": "chomp/Munch.mp3"
                     },
                     "animationType": "naiveInterpolate"
                 }
