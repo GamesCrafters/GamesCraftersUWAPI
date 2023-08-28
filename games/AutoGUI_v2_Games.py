@@ -109,6 +109,9 @@ def get_lite3(variant_id):
                     "2": {"image": "lite3/x.svg", "scale": 6.0},
                     "3": {"image": "lite3/x.svg", "scale": 9.0}
                 },
+                "sounds": {
+                    "x": "general/place.mp3"
+                },
                 "animationType": "naiveInterpolate"
             }
         }
@@ -151,6 +154,10 @@ def get_baghchal(variant_id):
                         }, "9": {
                             "image": "general/9.svg", "scale": 1.2
                         }
+                    },
+                    "sounds": {
+                        "g": "animals/goat.mp3",
+                        "t": "animals/tiger.mp3"
                     },
                     "animationType": "simpleSlidePlaceRemove",
                     "animationWindow": [0, 25]
@@ -216,6 +223,11 @@ def get_3spot(variant_id):
     }.get(variant_id, None)
 
 def get_369mm(variant_id):
+    sounds = {
+        "x": "general/place.mp3",
+        "y": "general/slide.mp3",
+        "z": "general/remove.mp3"
+    }
     return {
         "regular": {
             "defaultTheme": "wikipedia",
@@ -262,6 +274,7 @@ def get_369mm(variant_id):
                             "image": "369mm/z.svg", "scale": 38
                         }
                     },
+                    "sounds": sounds,
                     "animationType": "simpleSlidePlaceRemove",
                     "animationWindow": [0, 24]
                 }
@@ -305,6 +318,7 @@ def get_369mm(variant_id):
                             "image": "369mm/z.svg", "scale": 31
                         }
                     },
+                    "sounds": sounds,
                     "animationType": "simpleSlidePlaceRemove",
                     "animationWindow": [0, 16]
                 }
@@ -466,7 +480,8 @@ def get_dodgem(variant_id):
                         }, "o": {
                             "image": "dodgem/o.svg", "scale": 1
                         }
-                    }
+                    },
+                    "animationType": "simpleSlidePlaceRemove"
                 }
             }
         }
@@ -688,6 +703,9 @@ def get_chomp(variant_id):
                         "x" : { "image": "chomp/x.svg", "scale": 1.0 },
                         "p" : { "image": "chomp/p.svg", "scale": 1.0 }
                     },
+                    "sounds": {
+                        "x": "chomp/munch.mp3"
+                    },
                     "animationType": "naiveInterpolate"
                 }
             }
@@ -712,6 +730,9 @@ def get_dawsonschess(variant_id):
                     "o": {
                         "image": "dawsonschess/o.svg", "scale": 1
                     }
+                },
+                "sounds": {
+                    "x": "general/place.mp3"
                 },
                 "animationType": "naiveInterpolate"
             }
@@ -769,6 +790,10 @@ def get_foxandhounds(variant_id):
                             'image': 'foxandhounds/G.png', 'scale': 1
                         },
                     },
+                    "sounds": {
+                        "f": "animals/fox.mp3",
+                        "h": "animals/dog.mp3"
+                    },
                     "animationType": "simpleSlidePlaceRemove"
                 }
             }
@@ -795,6 +820,9 @@ def get_snake(variant_id):
                     "t": {
                         "image": "snake/t.svg", "scale": 1.0
                     }
+                },
+                "sounds": {
+                    "x": "animals/snake.mp3"
                 },
                 "animationType": "simpleSlidePlaceRemove"
             }
@@ -852,12 +880,20 @@ def get_quickcross(variant_id):
                         "image": "quickcross/rotate.svg", "scale": 30.0
                     }
                 },
+                "sounds": {
+                    "x": "general/place.mp3",
+                    "y": "general/remove.mp3"
+                },
                 "animationType": "naiveInterpolate"
             }
         }
     }
 
 def get_haregame(variant_id):
+    sounds = {
+        "r": "animals/bunny.mp3",
+        "d": "animals/dog.mp3"
+    }
     if variant_id == 's-hounds-first' or variant_id == "s-hare-first":
         return {
             "defaultTheme": "regular",
@@ -875,6 +911,7 @@ def get_haregame(variant_id):
                             "image": "haregame/r.svg", "scale": 20
                         }
                     },
+                    "sounds": sounds,
                     "animationType": "simpleSlidePlaceRemove"
                 }
             }
@@ -896,6 +933,7 @@ def get_haregame(variant_id):
                             "image": "haregame/r.svg", "scale": 20
                         }
                     },
+                    "sounds": sounds,
                     "animationType": "simpleSlidePlaceRemove"
                 }
             }
@@ -917,6 +955,7 @@ def get_haregame(variant_id):
                             "image": "haregame/r.svg", "scale": 20
                         }
                     },
+                    "sounds": sounds,
                     "animationType": "simpleSlidePlaceRemove"
                 }
             }
@@ -940,7 +979,8 @@ def get_connect4c(variant_id):
                         }, "a": {
                             "image": "connect4/a.svg", "scale": 0.8
                         }
-                    }
+                    },
+                    "animationType": "naiveInterpolate"
                 }
             }
         }
@@ -960,7 +1000,8 @@ def get_connect4c(variant_id):
                         }, "a": {
                             "image": "connect4/a.svg", "scale": 0.8
                         }
-                    }
+                    },
+                    "animationType": "naiveInterpolate"
                 }
             }
         } 
@@ -988,6 +1029,9 @@ def get_mutorere(variant_id):
                     "o": {
                         "image": "general/red_circle.svg", "scale": 10
                     }
+                },
+                "sounds": {
+                    "x": "general/slide.mp3"
                 },
                 "animationType": "simpleSlidePlaceRemove"
             }
@@ -1023,6 +1067,10 @@ def get_achi(variant_id):
                         "image": "general/whitepiece.svg", "scale": 15
                     }
                 },
+                "sounds": {
+                    "x": "general/place.mp3",
+                    "y": "general/slide.mp3"
+                },
                 "animationType": "simpleSlidePlaceRemove"
             }
         }
@@ -1055,7 +1103,8 @@ def get_dinododgem(variant_id):
                         }, "o": {
                             "image": "dinododgem/triceratops.svg", "scale": 1.0
                         }
-                    }
+                    },
+                    "animationType": "simpleSlidePlaceRemove"
                 }
             }
         }
@@ -1091,6 +1140,10 @@ def get_quickchess(variant_id):
                         }, "k": {
                             "image": "chess/wikipedia/kk.svg", "scale": 1.0
                         }
+                    },
+                    "sounds": {
+                        "x": "general/slide.mp3",
+                        "y": "general/slideThenRemove.mp3"
                     },
                     "animationType": "simpleSlidePlaceRemove"
                 }
@@ -1148,6 +1201,9 @@ def get_tactix(variant_id):
                     "O": {
                         "image": "Lgame/S2.svg", "scale": 1
                     }
+                },
+                "sounds": {
+                    "x": "general/place.mp3"
                 },
                 "animationType": "naiveInterpolate"
             }
@@ -1207,12 +1263,18 @@ def get_othello(variant_id):
                         "image": "general/9.svg", "scale": 20.0
                     }
                 },
+                "sounds": {
+                    "x": "general/place.mp3"
+                },
                 "animationType": "naiveInterpolate"
             }
         }
     }
     
 def get_gameofy(variant_id):
+    sounds = {
+        "x": "general/place.mp3"
+    }
     if variant_id == "dim4" or variant_id == "dim4-misere":
         return {
             "defaultTheme": "basic",
@@ -1232,6 +1294,7 @@ def get_gameofy(variant_id):
                             "image": "gameofy/red_circle.svg", "scale": 0.8
                         }
                     },
+                    "sounds": sounds,
                     "animationType": "simpleSlidePlaceRemove"
                 },
             }
@@ -1268,6 +1331,7 @@ def get_gameofy(variant_id):
                             "image": "gameofy/red_circle.svg", "scale": 0.8
                         }
                     },
+                    "sounds": sounds,
                     "animationType": "simpleSlidePlaceRemove"
                 },
             }
@@ -1379,6 +1443,9 @@ def get_beeline(variant_id):
                         "image": "beeline/red_bee.svg", "scale": 1.4
                     }
                 },
+                "sounds": {
+                    "b": "animals/bee.mp3"
+                },
                 "animationType": "simpleSlidePlaceRemove"
             },
         }
@@ -1423,6 +1490,10 @@ def get_1dchess(variant_id):
                         "image": "1dchess/R.svg", "scale": 1
                     },
                 },
+                "sounds": {
+                    "x": "general/slide.mp3",
+                    "y": "general/slideThenRemove.mp3"
+                },
                 "animationType": "simpleSlidePlaceRemove"
             },
         }
@@ -1436,6 +1507,11 @@ def get_chinesechess(variant_id):
         "n": "horse_b", "p": "soldier_b", "q": "soldier_b", "c":"cannon_b"
     }
     
+    sounds = {
+        "x": "general/slide.mp3",
+        "y": "general/slideThenRemove.mp3"
+    }
+    
     return {
         "defaultTheme": "regular",
         "themes": {
@@ -1445,6 +1521,7 @@ def get_chinesechess(variant_id):
                 "backgroundImage": "chinesechess/board.svg",
                 "centers": [[0.5 + (i % 9), 0.5 + (i // 9)] for i in range(90)],
                 "pieces": {k: {"image": "chinesechess/regular/{}.svg".format(v), "scale": 1} for (k, v) in pieces.items()},
+                "sounds": sounds,
                 "animationType": "simpleSlidePlaceRemove"
             },
             "graphical": {
@@ -1453,6 +1530,7 @@ def get_chinesechess(variant_id):
                 "backgroundImage": "chinesechess/board.svg",
                 "centers": [[0.5 + (i % 9), 0.5 + (i // 9)] for i in range(90)],
                 "pieces": {k: {"image": "chinesechess/graphical/{}.svg".format(v), "scale": 1} for (k, v) in pieces.items()},
+                "sounds": sounds,
                 "animationType": "simpleSlidePlaceRemove"
             }
         }
@@ -1480,6 +1558,9 @@ def get_dao(variant_id):
                     "X": {
                         "image": "dao/B.svg", "scale": 0.9
                     }
+                },
+                "sounds": {
+                    "x": "general/slide.mp3"
                 },
                 "animationType": "simpleSlidePlaceRemove"
             },
@@ -1509,6 +1590,9 @@ def get_change(variant_id):
                         "image": "general/blue_circle.svg", "scale": 10
                     }
                 },
+                "sounds": {
+                    "x": "general/slide.mp3"
+                },
                 "animationType": "simpleSlidePlaceRemove"
             },
         }
@@ -1536,11 +1620,8 @@ def get_fivefieldkono(variant_id):
                             "image": "general/blackpiece.svg", "scale": 25.0
                         }
                     },
-                    "animation": {
-                        "type": "simpleSlidePlaceRemove",
-                        "sfx": {
-                            "A": "d.mp3"
-                        }
+                    "sounds": {
+                        "x": "general/slide.mp3"
                     },
                     "animationType": "simpleSlidePlaceRemove"
                 }
@@ -1567,20 +1648,11 @@ def get_dragonsandswans(variant_id):
                         "image": "swans/o.svg", "scale": 6
                     }
                 },
-                "animationType": "simpleSlidePlaceRemove",
-                "animation": {
-                    "type": "simpleSlidePlaceRemove",
-                    "sounds": {
-                        "D": {
-                            "path": "Dragon.mp3",
-                            "volume": 1
-                        },
-                        "S": {
-                            "path": "Swan.mp3",
-                            "volume": 1
-                        }
-                    }
+                "sounds": {
+                    "x": "animals/dragon.mp3",
+                    "o": "animals/swan.mp3"
                 },
+                "animationType": "simpleSlidePlaceRemove"
             }
         }
     }
