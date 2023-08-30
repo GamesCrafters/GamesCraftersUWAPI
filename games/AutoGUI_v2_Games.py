@@ -88,8 +88,6 @@ def get_jenga(variant_id):
         return None
 
 def get_lite3(variant_id):
-    if variant_id not in ['three-in-a-row', 'surround', 'both']:
-        return None
     return {
         "defaultTheme": "regular",
         "themes": {
@@ -109,9 +107,7 @@ def get_lite3(variant_id):
                     "2": {"image": "lite3/x.svg", "scale": 6.0},
                     "3": {"image": "lite3/x.svg", "scale": 9.0}
                 },
-                "sounds": {
-                    "x": "general/place.mp3"
-                },
+                "sounds": {"x": "general/place.mp3"},
                 "animationType": "naiveInterpolate"
             }
         }
@@ -129,31 +125,18 @@ def get_baghchal(variant_id):
                     "centers": [[0.5 + (i % 5), 0.5 + (i // 5)] for i in range(25)] + [[3.75,5.2], [3.95,5.2], [-1,-1], [3.75,5.55], [3.95,5.55]],
                     "piecesOverArrows": True,
                     "pieces": {
-                        "G": {
-                            "image": "baghchal/G.png", "scale": 0.7
-                        }, "T": {
-                            "image": "baghchal/T.png", "scale": 0.75
-                        }, "0": {
-                            "image": "general/0.svg", "scale": 1.2
-                        }, "1": {
-                            "image": "general/1.svg", "scale": 1.2
-                        }, "2": {
-                            "image": "general/2.svg", "scale": 1.2
-                        }, "3": {
-                            "image": "general/3.svg", "scale": 1.2
-                        }, "4": {
-                            "image": "general/4.svg", "scale": 1.2
-                        }, "5": {
-                            "image": "general/5.svg", "scale": 1.2
-                        }, "6": {
-                            "image": "general/6.svg", "scale": 1.2
-                        }, "7": {
-                            "image": "general/7.svg", "scale": 1.2
-                        }, "8": {
-                            "image": "general/8.svg", "scale": 1.2
-                        }, "9": {
-                            "image": "general/9.svg", "scale": 1.2
-                        }
+                        "G": {"image": "baghchal/G.png", "scale": 0.7},
+                        "T": {"image": "baghchal/T.png", "scale": 0.75},
+                        "0": {"image": "general/0.svg", "scale": 1.2},
+                        "1": {"image": "general/1.svg", "scale": 1.2},
+                        "2": {"image": "general/2.svg", "scale": 1.2},
+                        "3": {"image": "general/3.svg", "scale": 1.2},
+                        "4": {"image": "general/4.svg", "scale": 1.2},
+                        "5": {"image": "general/5.svg", "scale": 1.2},
+                        "6": {"image": "general/6.svg", "scale": 1.2},
+                        "7": {"image": "general/7.svg", "scale": 1.2},
+                        "8": {"image": "general/8.svg", "scale": 1.2},
+                        "9": {"image": "general/9.svg", "scale": 1.2}
                     },
                     "sounds": {
                         "g": "animals/goat.mp3",
@@ -172,17 +155,14 @@ def get_3spot(variant_id):
             "defaultTheme": "standard",
             "themes": {
                 "standard": {
-                    "backgroundGeometry": [
-                        3, 4
-                    ],
+                    "backgroundGeometry": [3, 4],
                     "backgroundImage": "3spot/grid.svg",
                     "centers": [
-                        [0.5, 0.5], [1, 0.5], [1.5, 0.5], [2, 0.5], [2.5, 0.5], 
-                        [0.5, 1], [1, 1], [1.5, 1], [2, 1], [2.5, 1], 
-                        [0.5, 1.5], [1, 1.5], [1.5, 1.5], [2, 1.5], [2.5, 1.5], 
-                        [0.5, 2.0], [1, 2.0], [1.5, 2.0], [2, 2.0], [2.5, 2.0], 
-                        [0.5, 2.5], [1, 2.5], [1.5, 2.5], [2, 2.5], [2.5, 2.5], 
-                        [0.3, 3.5], [0.7, 3.5], [-1, -1], [2.3, 3.5], [2.7, 3.5]
+                        [0.5, 0.5], [1.5, 0.5], [2.5, 0.5], [0.5, 1.5], [1.5, 1.5], 
+                        [2.5, 1.5], [0.5, 2.5], [1.5, 2.5], [2.5, 2.5], 
+                        [0.35, 3.5], [0.65, 3.5], [2.35, 3.5], [2.65, 3.5], [-99, -99],
+                        [1, 0.5], [2, 0.5], [0.5, 1], [1.5, 1], [2.5, 1], [1, 1.5], 
+                        [2, 1.5], [0.5, 2], [1.5, 2], [2.5, 2], [1, 2.5], [2, 2.5]
                     ],
                     "pieces": {
                         "R": {
@@ -216,7 +196,10 @@ def get_3spot(variant_id):
                         }, "9": {
                             "image": "general/9.svg", "scale": 2.0
                         }
-                    }
+                    },
+                    "sounds": { "x": "general/place.mp3" },
+                    "animationType": "naiveInterpolate",
+                    "animationWindow": [0, 13]
                 }
             }
         }
@@ -401,21 +384,14 @@ def get_Lgame(variant_id):
                     ],
                     "backgroundImage": "Lgame/grid.svg",
                     "centers": [
-                        [99, 99], [99, 99], [99, 99], [99, 99], [0.5, 0.5], 
-                        [1.5, 0.5], [2.5, 0.5], [3.5, 0.5], [99, 99], 
-                        [99, 99], [99, 99], [99, 99], [99, 99], [99, 99], 
-                        [99, 99], [99, 99], [0.5, 1.5], [1.5, 1.5], 
-                        [2.5, 1.5], [3.5, 1.5], [99, 99], [99, 99], 
-                        [99, 99], [99, 99], [99, 99], [99, 99], [99, 99], 
-                        [99, 99], [0.5, 2.5], [1.5, 2.5], [2.5, 2.5], 
-                        [3.5, 2.5], [99, 99], [99, 99], [99, 99], [99, 99], 
-                        [99, 99], [99, 99], [99, 99], [99, 99], [0.5, 3.5], 
-                        [1.5, 3.5], [2.5, 3.5], [3.5, 3.5], [99, 99], 
-                        [99, 99], [99, 99], [99, 99], [0.15, 0.15], [1.15, 0.15], 
-                        [2.15, 0.15], [0.15, 1.15], [1.15, 1.15], [2.15, 1.15], 
-                        [1.85, 0.15], [2.85, 0.15], [3.85, 0.15], [1.85, 1.15], 
-                        [2.85, 1.15], [3.85, 1.15], [3.85, 0.75], [3.85, 1.75], 
-                        [3.85, 2.15], [2.85, 0.75], [2.85, 1.75], [2.85, 2.15], 
+                        [0.5, 0.5], [1.5, 0.5], [2.5, 0.5], [3.5, 0.5], 
+                        [0.5, 1.5], [1.5, 1.5], [2.5, 1.5], [3.5, 1.5], 
+                        [0.5, 2.5], [1.5, 2.5], [2.5, 2.5], [3.5, 2.5], 
+                        [0.5, 3.5], [1.5, 3.5], [2.5, 3.5], [3.5, 3.5], 
+                        [-99, -99], [-99, -99], [-99, -99], [-99, -99], [-99, -99], 
+                        [0.15, 0.15], [1.15, 0.15], [2.15, 0.15], [0.15, 1.15], [1.15, 1.15], [2.15, 1.15], 
+                        [1.85, 0.15], [2.85, 0.15], [3.85, 0.15], [1.85, 1.15], [2.85, 1.15], [3.85, 1.15], 
+                        [3.85, 0.75], [3.85, 1.75], [3.85, 2.15], [2.85, 0.75], [2.85, 1.75], [2.85, 2.15], 
                         [3.375, 1.85], [3.375, 2.85], [3.375, 3.85], [2.375, 1.85], 
                         [2.375, 2.25], [2.85, 3.25], [3.85, 3.85], [2.85, 3.85], 
                         [1.85, 3.85], [3.85, 2.85], [2.85, 2.85], [1.85, 2.85], 
@@ -451,7 +427,14 @@ def get_Lgame(variant_id):
                         }, "8": {
                             "image": "Lgame/L8.svg", "scale": 0.6
                         }
-                    }
+                    },
+                    "sounds": {
+                        "x": "general/place.mp3",
+                        "y": "general/remove.mp3",
+                        "z": "general/remove.mp3"
+                    },
+                    "animationType": "naiveInterpolate",
+                    "animationWindow": [0, 16]
                 }
             }
         }
@@ -463,9 +446,7 @@ def get_dodgem(variant_id):
             "defaultTheme": "regular",
             "themes": {
                 "regular": {
-                    "backgroundGeometry": [
-                        4, 4
-                    ],
+                    "backgroundGeometry": [4, 4],
                     "piecesOverArrows": True,
                     "backgroundImage": "dodgem/grid.svg",
                     "centers": [
@@ -475,12 +456,10 @@ def get_dodgem(variant_id):
                         [0.5, 3.5], [1.5, 3.5], [2.5, 3.5], [3.5, 3.5]
                     ],
                     "pieces": {
-                        "x": {
-                            "image": "dodgem/x.svg", "scale": 1
-                        }, "o": {
-                            "image": "dodgem/o.svg", "scale": 1
-                        }
+                        "x": {"image": "dodgem/x.svg", "scale": 1}, 
+                        "o": {"image": "dodgem/o.svg", "scale": 1}
                     },
+                    "sounds": {"x": "general/slide.mp3"},
                     "animationType": "simpleSlidePlaceRemove"
                 }
             }
@@ -833,23 +812,11 @@ def get_quickcross(variant_id):
     if variant_id != "regular": # 4x4 variant (option-9)
         return None
     center_maps = [
-            [48.75, 48.75], #0
-            [141.25, 48.75],#1
-            [233.75, 48.75], #2
-            [326.25, 48.75], #3
-            [48.75, 141.25], #4
-            [141.25, 141.25],#5
-            [233.75, 141.25], #6
-            [326.25, 141.25], #7
-            [48.75, 233.75], #8
-            [141.25, 233.75], #9
-            [233.75, 233.75],#10
-            [326.25, 233.75], #11
-            [48.75, 326.25], #12
-            [141.25, 326.25], #13
-            [233.75, 326.25], #14
-            [326.25, 326.25], #15
-        ]
+        [48.75, 48.75], [141.25, 48.75], [233.75, 48.75], [326.25, 48.75],
+        [48.75, 141.25], [141.25, 141.25], [233.75, 141.25], [326.25, 141.25],
+        [48.75, 233.75], [141.25, 233.75], [233.75, 233.75], [326.25, 233.75],
+        [48.75, 326.25], [141.25, 326.25], [233.75, 326.25], [326.25, 326.25],
+    ]
     width = 27.5
     left_cross = [[center_maps[i][0] - width, center_maps[i][1]] for i in range(len(center_maps))]
     right_cross = [[center_maps[i][0] + width, center_maps[i][1]] for i in range(len(center_maps))]
@@ -963,6 +930,12 @@ def get_haregame(variant_id):
     return None
 
 def get_connect4c(variant_id):
+    sounds = {"x" : "general/remove.mp3"}
+    pieces = {
+        "X": { "image": "connect4/X.svg", "scale": 1.0 }, 
+        "O": { "image": "connect4/O.svg", "scale": 1.0 }, 
+        "a": { "image": "connect4/a.svg", "scale": 0.8 }
+    }
     if variant_id == '6x6':
         return {
             "defaultTheme": "normal",
@@ -971,15 +944,8 @@ def get_connect4c(variant_id):
                     "backgroundGeometry": [6, 7],
                     "foregroundImage": "connect4/foreground6x6.svg",
                     "centers": [[0.5 + i // 6, 1.5 + i % 6] for i in range(36)] + [[0.5 + i, 0.5] for i in range(6)],
-                    "pieces": {
-                        "X": {
-                            "image": "connect4/X.svg", "scale": 1.0
-                        }, "O": {
-                            "image": "connect4/O.svg", "scale": 1.0
-                        }, "a": {
-                            "image": "connect4/a.svg", "scale": 0.8
-                        }
-                    },
+                    "pieces": pieces,
+                    "sounds": sounds,
                     "animationType": "naiveInterpolate"
                 }
             }
@@ -992,15 +958,8 @@ def get_connect4c(variant_id):
                     "backgroundGeometry": [7, 7],
                     "foregroundImage": "connect4/foreground6x7.svg",
                     "centers": [[0.5 + i // 6, 1.5 + i % 6] for i in range(42)] + [[0.5 + i, 0.5] for i in range(7)],
-                    "pieces": {
-                        "X": {
-                            "image": "connect4/X.svg", "scale": 1.0
-                        }, "O": {
-                            "image": "connect4/O.svg", "scale": 1.0
-                        }, "a": {
-                            "image": "connect4/a.svg", "scale": 0.8
-                        }
-                    },
+                    "pieces": pieces,
+                    "sounds": sounds,
                     "animationType": "naiveInterpolate"
                 }
             }
@@ -1082,9 +1041,7 @@ def get_dinododgem(variant_id):
             "defaultTheme": "regular",
             "themes": {
                 "regular": {
-                    "backgroundGeometry": [
-                        6, 6
-                    ],
+                    "backgroundGeometry": [6, 6],
                     "piecesOverArrows": True,
                     "arrowWidth": 0.09,
                     "backgroundImage": "dinododgem/new_grid.svg",
@@ -1098,11 +1055,12 @@ def get_dinododgem(variant_id):
                         [5.5, 2.5], [5.5, 3.5], [5.5, 4.5]
                     ],
                     "pieces": {
-                        "x": {
-                            "image": "dinododgem/hadrosaur.svg", "scale": 1.0
-                        }, "o": {
-                            "image": "dinododgem/triceratops.svg", "scale": 1.0
-                        }
+                        "x": {"image": "dinododgem/hadrosaur.svg", "scale": 1.0},
+                        "o": {"image": "dinododgem/triceratops.svg", "scale": 1.0}
+                    },
+                    "sounds": {
+                        "x": "animals/tiger.mp3",
+                        "y": "animals/dragon.mp3"  
                     },
                     "animationType": "simpleSlidePlaceRemove"
                 }
@@ -1732,7 +1690,9 @@ def get_ghost(variant_id):
                     f'{letter}': {
                         "image": f'general/{letter.upper()}.svg', "scale": 1 if letter.isupper() else 2
                     } for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
-                }
+                },
+                "sounds": {"x": "general/remove.mp3"},
+                "animationType": "naiveInterpolate"
             }
         }
     }

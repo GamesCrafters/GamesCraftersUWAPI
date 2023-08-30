@@ -11,7 +11,7 @@ class Ghost(EfficientGameVariant):
         super(Ghost, self).__init__(name, desc, status="stable", gui_status="v2")
 
     def start_position(self):
-        return "R_A_0_0_-"
+        return "R_A_0_0_-------------------------------------------------"
     
     def uwapi_pos_str_to_word(self, position):
         return position[8:].replace('-', '')
@@ -41,7 +41,7 @@ class Ghost(EfficientGameVariant):
             remoteness = trie.get_remoteness(word + letter)
             autogui_coord_id = ord(letter) - 16
             next_res = {
-                "move": f'A_{letter.lower()}_{autogui_coord_id}',
+                "move": f'A_{letter.lower()}_{autogui_coord_id}_x',
                 "moveName": letter,
                 "position": self.word_to_uwapi_pos_str(word + letter),
                 "positionValue": 'lose' if remoteness & 1 else 'win',
