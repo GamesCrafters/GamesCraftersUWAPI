@@ -472,9 +472,7 @@ def get_tttwo(variant_id):
             "defaultTheme": "regular",
             "themes": {
                 "regular": {
-                    "backgroundGeometry": [
-                        104, 124
-                    ],
+                    "backgroundGeometry": [104, 124],
                     "backgroundImage": "tttwo/grid.svg",
                     "centers": [
                         [12, 12], [32, 12], [52, 12], [72, 12], [92, 12], 
@@ -482,33 +480,25 @@ def get_tttwo(variant_id):
                         [12, 52], [32, 52], [52, 52], [72, 52], [92, 52], 
                         [12, 72], [32, 72], [52, 72], [72, 72], [92, 72], 
                         [12, 92], [32, 92], [52, 92], [72, 92], [92, 92], 
-                        [12, 112], [92, 112], [999, 999], [999, 999], [52, 112]
+                        [32, 32], [52, 32], [72, 32], 
+                        [32, 52], [52, 52], [72, 52], 
+                        [32, 72], [52, 72], [72, 72], [52, 112], 
+                        [-999, -999], [-999, -999], [-999, -999]
                     ],
                     "pieces": {
-                        "x": {
-                            "image": "tttwo/a.svg", "scale": 56.0
-                        }, "o": {
-                            "image": "tttwo/b.svg", "scale": 56.0
-                        }, "s": {
-                            "image": "tttwo/s.svg", "scale": 56.0
-                        }, "X": {
-                            "image": "tttwo/X.svg", "scale": 16.0
-                        }, "O": {
-                            "image": "tttwo/O.svg", "scale": 16.0
-                        }, "G": {
-                            "image": "tttwo/s.svg", "scale": 16.0
-                        }, "0": {
-                            "image": "general/0.svg", "scale": 50.0
-                        }, "1": {
-                            "image": "general/1.svg", "scale": 50.0
-                        }, "2": {
-                            "image": "general/2.svg", "scale": 50.0
-                        }, "3": {
-                            "image": "general/3.svg", "scale": 50.0
-                        }, "4": {
-                            "image": "general/4.svg", "scale": 50.0
-                        }
-                    }
+                        "X": {"image": "tttwo/X.svg", "scale": 16.0}, 
+                        "O": {"image": "tttwo/O.svg", "scale": 16.0},
+                        "G": {"image": "tttwo/tttgrid.svg", "scale": 56.0},
+                        "g": {"image": "tttwo/g.svg", "scale": 15.0},
+                        "t": {"image": "tttwo/t.svg", "scale": 80.0}
+                    },
+                    "sounds": {
+                        "x": "general/place.mp3",
+                        "y": "general/remove.mp3",
+                        "z": "general/slide.mp3"
+                    },
+                    "animationType": "simpleSlidePlaceRemove",
+                    "animationWindow": [0, 35]
                 }
             }
         }

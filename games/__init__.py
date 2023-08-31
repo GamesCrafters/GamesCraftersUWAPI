@@ -994,9 +994,9 @@ games = {
                 data_provider_game_id='tttwo',
                 data_provider_variant_id=-1,
                 status='stable',
-                gui_status='v2')
+                gui_status='v3')
         },
-        gui_status='v2'),
+        gui_status='v3'),
     
     'tootnottopy': Game(
         name='Toot-N-Otto',
