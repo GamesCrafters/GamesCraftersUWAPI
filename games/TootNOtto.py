@@ -52,30 +52,19 @@ class TootNOtto(AbstractGameVariant):
         ### Each move is (slot, 'T' or 'O')
 
         """
-        xo = position[self.ROWS*self.COLS]
-        Ts = int(position[self.ROWS*self.COLS + 1 + {'x':0,'o':2}[xo]])
-        Os = int(position[self.ROWS*self.COLS + 1 + {'x':1,'o':3}[xo]])
-        Tsx = int(position[self.ROWS*self.COLS + 1 + 0])
-        Osx = int(position[self.ROWS*self.COLS + 1 + 1])
-        Tso = int(position[self.ROWS*self.COLS + 1 + 2])
-        Oso = int(position[self.ROWS*self.COLS + 1 + 3])
+        Tsx = int(position[self.ROWS*self.COLS + 1 + 0]) # Number of Ts TOOT has
+        Osx = int(position[self.ROWS*self.COLS + 1 + 1]) # Number of Os TOOT has
+        Tso = int(position[self.ROWS*self.COLS + 1 + 2]) # Number of Ts OTTO has
+        Oso = int(position[self.ROWS*self.COLS + 1 + 3]) # Number of Os OTTO has
 
         ### HEADER
-
-        s = "R_"
-        s += {"x":"A","o":"B"}[position[self.ROWS*self.COLS]]
-        s += "_"
-        s += str(7)
-        s += "_"
-        s += str(self.COLS+6)
-        s += "_"
+        
+        uwapi_turn_char = {"x":"A","o":"B"}[position[self.ROWS*self.COLS]]        
+        s = f"R_{uwapi_turn_char}_0_0_"
 
         ### ROW 1
 
         s += SPACER*3
-        #s += ("T" if Ts > 0 else "█") * self.COLS
-        # for col in range(self.COLS):
-        #     s += ("T" if (Ts > 0 and position[((self.ROWS-1)*self.COLS)+col]=="-") else SPACER)
         s += SPACER * self.COLS
 
         s += SPACER*3
@@ -88,9 +77,6 @@ class TootNOtto(AbstractGameVariant):
             s += ("T" if Tsx == 6 else SPACER)
             s += ("O" if Osx == 6 else SPACER)
         s += SPACER
-        #s += ("O" if Os > 0 else "█") * self.COLS
-        # for col in range(self.COLS):
-        #     s += ("O" if (Os > 0 and position[((self.ROWS-1)*self.COLS)+col]=="-") else SPACER)
         s += SPACER * self.COLS
         s += SPACER
         if self.COLS < 6:
@@ -192,8 +178,6 @@ class TootNOtto(AbstractGameVariant):
         super(TootNOtto, self).__init__(name, desc, status=status, gui_status=gui_status)
 
     def start_position(self):
-        #return "R_A_1_3_RL-"
-        #return "R_A_1_3_RL-_----------------x4444"
         initial_position = ("-" * self.ROWS * self.COLS) + "x" + (str(self.COLS) * 4)
         return self.pos_to_UWAPI(initial_position) + "_" + initial_position
 
@@ -209,7 +193,7 @@ class TootNOtto(AbstractGameVariant):
 
     def next_stats(self, UWAPI_position):
         position = self.UWAPI_to_pos(UWAPI_position)
-        position_value_char,remoteness = self.GetValueRemotnessEasy(position)
+        _, remoteness = self.GetValueRemotnessEasy(position)
         response = []
         if remoteness != 0:
             moves = self.GenerateMoves(position)
@@ -219,7 +203,7 @@ class TootNOtto(AbstractGameVariant):
                 next_UWAPI_position = self.pos_to_UWAPI(next_position)+"_"+next_position
                 next_res = {
                     "move": UWAPI_move,
-                    "moveName": f'{move[1]}-{move[0] + 1}',
+                    "moveName": f'{move[1]}{move[0] + 1}',
                     **self.stat(next_UWAPI_position)
                 }
                 response.append(next_res)

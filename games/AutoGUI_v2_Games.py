@@ -18,12 +18,8 @@ get_<game>(variant_id) should return JSON of the following form:
                 "defaultMoveTokenRadius: <optional, radius of all default move buttons>,
                 "piecesOverArrows": <optional, Boolean, whether pieces are drawn over arrows or not>,
                 "pieces": {
-                    <char1>: {
-                        "image": <path to piece image>, "scale": <image scale>
-                    },
-                    <char2>: {
-                        ...    
-                    }
+                    <char1>: {"image": <path to piece image>, "scale": <image scale>},
+                    <char2>: { ... }
                     ...
                 }
             },
@@ -33,25 +29,6 @@ get_<game>(variant_id) should return JSON of the following form:
             ...
         }
     }
-
-EXAMPLE:
-
-    def get_ttt(variant_id):
-        if variant_id == "regular":
-            data = {
-                "defaultTheme": "simple",
-                "themes": {
-                    "simple": {
-                        "backgroundGeometry": [30, 30], "backgroundImage": "ttt/background.svg", "centers": [ [5, 5], [15, 5], [25, 5], [5, 15], [15, 15], [25, 15], [5, 25], [15, 25], [25, 25] ], "pieces": {
-                            "x": {"image": "ttt/x.svg", "scale": 1.0}, "o": {"image": "ttt/x.svg", "scale": 1.0}
-                        }
-                    }
-                }
-            }
-            return data
-        else:
-            return None
-
 
 (Scroll all the way down for Step 2).
 
@@ -79,7 +56,6 @@ def get_jenga(variant_id):
                                 [0.5, 0.5], [1.5, 0.5], [2.5, 0.5]],
                
                     "pieces": { "J": {"image": "jenga/JengaPiece.svg", "scale": 1.0}}
-
                 }
             }
         }
@@ -100,12 +76,12 @@ def get_lite3(variant_id):
                     [5, 25], [15, 25], [25, 25]
                 ],
                 "pieces": {
-                    "a": {"image": "lite3/o.svg", "scale": 3.0},
-                    "b": {"image": "lite3/o.svg", "scale": 6.0},
-                    "c": {"image": "lite3/o.svg", "scale": 9.0},
-                    "1": {"image": "lite3/x.svg", "scale": 3.0},
-                    "2": {"image": "lite3/x.svg", "scale": 6.0},
-                    "3": {"image": "lite3/x.svg", "scale": 9.0}
+                    "a": {"image": "lite3/o.svg", "scale": 3},
+                    "b": {"image": "lite3/o.svg", "scale": 6},
+                    "c": {"image": "lite3/o.svg", "scale": 9},
+                    "1": {"image": "lite3/x.svg", "scale": 3},
+                    "2": {"image": "lite3/x.svg", "scale": 6},
+                    "3": {"image": "lite3/x.svg", "scale": 9}
                 },
                 "sounds": {"x": "general/place.mp3"},
                 "animationType": "naiveInterpolate"
@@ -165,39 +141,23 @@ def get_3spot(variant_id):
                         [2, 1.5], [0.5, 2], [1.5, 2], [2.5, 2], [1, 2.5], [2, 2.5]
                     ],
                     "pieces": {
-                        "R": {
-                            "image": "3spot/R.svg", "scale": 1.0
-                        }, "W": {
-                            "image": "3spot/W.svg", "scale": 1.0
-                        }, "B": {
-                            "image": "3spot/B.svg", "scale": 1.0
-                        }, "h": {
-                            "image": "3spot/h.svg", "scale": 0.3
-                        }, "v": {
-                            "image": "3spot/v.svg", "scale": 0.3
-                        }, "0": {
-                            "image": "general/0.svg", "scale": 2.0
-                        }, "1": {
-                            "image": "general/1.svg", "scale": 2.0
-                        }, "2": {
-                            "image": "general/2.svg", "scale": 2.0
-                        }, "3": {
-                            "image": "general/3.svg", "scale": 2.0
-                        }, "4": {
-                            "image": "general/4.svg", "scale": 2.0
-                        }, "5": {
-                            "image": "general/5.svg", "scale": 2.0
-                        }, "6": {
-                            "image": "general/6.svg", "scale": 2.0
-                        }, "7": {
-                            "image": "general/7.svg", "scale": 2.0
-                        }, "8": {
-                            "image": "general/8.svg", "scale": 2.0
-                        }, "9": {
-                            "image": "general/9.svg", "scale": 2.0
-                        }
+                        "R": {"image": "3spot/R.svg", "scale": 1.0},
+                        "W": {"image": "3spot/W.svg", "scale": 1.0},
+                        "B": {"image": "3spot/B.svg", "scale": 1.0},
+                        "h": {"image": "3spot/h.svg", "scale": 0.3},
+                        "v": {"image": "3spot/v.svg", "scale": 0.3},
+                        "0": {"image": "general/0.svg", "scale": 2},
+                        "1": {"image": "general/1.svg", "scale": 2},
+                        "2": {"image": "general/2.svg", "scale": 2},
+                        "3": {"image": "general/3.svg", "scale": 2},
+                        "4": {"image": "general/4.svg", "scale": 2},
+                        "5": {"image": "general/5.svg", "scale": 2},
+                        "6": {"image": "general/6.svg", "scale": 2},
+                        "7": {"image": "general/7.svg", "scale": 2},
+                        "8": {"image": "general/8.svg", "scale": 2},
+                        "9": {"image": "general/9.svg", "scale": 2}
                     },
-                    "sounds": { "x": "general/place.mp3" },
+                    "sounds": {"x": "general/place.mp3"},
                     "animationType": "naiveInterpolate",
                     "animationWindow": [0, 13]
                 }
@@ -216,9 +176,7 @@ def get_369mm(variant_id):
             "defaultTheme": "wikipedia",
             "themes": {
                 "wikipedia": {
-                    "backgroundGeometry": [
-                        300, 300
-                    ],
+                    "backgroundGeometry": [300, 300],
                     "backgroundImage": "369mm/board.svg",
                     "arrowWidth": 5,
                     "centers": [
@@ -229,33 +187,19 @@ def get_369mm(variant_id):
                         [145, 140], [175, 140], [-999, -999], [-999, -999] 
                     ],
                     "pieces": {
-                        "0": {
-                            "image": "general/0.svg", "scale": 100.0
-                        }, "1": {
-                            "image": "general/1.svg", "scale": 100.0
-                        }, "2": {
-                            "image": "general/2.svg", "scale": 100.0
-                        }, "3": {
-                            "image": "general/3.svg", "scale": 100.0
-                        }, "4": {
-                            "image": "general/4.svg", "scale": 100.0
-                        }, "5": {
-                            "image": "general/5.svg", "scale": 100.0
-                        }, "6": {
-                            "image": "general/6.svg", "scale": 100.0
-                        }, "7": {
-                            "image": "general/7.svg", "scale": 100.0
-                        }, "8": {
-                            "image": "general/8.svg", "scale": 100.0
-                        }, "9": {
-                            "image": "general/9.svg", "scale": 100.0
-                        }, "B": {
-                            "image": "general/blackpiece.svg", "scale": 28.6
-                        }, "W": {
-                            "image": "general/whitepiece.svg", "scale": 28.6
-                        }, "z": {
-                            "image": "369mm/z.svg", "scale": 38
-                        }
+                        "0": {"image": "general/0.svg", "scale": 100},
+                        "1": {"image": "general/1.svg", "scale": 100},
+                        "2": {"image": "general/2.svg", "scale": 100},
+                        "3": {"image": "general/3.svg", "scale": 100},
+                        "4": {"image": "general/4.svg", "scale": 100},
+                        "5": {"image": "general/5.svg", "scale": 100},
+                        "6": {"image": "general/6.svg", "scale": 100},
+                        "7": {"image": "general/7.svg", "scale": 100},
+                        "8": {"image": "general/8.svg", "scale": 100},
+                        "9": {"image": "general/9.svg", "scale": 100},
+                        "B": {"image": "general/blackpiece.svg", "scale": 28.6},
+                        "W": {"image": "general/whitepiece.svg", "scale": 28.6},
+                        "z": {"image": "369mm/z.svg", "scale": 38}
                     },
                     "sounds": sounds,
                     "animationType": "simpleSlidePlaceRemove",
@@ -267,9 +211,7 @@ def get_369mm(variant_id):
             "defaultTheme": "wikipedia",
             "themes": {
                 "wikipedia": {
-                    "backgroundGeometry": [
-                        220, 220
-                    ],
+                    "backgroundGeometry": [220, 220],
                     "backgroundImage": "369mm/board6mm.svg",
                     "arrowWidth": 4,
                     "centers": [
@@ -279,27 +221,16 @@ def get_369mm(variant_id):
                         [95, 100], [125, 100], [-999, -999], [-999, -999] 
                     ],
                     "pieces": {
-                        "0": {
-                            "image": "general/0.svg", "scale": 90.0
-                        }, "1": {
-                            "image": "general/1.svg", "scale": 90.0
-                        }, "2": {
-                            "image": "general/2.svg", "scale": 90.0
-                        }, "3": {
-                            "image": "general/3.svg", "scale": 90.0
-                        }, "4": {
-                            "image": "general/4.svg", "scale": 90.0
-                        }, "5": {
-                            "image": "general/5.svg", "scale": 90.0
-                        }, "6": {
-                            "image": "general/6.svg", "scale": 90.0
-                        }, "B": {
-                            "image": "general/blackpiece.svg", "scale": 23
-                        }, "W": {
-                            "image": "general/whitepiece.svg", "scale": 23
-                        }, "z": {
-                            "image": "369mm/z.svg", "scale": 31
-                        }
+                        "0": {"image": "general/0.svg", "scale": 90},
+                        "1": {"image": "general/1.svg", "scale": 90},
+                        "2": {"image": "general/2.svg", "scale": 90},
+                        "3": {"image": "general/3.svg", "scale": 90},
+                        "4": {"image": "general/4.svg", "scale": 90},
+                        "5": {"image": "general/5.svg", "scale": 90},
+                        "6": {"image": "general/6.svg", "scale": 90},
+                        "B": {"image": "general/blackpiece.svg", "scale": 23},
+                        "W": {"image": "general/whitepiece.svg", "scale": 23},
+                        "z": {"image": "369mm/z.svg", "scale": 31}
                     },
                     "sounds": sounds,
                     "animationType": "simpleSlidePlaceRemove",
@@ -315,9 +246,7 @@ def get_topitop(variant_id):
             "defaultTheme": "beach",
             "themes": {
                 "beach": {
-                    "backgroundGeometry": [
-                        3, 4
-                    ],
+                    "backgroundGeometry": [3, 4],
                     "backgroundImage": "topitop/grid.svg",
                     "centers": [
                         [99, 99], [99, 99], [99, 99], [99, 99], [99, 99], [99, 99], 
@@ -330,43 +259,24 @@ def get_topitop(variant_id):
                         [2.4, 3.85], [99, 99], [99, 99], [99, 99], [99, 99], [99, 99]
                     ],
                     "pieces": {
-                        "0": {
-                            "image": "general/0.svg", "scale": 1.0
-                        }, "1": {
-                            "image": "general/1.svg", "scale": 1.0
-                        }, "2": {
-                            "image": "general/2.svg", "scale": 1.0
-                        }, "3": {
-                            "image": "general/3.svg", "scale": 1.0
-                        }, "4": {
-                            "image": "general/4.svg", "scale": 1.0
-                        }, "B": {
-                            "image": "topitop/B.svg", "scale": 1.0
-                        }, "R": {
-                            "image": "topitop/R.svg", "scale": 1.0
-                        }, "S": {
-                            "image": "topitop/S.svg", "scale": 1.0
-                        }, "L": {
-                            "image": "topitop/L.svg", "scale": 1.0
-                        }, "X": {
-                            "image": "topitop/X.svg", "scale": 1.0
-                        }, "O": {
-                            "image": "topitop/O.svg", "scale": 1.0
-                        }, "C": {
-                            "image": "topitop/C.svg", "scale": 1.0
-                        }, "P": {
-                            "image": "topitop/P.svg", "scale": 1.0
-                        }, "Q": {
-                            "image": "topitop/Q.svg", "scale": 1.0
-                        }, "b": {
-                            "image": "topitop/bb.svg", "scale": 1.0
-                        }, "r": {
-                            "image": "topitop/rr.svg", "scale": 1.0
-                        }, "s": {
-                            "image": "topitop/ss.svg", "scale": 1.0
-                        }, "l": {
-                            "image": "topitop/ll.svg", "scale": 1.0
-                        }
+                        "0": {"image": "general/0.svg", "scale": 1},
+                        "1": {"image": "general/1.svg", "scale": 1},
+                        "2": {"image": "general/2.svg", "scale": 1},
+                        "3": {"image": "general/3.svg", "scale": 1},
+                        "4": {"image": "general/4.svg", "scale": 1},
+                        "B": {"image": "topitop/B.svg", "scale": 1},
+                        "R": {"image": "topitop/R.svg", "scale": 1},
+                        "S": {"image": "topitop/S.svg", "scale": 1},
+                        "L": {"image": "topitop/L.svg", "scale": 1},
+                        "X": {"image": "topitop/X.svg", "scale": 1},
+                        "O": {"image": "topitop/O.svg", "scale": 1},
+                        "C": {"image": "topitop/C.svg", "scale": 1},
+                        "P": {"image": "topitop/P.svg", "scale": 1},
+                        "Q": {"image": "topitop/Q.svg", "scale": 1},
+                        "b": {"image": "topitop/bb.svg", "scale": 1},
+                        "r": {"image": "topitop/rr.svg", "scale": 1},
+                        "s": {"image": "topitop/ss.svg", "scale": 1},
+                        "l": {"image": "topitop/ll.svg", "scale": 1}
                     }
                 }
             }
@@ -379,9 +289,7 @@ def get_Lgame(variant_id):
             "defaultTheme": "regular",
             "themes": {
                 "regular": {
-                    "backgroundGeometry": [
-                        4, 4
-                    ],
+                    "backgroundGeometry": [4, 4],
                     "backgroundImage": "Lgame/grid.svg",
                     "centers": [
                         [0.5, 0.5], [1.5, 0.5], [2.5, 0.5], [3.5, 0.5], 
@@ -402,31 +310,18 @@ def get_Lgame(variant_id):
                         [1.15, 1.75], [1.15, 0.75]
                     ],
                     "pieces": {
-                        "B": {
-                            "image": "Lgame/B.svg", "scale": 1.0
-                        }, "R": {
-                            "image": "Lgame/R.svg", "scale": 1.0
-                        }, "W": {
-                            "image": "Lgame/S1.svg", "scale": 1.0
-                        }, "G": {
-                            "image": "Lgame/S2.svg", "scale": 1.0
-                        }, "1": {
-                            "image": "Lgame/L1.svg", "scale": 0.6
-                        }, "2": {
-                            "image": "Lgame/L2.svg", "scale": 0.6
-                        }, "3": {
-                            "image": "Lgame/L3.svg", "scale": 0.6
-                        }, "4": {
-                            "image": "Lgame/L4.svg", "scale": 0.6
-                        }, "5": {
-                            "image": "Lgame/L5.svg", "scale": 0.6
-                        }, "6": {
-                            "image": "Lgame/L6.svg", "scale": 0.6
-                        }, "7": {
-                            "image": "Lgame/L7.svg", "scale": 0.6
-                        }, "8": {
-                            "image": "Lgame/L8.svg", "scale": 0.6
-                        }
+                        "B": {"image": "Lgame/B.svg", "scale": 1},
+                        "R": {"image": "Lgame/R.svg", "scale": 1},
+                        "W": {"image": "Lgame/S1.svg", "scale": 1},
+                        "G": {"image": "Lgame/S2.svg", "scale": 1},
+                        "1": {"image": "Lgame/L1.svg", "scale": 0.6},
+                        "2": {"image": "Lgame/L2.svg", "scale": 0.6},
+                        "3": {"image": "Lgame/L3.svg", "scale": 0.6},
+                        "4": {"image": "Lgame/L4.svg", "scale": 0.6},
+                        "5": {"image": "Lgame/L5.svg", "scale": 0.6},
+                        "6": {"image": "Lgame/L6.svg", "scale": 0.6},
+                        "7": {"image": "Lgame/L7.svg", "scale": 0.6},
+                        "8": {"image": "Lgame/L8.svg", "scale": 0.6}
                     },
                     "sounds": {
                         "x": "general/place.mp3",
@@ -510,9 +405,7 @@ def get_stt(variant_id):
             "defaultTheme": "regular",
             "themes": {
                 "regular": {
-                    "backgroundGeometry": [
-                        9, 6
-                    ],
+                    "backgroundGeometry": [9, 6],
                     "arrowWidth": 0.10,
                     "foregroundImage": "stt/foreground.svg",
                     "centers": [
@@ -535,15 +428,10 @@ def get_stt(variant_id):
                         [4.5, 4.5], [5.5, 4.5]
                     ],
                     "pieces": {
-                        "S": {
-                            "image": "stt/S.svg", "scale": 10.0
-                        }, "x": {
-                            "image": "stt/x.svg", "scale": 1.0
-                        }, "o": {
-                            "image": "stt/o.svg", "scale": 1.0
-                        }
-                    },
-                    "animationType": "custom"
+                        "S": {"image": "stt/S.svg", "scale": 10},
+                        "x": {"image": "stt/x.svg", "scale": 1},
+                        "o": {"image": "stt/o.svg", "scale": 1}
+                    }
                 }
             }
         }
@@ -555,50 +443,22 @@ def get_tootnottopy(variant_id):
             "defaultTheme": "dan",
             "themes": {
                 "dan": {
-                    "backgroundGeometry": [
-                        120, 70
-                    ],
+                    "backgroundGeometry": [120, 70],
                     "backgroundImage": "tootnotto/board.svg",
                     "centers": [
-                        [99, 99], [99, 99], [99, 99], 
-                        [35, 5], [45, 5], [55, 5], 
-                        [65, 5], [75, 5], [85, 5], 
-                        [99, 99], [99, 99], [99, 99], 
-                        [5, 15], [15, 15], [99, 99], 
-                        [35, 15], [45, 15], [55, 15], 
-                        [65, 15], [75, 15], [85, 15], 
-                        [99, 99], [105, 15], [115, 15], 
-                        [5, 25], [15, 25], [99, 99], 
-                        [99, 99], [99, 99], [99, 99], 
-                        [99, 99], [99, 99], [99, 99], 
-                        [99, 99], [105, 25], [115, 25], 
-                        [5, 35], [15, 35], [99, 99], 
-                        [35, 35], [45, 35], [55, 35], 
-                        [65, 35], [75, 35], [85, 35], 
-                        [99, 99], [105, 35], [115, 35], 
-                        [5, 45], [15, 45], [99, 99], 
-                        [35, 45], [45, 45], [55, 45], 
-                        [65, 45], [75, 45], [85, 45], 
-                        [99, 99], [105, 45], [115, 45], 
-                        [5, 55], [15, 55], [99, 99], 
-                        [35, 55], [45, 55], [55, 55], 
-                        [65, 55], [75, 55], [85, 55], 
-                        [99, 99], [105, 55], [115, 55], 
-                        [5, 65], [15, 65], [99, 99], 
-                        [35, 65], [45, 65], [55, 65], 
-                        [65, 65], [75, 65], [85, 65], 
-                        [99, 99], [105, 65], [115, 65]
+                        [99, 99], [99, 99], [99, 99], [35, 5], [45, 5], [55, 5], [65, 5], [75, 5], [85, 5], [99, 99], [99, 99], [99, 99], 
+                        [5, 15], [15, 15], [99, 99], [35, 15], [45, 15], [55, 15], [65, 15], [75, 15], [85, 15], [99, 99], [105, 15], [115, 15], 
+                        [5, 25], [15, 25], [99, 99], [99, 99], [99, 99], [99, 99], [99, 99], [99, 99], [99, 99], [99, 99], [105, 25], [115, 25], 
+                        [5, 35], [15, 35], [99, 99], [35, 35], [45, 35], [55, 35], [65, 35], [75, 35], [85, 35], [99, 99], [105, 35], [115, 35], 
+                        [5, 45], [15, 45], [99, 99], [35, 45], [45, 45], [55, 45], [65, 45], [75, 45], [85, 45], [99, 99], [105, 45], [115, 45], 
+                        [5, 55], [15, 55], [99, 99], [35, 55], [45, 55], [55, 55], [65, 55], [75, 55], [85, 55], [99, 99], [105, 55], [115, 55], 
+                        [5, 65], [15, 65], [99, 99], [35, 65], [45, 65], [55, 65], [65, 65], [75, 65], [85, 65], [99, 99], [105, 65], [115, 65]
                     ],
                     "pieces": {
-                        "T": {
-                            "image": "tootnotto/T.svg", "scale": 10.0
-                        }, "t": {
-                            "image": "tootnotto/tt.svg", "scale": 10.0
-                        }, "O": {
-                            "image": "tootnotto/O.svg", "scale": 10.0
-                        }, "o": {
-                            "image": "tootnotto/oo.svg", "scale": 10.0
-                        }
+                        "T": {"image": "tootnotto/T.svg", "scale": 10.0 }, 
+                        "t": {"image": "tootnotto/tt.svg", "scale": 10.0}, 
+                        "O": {"image": "tootnotto/O.svg", "scale": 10.0}, 
+                        "o": {"image": "tootnotto/oo.svg", "scale": 10.0}
                     }
                 }
             }
@@ -611,9 +471,7 @@ def get_ctoi(variant_id):
             "defaultTheme": "regular",
             "themes": {
                 "regular": {
-                    "backgroundGeometry": [
-                        3, 4
-                    ],
+                    "backgroundGeometry": [3, 4],
                     "backgroundImage": "ctoi/grid.svg",
                     "centers": [
                         [0.5, 0.5], [1.5, 0.5], [2.5, 0.5], 
@@ -624,27 +482,16 @@ def get_ctoi(variant_id):
                         [1, 3.8], [2, 3.8], [99, 99]
                     ],
                     "pieces": {
-                        "R": {
-                            "image": "ctoi/R.svg", "scale": 1.0
-                        }, "W": {
-                            "image": "ctoi/W.svg", "scale": 1.0
-                        }, "T": {
-                            "image": "ctoi/T.svg", "scale": 1.0
-                        }, "X": {
-                            "image": "ctoi/X.svg", "scale": 1.0
-                        }, "t": {
-                            "image": "ctoi/tt.svg", "scale": 1.0
-                        }, "x": {
-                            "image": "ctoi/xx.svg", "scale": 1.0
-                        }, "Y": {
-                            "image": "ctoi/X.svg", "scale": 0.6
-                        }, "Z": {
-                            "image": "ctoi/T.svg", "scale": 0.6
-                        }, "y": {
-                            "image": "ctoi/xx.svg", "scale": 0.6
-                        }, "z": {
-                            "image": "ctoi/tt.svg", "scale": 0.6
-                        }
+                        "R": {"image": "ctoi/R.svg", "scale": 1},
+                        "W": {"image": "ctoi/W.svg", "scale": 1},
+                        "T": {"image": "ctoi/T.svg", "scale": 1},
+                        "X": {"image": "ctoi/X.svg", "scale": 1},
+                        "t": {"image": "ctoi/tt.svg", "scale": 1},
+                        "x": {"image": "ctoi/xx.svg", "scale": 1},
+                        "Y": {"image": "ctoi/X.svg", "scale": 0.6},
+                        "Z": {"image": "ctoi/T.svg", "scale": 0.6},
+                        "y": {"image": "ctoi/xx.svg", "scale": 0.6},
+                        "z": {"image": "ctoi/tt.svg", "scale": 0.6}
                     }
                 }
             }
@@ -669,12 +516,10 @@ def get_chomp(variant_id):
                         [4.5, 3.5], [5.5, 3.5], [6.5, 3.5]
                     ],
                     "pieces": {
-                        "x" : { "image": "chomp/x.svg", "scale": 1.0 },
-                        "p" : { "image": "chomp/p.svg", "scale": 1.0 }
+                        "x" : {"image": "chomp/x.svg", "scale": 1},
+                        "p" : {"image": "chomp/p.svg", "scale": 1}
                     },
-                    "sounds": {
-                        "x": "chomp/Munch.mp3"
-                    },
+                    "sounds": {"x": "chomp/chomp.mp3"},
                     "animationType": "naiveInterpolate"
                 }
             }
@@ -690,19 +535,11 @@ def get_dawsonschess(variant_id):
                 "backgroundGeometry": [size, 1],
                 "centers": [[0.5 + i, 0.5] for i in range(size)],
                 "pieces": {
-                    "b": {
-                        "image": "dawsonschess/b.svg", "scale": 1
-                    },
-                    "x": {
-                        "image": "dawsonschess/x.svg", "scale": 1
-                    },
-                    "o": {
-                        "image": "dawsonschess/o.svg", "scale": 1
-                    }
+                    "b": {"image": "dawsonschess/b.svg", "scale": 1},
+                    "x": {"image": "dawsonschess/x.svg", "scale": 1},
+                    "o": {"image": "dawsonschess/o.svg", "scale": 1}
                 },
-                "sounds": {
-                    "x": "general/place.mp3"
-                },
+                "sounds": {"x": "general/place.mp3"},
                 "animationType": "naiveInterpolate"
             }
         }
@@ -739,8 +576,6 @@ def get_chess(variant_id):
         }
 
 def get_foxandhounds(variant_id):
-    if variant_id != "regular":
-        return None
     return {
             "defaultTheme": "lichess",
             "themes": {
@@ -753,11 +588,8 @@ def get_foxandhounds(variant_id):
                                  33,35,37,39,40,42,44,46,49,51,53,55,56,58,60,62)],
                     "piecesOverArrows": True,
                     "pieces": {
-                        'F': {
-                            'image': 'foxandhounds/F.png', 'scale': 1
-                        }, 'G': {
-                            'image': 'foxandhounds/G.png', 'scale': 1
-                        },
+                        'F': {'image': 'foxandhounds/F.png', 'scale': 1},
+                        'G': {'image': 'foxandhounds/G.png', 'scale': 1},
                     },
                     "sounds": {
                         "f": "animals/fox.mp3",
@@ -769,8 +601,6 @@ def get_foxandhounds(variant_id):
         }
 
 def get_snake(variant_id):
-    if variant_id != "regular":
-        return None
     return {
         "defaultTheme": "slither",
         "themes": {
@@ -780,27 +610,17 @@ def get_snake(variant_id):
                 "backgroundImage": "snake/background.svg",
                 "centers": [[0.5 + i % 4, 0.5 + i // 4] for i in range(16)],
                 "pieces": {
-                    "b": {
-                        "image": "snake/b.svg", "scale": 1.0
-                    },
-                    "h": {
-                        "image": "snake/h.svg", "scale": 1.0
-                    },
-                    "t": {
-                        "image": "snake/t.svg", "scale": 1.0
-                    }
+                    "b": {"image": "snake/b.svg", "scale": 1},
+                    "h": {"image": "snake/h.svg", "scale": 1},
+                    "t": {"image": "snake/t.svg", "scale": 1}
                 },
-                "sounds": {
-                    "x": "animals/snake.mp3"
-                },
+                "sounds": {"x": "animals/snake.mp3"},
                 "animationType": "simpleSlidePlaceRemove"
             }
         }
     }
     
 def get_quickcross(variant_id):
-    if variant_id != "regular": # 4x4 variant (option-9)
-        return None
     center_maps = [
         [48.75, 48.75], [141.25, 48.75], [233.75, 48.75], [326.25, 48.75],
         [48.75, 141.25], [141.25, 141.25], [233.75, 141.25], [326.25, 141.25],
@@ -847,6 +667,10 @@ def get_quickcross(variant_id):
     }
 
 def get_haregame(variant_id):
+    pieces = {
+        "d": {"image": "haregame/d.svg", "scale": 20},
+        "r": {"image": "haregame/r.svg", "scale": 20}
+    }
     sounds = {
         "r": "animals/bunny.mp3",
         "d": "animals/dog.mp3"
@@ -861,13 +685,7 @@ def get_haregame(variant_id):
                     "arrowWidth": 2,
                     "backgroundImage": "haregame/boardsmall.svg",
                     "centers": [[10, 50]] + [[40*i + 50, 40*j + 10] for i in range(3) for j in range(3)] + [[170, 50]],
-                    "pieces": {
-                        "d": {
-                            "image": "haregame/d.svg", "scale": 20
-                        }, "r": {
-                            "image": "haregame/r.svg", "scale": 20
-                        }
-                    },
+                    "pieces": pieces,
                     "sounds": sounds,
                     "animationType": "simpleSlidePlaceRemove"
                 }
@@ -883,13 +701,7 @@ def get_haregame(variant_id):
                     "arrowWidth": 2,
                     "backgroundImage": "haregame/boardmedium.svg",
                     "centers": [[10, 50]] + [[40*i + 50, 40*j + 10] for i in range(5) for j in range(3)] + [[250, 50]],
-                    "pieces": {
-                        "d": {
-                            "image": "haregame/d.svg", "scale": 20
-                        }, "r": {
-                            "image": "haregame/r.svg", "scale": 20
-                        }
-                    },
+                    "pieces": pieces,
                     "sounds": sounds,
                     "animationType": "simpleSlidePlaceRemove"
                 }
@@ -905,13 +717,7 @@ def get_haregame(variant_id):
                     "arrowWidth": 2,
                     "backgroundImage": "haregame/boardlarge.svg",
                     "centers": [[10, 50]] + [[40*i + 50, 40*j + 10] for i in range(7) for j in range(3)] + [[330, 50]],
-                    "pieces": {
-                        "d": {
-                            "image": "haregame/d.svg", "scale": 20
-                        }, "r": {
-                            "image": "haregame/r.svg", "scale": 20
-                        }
-                    },
+                    "pieces": pieces,
                     "sounds": sounds,
                     "animationType": "simpleSlidePlaceRemove"
                 }
@@ -957,8 +763,6 @@ def get_connect4c(variant_id):
     return None
 
 def get_mutorere(variant_id):
-    if variant_id not in ('regular', 'misere'):
-        return None
     return {
         "defaultTheme": "octagon",
         "themes": {
@@ -972,16 +776,10 @@ def get_mutorere(variant_id):
                      [1, 2.41421], [2.41421, 1], [2.41421, -1], [1, -2.41421]]
                 ],
                 "pieces": {
-                    "x": {
-                        "image": "general/blue_circle.svg", "scale": 10
-                    },
-                    "o": {
-                        "image": "general/red_circle.svg", "scale": 10
-                    }
+                    "x": {"image": "general/blue_circle.svg", "scale": 10},
+                    "o": {"image": "general/red_circle.svg", "scale": 10}
                 },
-                "sounds": {
-                    "x": "general/slide.mp3"
-                },
+                "sounds": {"x": "general/slide.mp3"},
                 "animationType": "simpleSlidePlaceRemove"
             }
         }
@@ -998,23 +796,13 @@ def get_achi(variant_id):
                 "arrowWidth": 4,
                 "defaultMoveTokenRadius": 6.5,
                 "centers": [
-                    [10, 10],
-                    [50, 10],
-                    [90, 10],
-                    [10, 50],
-                    [50, 50],
-                    [90, 50],
-                    [10, 90],
-                    [50, 90],
-                    [90, 90],
+                    [10, 10], [50, 10], [90, 10],
+                    [10, 50], [50, 50], [90, 50],
+                    [10, 90], [50, 90], [90, 90],
                 ],
                 "pieces": {
-                    "x": {
-                        "image": "general/blackpiece.svg", "scale": 15
-                    },
-                    "o": {
-                        "image": "general/whitepiece.svg", "scale": 15
-                    }
+                    "x": {"image": "general/blackpiece.svg", "scale": 15},
+                    "o": {"image": "general/whitepiece.svg", "scale": 15}
                 },
                 "sounds": {
                     "x": "general/place.mp3",
@@ -1045,8 +833,8 @@ def get_dinododgem(variant_id):
                         [5.5, 2.5], [5.5, 3.5], [5.5, 4.5]
                     ],
                     "pieces": {
-                        "x": {"image": "dinododgem/hadrosaur.svg", "scale": 1.0},
-                        "o": {"image": "dinododgem/triceratops.svg", "scale": 1.0}
+                        "x": {"image": "dinododgem/hadrosaur.svg", "scale": 1},
+                        "o": {"image": "dinododgem/triceratops.svg", "scale": 1}
                     },
                     "sounds": {
                         "x": "animals/tiger.mp3",
@@ -1064,9 +852,7 @@ def get_quickchess(variant_id):
             "defaultTheme": "regular",
             "themes": {
                 "regular": {
-                    "backgroundGeometry": [
-                        4, 3
-                    ],
+                    "backgroundGeometry": [4, 3],
                     "backgroundImage": "quickchess/grid.svg",
                     "centers": [
                         [0.5, 0.5], [0.5, 1.5], [0.5, 2.5], 
@@ -1075,19 +861,12 @@ def get_quickchess(variant_id):
                         [3.5, 0.5], [3.5, 1.5], [3.5, 2.5],
                     ],
                     "pieces": {
-                        "Q": {
-                            "image": "chess/wikipedia/Q.svg", "scale": 1.0
-                        }, "R": {
-                            "image": "chess/wikipedia/R.svg", "scale": 1.0
-                        }, "K": {
-                            "image": "chess/wikipedia/K.svg", "scale": 1.0
-                        }, "q": {
-                            "image": "chess/wikipedia/qq.svg", "scale": 1.0
-                        }, "r": {
-                            "image": "chess/wikipedia/rr.svg", "scale": 1.0
-                        }, "k": {
-                            "image": "chess/wikipedia/kk.svg", "scale": 1.0
-                        }
+                        "Q": {"image": "chess/wikipedia/Q.svg", "scale": 1},
+                        "R": {"image": "chess/wikipedia/R.svg", "scale": 1},
+                        "K": {"image": "chess/wikipedia/K.svg", "scale": 1},
+                        "q": {"image": "chess/wikipedia/qq.svg", "scale": 1},
+                        "r": {"image": "chess/wikipedia/rr.svg", "scale": 1},
+                        "k": {"image": "chess/wikipedia/kk.svg", "scale": 1}
                     },
                     "sounds": {
                         "x": "general/slide.mp3",
@@ -1100,8 +879,6 @@ def get_quickchess(variant_id):
     }.get(variant_id, None)
 
 def get_tactix(variant_id):
-    if variant_id != 'regular':
-        return None
     return {
         "defaultTheme": "basic",
         "themes": {
@@ -1146,13 +923,9 @@ def get_tactix(variant_id):
                             [3.16, 0.05], [3.16, 2.95], [3.32, 1.05], [3.32, 3.95], 
                             [3.24, 0.05], [3.24, 3.95]],
                 "pieces": {
-                    "O": {
-                        "image": "Lgame/S2.svg", "scale": 1
-                    }
+                    "O": {"image": "Lgame/S2.svg", "scale": 1}
                 },
-                "sounds": {
-                    "x": "general/place.mp3"
-                },
+                "sounds": {"x": "general/place.mp3"},
                 "animationType": "naiveInterpolate"
             }
         }
@@ -1166,60 +939,38 @@ def get_othello(variant_id):
                 "backgroundGeometry": [40, 50],
                 "backgroundImage": "othello/grid.svg",
                 "defaultMoveTokenRadius": 1.5,
-                "centers": [[5, 5], [15, 5], [25, 5], [35, 5], 
-                            [5, 15], [15, 15], [25, 15], [35, 15], 
-                            [5, 25], [15, 25], [25, 25], [35, 25], 
-                            [5, 35], [15, 35], [25, 35], [35, 35], 
-                            [8, 45], [12, 45], 
-                            [-1, -1], 
-                            [28, 45], [32, 45]],
+                "centers": [
+                    [5, 5], [15, 5], [25, 5], [35, 5], 
+                    [5, 15], [15, 15], [25, 15], [35, 15], 
+                    [5, 25], [15, 25], [25, 25], [35, 25], 
+                    [5, 35], [15, 35], [25, 35], [35, 35], 
+                    [8, 45], [12, 45], [28, 45], [32, 45]
+                ],
                 "pieces": {
-                    "B": {
-                        "image": "othello/B.svg", "scale": 9
-                    },
-                    "W": {
-                        "image": "othello/W.svg", "scale": 9
-                    },
-                    "0": {
-                        "image": "general/0.svg", "scale": 20.0
-                    },
-                    "1": {
-                        "image": "general/1.svg", "scale": 20.0
-                    },
-                    "2": {
-                        "image": "general/2.svg", "scale": 20.0
-                    },
-                    "3": {
-                        "image": "general/3.svg", "scale": 20.0
-                    },
-                    "4": {
-                        "image": "general/4.svg", "scale": 20.0
-                    },
-                    "5": {
-                        "image": "general/5.svg", "scale": 20.0
-                    },
-                    "6": {
-                        "image": "general/6.svg", "scale": 20.0
-                    },
-                    "7": {
-                        "image": "general/7.svg", "scale": 20.0
-                    },
-                    "8": {
-                        "image": "general/8.svg", "scale": 20.0
-                    },
-                    "9": {
-                        "image": "general/9.svg", "scale": 20.0
-                    }
+                    "B": {"image": "othello/B.svg", "scale": 9},
+                    "W": {"image": "othello/W.svg", "scale": 9},
+                    "0": {"image": "general/0.svg", "scale": 20},
+                    "1": {"image": "general/1.svg", "scale": 20},
+                    "2": {"image": "general/2.svg", "scale": 20},
+                    "3": {"image": "general/3.svg", "scale": 20},
+                    "4": {"image": "general/4.svg", "scale": 20},
+                    "5": {"image": "general/5.svg", "scale": 20},
+                    "6": {"image": "general/6.svg", "scale": 20},
+                    "7": {"image": "general/7.svg", "scale": 20},
+                    "8": {"image": "general/8.svg", "scale": 20},
+                    "9": {"image": "general/9.svg", "scale": 20}
                 },
-                "sounds": {
-                    "x": "general/place.mp3"
-                },
+                "sounds": {"x": "general/place.mp3"},
                 "animationType": "naiveInterpolate"
             }
         }
     }
     
 def get_gameofy(variant_id):
+    pieces = {
+        "W": {"image": "gameofy/blue_circle.svg", "scale": 0.8}, 
+        "B": {"image": "gameofy/red_circle.svg", "scale": 0.8}
+    }
     sounds = {
         "x": "general/place.mp3"
     }
@@ -1231,17 +982,12 @@ def get_gameofy(variant_id):
                     "backgroundGeometry": [8, 6],
                     "backgroundImage": "gameofy/dim4.svg",
                     "centers": [
-                        [4, 1.2], [3.47, 2.1], [4.53, 2.1], [2.97, 3], 
-                        [4, 3], [5.03, 3], [2.44, 3.9], [3.47, 3.9], 
-                        [4.53, 3.9], [5.56, 3.9]
+                        [4, 1.2],
+                        [3.47, 2.1], [4.53, 2.1],
+                        [2.97, 3], [4, 3], [5.03, 3], 
+                        [2.44, 3.9], [3.47, 3.9], [4.53, 3.9], [5.56, 3.9]
                     ],
-                    "pieces": {
-                        "W": {
-                            "image": "gameofy/blue_circle.svg", "scale": 0.8
-                        }, "B": {
-                            "image": "gameofy/red_circle.svg", "scale": 0.8
-                        }
-                    },
+                    "pieces": pieces,
                     "sounds": sounds,
                     "animationType": "simpleSlidePlaceRemove"
                 },
@@ -1256,29 +1002,12 @@ def get_gameofy(variant_id):
                     "backgroundImage": "gameofy/dim5.svg",
                     "centers": [
                         [4, 1.2], 
-                        [3.47, 2.1], 
-                        [4.53, 2.1], 
-                        [2.97, 3], 
-                        [4, 3], 
-                        [5.03, 3], 
-                        [2.44, 3.9], 
-                        [3.47, 3.9], 
-                        [4.53, 3.9], 
-                        [5.56, 3.9], 
-                        [1.91, 4.8], 
-                        [2.97, 4.8], 
-                        [4.00, 4.8], 
-                        [5.03, 4.8], 
-                        [6.09, 4.8], 
-                        [6.62, 4.8], 
+                        [3.47, 2.1], [4.53, 2.1], 
+                        [2.97, 3], [4, 3], [5.03, 3], 
+                        [2.44, 3.9], [3.47, 3.9], [4.53, 3.9], [5.56, 3.9], 
+                        [1.91, 4.8], [2.97, 4.8], [4.00, 4.8], [5.03, 4.8], [6.09, 4.8], 
                     ],
-                    "pieces": {
-                        "W": {
-                            "image": "gameofy/blue_circle.svg", "scale": 0.8
-                        }, "B": {
-                            "image": "gameofy/red_circle.svg", "scale": 0.8
-                        }
-                    },
+                    "pieces": pieces,
                     "sounds": sounds,
                     "animationType": "simpleSlidePlaceRemove"
                 },
@@ -1286,6 +1015,9 @@ def get_gameofy(variant_id):
         }
     
 def get_notakto(variant_id):
+    pieces = {
+        "X": {"image": "notakto/x.svg", "scale": 1}
+    }
     if variant_id == "regular":
         return {
             "defaultTheme": "basic",
@@ -1298,11 +1030,7 @@ def get_notakto(variant_id):
                         [0.5, 1.5], [1.5, 1.5], [2.5, 1.5],
                         [0.5, 2.5], [1.5, 2.5], [2.5, 2.5]
                     ],
-                    "pieces": {
-                        "X": {
-                            "image": "notakto/x.svg", "scale": 1
-                        },
-                    }
+                    "pieces": pieces
                 },
             }
         }
@@ -1321,11 +1049,7 @@ def get_notakto(variant_id):
                         [81, 33], [103, 33], [125, 33],
                         [81, 55], [103, 55], [125, 55]
                     ],
-                    "pieces": {
-                        "X": {
-                            "image": "notakto/x.svg", "scale": 22
-                        },
-                    }
+                    "pieces": pieces
                 },
             }
         }
@@ -1347,11 +1071,7 @@ def get_notakto(variant_id):
                         [46, 103], [68, 103], [90, 103],
                         [46, 125], [68, 125], [90, 125]
                     ],
-                    "pieces": {
-                        "X": {
-                            "image": "notakto/x.svg", "scale": 22
-                        },
-                    }
+                    "pieces": pieces
                 },
             }
         }
@@ -1366,34 +1086,16 @@ def get_beeline(variant_id):
                 "arrowWidth": 0.1,
                 "piecesOverArrows": True,
                 "centers": [
-                    [1.25, 4.75], # 0
-                    [2.5, 4.05], # 1
-                    [3.75, 3.3], # 2
-                    [5.00, 2.6], # 3
-                    [2.5, 5.5], # 4
-                    [3.76, 4.75], # 5
-                    [5.00, 4.05], # 6
-                    [6.25, 3.3], # 7
-                    [3.75, 6.2], # 8
-                    [5, 5.5], # 9
-                    [6.25, 4.75], # 10
-                    [7.5, 4.05], # 11
-                    [5.00, 6.95], # 12
-                    [6.25, 6.2], # 13
-                    [7.5, 5.5], # 14
-                    [8.75, 4.75], # 15
+                    [1.25, 4.75], [2.5, 4.05], [3.75, 3.3], [5.00, 2.6],
+                    [2.5, 5.5], [3.76, 4.75], [5.00, 4.05], [6.25, 3.3],
+                    [3.75, 6.2], [5, 5.5], [6.25, 4.75], [7.5, 4.05],
+                    [5.00, 6.95], [6.25, 6.2], [7.5, 5.5], [8.75, 4.75]
                 ],
                 "pieces": {
-                    "W": {
-                        "image": "beeline/yellow_bee.svg", "scale": 1.4
-                    },
-                    "B": {
-                        "image": "beeline/red_bee.svg", "scale": 1.4
-                    }
+                    "W": {"image": "beeline/yellow_bee.svg", "scale": 1.4},
+                    "B": {"image": "beeline/red_bee.svg", "scale": 1.4}
                 },
-                "sounds": {
-                    "b": "animals/bee.mp3"
-                },
+                "sounds": {"b": "animals/bee.mp3"},
                 "animationType": "simpleSlidePlaceRemove"
             },
         }
@@ -1408,35 +1110,14 @@ def get_1dchess(variant_id):
                 "backgroundImage": "1dchess/grid.svg",
                 "piecesOverArrows": False,
                 "arrowWidth": 0.1,
-                "centers": [
-                    [0.5, 0.5],
-                    [1.5, 0.5],
-                    [2.5, 0.5],
-                    [3.5, 0.5],
-                    [4.5, 0.5],
-                    [5.5, 0.5],
-                    [6.5, 0.5],
-                    [7.5, 0.5]
-                ],
+                "centers": [[0.5 + i, 0.5] for i in range(8)],
                 "pieces": {
-                    "K": {
-                        "image": "1dchess/nn.svg", "scale": 1
-                    },
-                    "k": {
-                        "image": "1dchess/N.svg", "scale": 1
-                    },
-                    "T": {
-                        "image": "1dchess/kk.svg", "scale": 1
-                    },
-                    "t": {
-                        "image": "1dchess/K.svg", "scale": 1
-                    },
-                    "R": {
-                        "image": "1dchess/rr.svg", "scale": 1
-                    },
-                    "r": {
-                        "image": "1dchess/R.svg", "scale": 1
-                    },
+                    "t": {"image": "chess/wikipedia/K.svg", "scale": 1},
+                    "k": {"image": "chess/wikipedia/N.svg", "scale": 1},
+                    "r": {"image": "chess/wikipedia/R.svg", "scale": 1},
+                    "T": {"image": "chess/wikipedia/kk.svg", "scale": 1},
+                    "K": {"image": "chess/wikipedia/nn.svg", "scale": 1},
+                    "R": {"image": "chess/wikipedia/rr.svg", "scale": 1},
                 },
                 "sounds": {
                     "x": "general/slide.mp3",
@@ -1500,16 +1181,10 @@ def get_dao(variant_id):
                     [0.5, 3.5], [1.5, 3.5], [2.5, 3.5], [3.5, 3.5],
                 ],
                 "pieces": {
-                    "O": {
-                        "image": "dao/W.svg", "scale": 0.9
-                    },
-                    "X": {
-                        "image": "dao/B.svg", "scale": 0.9
-                    }
+                    "O": {"image": "dao/W.svg", "scale": 0.9},
+                    "X": {"image": "dao/B.svg", "scale": 0.9}
                 },
-                "sounds": {
-                    "x": "general/slide.mp3"
-                },
+                "sounds": {"x": "general/slide.mp3"},
                 "animationType": "simpleSlidePlaceRemove"
             },
         }
@@ -1531,70 +1206,47 @@ def get_change(variant_id):
                     [10, 17], [10, 35], [10, 53]
                 ],
                 "pieces": {
-                    "o": {
-                        "image": "general/red_circle.svg", "scale": 10
-                    },
-                    "x": {
-                        "image": "general/blue_circle.svg", "scale": 10
-                    }
+                    "o": {"image": "general/red_circle.svg", "scale": 10},
+                    "x": {"image": "general/blue_circle.svg", "scale": 10}
                 },
-                "sounds": {
-                    "x": "general/slide.mp3"
-                },
+                "sounds": {"x": "general/slide.mp3"},
                 "animationType": "simpleSlidePlaceRemove"
             },
         }
     }
     
 def get_fivefieldkono(variant_id):
-    if variant_id not in ["regular", "delta", "omega"]:
-        return None
     return {
-        variant_id: {
-            "defaultTheme": variant_id,
+            "defaultTheme": "basic",
             "themes": {
-                variant_id: {
-                    "backgroundGeometry": [
-                        200, 200
-                    ],
+                "basic": {
+                    "backgroundGeometry": [200, 200],
                     "backgroundImage": "fivefieldkono/board.svg",
                     "piecesOverArrows": True,
                     "arrowWidth": 5,
                     "centers": [[20 + 40 * i, 20 + 40 * j] for j in range(0,5) for i in range(0,5)],
                     "pieces": {
-                        "x": {
-                            "image": "general/whitepiece.svg", "scale": 25.0
-                        }, "o": {
-                            "image": "general/blackpiece.svg", "scale": 25.0
-                        }
+                        "x": {"image": "general/whitepiece.svg", "scale": 25},
+                        "o": {"image": "general/blackpiece.svg", "scale": 25}
                     },
-                    "sounds": {
-                        "x": "general/slide.mp3"
-                    },
+                    "sounds": {"x": "general/slide.mp3"},
                     "animationType": "simpleSlidePlaceRemove"
                 }
             }
         }
-    }.get(variant_id, None)
 
 def get_dragonsandswans(variant_id):
     return {
         "defaultTheme": "basic",
         "themes": {
             "basic": {
-                "backgroundGeometry": [
-                        40, 40
-                ],
+                "backgroundGeometry": [40, 40],
                 "backgroundImage": "swans/grid4.svg",
                 "piecesOverArrows": True,
                 "centers": [[5 + 10 * i, 5 + 10 * j] for j in range(0,4) for i in range(0,4)],
                 "pieces": {
-                    "x": {
-                        "image": "swans/x.png", "scale": 8
-                    }, 
-                    "o": {
-                        "image": "swans/o.svg", "scale": 6
-                    }
+                    "x": {"image": "swans/x.png", "scale": 8}, 
+                    "o": {"image": "swans/o.svg", "scale": 6}
                 },
                 "sounds": {
                     "x": "animals/dragon.mp3",
@@ -1641,28 +1293,7 @@ def get_euclidsgame(variant_id):
                 "backgroundImage": "euclidsgame/EuclidBoard.svg",
                 "centers": [[0.5 + i, 0.5 + j] for j in range(10) for i in range(10)] + [[2.5 + k, 10.5] for k in range(6)],
                 "pieces": {
-                    "X": { "image": "euclidsgame/cut.svg", "scale": 0.9
-                    }, "0": {
-                        "image": "general/0.svg", "scale": 1.2
-                    }, "1": {
-                        "image": "general/1.svg", "scale": 1.2
-                    }, "2": {
-                        "image": "general/2.svg", "scale": 1.2
-                    }, "3": {
-                        "image": "general/3.svg", "scale": 1.2
-                    }, "4": {
-                        "image": "general/4.svg", "scale": 1.2
-                    }, "5": {
-                        "image": "general/5.svg", "scale": 1.2
-                    }, "6": {
-                        "image": "general/6.svg", "scale": 1.2
-                    }, "7": {
-                        "image": "general/7.svg", "scale": 1.2
-                    }, "8": {
-                        "image": "general/8.svg", "scale": 1.2
-                    }, "9": {
-                        "image": "general/9.svg", "scale": 1.2
-                    }
+                    "X": {"image": "euclidsgame/cut.svg", "scale": 0.9},
                 }
             }
         }
@@ -1707,12 +1338,18 @@ def get_slide5(variant_id):
                 "pieces": {
                     "X": { "image": "connect4/X.svg", "scale": 33 }, 
                     "O": { "image": "connect4/O.svg", "scale": 33 }
-                }
+                },
+                "sounds": {"x": "general/remove.mp3"},
+                "animationType": "naiveInterpolate"
             }
         }
     }
 
 def get_konane(variant_id):
+    pieces = {
+        "x": {"image": "general/blackpiece.svg", "scale": 9},
+        "o": {"image": "general/whitepiece.svg", "scale": 9}
+    }
     if variant_id == "4x4":
         return {
             "defaultTheme": "regular",
@@ -1722,14 +1359,7 @@ def get_konane(variant_id):
                     "backgroundImage": "konane/grid4x4.svg",
                     "defaultMoveTokenRadius": 1.5,
                     "centers": [[5+10*i, 5+10*j] for j in range(0,4) for i in range(0,4)],
-                    "pieces": {
-                        "x": {
-                            "image": "general/blackpiece.svg", "scale": 9
-                        },
-                        "o": {
-                            "image": "general/whitepiece.svg", "scale": 9
-                        }
-                    }
+                    "pieces": pieces
                 }
             }
         }
@@ -1742,14 +1372,7 @@ def get_konane(variant_id):
                     "backgroundImage": "konane/grid4x5.svg",
                     "defaultMoveTokenRadius": 1.5,
                     "centers": [[5+10*i, 5+10*j] for j in range(0,4) for i in range(0,5)],
-                    "pieces": {
-                        "x": {
-                            "image": "general/blackpiece.svg", "scale": 9
-                        },
-                        "o": {
-                            "image": "general/whitepiece.svg", "scale": 9
-                        }
-                    }
+                    "pieces": pieces
                 }
             }
         }
@@ -1762,14 +1385,7 @@ def get_konane(variant_id):
                     "backgroundImage": "konane/grid5x5.svg",
                     "defaultMoveTokenRadius": 1.5,
                     "centers": [[5+10*i, 5+10*j] for j in range(0,5) for i in range(0,5)],
-                    "pieces": {
-                        "x": {
-                            "image": "general/blackpiece.svg", "scale": 9
-                        },
-                        "o": {
-                            "image": "general/whitepiece.svg", "scale": 9
-                        }
-                    }
+                    "pieces": pieces
                 }
             }
         }
@@ -1783,14 +1399,7 @@ def get_konane(variant_id):
                     "backgroundImage": "konane/grid5x6.svg",
                     "defaultMoveTokenRadius": 1.5,
                     "centers": [[5+10*i, 5+10*j] for j in range(0,5) for i in range(0,6)],
-                    "pieces": {
-                        "x": {
-                            "image": "general/blackpiece.svg", "scale": 9
-                        },
-                        "o": {
-                            "image": "general/whitepiece.svg", "scale": 9
-                        }
-                    }
+                    "pieces": pieces
                 }
             }
         }
@@ -1803,20 +1412,21 @@ def get_konane(variant_id):
                     "backgroundImage": "konane/grid6x6.svg",
                     "defaultMoveTokenRadius": 1.5,
                     "centers": [[5+10*i, 5+10*j] for j in range(0,6) for i in range(0,6)],
-                    "pieces": {
-                        "x": {
-                            "image": "general/blackpiece.svg", "scale": 9
-                        },
-                        "o": {
-                            "image": "general/whitepiece.svg", "scale": 9
-                        }
-                    }
+                    "pieces": pieces
                 }
             }
         }
 
     
 def get_yote(variant_id):
+    pieces = {
+        "0": {"image": "general/0.svg", "scale": 9},
+        "1": {"image": "general/1.svg", "scale": 9},
+        "2": {"image": "general/2.svg", "scale": 9},
+        "3": {"image": "general/3.svg", "scale": 9},
+        "B": {"image": "general/blackpiece.svg", "scale": 9},
+        "W": {"image": "general/whitepiece.svg", "scale": 9}
+    }
     if variant_id == "3x3":
         return {
             "defaultTheme": "regular",
@@ -1826,21 +1436,7 @@ def get_yote(variant_id):
                     "backgroundImage": "yote/grid3x3.svg",
                     "centers": [[5, 5], [25, 5], [100, 100], [100, 100],[100, 100],[100, 100],[100, 100]]+
                                 [[5+10*i, 15+10*j] for j in range(0,3) for i in range(0,3)],
-                    "pieces": {
-                        "0": {
-                            "image": "general/0.svg", "scale": 9
-                        }, "1": {
-                            "image": "general/1.svg", "scale": 9
-                        }, "2": {
-                            "image": "general/2.svg", "scale": 9
-                        }, "3": {
-                            "image": "general/3.svg", "scale": 9
-                        }, "B": {
-                            "image": "general/blackpiece.svg", "scale": 9
-                        }, "W": {
-                            "image": "general/whitepiece.svg", "scale": 9
-                        }
-                    }
+                    "pieces": pieces
                 }
             }
         }
@@ -1853,23 +1449,7 @@ def get_yote(variant_id):
                     "backgroundImage": "yote/grid3x4.svg",
                     "centers": [[5, 5], [35, 5], [100, 100], [100, 100],[100, 100],[100, 100],[100, 100]]+
                                 [[5+10*i, 15+10*j] for j in range(0,3) for i in range(0,4)],
-                    "pieces": {
-                        "0": {
-                            "image": "general/0.svg", "scale": 9
-                        }, "1": {
-                            "image": "general/1.svg", "scale": 9
-                        }, "2": {
-                            "image": "general/2.svg", "scale": 9
-                        }, "3": {
-                            "image": "general/3.svg", "scale": 9
-                        }, "4": {
-                            "image": "general/4.svg", "scale": 9
-                        }, "B": {
-                            "image": "general/blackpiece.svg", "scale": 9
-                        }, "W": {
-                            "image": "general/whitepiece.svg", "scale": 9
-                        }
-                    }
+                    "pieces": pieces
                 }
             }
         }
@@ -1882,32 +1462,16 @@ def get_yote(variant_id):
                     "backgroundImage": "yote/grid4x4.svg",
                     "centers": [[5, 5], [35, 5], [100, 100], [100, 100],[100, 100],[100, 100],[100, 100]]+
                                 [[5+10*i, 15+10*j] for j in range(0,4) for i in range(0,4)],
-                    "pieces": {
-                        "0": {
-                            "image": "general/0.svg", "scale": 9
-                        }, "1": {
-                            "image": "general/1.svg", "scale": 9
-                        }, "2": {
-                            "image": "general/2.svg", "scale": 9
-                        }, "3": {
-                            "image": "general/3.svg", "scale": 9
-                        }, "4": {
-                            "image": "general/4.svg", "scale": 9
-                        }, "5": {
-                            "image": "general/5.svg", "scale": 9
-                        }, "6": {
-                            "image": "general/6.svg", "scale": 9
-                        }, "B": {
-                            "image": "general/blackpiece.svg", "scale": 9
-                        }, "W": {
-                            "image": "general/whitepiece.svg", "scale": 9
-                        }
-                    }
+                    "pieces": pieces
                 }
             }
         }
     
 def get_adugo(variant_id):
+    pieces = {
+        "B": {"image": "general/blackpiece.svg", "scale": 9},
+        "W": {"image": "general/whitepiece.svg", "scale": 9}
+    }
     if variant_id == "5x5":
         return {
             "defaultTheme": "regular",
@@ -1917,13 +1481,7 @@ def get_adugo(variant_id):
                     "backgroundImage": "adugo/grid5x5.svg",
                     "centers": [[100, 100]]+
                                 [[5+10*i, 5+10*j] for j in range(0,5) for i in range(0,5)],
-                    "pieces": {
-                        "B": {
-                            "image": "general/blackpiece.svg", "scale": 9
-                        }, "W": {
-                            "image": "general/whitepiece.svg", "scale": 9
-                        }
-                    }
+                    "pieces": pieces
                 }
             }
         }
@@ -1936,13 +1494,7 @@ def get_adugo(variant_id):
                     "backgroundImage": "adugo/grid3x3.svg",
                     "centers": [[100, 100]]+
                                 [[5+10*i, 5+10*j] for j in range(0,3) for i in range(0,3)],
-                    "pieces": {
-                        "B": {
-                            "image": "general/blackpiece.svg", "scale": 9
-                        }, "W": {
-                            "image": "general/whitepiece.svg", "scale": 9
-                        }
-                    }
+                    "pieces": pieces
                 }
             }
         }

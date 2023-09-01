@@ -73,9 +73,9 @@ games = {
                 data_provider_game_id='3spot',
                 data_provider_variant_id=-1,
                 status='available',
-                gui_status='v2')
+                gui_status='v3')
         },
-        gui_status='v2'),
+        gui_status='v3'),
     
     'abalone': Game(
         name='Abalone',
@@ -339,9 +339,9 @@ games = {
                 data_provider_game_id='dinododgem',
                 data_provider_variant_id=-1,
                 status='dev',
-                gui_status='v2')
+                gui_status='v3')
         },
-        gui_status='v2'),
+        gui_status='v3'),
     
     'dodgem': Game(
         name='Dodgem',
@@ -354,9 +354,9 @@ games = {
                 data_provider_game_id='dodgem',
                 data_provider_variant_id=-1,
                 status='available',
-                gui_status='v2')
+                gui_status='v3')
         },
-        gui_status='v2'),
+        gui_status='v3'),
 
     'dragonsandswans': Game(
         name='Dragons & Swans',
@@ -506,7 +506,7 @@ games = {
             '5': Ghost(minimum_length = 5),
             '6': Ghost(minimum_length = 6)
         },
-        gui_status='v2'
+        gui_status='v3'
     ),
 
     'haregame': Game(
@@ -629,9 +629,9 @@ games = {
                 data_provider_game_id='Lgame',
                 data_provider_variant_id=-1,
                 status='available',
-                gui_status='v2')
+                gui_status='v3')
         },
-        gui_status='v2'),
+        gui_status='v3'),
     
     'lite3': Game(
         name='Lite 3',
@@ -900,7 +900,7 @@ games = {
                 data_provider_game_id='slide5',
                 data_provider_variant_id=-1,
                 status='available',
-                gui_status='v2'
+                gui_status='v3'
             ),
             'ties': GameVariant(
                 name="Tie Rule Enabled",
@@ -909,10 +909,10 @@ games = {
                 data_provider_game_id='slide5',
                 data_provider_variant_id=1,
                 status='available',
-                gui_status='v2'
+                gui_status='v3'
             )
         },
-        gui_status='v2'),
+        gui_status='v3'),
 
     'snake': Game(
         name='Snake',

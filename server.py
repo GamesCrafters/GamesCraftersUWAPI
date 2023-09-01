@@ -5,7 +5,6 @@ from flask_cors import CORS
 
 from games import games, GamesmanClassicDataProvider
 from games.AutoGUI_v2_Games import *
-from games.AutoGUI_v3_Games import *
 from games.randomized_start import *
 from games.models import EfficientGameVariant
 from games.Ghost import Node, Trie
