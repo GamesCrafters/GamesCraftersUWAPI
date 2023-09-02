@@ -98,7 +98,7 @@ def get_baghchal(variant_id):
                     "backgroundGeometry": [5, 6],
                     "backgroundImage": "baghchal/grid5Diag.svg",
                     "arrowWidth": 0.05,
-                    "centers": [[0.5 + (i % 5), 0.5 + (i // 5)] for i in range(25)] + [[3.75,5.2], [3.95,5.2], [-1,-1], [3.75,5.55], [3.95,5.55]],
+                    "centers": [[0.5 + (i % 5), 0.5 + (i // 5)] for i in range(25)] + [[3.75,5.2], [3.95,5.2], [3.75,5.55], [3.95,5.55]],
                     "piecesOverArrows": True,
                     "pieces": {
                         "G": {"image": "baghchal/G.png", "scale": 0.7},
