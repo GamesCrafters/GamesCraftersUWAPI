@@ -218,7 +218,7 @@ games = {
                 data_provider_game_id='connect4',
                 data_provider_variant_id=1,
                 status='dev',
-                gui_status='v2'),
+                gui_status='v3'),
             '6x7': GameVariant(
                 name='6x7',
                 desc='6x7',
@@ -226,9 +226,9 @@ games = {
                 data_provider_game_id='connect4',
                 data_provider_variant_id=2,
                 status='dev',
-                gui_status='v2')
+                gui_status='v3')
         },
-        gui_status='v2'),
+        gui_status='v3'),
     
     'connect4': Game(
         name='Connect 4 (Java)',
@@ -1006,7 +1006,7 @@ games = {
             '5': TootNOtto(5),
             '6': TootNOtto(6)
         },
-        gui_status='v2'),
+        gui_status='v3'),
     
     'topitop': Game(
         name="Topitop",

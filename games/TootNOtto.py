@@ -1,172 +1,80 @@
-# -*- coding: iso-8859-15 -*-
-import json
-import sys
-import pickle
-import os
+import pickle, os
 
-from .models import AbstractGameVariant
+from .models import EfficientGameVariant
 
+class TootNOtto(EfficientGameVariant):
 
-class TootNOtto(AbstractGameVariant):
-
-    def pos_to_UWAPI(self, position):
-
-        ### BOARD
-
-        SPACER = "-" #"█"
-        DOWN   = "v" #"↓"
+    def pos_to_UWAPI(self, board, turn, Tsx, Osx, Tso, Oso):
 
         """
-            ----------------x4444
-            --------------------x5555
-            ------------------------x6666
-
-            ROWS=4, COLS=4, WIDTH=COLS+6=10, HEIGHT=7
-            ███TTTT███
-            ███OOOO███
-            ███↓↓↓↓███
-            TO█----█OT
-            TO█----█OT
-            TO█----█OT
-            TO█----█OT
-
-            ROWS=4, COLS=5, WIDTH=COLS+6=11, HEIGHT=7
-            ███TTTTT███
-            ███OOOOO███
-            TO█↓↓↓↓↓█OT
-            TO█-----█OT
-            TO█-----█OT
-            TO█-----█OT
-            TO█-----█OT
-
-            ROWS=4, COLS=6, WIDTH=COLS+6=12, HEIGHT=7
-            ███TTTTTT███
-            TO█OOOOOO█OT
-            TO█↓↓↓↓↓↓█OT
-            TO█------█OT
-            TO█------█OT
-            TO█------█OT
-            TO█------█OT
-
-        ### Each position is ROWS*COLS of {-TO} + xo + 0-6 X Ts + 0-6 X Os + 0-6 O Ts + 0-6 O Os
-        ### Each move is (slot, 'T' or 'O')
+            The internal representation of a position is as follows.
+            -  The first ROW*COLS characters are the pieces on the board from
+               bottom left to top right in row-major order.
+            -  The next character is whose turn it is ('x'=TOOT, 'o'=OTTO).
+            -  The last four characters tell us how many pieces are left. '3241' means that 
+               TOOT has 3 Ts and 4 Os left to place and that OTTO has 4 Ts and 1 O left to place.
+            -  Example position representation in a 6-column game: OTTTTO-OO-TO--O-T-----O-o4124
+            
+            The UWAPI position string representation is as follows:
+            -  R_{uwapi_turn}_0_0_{board}{Tsx}{Osx}{Tso}{Oso}_{internalrep}, where
+            -  uwapi_turn is 'A' (TOOT) or 'B' (OTTO) indicating whose turn it is.
+            -  board is ROW*COLS characters indicating the state of the board
+            -  Tsx lists out how many Ts TOOT has remaining. IF TOOT has 3 Ts remaining in a 6-col game, then Tsx is 'TTT---'.
+            -  Osx lists out how many Os TOOT has remaining. IF TOOT has 2 Ts remaining in a 6-col game, then Osx is 'OO----'.
+            -  Tso lists out how many Ts OTTO has remaining. IF OTTO has 4 Ts remaining in a 6-col game, then Tso is 'TTTT--'.
+            -  Oso lists out how many Os OTTO has remaining. IF OTTO has 1 Ts remaining in a 6-col game, then Oso is 'O-----'.
+            -  internalrep is just the internal representation of the position appended at the end
 
         """
-        Tsx = int(position[self.ROWS*self.COLS + 1 + 0]) # Number of Ts TOOT has
-        Osx = int(position[self.ROWS*self.COLS + 1 + 1]) # Number of Os TOOT has
-        Tso = int(position[self.ROWS*self.COLS + 1 + 2]) # Number of Ts OTTO has
-        Oso = int(position[self.ROWS*self.COLS + 1 + 3]) # Number of Os OTTO has
 
-        ### HEADER
+        ### HEADER and BOARD
+        uwapi_turn = {'x':'A','o':'B'}[turn]
+        s = f"R_{uwapi_turn}_0_0_{board}"
         
-        uwapi_turn_char = {"x":"A","o":"B"}[position[self.ROWS*self.COLS]]        
-        s = f"R_{uwapi_turn_char}_0_0_"
-
-        ### ROW 1
-
-        s += SPACER*3
-        s += SPACER * self.COLS
-
-        s += SPACER*3
-
-        ### ROW 2
-
-        if self.COLS < 6:
-            s += SPACER*2
-        else:
-            s += ("T" if Tsx == 6 else SPACER)
-            s += ("O" if Osx == 6 else SPACER)
-        s += SPACER
-        s += SPACER * self.COLS
-        s += SPACER
-        if self.COLS < 6:
-            s += SPACER*2
-        else:
-            s += ("O" if Oso == 6 else SPACER)
-            s += ("T" if Tso == 6 else SPACER)
-
-        ### ROW 3   
-
-        if self.COLS == 4:
-            s += SPACER*2
-        else:
-            s += ("T" if Tsx >= 5 else SPACER)
-            s += ("O" if Osx >= 5 else SPACER)
-        s += SPACER
-        s += DOWN * self.COLS
-        s += SPACER
-        if self.COLS == 4:
-            s += SPACER*2
-        else:
-            s += ("O" if Oso >= 5 else SPACER)
-            s += ("T" if Tso >= 5 else SPACER)
-
-        ### ROW 4 to 7
-
-        for row in range(4,0,-1):
-            s += ("T" if Tsx >= row else SPACER)
-            s += ("O" if Osx >= row else SPACER)
-            s += SPACER
-            s += position[(row-1)*self.COLS:(row)*self.COLS] # print board for that row
-            s += SPACER
-            s += ("O" if Oso >= row else SPACER)
-            s += ("T" if Tso >= row else SPACER)
+        ### PIECES LEFT TO PLACE
+        s += Tsx * 'T' + (self.COLS - Tsx) * '-'
+        s += Osx * 'O' + (self.COLS - Osx) * '-'
+        s += Oso * 'O' + (self.COLS - Oso) * '-'
+        s += Tso * 'T' + (self.COLS - Tso) * '-'
+        
+        ### Add internal representation to end of uwapi position string
+        s += f'_{board}{turn}{Tsx}{Osx}{Tso}{Oso}'
 
         return s
 
     def UWAPI_to_pos(self, UWAPI_position):
-        return UWAPI_position.split("_")[-1]
+        pos = UWAPI_position.split("_")[-1]
+        return pos, list(pos[:self.ROWS*self.COLS]), pos[-5], int(pos[-4]), int(pos[-3]), int(pos[-2]), int(pos[-1])
+    
+    """
+        The way the DB is structured is as follows:
+          - There are separate directories for the number of pieces placed so far, e.g. (0, 1, ..., 24) for a 6-col game.
+          - You can find the position based on its bottom row. However, you must identify
+            what could have been the bottom row in the parent position. There could be multiple
+            such parent-bottom-rows. There are multiple files with the same current bottom row
+            different possible parent rows (but not all parent rows in combination with the
+            current bottom row have a file!). We simply iterate through all such files and see
+            which one has the position data.
+    """
+    def GetValueRemoteness(self, num_placed, current_bottom_row, position):
+        possible_parent_bottom_rows = [current_bottom_row] + [
+            current_bottom_row[:c] + '-' + current_bottom_row[c+1:] 
+            for c in range(self.COLS) if current_bottom_row[c] != '-']
+        for ppbr in possible_parent_bottom_rows:
+            path = f'{os.getcwd()}/{self.DIRECTORY}/{num_placed}/DB{ppbr}_{current_bottom_row}_up.p'
+            if os.path.exists(path):
+                tierDB = pickle.load(open(path, "rb"))
+                if position in tierDB:
+                    return tierDB[position]
+        return 'l', -1 # If we end up here, there's a problem.
 
-    def ListFiles(self, directory):
-        return [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f)) and f != "DOWN" and f != "UP"]
-
-    def GetValueRemoteness(self, current_tier, parentSig, mySig, position):
-        if os.path.exists(os.getcwd()+'/'+self.DIRECTORY+"/"+str(current_tier)+"/"+"DB"+parentSig+"_"+mySig+"_up.p"):
-            tierDB = pickle.load(open(os.getcwd()+'/'+self.DIRECTORY+"/"+str(current_tier)+"/"+"DB"+parentSig+"_"+mySig+"_up.p","rb"))
-            if position in tierDB:
-                return tierDB[position]
-        for filename in filter(lambda f: f != ("DB"+parentSig+"_"+mySig+"_up.p"), self.ListFiles(os.getcwd()+'/'+self.DIRECTORY+"/"+str(current_tier))):
-            tierDB = pickle.load(open(os.getcwd()+'/'+self.DIRECTORY+"/"+str(current_tier)+"/"+filename,"rb"))
-            if position in tierDB:
-                return tierDB[position]
-        print("BADELSE, in GetValueRemoteness, couldn't find " + position)
-        exit()
-
-    def GetValueRemotnessEasy(self, position):
-        return self.GetValueRemoteness(sum([1 for s in position[0:(self.ROWS*self.COLS)] if s != "-"]),
-            position[0:self.COLS], position[0:self.COLS], position)
-
-    def GenerateMoves(self, position):
-        xo = position[self.ROWS*self.COLS]
-        Ts = int(position[self.ROWS*self.COLS + 1 + {'x':0,'o':2}[xo]])
-        Os = int(position[self.ROWS*self.COLS + 1 + {'x':1,'o':3}[xo]])
-        slots = list(filter(lambda col:position[((self.ROWS-1)*self.COLS)+col]=='-',range(self.COLS)))
-        return [(slot,'T') for slot in slots if Ts > 0] + \
-               [(slot,'O') for slot in slots if Os > 0] 
-
-    def DoMove(self, position, move):
-        (slot,TO) = move
-        row = min(filter(lambda row:position[(row*self.COLS)+slot]=='-',range(self.ROWS)))
-        topRow = row*self.COLS
-        xo = position[self.ROWS*self.COLS]
-        TOs = list(map(int,position[self.ROWS*self.COLS+1:self.ROWS*self.COLS+5]))
-        index = {'xT':0,'xO':1,'oT':2,'oO':3}[xo+TO]
-        TOs[index] = TOs[index] - 1
-        return position[0:topRow]+\
-               position[topRow:topRow+slot]+\
-               TO+\
-               position[topRow+slot+1:self.ROWS*self.COLS]+\
-               {'x':'o','o':'x'}[xo]+\
-               "".join(map(str,TOs))
-
-    def MoveToUWAPI(self, position, move):
-        return "A_"+move[1].lower()+"_"+str(3+int(move[0])+((self.COLS+6) if move[1] == "O" else 0))
+    def MoveToUWAPI(self, char, col):
+        return f"A_{char}_{self.COLS * 8 + col + (self.COLS if char == 'o' else 0)}_x"
 
     def __init__(self, COLS):
 
         self.COLS   = COLS
         self.ROWS   = 4
-        self.NINROW = 4
         self.NAME = "" + str(self.ROWS) + "x" + str(self.COLS) + "Toot-N-Otto"
         self.DIRECTORY = "data/" + self.NAME + "F"
  
@@ -178,36 +86,81 @@ class TootNOtto(AbstractGameVariant):
         super(TootNOtto, self).__init__(name, desc, status=status, gui_status=gui_status)
 
     def start_position(self):
-        initial_position = ("-" * self.ROWS * self.COLS) + "x" + (str(self.COLS) * 4)
-        return self.pos_to_UWAPI(initial_position) + "_" + initial_position
+        return self.pos_to_UWAPI("-" * self.ROWS * self.COLS, 'x', self.COLS, self.COLS, self.COLS, self.COLS)
 
     def stat(self, UWAPI_position):
-        position_value_char,remoteness = self.GetValueRemotnessEasy(self.UWAPI_to_pos(UWAPI_position))
-        position_value = {'t':'tie','w':'win','l':'lose'}[position_value_char]
+        return None
+
+    def full_stats(self, UWAPI_position):
+        size = self.ROWS * self.COLS
+        position, board, turn, Tsx, Osx, Tso, Oso = self.UWAPI_to_pos(UWAPI_position)
+        
+        char_to_value = {'t':'tie','w':'win','l':'lose'}
+        num_placed = self.ROWS * self.COLS - Tsx - Osx - Tso - Oso
+        opp_turn = 'o' if turn == 'x' else 'x'
+        parent_bottom_row = position[:self.COLS]
+        parent_value_char, parent_remoteness = self.GetValueRemoteness(num_placed, parent_bottom_row, position)
+        
+        moves = []
+        if parent_remoteness > 0:
+            num_T = {'x':Tsx,'o':Tso}[turn]
+            num_O = {'x':Osx,'o':Oso}[turn]
+            available_columns = [c for c in range(self.COLS) if position[((self.ROWS-1)*self.COLS)+c] == '-']
+            idxs = [position[col : size : self.COLS].index('-') * self.COLS + col for col in available_columns]
+            if num_T > 0:
+                if turn == 'x':
+                    Tsx -= 1
+                else:
+                    Tso -= 1
+                for col, idx in zip(available_columns, idxs):
+                    board[idx] = 'T'
+                    next_board = ''.join(board)
+                    next_UWAPI_position = self.pos_to_UWAPI(next_board, opp_turn, Tsx, Osx, Tso, Oso)
+                    board[idx] = '-'
+                    current_bottom_row = next_board[:self.COLS]
+                    position_value_char, remoteness = self.GetValueRemoteness(
+                        num_placed + 1, current_bottom_row, next_UWAPI_position.split('_')[-1]
+                    )
+                    position_value = char_to_value[position_value_char]
+                    next_res = {
+                        "move": self.MoveToUWAPI('t', col),
+                        "moveName": 'T' + str(col),
+                        "position": next_UWAPI_position,
+                        "positionValue": position_value,
+                        "remoteness": remoteness
+                    }
+                    moves.append(next_res)
+                if turn == 'x':
+                    Tsx += 1
+                else:
+                    Tso += 1
+            if num_O > 0:
+                if turn == 'x':
+                    Osx -= 1
+                else:
+                    Oso -= 1
+                for col, idx in zip(available_columns, idxs):
+                    board[idx] = 'O'
+                    next_board = ''.join(board)
+                    next_UWAPI_position = self.pos_to_UWAPI(next_board, opp_turn, Tsx, Osx, Tso, Oso)
+                    board[idx] = '-'
+                    current_bottom_row = next_board[:self.COLS]
+                    position_value_char, remoteness = self.GetValueRemoteness(
+                        num_placed + 1, current_bottom_row, next_UWAPI_position.split('_')[-1]
+                    )
+                    position_value = char_to_value[position_value_char]
+                    next_res = {
+                        "move": self.MoveToUWAPI('o', col),
+                        "moveName": 'O' + str(col),
+                        "position": next_UWAPI_position,
+                        "positionValue": position_value,
+                        "remoteness": remoteness
+                    }
+                    moves.append(next_res)
         response = {
-            "position"     : UWAPI_position,
-            "positionValue": position_value,
-            "remoteness"   : remoteness,
+            "position": UWAPI_position,
+            "positionValue": char_to_value[parent_value_char],
+            "remoteness": parent_remoteness,
+            "moves": moves
         }
         return response
-
-    def next_stats(self, UWAPI_position):
-        position = self.UWAPI_to_pos(UWAPI_position)
-        _, remoteness = self.GetValueRemotnessEasy(position)
-        response = []
-        if remoteness != 0:
-            moves = self.GenerateMoves(position)
-            for move in moves:
-                UWAPI_move = self.MoveToUWAPI(position,move)
-                next_position = self.DoMove(position,move)
-                next_UWAPI_position = self.pos_to_UWAPI(next_position)+"_"+next_position
-                next_res = {
-                    "move": UWAPI_move,
-                    "moveName": f'{move[1]}{move[0] + 1}',
-                    **self.stat(next_UWAPI_position)
-                }
-                response.append(next_res)
-        return response
-
-    def get_player(self, position_str):
-        return position_str.split('_')[1]
