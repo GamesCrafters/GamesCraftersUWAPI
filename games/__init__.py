@@ -160,19 +160,27 @@ games = {
         },
         gui_status='v3'),
     
+    'change': Game(
+        name='Change!',
+        desc="Markers cannot turn corners, jump or go backwards. The first person to occupy his opponent's initial spaces or traps his opponent's piece wins.",
+        variants={
+            'regular': GameVariant(
+                name='Regular',
+                desc='Regular',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='change',
+                data_provider_variant_id=3,
+                status='available',
+                gui_status='v3'
+            )
+        },
+        gui_status='v3'),
+    
     'chess': Game(
         name='Chess',
         desc="Chess",
         variants={
             '7-man': RegularChessVariant()
-        },
-        gui_status='v2'),
-
-    'euclidsgame': Game(
-        name="Euclid's Game",
-        desc="Euclid's Gane",
-        variants={
-            'regular': EuclidsGame()
         },
         gui_status='v2'),
 
@@ -192,7 +200,7 @@ games = {
         },
         gui_status='v3'),
     
-    'ctoi': Game(
+    'chungtoi': Game(
         name='Chung-Toi',
         desc="In the first phase, each player alternates turns placing three pieces on the board. In the second phase, the pieces may be moved to different slots, rotated or both. Wins when player achieves three in a row, vertically, horizontally or diagonally.",
         variants={
@@ -320,6 +328,21 @@ games = {
             ),
         },
         gui_status='v1'),
+    
+    'dao': Game(
+        name='Dao',
+        desc="Each player moves their pieces (one per turn) as far as possible during each turn, till their pieces reach the end of the board or till their pieces reach another one of own pieces (in any direction). To win, the player can either form a straight line with 4 of their own pieces, occupy the four corners of the board, or forming a 2 x 2 square with their pieces anywhere on the playing board.",
+        variants={
+            'regular': GameVariant(
+                name='Regular',
+                desc='Regular',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='dao',
+                data_provider_variant_id=-1,
+                status='available',
+                gui_status='v3'),
+        },
+        gui_status='v3'),
         
     'dawsonschess': Game(
         name='Dawson\'s Chess',
@@ -396,6 +419,14 @@ games = {
                 gui_status='v3')
         },
         gui_status='v3'),
+    
+    'euclidsgame': Game(
+        name="Euclid's Game",
+        desc="Euclid's Gane",
+        variants={
+            'regular': EuclidsGame()
+        },
+        gui_status='v2'),
 
     'fivefieldkono': Game(
         name='Five Field Kono',
@@ -710,6 +741,31 @@ games = {
         },
         custom_variant=nim_custom_start,
         gui_status='v1'),
+    
+    'ninemensmorris': Game(
+        name="Nine Men's Morris",
+        desc="Players first alternate placing pieces onto empty nodes on the board. Once all pieces have been placed, players take turns sliding their pieces to other empty nodes connected to it by a line. If a player's move completes a 'mill', three in a line, then that player gets removes one of the opponent's pieces from the board that is currently not in a mill. A mill may be broken and reformed. When a player is down to 3 pieces, that player may move his or her piece to any empty node on the board.",
+        variants={
+            'regular':  GameVariant(
+                name="Standard 9 Men's Morris",
+                desc="Nine Men's Morris",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=12,
+                status='available',
+                gui_status='v3'
+            ),
+            '6mmNoFly':  GameVariant(
+                name="Standard 6 Men's Morris",
+                desc="Six Men's Morris",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='369mm',
+                data_provider_variant_id=6,
+                status='available',
+                gui_status='v3'
+            )
+        },
+        gui_status='v3'),
 
     'notakto': Game(
         name='NoTakTo',
@@ -742,61 +798,7 @@ games = {
         },
         gui_status='v2'),
 
-    'dao': Game(
-        name='Dao',
-        desc="Each player moves their pieces (one per turn) as far as possible during each turn, till their pieces reach the end of the board or till their pieces reach another one of own pieces (in any direction). To win, the player can either form a straight line with 4 of their own pieces, occupy the four corners of the board, or forming a 2 x 2 square with their pieces anywhere on the playing board.",
-        variants={
-            'regular': GameVariant(
-                name='Regular',
-                desc='Regular',
-                data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='dao',
-                data_provider_variant_id=-1,
-                status='available',
-                gui_status='v3'),
-        },
-        gui_status='v3'),
     
-    'change': Game(
-        name='Change!',
-        desc="Markers cannot turn corners, jump or go backwards. The first person to occupy his opponent's initial spaces or traps his opponent's piece wins.",
-        variants={
-            'regular': GameVariant(
-                name='Regular',
-                desc='Regular',
-                data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='change',
-                data_provider_variant_id=3,
-                status='available',
-                gui_status='v3'
-            )
-        },
-        gui_status='v3'),
-    
-    '369mm': Game(
-        name="Nine Men's Morris",
-        desc="Players first alternate placing pieces onto empty nodes on the board. Once all pieces have been placed, players take turns sliding their pieces to other empty nodes connected to it by a line. If a player's move completes a 'mill', three in a line, then that player gets removes one of the opponent's pieces from the board that is currently not in a mill. A mill may be broken and reformed. When a player is down to 3 pieces, that player may move his or her piece to any empty node on the board.",
-        variants={
-            'regular':  GameVariant(
-                name="Standard 9 Men's Morris",
-                desc="Nine Men's Morris",
-                data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='369mm',
-                data_provider_variant_id=12,
-                status='available',
-                gui_status='v3'
-            ),
-            '6mmNoFly':  GameVariant(
-                name="Standard 6 Men's Morris",
-                desc="Six Men's Morris",
-                data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='369mm',
-                data_provider_variant_id=6,
-                status='available',
-                gui_status='v3'
-            )
-        },
-        gui_status='v3'),
     
     'ooe': Game(
         name='Odd or Even',
@@ -889,6 +891,21 @@ games = {
         },
         gui_status='v3'),
     
+    'shifttactoe': Game(
+        name='Shift Tac Toe',
+        desc='',
+        variants={
+            'default': GameVariant(
+                name='Regular',
+                desc='Regular',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='stt',
+                data_provider_variant_id=-1,
+                status='available',
+                gui_status='v2')
+        },
+        gui_status='v2'),
+    
     'slide5': Game(
         name="Slide-5",
         desc="Slide 5",
@@ -929,21 +946,6 @@ games = {
             },
         gui_status='v3'),
     
-    'stt': Game(
-        name='Shift Tac Toe',
-        desc='',
-        variants={
-            'default': GameVariant(
-                name='Regular',
-                desc='Regular',
-                data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='stt',
-                data_provider_variant_id=-1,
-                status='available',
-                gui_status='v2')
-        },
-        gui_status='v2'),
-    
     'tactix': Game(
         name='Tac Tix',
         desc="2D Nim",
@@ -983,7 +985,7 @@ games = {
         },
         gui_status='v3'),
 
-    'tttwo': Game(
+    'tictactwo': Game(
         name='Tic-Tac-Two',
         desc="Add piece onto a square in the grid, move a piece on the board, or move the grid. Wins when you connect three in a row horizontally, vertically, or diagonally within the grid.",
         variants={
@@ -998,9 +1000,9 @@ games = {
         },
         gui_status='v3'),
     
-    'tootnottopy': Game(
-        name='Toot-N-Otto',
-        desc='Toot-N-Otto, get 4-in-a-row of TOOT (player 1) or OTTO (player 2) first',
+    'tootandotto': Game(
+        name='Toot and Otto',
+        desc='Toot and Otto, get 4-in-a-row of TOOT (player 1) or OTTO (player 2) first',
         variants={
             '4': TootNOtto(4),
             '5': TootNOtto(5),

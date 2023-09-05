@@ -1,7 +1,7 @@
 """
 ===== STEP 1 ===== 
-Create a function that returns AutoGUIv2 Data for your game, given a variant of that game.
-Return None if no AutoGUIv2 Data for the given variant.
+Create a function that returns Image AutoGUI Data for your game, given a variant of that game.
+Return None if no Image AutoGUI Data for the given variant.
 
 get_<game>(variant_id) should return JSON of the following form:
 
@@ -9,19 +9,25 @@ get_<game>(variant_id) should return JSON of the following form:
         "defaultTheme": <name of default theme>,
         "themes": {
             <name of theme1>: {
-                "backgroundGeometry": [<width>, <height>],
-                "backgroundImage": <optional, path to background image>,
-                "foregroundImage": <optional, path to foreground image>,
+                "space": [<width>, <height>],
+                "background": <optional, path to background image>,
+                "foreground": <optional, path to foreground image>,
                 "centers": [ [<x0>,<y0>], [<x1>, <y1>], [<x2>, <y2>], [<x3>, <y3>], ... ],
                 "arrowWidth": <optional, width of all arrow move buttons>,
                 "lineWidth": <optional, width of all line move buttons>,
-                "defaultMoveTokenRadius: <optional, radius of all default move buttons>,
-                "piecesOverArrows": <optional, Boolean, whether pieces are drawn over arrows or not>,
-                "pieces": {
-                    <char1>: {"image": <path to piece image>, "scale": <image scale>},
+                "circleButtonRadius: <optional, radius of all default circle move buttons>,
+                "entitiesOverArrows": <optional, Boolean, whether entities are drawn over arrows or not>,
+                "entities": {
+                    <char1>: {"image": <path to entity image>, "scale": <image scale>},
                     <char2>: { ... }
                     ...
+                },
+                "sounds": <optional> {
+                    <char1>: <string, path to sound file>,
+                    <char2>:
                 }
+                "animationType": <optional, string, animation type>,
+                "animationWindow": [start, end] <optional>
             },
             <name of theme2>: {
                 ...
@@ -34,14 +40,62 @@ get_<game>(variant_id) should return JSON of the following form:
 
 """
 
+def get_baghchal(variant_id):
+    entities = {f"{i}": {"image": f"general/{i}.svg", "scale": 1.2} for i in range(10)}
+    entities["G"] = {"image": "baghchal/G.png", "scale": 0.7},
+    entities["T"] = {"image": "baghchal/T.png", "scale": 0.75},
+    
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [5, 6],
+                "background": "baghchal/grid5Diag.svg",
+                "arrowWidth": 0.05,
+                "centers": [[0.5 + (i % 5), 0.5 + (i // 5)] for i in range(25)] + [[3.75,5.2], [3.95,5.2], [3.75,5.55], [3.95,5.55]],
+                "entitiesOverArrows": True,
+                "entities": entities,
+                "sounds": {
+                    "g": "animals/goat.mp3",
+                    "t": "animals/tiger.mp3"
+                },
+                "animationType": "simpleSlidePlaceRemove",
+                "animationWindow": [0, 25]
+            }
+        }
+    }
+
+def get_lite3(variant_id):
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [30, 30],
+                "background": "lite3/3x3grid.svg",
+                "circleButtonRadius": 2,
+                "centers": [[x % 3 * 10 + 5, x // 3 * 10 + 5] for x in range(9)],
+                "entities": {
+                    "a": {"image": "lite3/o.svg", "scale": 3},
+                    "b": {"image": "lite3/o.svg", "scale": 6},
+                    "c": {"image": "lite3/o.svg", "scale": 9},
+                    "1": {"image": "lite3/x.svg", "scale": 3},
+                    "2": {"image": "lite3/x.svg", "scale": 6},
+                    "3": {"image": "lite3/x.svg", "scale": 9}
+                },
+                "sounds": {"x": "general/place.mp3"},
+                "animationType": "naiveInterpolate"
+            }
+        }
+    }
+    
 def get_jenga(variant_id):
     if variant_id == "regular":
-        data = {
+        return {
             "defaultTheme": "simple",
             "themes": {
                 "simple": {
-                    "backgroundGeometry": [6, 12], 
-                    "backgroundImage": "jenga/JengaBoard.svg",
+                    "space": [6, 12], 
+                    "background": "jenga/JengaBoard.svg",
                     "centers": [                                    [3.5, 11.5], [4.5, 11.5], [5.5, 11.5], 
                                 [0.5, 10.5], [1.5, 10.5], [2.5, 10.5],   
                                                                     [3.5, 9.5], [4.5, 9.5], [5.5, 9.5], 
@@ -55,75 +109,12 @@ def get_jenga(variant_id):
                                                                     [3.5, 1.5], [4.5, 1.5], [5.5, 1.5], 
                                 [0.5, 0.5], [1.5, 0.5], [2.5, 0.5]],
                
-                    "pieces": { "J": {"image": "jenga/JengaPiece.svg", "scale": 1.0}}
+                    "entities": { "J": {"image": "jenga/JengaPiece.svg", "scale": 1}}
                 }
             }
         }
-        return data
     else:
         return None
-
-def get_lite3(variant_id):
-    return {
-        "defaultTheme": "regular",
-        "themes": {
-            "regular": {
-                "backgroundGeometry": [30, 30],
-                "backgroundImage": "lite3/3x3grid.svg",
-                "centers": [
-                    [5, 5], [15, 5], [25, 5],
-                    [5, 15], [15, 15], [25, 15],
-                    [5, 25], [15, 25], [25, 25]
-                ],
-                "pieces": {
-                    "a": {"image": "lite3/o.svg", "scale": 3},
-                    "b": {"image": "lite3/o.svg", "scale": 6},
-                    "c": {"image": "lite3/o.svg", "scale": 9},
-                    "1": {"image": "lite3/x.svg", "scale": 3},
-                    "2": {"image": "lite3/x.svg", "scale": 6},
-                    "3": {"image": "lite3/x.svg", "scale": 9}
-                },
-                "sounds": {"x": "general/place.mp3"},
-                "animationType": "naiveInterpolate"
-            }
-        }
-    }
-
-def get_baghchal(variant_id):
-    return {
-        "regular": {
-            "defaultTheme": "stolen_art",
-            "themes": {
-                "stolen_art": {
-                    "backgroundGeometry": [5, 6],
-                    "backgroundImage": "baghchal/grid5Diag.svg",
-                    "arrowWidth": 0.05,
-                    "centers": [[0.5 + (i % 5), 0.5 + (i // 5)] for i in range(25)] + [[3.75,5.2], [3.95,5.2], [3.75,5.55], [3.95,5.55]],
-                    "piecesOverArrows": True,
-                    "pieces": {
-                        "G": {"image": "baghchal/G.png", "scale": 0.7},
-                        "T": {"image": "baghchal/T.png", "scale": 0.75},
-                        "0": {"image": "general/0.svg", "scale": 1.2},
-                        "1": {"image": "general/1.svg", "scale": 1.2},
-                        "2": {"image": "general/2.svg", "scale": 1.2},
-                        "3": {"image": "general/3.svg", "scale": 1.2},
-                        "4": {"image": "general/4.svg", "scale": 1.2},
-                        "5": {"image": "general/5.svg", "scale": 1.2},
-                        "6": {"image": "general/6.svg", "scale": 1.2},
-                        "7": {"image": "general/7.svg", "scale": 1.2},
-                        "8": {"image": "general/8.svg", "scale": 1.2},
-                        "9": {"image": "general/9.svg", "scale": 1.2}
-                    },
-                    "sounds": {
-                        "g": "animals/goat.mp3",
-                        "t": "animals/tiger.mp3"
-                    },
-                    "animationType": "simpleSlidePlaceRemove",
-                    "animationWindow": [0, 25]
-                }
-            }
-        }
-    }.get(variant_id, None)
 
 def get_3spot(variant_id):
     return {
@@ -165,7 +156,7 @@ def get_3spot(variant_id):
         }
     }.get(variant_id, None)
 
-def get_369mm(variant_id):
+def get_ninemensmorris(variant_id):
     sounds = {
         "x": "general/place.mp3",
         "y": "general/slide.mp3",
@@ -361,7 +352,7 @@ def get_dodgem(variant_id):
         }
     }.get(variant_id, None)
 
-def get_tttwo(variant_id):
+def get_tictactwo(variant_id):
     return {
         "regular": {
             "defaultTheme": "regular",
@@ -369,6 +360,7 @@ def get_tttwo(variant_id):
                 "regular": {
                     "backgroundGeometry": [104, 124],
                     "backgroundImage": "tttwo/grid.svg",
+                    "defaultMoveTokenRadius": 4,
                     "centers": [
                         [12, 12], [32, 12], [52, 12], [72, 12], [92, 12], 
                         [12, 32], [32, 32], [52, 32], [72, 32], [92, 32], 
@@ -399,7 +391,7 @@ def get_tttwo(variant_id):
         }
     }.get(variant_id, None)
 
-def get_stt(variant_id):
+def get_shifttactoe(variant_id):
     return {
         "default": {
             "defaultTheme": "regular",
@@ -437,7 +429,7 @@ def get_stt(variant_id):
         }
     }.get(variant_id, None)
 
-def get_tootnottopy(variant_id):
+def get_tootandotto(variant_id):
     pieces = {
         "T": {"image": "tootnotto/T.svg", "scale": 10.0 }, 
         "t": {"image": "tootnotto/tt.svg", "scale": 10.0}, 
@@ -523,7 +515,7 @@ def get_tootnottopy(variant_id):
         }
     }.get(variant_id, None)
 
-def get_ctoi(variant_id):
+def get_chungtoi(variant_id):
     return {
         "regular": {
             "defaultTheme": "regular",
@@ -604,7 +596,7 @@ def get_dawsonschess(variant_id):
     }
 
 def get_chess(variant_id):
-    if variant_id != '7-man':
+    if variant_id != "7-man":
         return None
     pieces = {
                 "K": "K", "Q": "Q", "R": "R", "B": "B", "N": "N", 
@@ -646,8 +638,8 @@ def get_foxandhounds(variant_id):
                                  33,35,37,39,40,42,44,46,49,51,53,55,56,58,60,62)],
                     "piecesOverArrows": True,
                     "pieces": {
-                        'F': {'image': 'foxandhounds/F.png', 'scale': 1},
-                        'G': {'image': 'foxandhounds/G.png', 'scale': 1},
+                        "F": {"image": "foxandhounds/F.png", "scale": 1},
+                        "G": {"image": "foxandhounds/G.png", "scale": 1},
                     },
                     "sounds": {
                         "f": "animals/fox.mp3",
@@ -733,7 +725,7 @@ def get_haregame(variant_id):
         "r": "animals/bunny.mp3",
         "d": "animals/dog.mp3"
     }
-    if variant_id == 's-hounds-first' or variant_id == "s-hare-first":
+    if variant_id == "s-hounds-first" or variant_id == "s-hare-first":
         return {
             "defaultTheme": "regular",
             "themes": {
@@ -749,7 +741,7 @@ def get_haregame(variant_id):
                 }
             }
         }
-    elif variant_id == 'm-hounds-first' or variant_id == "m-hare-first":
+    elif variant_id == "m-hounds-first" or variant_id == "m-hare-first":
         return {
             "defaultTheme": "regular",
             "themes": {
@@ -765,7 +757,7 @@ def get_haregame(variant_id):
                 }
             }
         }
-    elif variant_id == 'l-hounds-first' or variant_id == "l-hare-first":
+    elif variant_id == "l-hounds-first" or variant_id == "l-hare-first":
         return {
             "defaultTheme": "regular",
             "themes": {
@@ -790,7 +782,7 @@ def get_connect4c(variant_id):
         "O": { "image": "connect4/O.svg", "scale": 1.0 }, 
         "a": { "image": "connect4/a.svg", "scale": 0.8 }
     }
-    if variant_id == '6x6':
+    if variant_id == "6x6":
         return {
             "defaultTheme": "normal",
             "themes": {
@@ -804,7 +796,7 @@ def get_connect4c(variant_id):
                 }
             }
         }
-    elif variant_id == '6x7':
+    elif variant_id == "6x7":
         return {
             "defaultTheme": "normal",
             "themes": {
@@ -1367,9 +1359,9 @@ def get_ghost(variant_id):
                 "backgroundImage": "ghost/gray_background.svg",
                 "centers": [[0.5 + i, 2.5] for i in range(25)] + [[1 + i, 2.5] for i in range(24)] + [[6.5 + 2 * i, 7.5] for i in range(7)] + [[6.5 + 2 * i, 9.5] for i in range(7)] + [[6.5 + 2 * i, 11.5] for i in range(7)] + [[8.5 + 2 * i, 13.5] for i in range(5)],
                 "pieces": {
-                    f'{letter}': {
-                        "image": f'general/{letter.upper()}.svg', "scale": 1 if letter.isupper() else 2
-                    } for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+                    f"{letter}": {
+                        "image": f"general/{letter.upper()}.svg", "scale": 1 if letter.isupper() else 2
+                    } for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
                 },
                 "sounds": {"x": "general/remove.mp3"},
                 "animationType": "naiveInterpolate"
@@ -1475,8 +1467,7 @@ def get_konane(variant_id):
                 }
             }
         }
-
-    
+   
 def get_yote(variant_id):
     pieces = {
         "0": {"image": "general/0.svg", "scale": 9},
@@ -1563,52 +1554,52 @@ def get_adugo(variant_id):
 Add your function to the autoGUIv2DataFuncs dict.
 """
 
-autoGUIv2DataFuncs = {
-    "jenga": get_jenga,
-    "quickcross": get_quickcross,
-    "baghchal": get_baghchal,
+image_autogui_data_funcs = {
+    "1dchess": get_1dchess,
     "3spot": get_3spot,
-    "369mm": get_369mm,
-    "topitop": get_topitop,
-    "Lgame": get_Lgame,
-    "dodgem": get_dodgem,
-    "tttwo": get_tttwo,
-    "stt": get_stt,
-    "tootnottopy": get_tootnottopy,
-    "ctoi": get_ctoi,
-    "chomp": get_chomp,
-    "dawsonschess": get_dawsonschess,
+    "achi": get_achi,
+    "adugo": get_adugo,
+    "baghchal": get_baghchal,
+    "beeline": get_beeline,
+    "change": get_change,
     "chess": get_chess,
-    "snake": get_snake,
+    "chinesechess": get_chinesechess,
+    "chomp": get_chomp,
     "connect4c": get_connect4c,
+    "chungtoi": get_chungtoi,
+    "dao": get_dao,
+    "dawsonschess": get_dawsonschess,
+    "dinododgem": get_dinododgem,
+    "dodgem": get_dodgem,
+    "dragonsandswans": get_dragonsandswans,
+    "euclidsgame": get_euclidsgame,
+    "fivefieldkono": get_fivefieldkono,
+    "forestfox": get_forestfox,
+    "foxandhounds": get_foxandhounds,
+    "gameofy": get_gameofy,
+    "ghost": get_ghost,
+    "haregame": get_haregame,
+    "jenga": get_jenga,
+    "konane": get_konane,
+    "Lgame": get_Lgame,
     "lite3": get_lite3,
     "mutorere": get_mutorere,
-    "achi": get_achi,
-    "dinododgem": get_dinododgem,
-    "tactix": get_tactix,
-    "quickchess": get_quickchess,
-    "haregame": get_haregame,
-    "othello": get_othello,
-    "gameofy": get_gameofy,
-    "beeline": get_beeline,
-    "1dchess": get_1dchess,
-    "chinesechess": get_chinesechess,
+    "ninemensmorris": get_ninemensmorris,
     "notakto": get_notakto,
-    "dao": get_dao,
-    "change": get_change,
-    "fivefieldkono": get_fivefieldkono,
-    "dragonsandswans": get_dragonsandswans,
-    "forestfox": get_forestfox,
-    "euclidsgame": get_euclidsgame,
-    "ghost": get_ghost,
+    "othello": get_othello,
+    "quickchess": get_quickchess,
+    "quickcross": get_quickcross,
+    "shifttactoe": get_shifttactoe,
     "slide5": get_slide5,
-    "foxandhounds": get_foxandhounds,
-    "adugo": get_adugo,
-    "yote": get_yote,
-    "konane": get_konane
+    "snake": get_snake,
+    "tactix": get_tactix,
+    "tictactwo": get_tictactwo,
+    "tootandotto": get_tootandotto,
+    "topitop": get_topitop,
+    "yote": get_yote
 }
 
-def get_autoguiV2Data(game_id, variant_id):
-    if game_id in autoGUIv2DataFuncs:
-        return autoGUIv2DataFuncs[game_id](variant_id)
+def image_autogui_data(game_id, variant_id):
+    if game_id in image_autogui_data_funcs:
+        return image_autogui_data_funcs[game_id](variant_id)
     return None
