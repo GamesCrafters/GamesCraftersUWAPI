@@ -797,9 +797,7 @@ games = {
                 gui_status='v2')
         },
         gui_status='v2'),
-
-    
-    
+     
     'ooe': Game(
         name='Odd or Even',
         desc="15 matches, take 1, 2, or 3 matches. Wins when you have even number of matches when 0 matches on board.",
