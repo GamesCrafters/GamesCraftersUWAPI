@@ -21,7 +21,7 @@ get_<game>(variant_id) should return JSON of the following form:
                 "circleButtonRadius: <optional, radius of all default circle move buttons>,
                 "lineWidth": <optional, width of all line move buttons>,
                 "arrowWidth": <optional, width of all arrow move buttons>,
-                "entitiesOverArrows": <optional, Boolean, whether entities are drawn over arrows or not>,
+                "entitiesOverArrows": <optional, Boolean, whether entities are drawn over arrows>,
                 "sounds": <optional> {
                     <char1>: <string, path to sound file>,
                     <char2>:

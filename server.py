@@ -161,7 +161,7 @@ def handle_game(game_id):
                 'description': variant.desc,
                 'status': variant.status,
                 'startPosition': variant.start_position(),
-                'autogui_v2_data': get_image_autogui_data(game_id, variant_id),
+                'imageAutoGUIData': get_image_autogui_data(game_id, variant_id),
                 'gui_status': variant.gui_status
             }
             for (variant_id, variant) in game.variants.items() if variant.status != 'unavailable'
@@ -183,7 +183,7 @@ def handle_variant(game_id, variant_id):
                 'description': variant.desc,
                 'status': variant.status,
                 'startPosition': variant.start_position(),
-                'autogui_v2_data': get_image_autogui_data(game_id, variant_id)
+                'imageAutoGUIData': get_image_autogui_data(game_id, variant_id)
             }
         ]
     })
