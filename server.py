@@ -4,7 +4,7 @@ from flask import Flask, escape, request
 from flask_cors import CORS
 
 from games import games, GamesmanClassicDataProvider
-from games.AutoGUI_v2_Games import *
+from games.image_autogui_data import *
 from games.randomized_start import *
 from games.models import EfficientGameVariant
 from games.Ghost import Node, Trie
@@ -18,11 +18,11 @@ CORS(app)
 
 # ID mapping from Uni to GC to get game instructions.
 ids = {'1210': '1210', 'abalone': 'abalone', 'achi': 'achi', 'ago': 'atarigo',
-       'baghchal': 'baghchal', 'ctoi': 'chungtoi', 'dao': 'dao', 'dinododgem': 'dinododgem',
-       'dnb': 'dotsandboxes', 'swans': 'dragonsandswans', 'foxes': 'foxandgeese',
-       'Lgame': 'lgame', 'mancala': 'mancala', '369mm': 'ninemensmorris', 'topitop': 'topitop', 'ooe': 'oddoreven',
+       'baghchal': 'baghchal', 'chungtoi': 'chungtoi', 'dao': 'dao', 'dinododgem': 'dinododgem',
+       'dnb': 'dotsandboxes', 'dragonsandswans': 'dragonsandswans', 'foxes': 'foxandgeese',
+       'Lgame': 'lgame', 'mancala': 'mancala', 'ninemensmorris': 'ninemensmorris', 'topitop': 'topitop', 'ooe': 'oddoreven',
        'othello': 'othello', 'quickchess': 'quickchess', 'sim': 'sim', 'snake': 'snake', '3spot': 'threespot',
-       'ttt': 'tictactoe', 'tilechess': 'tilechess', 'connect4': 'connect4', 'dodgem': 'dodgem'}
+       'ttt': 'tictactoe', 'tilechess': 'tilechess', 'connect4c': 'connect4', 'dodgem': 'dodgem'}
 
 # Helper methods
 
@@ -161,7 +161,7 @@ def handle_game(game_id):
                 'description': variant.desc,
                 'status': variant.status,
                 'startPosition': variant.start_position(),
-                'autogui_v2_data': get_autoguiV2Data(game_id, variant_id),
+                'imageAutoGUIData': get_image_autogui_data(game_id, variant_id),
                 'gui_status': variant.gui_status
             }
             for (variant_id, variant) in game.variants.items() if variant.status != 'unavailable'
@@ -183,7 +183,7 @@ def handle_variant(game_id, variant_id):
                 'description': variant.desc,
                 'status': variant.status,
                 'startPosition': variant.start_position(),
-                'autogui_v2_data': get_autoguiV2Data(game_id, variant_id)
+                'imageAutoGUIData': get_image_autogui_data(game_id, variant_id)
             }
         ]
     })
