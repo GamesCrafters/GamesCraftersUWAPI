@@ -924,15 +924,10 @@ def get_quickcross(variant_id):
     }
 
 def get_shifttactoe(variant_id):
-    centers = [
-        [3.5, 0.5], [4.5, 0.5], [5.5, 0.5], [3.5, 1.5], [4.5, 1.5], [5.5, 1.5], [0, 2.5],
-        [1, 2.5], [2, 2.5], [2.5, 2.5], [3.5, 2.5], [4.5, 2.5], [5.5, 2.5], [6.5, 2.5],
-        [7, 2.5], [8, 2.5], [9, 2.5], [0, 3.5], [1, 3.5], [2, 3.5], [2.5, 3.5], [3.5, 3.5],
-        [4.5, 3.5], [5.5, 3.5], [6.5, 3.5], [7, 3.5], [8, 3.5], [9, 3.5], [0, 4.5], [1, 4.5],
-        [2, 4.5], [2.5, 4.5], [3.5, 4.5], [4.5, 4.5], [5.5, 4.5], [6.5, 4.5], [7, 4.5], [8, 4.5],
-        [9, 4.5], [2.5, 5.5], [6.5, 5.5], [3.5, 2.5], [4.5, 2.5], [5.5, 2.5], [3.5, 3.5], 
-        [4.5, 3.5], [5.5, 3.5], [3.5, 4.5], [4.5, 4.5], [5.5, 4.5]
-    ]
+    centers = [[i % 3 + 3.5, i // 3 + 2.5] for i in range(9)] * 2
+    centers += [[i % 3 + 3.5, i // 3 + 0.5] for i in range(6)]
+    centers += [[i % 3, i // 3 + 2.5] for i in range(9)]
+    centers += [[i % 3 + 7, i // 3 + 2.5] for i in range(9)]
     return {
         "defaultTheme": "regular",
         "themes": {
@@ -1087,26 +1082,106 @@ def get_tootandotto(variant_id):
     return None
 
 def get_topitop(variant_id):
-    picked = {c: c * 2 for c in 'brsl'} | {c: c for c in 'BRSLXOCPQ'}
-    entities = {c: {"image": f"topitop/{picked[c]}.svg", "scale": 1} for c in picked}
-    entities.update({c: {"image": f"general/{c}.svg", "scale": 1} for c in '01234'})
+    # picked = {c: c * 2 for c in 'brsl'} | {c: c for c in 'BRSLXOCPQ'}
+    # entities = {c: {"image": f"topitop/{picked[c]}.svg", "scale": 1} for c in picked}
+    # entities.update({c: {"image": f"general/{c}.svg", "scale": 1} for c in '01234'})
+    entities = {
+        "B": {
+            "image": "topitop/B.svg",
+            "scale": 1
+        },
+        "R": {
+            "image": "topitop/R.svg",
+            "scale": 1
+        },
+        "S": {
+            "image": "topitop/S.svg",
+            "scale": 1
+        },
+        "L": {
+            "image": "topitop/L.svg",
+            "scale": 1
+        },
+        "P": {
+            "image": "othello/P.svg",
+            "scale": 1
+        },
+        "u": {
+            "image": "topitop/uu.svg",
+            "scale": 0.3
+        },
+        "v": {
+            "image": "topitop/vv.svg",
+            "scale": 0.3
+        },
+        "w": {
+            "image": "topitop/ww.svg",
+            "scale": 0.3
+        }
+    }
+
+    centers = []
+    largecenters = [[0.5, 0.5], [1.5, 0.5], [2.5, 0.5], [0.5, 1.5], [1.5, 1.5], [2.5, 1.5], [0.5, 2.5], [1.5, 2.5], [2.5, 2.5]]
+    for x, y in largecenters: # 15 20 37
+        centers += [[x, y - 0.57], [x, y - 0.2], [x, y], [x, y - 0.37], [x, y], [x, y]]
+    centers += [[-99, -99], [-99, -99]]
+
+    offs = 0.3
+    ofs2 = 0.35
+    centers += [
+        [0.5 + offs, 0.5], [1.5 - offs, 0.5], # 01
+        [0.5, 0.5 + offs], [0.5, 1.5 - offs], # 03
+        [0.5 + ofs2, 0.5 + ofs2], [1.5 - ofs2, 1.5 - ofs2], # 04
+        [1.5 + offs, 0.5], [2.5 - offs, 0.5], # 12
+        [1.5 - ofs2, 0.5 + ofs2], [0.5 + ofs2, 1.5 - ofs2], # 13
+        [1.5, 0.5 + offs], [1.5, 1.5 - offs], # 14
+        [1.5 + ofs2, 0.5 + ofs2], [2.5 - ofs2, 1.5 - ofs2], # 15
+        [2.5 - ofs2, 0.5 + ofs2], [1.5 + ofs2, 1.5 - ofs2], # 24
+        [2.5, 0.5 + offs], [2.5, 1.5 - offs], # 25
+        [0.5 + offs, 1.5], [1.5 - offs, 1.5], # 34
+        [0.5, 1.5 + offs], [0.5, 2.5 - offs], # 36
+        [0.5 + ofs2, 1.5 + ofs2], [1.5 - ofs2, 2.5 - ofs2], # 37
+        [1.5 + offs, 1.5], [2.5 -  offs, 1.5], # 45
+        [1.5 - ofs2, 1.5 + ofs2], [0.5 + ofs2, 2.5 - ofs2], # 46
+        [1.5, 1.5 + offs], [1.5, 2.5 - offs], # 47
+        [1.5 + ofs2, 1.5 + ofs2], [2.5 - ofs2, 2.5 - ofs2], # 48
+        [2.5 - ofs2, 1.5 + ofs2], [1.5 + ofs2, 2.5 - ofs2], # 57
+        [2.5, 1.5 + offs], [2.5, 2.5 - offs], # 58
+        [0.5 + offs, 2.5], [1.5 - offs, 2.5], # 67
+        [1.5 + offs, 2.5], [2.5 - offs, 2.5] # 78
+    ]
+
+    s = 0.866025
+    m = 0.16
+
+    centers += [[x - m * s, y - m / 2] for x, y in largecenters] # bucket place button
+    centers += [[x + m * s, y - m / 2] for x, y in largecenters] # small place button
+    centers += [[x, y + m] for x, y in largecenters] # large place button
+
+    centers += [[1.5, 3.3]]
+
+    ctrs = []
+    for y in range(len(centers)):
+        ctrs.append([centers[y][0], centers[y][1], y])
+
     return {
         "defaultTheme": "beach",
         "themes": {
             "beach": {
                 "space": [3, 4],
-                "centers": [
-                    [99, 99], [99, 99], [99, 99], [99, 99], [99, 99], [99, 99], 
-                    [0.5, 0.5], [1.5, 0.5], [2.5, 0.5], [99, 99], [99, 99], 
-                    [0.5, 1.5], [1.5, 1.5], [2.5, 1.5], [99, 99], [99, 99], 
-                    [0.5, 2.5], [1.5, 2.5], [2.5, 2.5], [99, 99], [99, 99], 
-                    [99, 99], [1.5, 3.85], [99, 99], [99, 99], [0.25, 3.15], 
-                    [0.25, 3.85], [99, 99], [0.8, 3.15], [0.8, 3.85], 
-                    [1.5, 3.15], [1.5, 3.85], [99, 99], [2.4, 3.15], 
-                    [2.4, 3.85], [99, 99], [99, 99], [99, 99], [99, 99], [99, 99]
-                ],
+                "centers": ctrs,
                 "background": "topitop/grid.svg",
-                "entities": entities
+                "entities": entities,
+                "arrowWidth": 0.03,
+                "sounds": {
+                    "v": "general/remove.mp3",
+                    "w": "general/place.mp3",
+                    "x": "general/place.mp3",
+                    "y": "general/place.mp3",
+                    "z": "general/slide.mp3"
+                },
+                "animationType": "multipleSlides",
+                "defaultAnimationWindow": [0, 54]
             }
         }
     }
