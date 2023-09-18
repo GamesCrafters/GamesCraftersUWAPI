@@ -136,7 +136,9 @@ def get_adugo(variant_id):
                     "entities": {
                         "B": {"image": "general/blackpiece.svg", "scale": 9},
                         "W": {"image": "general/whitepiece.svg", "scale": 9}
-                    }
+                    },
+                    "animationType": "multipleSlides",
+                    "defaultAnimationWindow": [1, 27]
                 }
             }
         }
@@ -456,7 +458,8 @@ def get_euclidsgame(variant_id):
                 "centers": [[i % 10 + 0.5, i // 10 + 0.5] for i in range(100)],
                 "entities": {
                     "X": {"image": "euclidsgame/cut.svg", "scale": 0.9},
-                }
+                },
+                "animationType": "simpleSlidePlaceRemove"
             }
         }
     }
@@ -503,7 +506,8 @@ def get_forestfox(variant_id):
                 "arrowWidth": 2,
                 "entities": {
                     p: {"image": f"forestfox/{pieces[p]}.svg", "scale": 200} for p in pieces
-                }
+                },
+                "animationType": "multipleSlides"
             }
         }
     }
@@ -661,7 +665,8 @@ def get_konane(variant_id):
                         "x": {"image": "general/blackpiece.svg", "scale": 9},
                         "o": {"image": "general/whitepiece.svg", "scale": 9}
                     },
-                    "circleButtonRadius": 1.5
+                    "circleButtonRadius": 1.5,
+                    "animationType": "multipleSlides"
                 }
             }
         }
@@ -823,7 +828,8 @@ def get_notakto(variant_id):
             "basic": {
                 "entities": {
                     "X": {"image": "notakto/x.svg", "scale": 22}
-                }
+                },
+                "animationType": "simpleSlidePlaceRemove"
             }
         }
     }
@@ -941,6 +947,7 @@ def get_shifttactoe(variant_id):
                     "o": {"image": "shifttactoe/o.svg", "scale": 1}
                 },
                 "arrowWidth": 0.10,
+                "animationType": "multipleSlides"
             }
         }
     }
@@ -1085,7 +1092,7 @@ def get_topitop(variant_id):
     # The four building components, 3 placement move buttons, and 1 passturn button
     entities = {
         c: {"image": f"topitop/{c}.svg", "scale": 1 if c.isupper() else 0.3} for c in "BRSLuvw"
-    } | {"P": {"image": "othello/P.svg", "scale": 1}}
+    } | {"P": {"image": "othello/P.svg", "scale": 0.5}}
 
     centers = []
     maincenters = [[i % 3 + 0.5, i // 3 + 0.5] for i in range(9)] # Centers of the 9 grid spaces
