@@ -1019,10 +1019,10 @@ games = {
                 data_provider_game_id='topitop',
                 data_provider_variant_id=-1,
                 status='available',
-                gui_status='v2'
+                gui_status='v3'
             )
         },
-        gui_status='v2'),
+        gui_status='v3'),
 
     'yote': Game(
         name='Yote',

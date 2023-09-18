@@ -924,15 +924,10 @@ def get_quickcross(variant_id):
     }
 
 def get_shifttactoe(variant_id):
-    centers = [
-        [3.5, 0.5], [4.5, 0.5], [5.5, 0.5], [3.5, 1.5], [4.5, 1.5], [5.5, 1.5], [0, 2.5],
-        [1, 2.5], [2, 2.5], [2.5, 2.5], [3.5, 2.5], [4.5, 2.5], [5.5, 2.5], [6.5, 2.5],
-        [7, 2.5], [8, 2.5], [9, 2.5], [0, 3.5], [1, 3.5], [2, 3.5], [2.5, 3.5], [3.5, 3.5],
-        [4.5, 3.5], [5.5, 3.5], [6.5, 3.5], [7, 3.5], [8, 3.5], [9, 3.5], [0, 4.5], [1, 4.5],
-        [2, 4.5], [2.5, 4.5], [3.5, 4.5], [4.5, 4.5], [5.5, 4.5], [6.5, 4.5], [7, 4.5], [8, 4.5],
-        [9, 4.5], [2.5, 5.5], [6.5, 5.5], [3.5, 2.5], [4.5, 2.5], [5.5, 2.5], [3.5, 3.5], 
-        [4.5, 3.5], [5.5, 3.5], [3.5, 4.5], [4.5, 4.5], [5.5, 4.5]
-    ]
+    centers = [[i % 3 + 3.5, i // 3 + 2.5] for i in range(9)] * 2
+    centers += [[i % 3 + 3.5, i // 3 + 0.5] for i in range(6)]
+    centers += [[i % 3, i // 3 + 2.5] for i in range(9)]
+    centers += [[i % 3 + 7, i // 3 + 2.5] for i in range(9)]
     return {
         "defaultTheme": "regular",
         "themes": {
@@ -1087,26 +1082,64 @@ def get_tootandotto(variant_id):
     return None
 
 def get_topitop(variant_id):
-    picked = {c: c * 2 for c in 'brsl'} | {c: c for c in 'BRSLXOCPQ'}
-    entities = {c: {"image": f"topitop/{picked[c]}.svg", "scale": 1} for c in picked}
-    entities.update({c: {"image": f"general/{c}.svg", "scale": 1} for c in '01234'})
+    # The four building components, 3 placement move buttons, and 1 passturn button
+    entities = {
+        c: {"image": f"topitop/{c}.svg", "scale": 1 if c.isupper() else 0.3} for c in "BRSLuvw"
+    } | {"P": {"image": "othello/P.svg", "scale": 1}}
+
+    centers = []
+    maincenters = [[i % 3 + 0.5, i // 3 + 0.5] for i in range(9)] # Centers of the 9 grid spaces
+    for x, y in maincenters:
+        # These are the centers of the building components in different scenarios.
+        # For example, a bucket has different coordinates if it is not stacked on anything
+        # vs. if it is stacked on a small sandpile vs. if stacked on both a small and large pile.
+        # (1) Bucket if on ground, (2) bucket if on small, (3) bucket if on largesmall, 
+        # (4) small if on ground, (5) small if on large, (6) large (can only be on ground)
+        centers += [[x, y - 0.57], [x, y - 0.2], [x, y], [x, y - 0.37], [x, y], [x, y]]
+    centers += [[-99, -99], [-99, -99]] # information about disallowedMove is hidden
+
+    # Endpoints of arrow move buttons. There are a total of 40 different arrows that can point
+    # from one square to an adjacent square. However, there are only 40 endpoints and not 80
+    # because some arrows are just the reverse of each other. If the grid slots are numbered 0-8
+    # in row-major order, then the first two coordinates here are the endpoints of the arrows
+    # pointing from 0->1, then 0->3, then 0->4, then 1->2, 1->3, 1->4, 1->5, 2->4, 2->5, etc.
+    # So the arrow endpoints are ordered by starting square are no instances in which you point
+    # from a higher to a lower square e.g. we don't have 4->2 because we can just do 2->4.
+    centers += [
+        [0.77, 0.5], [1.23, 0.5], [0.5, 0.77], [0.5, 1.23], [0.8, 0.8], [1.2, 1.2], [1.77, 0.5],
+        [2.23, 0.5], [1.2, 0.8], [0.8, 1.2], [1.5, 0.77], [1.5, 1.23], [1.8, 0.8], [2.2, 1.2],
+        [2.2, 0.8], [1.8, 1.2], [2.5, 0.77], [2.5, 1.23], [0.77, 1.5], [1.23, 1.5], [0.5, 1.77],
+        [0.5, 2.23], [0.8, 1.8], [1.2, 2.2], [1.77, 1.5], [2.23, 1.5], [1.2, 1.8], [0.8, 2.2],
+        [1.5, 1.77], [1.5, 2.23], [1.8, 1.8], [2.2, 2.2], [2.2, 1.8], [1.8, 2.2], [2.5, 1.77],
+        [2.5, 2.23], [0.77, 2.5], [1.23, 2.5], [1.77, 2.5], [2.23, 2.5]
+    ]
+
+    # Placement move buttons' centers form equilateral triangle at the center of each grid space
+    s, m = 0.866025, 0.16
+    centers += [[x, y - m] for x, y in maincenters] # Bucket place button
+    centers += [[x - m * s, y + m / 2] for x, y in maincenters] # Small pile place button
+    centers += [[x + m * s, y + m / 2] for x, y in maincenters] # Large pile place button
+
+    centers += [[1.5, 3.3]] # Pass turn button
+
     return {
         "defaultTheme": "beach",
         "themes": {
             "beach": {
                 "space": [3, 4],
-                "centers": [
-                    [99, 99], [99, 99], [99, 99], [99, 99], [99, 99], [99, 99], 
-                    [0.5, 0.5], [1.5, 0.5], [2.5, 0.5], [99, 99], [99, 99], 
-                    [0.5, 1.5], [1.5, 1.5], [2.5, 1.5], [99, 99], [99, 99], 
-                    [0.5, 2.5], [1.5, 2.5], [2.5, 2.5], [99, 99], [99, 99], 
-                    [99, 99], [1.5, 3.85], [99, 99], [99, 99], [0.25, 3.15], 
-                    [0.25, 3.85], [99, 99], [0.8, 3.15], [0.8, 3.85], 
-                    [1.5, 3.15], [1.5, 3.85], [99, 99], [2.4, 3.15], 
-                    [2.4, 3.85], [99, 99], [99, 99], [99, 99], [99, 99], [99, 99]
-                ],
+                "centers": centers,
                 "background": "topitop/grid.svg",
-                "entities": entities
+                "entities": entities,
+                "arrowWidth": 0.03,
+                "sounds": {
+                    "v": "general/remove.mp3",
+                    "w": "general/place.mp3",
+                    "x": "general/place.mp3",
+                    "y": "general/place.mp3",
+                    "z": "general/slide.mp3"
+                },
+                "animationType": "multipleSlides",
+                "defaultAnimationWindow": [0, 54]
             }
         }
     }
