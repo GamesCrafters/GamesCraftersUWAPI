@@ -1082,94 +1082,52 @@ def get_tootandotto(variant_id):
     return None
 
 def get_topitop(variant_id):
-    # picked = {c: c * 2 for c in 'brsl'} | {c: c for c in 'BRSLXOCPQ'}
-    # entities = {c: {"image": f"topitop/{picked[c]}.svg", "scale": 1} for c in picked}
-    # entities.update({c: {"image": f"general/{c}.svg", "scale": 1} for c in '01234'})
+    # The four building components, 3 placement move buttons, and 1 passturn button
     entities = {
-        "B": {
-            "image": "topitop/B.svg",
-            "scale": 1
-        },
-        "R": {
-            "image": "topitop/R.svg",
-            "scale": 1
-        },
-        "S": {
-            "image": "topitop/S.svg",
-            "scale": 1
-        },
-        "L": {
-            "image": "topitop/L.svg",
-            "scale": 1
-        },
-        "P": {
-            "image": "othello/P.svg",
-            "scale": 1
-        },
-        "u": {
-            "image": "topitop/uu.svg",
-            "scale": 0.3
-        },
-        "v": {
-            "image": "topitop/vv.svg",
-            "scale": 0.3
-        },
-        "w": {
-            "image": "topitop/ww.svg",
-            "scale": 0.3
-        }
-    }
+        c: {"image": f"topitop/{c}.svg", "scale": 1 if c.isupper() else 0.3} for c in "BRSLuvw"
+    } | {"P": {"image": "othello/P.svg", "scale": 1}}
 
     centers = []
-    largecenters = [[0.5, 0.5], [1.5, 0.5], [2.5, 0.5], [0.5, 1.5], [1.5, 1.5], [2.5, 1.5], [0.5, 2.5], [1.5, 2.5], [2.5, 2.5]]
-    for x, y in largecenters: # 15 20 37
+    maincenters = [[i % 3 + 0.5, i // 3 + 0.5] for i in range(9)] # Centers of the 9 grid spaces
+    for x, y in maincenters:
+        # These are the centers of the building components in different scenarios.
+        # For example, a bucket has different coordinates if it is not stacked on anything
+        # vs. if it is stacked on a small sandpile vs. if stacked on both a small and large pile.
+        # (1) Bucket if on ground, (2) bucket if on small, (3) bucket if on largesmall, 
+        # (4) small if on ground, (5) small if on large, (6) large (can only be on ground)
         centers += [[x, y - 0.57], [x, y - 0.2], [x, y], [x, y - 0.37], [x, y], [x, y]]
-    centers += [[-99, -99], [-99, -99]]
+    centers += [[-99, -99], [-99, -99]] # information about disallowedMove is hidden
 
-    offs = 0.3
-    ofs2 = 0.35
+    # Endpoints of arrow move buttons. There are a total of 40 different arrows that can point
+    # from one square to an adjacent square. However, there are only 40 endpoints and not 80
+    # because some arrows are just the reverse of each other. If the grid slots are numbered 0-8
+    # in row-major order, then the first two coordinates here are the endpoints of the arrows
+    # pointing from 0->1, then 0->3, then 0->4, then 1->2, 1->3, 1->4, 1->5, 2->4, 2->5, etc.
+    # So the arrow endpoints are ordered by starting square are no instances in which you point
+    # from a higher to a lower square e.g. we don't have 4->2 because we can just do 2->4.
     centers += [
-        [0.5 + offs, 0.5], [1.5 - offs, 0.5], # 01
-        [0.5, 0.5 + offs], [0.5, 1.5 - offs], # 03
-        [0.5 + ofs2, 0.5 + ofs2], [1.5 - ofs2, 1.5 - ofs2], # 04
-        [1.5 + offs, 0.5], [2.5 - offs, 0.5], # 12
-        [1.5 - ofs2, 0.5 + ofs2], [0.5 + ofs2, 1.5 - ofs2], # 13
-        [1.5, 0.5 + offs], [1.5, 1.5 - offs], # 14
-        [1.5 + ofs2, 0.5 + ofs2], [2.5 - ofs2, 1.5 - ofs2], # 15
-        [2.5 - ofs2, 0.5 + ofs2], [1.5 + ofs2, 1.5 - ofs2], # 24
-        [2.5, 0.5 + offs], [2.5, 1.5 - offs], # 25
-        [0.5 + offs, 1.5], [1.5 - offs, 1.5], # 34
-        [0.5, 1.5 + offs], [0.5, 2.5 - offs], # 36
-        [0.5 + ofs2, 1.5 + ofs2], [1.5 - ofs2, 2.5 - ofs2], # 37
-        [1.5 + offs, 1.5], [2.5 -  offs, 1.5], # 45
-        [1.5 - ofs2, 1.5 + ofs2], [0.5 + ofs2, 2.5 - ofs2], # 46
-        [1.5, 1.5 + offs], [1.5, 2.5 - offs], # 47
-        [1.5 + ofs2, 1.5 + ofs2], [2.5 - ofs2, 2.5 - ofs2], # 48
-        [2.5 - ofs2, 1.5 + ofs2], [1.5 + ofs2, 2.5 - ofs2], # 57
-        [2.5, 1.5 + offs], [2.5, 2.5 - offs], # 58
-        [0.5 + offs, 2.5], [1.5 - offs, 2.5], # 67
-        [1.5 + offs, 2.5], [2.5 - offs, 2.5] # 78
+        [0.77, 0.5], [1.23, 0.5], [0.5, 0.77], [0.5, 1.23], [0.8, 0.8], [1.2, 1.2], [1.77, 0.5],
+        [2.23, 0.5], [1.2, 0.8], [0.8, 1.2], [1.5, 0.77], [1.5, 1.23], [1.8, 0.8], [2.2, 1.2],
+        [2.2, 0.8], [1.8, 1.2], [2.5, 0.77], [2.5, 1.23], [0.77, 1.5], [1.23, 1.5], [0.5, 1.77],
+        [0.5, 2.23], [0.8, 1.8], [1.2, 2.2], [1.77, 1.5], [2.23, 1.5], [1.2, 1.8], [0.8, 2.2],
+        [1.5, 1.77], [1.5, 2.23], [1.8, 1.8], [2.2, 2.2], [2.2, 1.8], [1.8, 2.2], [2.5, 1.77],
+        [2.5, 2.23], [0.77, 2.5], [1.23, 2.5], [1.77, 2.5], [2.23, 2.5]
     ]
 
-    s = 0.866025
-    m = 0.16
+    # Placement move buttons' centers form equilateral triangle at the center of each grid space
+    s, m = 0.866025, 0.16
+    centers += [[x, y - m] for x, y in maincenters] # Bucket place button
+    centers += [[x - m * s, y + m / 2] for x, y in maincenters] # Small pile place button
+    centers += [[x + m * s, y + m / 2] for x, y in maincenters] # Large pile place button
 
-    centers += [[x - m * s, y - m / 2] for x, y in largecenters] # bucket place button
-    centers += [[x + m * s, y - m / 2] for x, y in largecenters] # small place button
-    centers += [[x, y + m] for x, y in largecenters] # large place button
-
-    centers += [[1.5, 3.3]]
-
-    ctrs = []
-    for y in range(len(centers)):
-        ctrs.append([centers[y][0], centers[y][1], y])
+    centers += [[1.5, 3.3]] # Pass turn button
 
     return {
         "defaultTheme": "beach",
         "themes": {
             "beach": {
                 "space": [3, 4],
-                "centers": ctrs,
+                "centers": centers,
                 "background": "topitop/grid.svg",
                 "entities": entities,
                 "arrowWidth": 0.03,
