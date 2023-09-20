@@ -92,7 +92,7 @@ def get_3spot(variant_id):
                 "background": "3spot/grid.svg",
                 "entities": entities,
                 "sounds": {"x": "general/place.mp3"},
-                "animationType": "naiveInterpolate",
+                "animationType": "entityFade",
                 "defaultAnimationWindow": [0, 13]
             }
         }
@@ -285,7 +285,7 @@ def get_chomp(variant_id):
                     "p" : {"image": "chomp/p.svg", "scale": 1}
                 },
                 "sounds": {"x": "chomp/chomp.mp3"},
-                "animationType": "naiveInterpolate"
+                "animationType": "entityFade"
             }
         }
     }
@@ -320,21 +320,21 @@ def get_chungtoi(variant_id):
 
 def get_connect4c(variant_id):
     def get_theme(cols):
-        piece_centers = [[0.5 + i // 6, 1.5 + i % 6] for i in range(cols * 6)]
+        centers = [[0.5 + i // 6, 1.5 + i % 6] for i in range(cols * 6)]
         return {
             "defaultTheme": "normal",
             "themes": {
                 "normal": {
                     "space": [cols, 7],
-                    "centers": piece_centers + [[0.5 + i, 0.5] for i in range(cols)],
+                    "centers": centers + [[i % cols + 0.5, i // cols] for i in range(cols * 2)],
                     "foreground": f"connect4/foreground6x{cols}.svg",
                     "entities": {
-                        "X": { "image": "connect4/X.svg", "scale": 1.0 }, 
-                        "O": { "image": "connect4/O.svg", "scale": 1.0 }, 
-                        "a": { "image": "connect4/a.svg", "scale": 0.8 }
+                        "X": {"image": "connect4/X.svg", "scale": 1},
+                        "O": {"image": "connect4/O.svg", "scale": 1},
                     },
+                    "arrowWidth": 0.13,
                     "sounds": {"x": "general/remove.mp3"},
-                    "animationType": "naiveInterpolate"
+                    "animationType": "entityFade"
                 }
             }
         }
@@ -376,7 +376,7 @@ def get_dawsonschess(variant_id):
                     e: {"image": f"dawsonschess/{e}.svg", "scale": 1} for e in 'bxo'
                 },
                 "sounds": {"x": "general/place.mp3"},
-                "animationType": "naiveInterpolate"
+                "animationType": "entityFade"
             }
         }
     }
@@ -586,7 +586,7 @@ def get_ghost(variant_id):
                     } for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
                 },
                 "sounds": {"x": "general/remove.mp3"},
-                "animationType": "naiveInterpolate"
+                "animationType": "entityFade"
             }
         }
     }
@@ -704,7 +704,7 @@ def get_Lgame(variant_id):
                     "y": "general/remove.mp3",
                     "z": "general/remove.mp3"
                 },
-                "animationType": "naiveInterpolate",
+                "animationType": "entityFade",
                 "defaultAnimationWindow": [0, 16]
             }
         }
@@ -728,7 +728,7 @@ def get_lite3(variant_id):
                 },
                 "circleButtonRadius": 2,
                 "sounds": {"x": "general/place.mp3"},
-                "animationType": "naiveInterpolate"
+                "animationType": "entityFade"
             }
         }
     }
@@ -874,7 +874,7 @@ def get_othello(variant_id):
                 "circleButtonRadius": 1.5,
                 "entities": entities,
                 "sounds": {"x": "general/place.mp3"},
-                "animationType": "naiveInterpolate"
+                "animationType": "entityFade"
             }
         }
     }
@@ -924,7 +924,7 @@ def get_quickcross(variant_id):
                     "x": "general/place.mp3",
                     "y": "general/remove.mp3"
                 },
-                "animationType": "naiveInterpolate"
+                "animationType": "entityFade"
             }
         }
     }
@@ -972,7 +972,7 @@ def get_slide5(variant_id):
                 },
                 "arrowWidth": 5,
                 "sounds": {"x": "general/remove.mp3"},
-                "animationType": "naiveInterpolate"
+                "animationType": "entityFade"
             }
         }
     }
@@ -1024,7 +1024,7 @@ def get_tactix(variant_id):
                     "O": {"image": "Lgame/G.svg", "scale": 1}
                 },
                 "sounds": {"x": "general/place.mp3"},
-                "animationType": "naiveInterpolate"
+                "animationType": "entityFade"
             }
         }
     }
@@ -1079,7 +1079,7 @@ def get_tootandotto(variant_id):
                         c: {"image": f"tootandotto/{pieces[c]}.svg", "scale": 10} for c in pieces
                     },
                     "sounds": {"x": "general/remove.mp3"},
-                    "animationType": "naiveInterpolate"
+                    "animationType": "entityFade"
                 }
             }
         }
