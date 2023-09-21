@@ -156,7 +156,6 @@ def multipart_solve(position, input_dict):
             'value': e.to_node.value if e.to_node.mp_remoteness else {'lose': 'win', 'tie': 'tie', 'win': 'lose', 'draw': 'draw'}[e.to_node.value],
             'remoteness': e.to_node.remoteness,
             'moveName': move_name
-            #'isTerminal': move_name != None
         }
         moves.append(move_dict)
     return value_to_return, remoteness_to_return, moves

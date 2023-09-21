@@ -11,7 +11,7 @@ class Ghost(EfficientGameVariant):
         super(Ghost, self).__init__(name, desc, status="stable", gui_status="v2")
 
     def start_position(self):
-        return "R_A_0_0_-------------------------------------------------"
+        return "R_A_0_0_-"
     
     def uwapi_pos_str_to_word(self, position):
         return position[8:].replace('-', '')

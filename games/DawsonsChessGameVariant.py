@@ -11,11 +11,9 @@ def dawsonschess_custom_start(variant_id):
 
 class DawsonsChessGameVariant(AbstractGameVariant):
 
-    def __init__(self, board_len):
-        name = "custom"
-        desc = "custom"
+    def __init__(self, board_len, name = "Custom", desc = "Custom"):
         status = "stable"
-        gui_status = "v2"
+        gui_status = "v3"
         self.board_str = ''.join(['b' for i in range(board_len)])
         super(DawsonsChessGameVariant, self).__init__(name, desc, status, gui_status)
 
