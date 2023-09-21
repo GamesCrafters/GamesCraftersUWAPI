@@ -29,10 +29,10 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='1210',
                 data_provider_variant_id=-1,
-                status='dev',
-                gui_status='v0')
+                status='available',
+                gui_status='v3')
         },
-        gui_status='v0'),
+        gui_status='v3'),
 
     '1dchess': Game(
         name='1D Chess',
@@ -347,7 +347,9 @@ games = {
     'dawsonschess': Game(
         name='Dawson\'s Chess',
         desc='Players take turns blocking out spaces on the board.',
-        variants={},
+        variants={
+            str(i): DawsonsChessGameVariant(i, str(i), str(i)) for i in range(5, 10)
+        },
         custom_variant=dawsonschess_custom_start,
         gui_status='v3'),
     

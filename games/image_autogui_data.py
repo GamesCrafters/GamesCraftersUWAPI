@@ -40,6 +40,25 @@ get_<game>(variant_id) should return JSON of the following form:
 
 """
 
+def get_0to10by1or2(variant_id):
+    return {
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "space": [9, 11],
+                "centers": [[4.5, 0.5 + i] for i in range(10, -1, -1)],
+                "background": "0to10by1or2/grid.svg",
+                "entities": {
+                    "x": {"image": "0to10by1or2/x.svg", "scale": "1"}
+                },
+                "arrowWidth": 0.1,
+                "entitiesOverArrows": True,
+                "sounds": {"x": "general/slide.mp3"},
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
 def get_1dchess(variant_id):
     return {
         "defaultTheme": "basic",
@@ -375,6 +394,7 @@ def get_dawsonschess(variant_id):
                 "entities": {
                     e: {"image": f"dawsonschess/{e}.svg", "scale": 1} for e in 'bxo'
                 },
+                "circleButtonRadius": 0.15,
                 "sounds": {"x": "general/place.mp3"},
                 "animationType": "entityFade"
             }
@@ -645,7 +665,8 @@ def get_jenga(variant_id):
                                                                     [3.5, 1.5], [4.5, 1.5], [5.5, 1.5], 
                                 [0.5, 0.5], [1.5, 0.5], [2.5, 0.5]],
                     "background": "jenga/JengaBoard.svg",
-                    "entities": { "J": {"image": "jenga/JengaPiece.svg", "scale": 1}}
+                    "entities": { "J": {"image": "jenga/JengaPiece.svg", "scale": 1}},
+                    "animationType": "entityFade"
                 }
             }
         }
@@ -1194,6 +1215,7 @@ Add your function to the image_autogui_data_funcs dict in alphabetical order by 
 """
 
 image_autogui_data_funcs = {
+    "0to10by1or2": get_0to10by1or2,
     "1dchess": get_1dchess,
     "3spot": get_3spot,
     "achi": get_achi,
