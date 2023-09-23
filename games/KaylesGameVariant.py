@@ -1,5 +1,3 @@
-import json
-
 from .models import AbstractGameVariant
 
 def kayles_custom_start(variant_id):
@@ -11,31 +9,18 @@ def kayles_custom_start(variant_id):
 
 class KaylesGameVariant(AbstractGameVariant):
 
-    piece_char = 'l'
-
-    def __init__(self, board_len):
-        name = "custom"
-        desc = "custom"
+    def __init__(self, board_len, name = "Custom", desc = "Custom"):
         status = "stable"
-        gui_status = "v1"
-        self.board_str = ''.join(['-' for i in range(board_len)])
+        gui_status = "v3"
+        self.board_len = board_len
         super(KaylesGameVariant, self).__init__(name, desc, status, gui_status)
 
     def start_position(self):
-        return KaylesGameVariant.createUWAPIPos(1, len(self.board_str), self.board_str, "A")
+        return "R_A_0_0_" + 'x' * self.board_len
 
     def stat(self, position):
         try:
-            position_str = KaylesGameVariant.get_position_str(position)
-            prev_move = KaylesGameVariant.get_prev_move(position)
-            player = KaylesGameVariant.get_player(position)
-            move_value = None
-            if prev_move != None:
-                moves = KaylesGameVariant.get_moves(position_str, player, prev_move)
-                position_value = KaylesGameVariant.get_position_value_from_moves(moves)
-                move_value = position_value
-            else:
-                position_value = KaylesGameVariant.position_value(position_str)
+            position_value = KaylesGameVariant.position_value(position)
             remoteness = 1
         except Exception as err:
             print(f'Other error occurred: {err}')
@@ -44,46 +29,29 @@ class KaylesGameVariant(AbstractGameVariant):
                 "position": position,
                 "positionValue": position_value,
                 "remoteness": remoteness,
-                "moveValue": move_value,
             }
             return response
 
     def next_stats(self, position):
         try:
-            position_str = KaylesGameVariant.get_position_str(position)
-            prev_move = KaylesGameVariant.get_prev_move(position)
-            player = KaylesGameVariant.get_player(position)
-            moves = KaylesGameVariant.get_moves(position_str, player, prev_move)
+            moves = self.get_moves(position)
         except Exception as err:
             print(f'Other error occurred: {err}')
         else:
             response = [{
                 "move": move,
+                "moveName": moveName,
                 **self.stat(position)
-            } for move, position in moves.items()]
+            } for move, (position, moveName) in moves.items()]
             return response
 
-    def createUWAPIPos(rows, cols, board_str, player):
-        elements = ['R', player, rows, cols, board_str]
-        return "_".join(map(str, elements))
-
-    def get_player(position):
-        return position.split('_')[1]
-
-    def get_position_str(position):
+    def get_board(position):
         return position.split('_')[4]
 
-    def get_prev_move(position):
-        position_arr = position.split('_')
-        if len(position_arr) >= 6:
-            prev_move_str = position_arr[5]
-            return int(prev_move_str.split('=')[1])
-        else:
-            return None
-
     def position_value(position):
+        board = KaylesGameVariant.get_board(position)
         value = 0
-        pile_lengths = KaylesGameVariant.get_pile_lengths(position)
+        pile_lengths = KaylesGameVariant.get_pile_lengths(board)
         for pile_len in pile_lengths:
             pile_mex = KaylesGameVariant.get_mex(pile_len)
             value = value ^ pile_mex
@@ -91,72 +59,45 @@ class KaylesGameVariant(AbstractGameVariant):
             return "lose"
         return "win"
 
-    def get_position_value_from_moves(moves):
-        for _, position in moves.items():
-            pos_value = KaylesGameVariant.position_value(position)
-            if pos_value == "lose":
-                return "win"
-        return "lose"
-
-    def get_pile_lengths(position):
+    def get_pile_lengths(board):
         pile_lengths = []
         curr_pile = 0
-        for i in range(len(position)):
-            if position[i] == '-':
+        for i in range(len(board)):
+            if board[i] == 'x':
                 curr_pile += 1
-            elif position[i] != '-' and curr_pile != 0:
+            elif board[i] != 'x' and curr_pile != 0:
                 pile_lengths.append(curr_pile)
                 curr_pile = 0
         if curr_pile != 0:
             pile_lengths.append(curr_pile)
         return pile_lengths
 
-
-    def get_moves(position, player, prev_move):
-        move_arr = ["A", 'x', 0]
+    def get_moves(self, position):
+        next_turn = 'B' if position[2] == 'A' else 'A'
         moves = {}
-        # If this is the second part of the multi-part move, you can only pick the piece adjacent to the first part of the multi-part move
-        if prev_move != None:
-            next_moves = [prev_move + 1, prev_move - 1]
-            for move_idx in next_moves:
-                if move_idx >= 0 and move_idx < len(position):
-                    if position[move_idx] == '-':
-                        move_arr[2] = str(move_idx)
-                        move = '_'.join(move_arr)
-
-                        next_position = list(position)
-                        next_position[move_idx] = 'x'
-                        next_position = ''.join(next_position)[:-1] # Exclude last character because it isn't used for first part of multi-part
-                        next_position_uwapi = KaylesGameVariant.createUWAPIPos(1, len(next_position), next_position, KaylesGameVariant.next_player(player))
-
-                        moves[move] = next_position_uwapi
-            
-            one_pin_only = ['A', '1', str(len(position) - 1)]
-            one_pin_move = '_'.join(one_pin_only)
-            next_position = position[:-1] # Exclude last character because it isn't used for first part of multi-part
-            next_position_uwapi = KaylesGameVariant.createUWAPIPos(1, len(next_position), next_position, KaylesGameVariant.next_player(player))
-            moves[one_pin_move] = next_position_uwapi
         
-        else:
-            for i in range(len(position)):
-                if position[i] == '-':
-                    move_arr[2] = str(i)
-                    move = '_'.join(move_arr)
-
-                    next_position = list(position)
-                    next_position[i] = 'x'   
-                    next_position.append('-')
-                    next_position_len = len(next_position)
-                    next_position = ''.join(next_position) + '_prevmove=' + str(i)
-
-                    next_position_uwapi = KaylesGameVariant.createUWAPIPos(1, next_position_len, next_position, player)
-
-                    moves[move] = next_position_uwapi
+        board = list(KaylesGameVariant.get_board(position))
+        for i in range(len(board)): # Single pin removals
+            if board[i] == 'x':
+                board[i] = '-'
+                moves[f"A_-_{self.board_len + i}_y"] = (
+                    f"R_{next_turn}_0_0_{''.join(board)}",
+                    f"{i}"
+                )
+                board[i] = 'x'
+        for i in range(len(board) - 1): # Double pin removals
+            if board[i] == 'x' and board[i + 1] == 'x':
+                board[i] = '-'
+                board[i + 1] = '-'
+                fromIdx, toIdx = self.board_len * 2 + i, self.board_len * 3 + i
+                moves[f"L_{fromIdx}_{toIdx}_x"] = (
+                    f"R_{next_turn}_0_0_{''.join(board)}",
+                    f"{i}-{i+1}"
+                )
+                board[i] = 'x'
+                board[i + 1] = 'x'
 
         return moves
-
-    def next_player(player):
-        return 'B' if player == 'A' else 'A'
 
     def get_mex(board_len):
         periodic = [4, 1, 2, 8, 1, 4, 7, 2, 1, 8, 2, 7]

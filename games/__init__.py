@@ -608,9 +608,11 @@ games = {
     'kayles': Game(
         name='Kayles',
         desc='Players take turns blocking out one or two adjacent spaces on the board.',
-        variants={},
+        variants={
+            str(i): KaylesGameVariant(i, str(i), str(i)) for i in range(5, 10)
+        },
         custom_variant=kayles_custom_start,
-        gui_status='v1'),
+        gui_status='v3'),
 
     'konane': Game(
         name='Konane',

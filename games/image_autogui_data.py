@@ -672,6 +672,33 @@ def get_jenga(variant_id):
         }
     else:
         return None
+    
+def get_kayles(variant_id):
+    size = int(variant_id)
+    if size == 1:
+        centers = [[1, 0.7], [1, 1.4]]
+    elif size == 2:
+        centers = [[0.5, 0.7], [1.5, 0.7], [0.5, 1.4], [1.5, 1.4], 
+                   [0.75, 1.4], [1.75, 1.4], [1.25, 1.4], [2.25, 1.4]]
+    else:
+        centers = [[0.5 + i, 1.5] for i in range(size)] + [[0.5 + i, 2.2] for i in range(size)] \
+            + [[0.75 + i, 2.2] for i in range(size)] + [[1.25 + i, 2.2] for i in range(size)]
+    return {
+        "defaultTheme": "kings",
+        "themes": {
+            "kings": {
+                "space": [max(size, 2), 3 if size > 1 else 2],
+                "centers": centers,
+                "entities": {
+                    "x": {"image": "kayles/x.svg", "scale": 1}
+                },
+                "circleButtonRadius": 0.12,
+                "lineWidth": 0.1,
+                "sounds": {"x": "general/place.mp3", "y": "general/remove.mp3"},
+                "animationType": "entityFade"
+            }
+        }
+    }
 
 def get_konane(variant_id):
     def konane_iadata(rows, cols):
@@ -942,6 +969,7 @@ def get_quickcross(variant_id):
                     "h": {"image": "quickcross/H.svg", "scale": 70},
                     "r": {"image": "quickcross/rotate.svg", "scale": 30}
                 },
+                "lineWidth": 4,
                 "sounds": {
                     "x": "general/place.mp3",
                     "y": "general/remove.mp3"
@@ -1241,6 +1269,7 @@ image_autogui_data_funcs = {
     "ghost": get_ghost,
     "haregame": get_haregame,
     "jenga": get_jenga,
+    "kayles": get_kayles,
     "konane": get_konane,
     "Lgame": get_Lgame,
     "lite3": get_lite3,
