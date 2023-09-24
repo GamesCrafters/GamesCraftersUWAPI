@@ -741,10 +741,16 @@ games = {
         name='Nim',
         desc='Players take turns taking sticks from a pile',
         variants={
-            '3_3_3': JSONGameVariant(os.path.join(dirname, 'solutions/nim/3_3_3.json'), gui_status='v1'),
+            s: NimGameVariant(p, s, s) for p, s in (
+                ((2, 3, 5, 7), '2_3_5_7'),
+                ((3, 3, 3), '3_3_3'),
+                ((1, 2, 3, 4, 5), '1_2_3_4_5'),
+                ((7, 8, 11, 13, 15), '7_8_11_13_15'),
+                ((1, 3, 5, 7, 9, 10), '1_3_5_7_9_10')
+            )
         },
         custom_variant=nim_custom_start,
-        gui_status='v1'),
+        gui_status='v3'),
     
     'ninemensmorris': Game(
         name="Nine Men's Morris",

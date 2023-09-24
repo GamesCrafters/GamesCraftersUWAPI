@@ -386,16 +386,16 @@ def get_dao(variant_id):
 
 def get_dawsonschess(variant_id):
     size = int(variant_id)
+    entities = {"t": {"image": "general/basichitbox.svg", "scale": 1}} | {
+        e: {"image": f"dawsonschess/{e}.svg", "scale": 1} for e in 'bx'}
     return {
         "defaultTheme": "kings",
         "themes": {
             "kings": {
-                "space": [size, 1],
-                "centers": [[0.5 + i, 0.5] for i in range(size)],
-                "entities": {
-                    e: {"image": f"dawsonschess/{e}.svg", "scale": 1} for e in 'bxo'
-                },
-                "circleButtonRadius": 0.15,
+                "space": [size, size],
+                "centers": [[0.5 + i, size / 2] for i in range(size)],
+                "background": "dawsonschess/grid.svg",
+                "entities": entities,
                 "sounds": {"x": "general/place.mp3"},
                 "animationType": "entityFade"
             }
@@ -800,6 +800,44 @@ def get_mutorere(variant_id):
                 "entitiesOverArrows": True,
                 "sounds": {"x": "general/slide.mp3"},
                 "animationType": "simpleSlides"
+            }
+        }
+    }
+
+def get_nim(variant_id):
+    try:
+        piles = variant_id.split('_')
+        for i in range(len(piles)):
+            piles[i] = int(piles[i])
+    except Exception as err:
+        return None
+    
+    m, n = max(piles), len(piles)
+    adjusted_m, adjusted_n = m + 2, n * 2 + 1
+    sideLength = max(adjusted_m, adjusted_n)
+    v_spacing = (sideLength - n) / (n + 1) + 1 # spacing between piles
+    y = v_spacing - 0.5 # y-coordinate of starting pile
+    
+    centers = []
+    for i in range(len(piles)):
+        pile_size = piles[i]
+        for j in range(pile_size):
+            centers.append([1.5 + j, y])
+        y += v_spacing
+
+    return {
+        "defaultTheme": "kings",
+        "themes": {
+            "kings": {
+                "space": [sideLength, sideLength],
+                "centers": centers,
+                "background": "nim/grid.svg",
+                "entities": {
+                    "x": {"image": "general/whitepiece.svg", "scale": 1},
+                    "t": {"image": "general/basichitbox.svg", "scale": 1}
+                },
+                "sounds": {"x": "general/place.mp3"},
+                "animationType": "entityFade"
             }
         }
     }
@@ -1274,6 +1312,7 @@ image_autogui_data_funcs = {
     "Lgame": get_Lgame,
     "lite3": get_lite3,
     "mutorere": get_mutorere,
+    "nim": get_nim,
     "ninemensmorris": get_ninemensmorris,
     "notakto": get_notakto,
     "othello": get_othello,

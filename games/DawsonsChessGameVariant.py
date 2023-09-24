@@ -5,55 +5,43 @@ def dawsonschess_custom_start(variant_id):
         board_len = int(variant_id)
     except Exception as err:
         return None
-    return DawsonsChessGameVariant(board_len)
+    return DawsonsChessGameVariant(board_len, str(board_len), str(board_len))
 
 class DawsonsChessGameVariant(AbstractGameVariant):
 
     def __init__(self, board_len, name = "Custom", desc = "Custom"):
         status = "stable"
         gui_status = "v3"
-        self.board_str = ''.join(['b' for i in range(board_len)])
+        self.board_len = board_len
         super(DawsonsChessGameVariant, self).__init__(name, desc, status, gui_status)
 
     def start_position(self):
-        return "R_A_0_0_" + self.board_str
+        return "R_A_0_0_" + 'b' * self.board_len
 
     def stat(self, position):
-        try:
-            position_str = DawsonsChessGameVariant.get_position_str(position)
-            position_value = DawsonsChessGameVariant.position_value(position_str)
-            remoteness = 1
-        except Exception as err:
-            print(f'Other error occurred: {err}')
-        else:
-            response = {
-                "position": position,
-                "positionValue": position_value,
-                "remoteness": remoteness,
-            }
-            return response
+        position_str = DawsonsChessGameVariant.get_position_str(position)
+
+        response = {
+            "position": position,
+            "positionValue": DawsonsChessGameVariant.position_value(position_str),
+            "remoteness": 1,
+        }
+        return response
 
     def next_stats(self, position):
-        try:
-            position_str = DawsonsChessGameVariant.get_position_str(position)
-            player = DawsonsChessGameVariant.get_player(position)
-            moves = DawsonsChessGameVariant.get_moves(position_str, player)
-        except Exception as err:
-            print(f'Other error occurred: {err}')
-        else:
-            response = [{
-                "move": move[0],
-                "moveName": move[1],
-                **self.stat(position)
-            } for move, position in moves.items()]
-            return response
+        position_str = DawsonsChessGameVariant.get_position_str(position)
+        player = position[2]
+        moves = DawsonsChessGameVariant.get_moves(position_str, player)
 
-    def getUWAPIPos(rows, cols, board_str, player):
-        elements = ['R', player, 0, 0, board_str]
-        return "_".join(map(str, elements))
+        response = [{
+            "move": move,
+            "moveName": moveName,
+            **self.stat(next_position)
+        } for move, (next_position, moveName) in moves.items()]
+        return response
 
-    def get_player(position):
-        return position.split('_')[1]
+    def getUWAPIPos(board_str, player):
+        return f"R_{player}_0_0_{board_str}"
 
     def get_position_str(position):
         return position.split('_')[4]
@@ -72,7 +60,8 @@ class DawsonsChessGameVariant(AbstractGameVariant):
         pile_lengths = []
         curr_pile = 0
         for i in range(len(position)):
-            if position[i] == 'b':
+            if position[i] == 'b' and (i == 0 or position[i - 1] == 'b') \
+                and (i == (len(position) - 1) or position[i + 1] == 'b'):
                 curr_pile += 1
             elif position[i] != 'b' and curr_pile != 0:
                 pile_lengths.append(curr_pile)
@@ -81,30 +70,20 @@ class DawsonsChessGameVariant(AbstractGameVariant):
             pile_lengths.append(curr_pile)
         return pile_lengths
 
-
-    def get_moves(position, player):
-        move_arr = ["A", '-', 0, 'x']
+    def get_moves(position_str, player):
+        next_player = 'B' if player == 'A' else 'A'
+        next_position = list(position_str)
         moves = {}
-        for i in range(len(position)):
-            if position[i] == 'b':
-                move_arr[2] = str(i)
-                move = '_'.join(move_arr)
-
-                next_position = list(position)
+        for i in range(len(position_str)):
+            if position_str[i] == 'b' and (i == 0 or position_str[i - 1] == 'b') \
+                and (i == (len(position_str) - 1) or position_str[i + 1] == 'b'):
                 next_position[i] = 'x'
-                if i > 0:
-                    next_position[i-1] = 'o'
-                if i < len(position) - 1:
-                    next_position[i+1] = 'o'
-                next_position = ''.join(next_position)
-
-                next_position_uwapi = DawsonsChessGameVariant.getUWAPIPos(1, len(position), next_position, DawsonsChessGameVariant.next_player(player))
-
-                moves[(move, i)] = next_position_uwapi
+                moves[f"A_t_{i}_x"] = (
+                    DawsonsChessGameVariant.getUWAPIPos(''.join(next_position), next_player),
+                    f"{i + 1}"
+                )
+                next_position[i] = 'b'
         return moves
-
-    def next_player(player):
-        return 'B' if player == 'A' else 'A'
 
     def get_mex(board_len):
         periodic = [8, 1, 1, 2, 0, 3, 1, 1, 0, 3, 3, 2, 2, 4, 4, 5, 5, 9, 3, 3, 0, 1, 1, 3, 0, 2, 1, 1, 0, 4, 5, 3, 7, 4]

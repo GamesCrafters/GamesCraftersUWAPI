@@ -5,7 +5,7 @@ def kayles_custom_start(variant_id):
         board_len = int(variant_id)
     except Exception as err:
         return None
-    return KaylesGameVariant(board_len)
+    return KaylesGameVariant(board_len, str(board_len), str(board_len))
 
 class KaylesGameVariant(AbstractGameVariant):
 
@@ -19,45 +19,33 @@ class KaylesGameVariant(AbstractGameVariant):
         return "R_A_0_0_" + 'x' * self.board_len
 
     def stat(self, position):
-        try:
-            position_value = KaylesGameVariant.position_value(position)
-            remoteness = 1
-        except Exception as err:
-            print(f'Other error occurred: {err}')
-        else:
-            response = {
-                "position": position,
-                "positionValue": position_value,
-                "remoteness": remoteness,
-            }
-            return response
+        response = {
+            "position": position,
+            "positionValue": KaylesGameVariant.position_value(position),
+            "remoteness": 1,
+        }
+        return response
 
     def next_stats(self, position):
-        try:
-            moves = self.get_moves(position)
-        except Exception as err:
-            print(f'Other error occurred: {err}')
-        else:
-            response = [{
-                "move": move,
-                "moveName": moveName,
-                **self.stat(position)
-            } for move, (position, moveName) in moves.items()]
-            return response
+        moves = self.get_moves(position)
+        response = [{
+            "move": move,
+            "moveName": moveName,
+            **self.stat(next_position)
+        } for move, (next_position, moveName) in moves.items()]
+        return response
 
-    def get_board(position):
+    def get_position_str(position):
         return position.split('_')[4]
 
     def position_value(position):
-        board = KaylesGameVariant.get_board(position)
+        board = KaylesGameVariant.get_position_str(position)
         value = 0
         pile_lengths = KaylesGameVariant.get_pile_lengths(board)
         for pile_len in pile_lengths:
             pile_mex = KaylesGameVariant.get_mex(pile_len)
             value = value ^ pile_mex
-        if value == 0:
-            return "lose"
-        return "win"
+        return "lose" if value == 0 else "win"
 
     def get_pile_lengths(board):
         pile_lengths = []
@@ -76,23 +64,23 @@ class KaylesGameVariant(AbstractGameVariant):
         next_turn = 'B' if position[2] == 'A' else 'A'
         moves = {}
         
-        board = list(KaylesGameVariant.get_board(position))
+        board = list(KaylesGameVariant.get_position_str(position))
         for i in range(len(board)): # Single pin removals
             if board[i] == 'x':
-                board[i] = 'b'
+                board[i] = '-'
                 moves[f"A_-_{self.board_len + i}_y"] = (
                     f"R_{next_turn}_0_0_{''.join(board)}",
-                    f"{i}"
+                    f"{i + 1}"
                 )
                 board[i] = 'x'
         for i in range(len(board) - 1): # Double pin removals
             if board[i] == 'x' and board[i + 1] == 'x':
-                board[i] = 'b'
-                board[i + 1] = 'b'
+                board[i] = '-'
+                board[i + 1] = '-'
                 fromIdx, toIdx = self.board_len * 2 + i, self.board_len * 3 + i
                 moves[f"L_{fromIdx}_{toIdx}_x"] = (
                     f"R_{next_turn}_0_0_{''.join(board)}",
-                    f"{i}-{i+1}"
+                    f"{i + 1}-{i + 2}"
                 )
                 board[i] = 'x'
                 board[i + 1] = 'x'
