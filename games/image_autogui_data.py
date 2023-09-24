@@ -301,7 +301,8 @@ def get_chomp(variant_id):
                 "centers": [[i % 7 + 0.5, i // 7 + 0.5] for i in range(28)],
                 "entities": {
                     "x" : {"image": "chomp/x.svg", "scale": 1},
-                    "p" : {"image": "chomp/p.svg", "scale": 1}
+                    "p" : {"image": "chomp/p.svg", "scale": 1},
+                    "t" : {"image": "general/basichitbox.svg", "scale": 1}
                 },
                 "sounds": {"x": "chomp/chomp.mp3"},
                 "animationType": "entityFade"
@@ -524,10 +525,11 @@ def get_forestfox(variant_id):
                 "space": [1150, 900],
                 "centers": centers,
                 "background": "forestfox/cardboard.svg",
-                "arrowWidth": 2,
                 "entities": {
                     p: {"image": f"forestfox/{pieces[p]}.svg", "scale": 200} for p in pieces
                 },
+                "circleButtonRadius": 16,
+                "sounds": {"x": "general/slide.mp3"},
                 "animationType": "simpleSlides"
             }
         }
@@ -676,22 +678,19 @@ def get_jenga(variant_id):
 def get_kayles(variant_id):
     size = int(variant_id)
     if size == 1:
-        centers = [[1, 0.7], [1, 1.4]]
-    elif size == 2:
-        centers = [[0.5, 0.7], [1.5, 0.7], [0.5, 1.4], [1.5, 1.4], 
-                   [0.75, 1.4], [1.75, 1.4], [1.25, 1.4], [2.25, 1.4]]
+        centers = [[1, 0.9], [1, 1.6]]
     else:
-        centers = [[0.5 + i, 1.5] for i in range(size)] + [[0.5 + i, 2.2] for i in range(size)] \
-            + [[0.75 + i, 2.2] for i in range(size)] + [[1.25 + i, 2.2] for i in range(size)]
+        y = size / 2
+        centers = [[0.5 + i, y] for i in range(size)] + [[0.5 + i, y + 0.7] for i in range(size)] \
+        + [[0.75 + i, y + 0.7] for i in range(size)] + [[1.25 + i, y + 0.7] for i in range(size)]
     return {
         "defaultTheme": "kings",
         "themes": {
             "kings": {
-                "space": [max(size, 2), 3 if size > 1 else 2],
+                "space": [max(size, 2), max(size, 2)],
                 "centers": centers,
-                "entities": {
-                    "x": {"image": "kayles/x.svg", "scale": 1}
-                },
+                "background": "kayles/grid.svg",
+                "entities": {"x": {"image": "kayles/x.svg", "scale": 1}},
                 "circleButtonRadius": 0.12,
                 "lineWidth": 0.1,
                 "sounds": {"x": "general/place.mp3", "y": "general/remove.mp3"},
@@ -715,6 +714,7 @@ def get_konane(variant_id):
                         "o": {"image": "general/whitepiece.svg", "scale": 9}
                     },
                     "circleButtonRadius": 1.5,
+                    "sounds": {"x": "general/remove.mp3", "y": "general/slide.mp3"},
                     "animationType": "simpleSlides"
                 }
             }

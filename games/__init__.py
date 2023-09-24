@@ -472,9 +472,9 @@ games = {
                 data_provider_game_id='forestfox',
                 data_provider_variant_id=-1,
                 status='stable',
-                gui_status='v2')
+                gui_status='v3')
         },
-        gui_status='v2'),
+        gui_status='v3'),
 
     'foxandhounds': Game(
         name='Fox and Hounds',
@@ -615,7 +615,7 @@ games = {
         gui_status='v3'),
 
     'konane': Game(
-        name='Konane',
+        name='Kōnane',
         desc="Checkers, restricted to jumping only.",
         variants={
             '4x4': GameVariant(
@@ -625,7 +625,7 @@ games = {
                 data_provider_game_id='konane',
                 data_provider_variant_id=0,
                 status='available',
-                gui_status='v2'),
+                gui_status='v3'),
             '4x5': GameVariant(
                 name='4x5',
                 desc='4x5',
@@ -633,7 +633,7 @@ games = {
                 data_provider_game_id='konane',
                 data_provider_variant_id=1,
                 status='available',
-                gui_status='v2'),
+                gui_status='v3'),
             '5x5': GameVariant(
                 name='5x5',
                 desc='5x5',
@@ -641,7 +641,7 @@ games = {
                 data_provider_game_id='konane',
                 data_provider_variant_id=2,
                 status='available',
-                gui_status='v2'),
+                gui_status='v3'),
             '5x6': GameVariant(
                 name='5x6',
                 desc='5x6',
@@ -649,9 +649,9 @@ games = {
                 data_provider_game_id='konane',
                 data_provider_variant_id=3,
                 status='available',
-                gui_status='v2'),
+                gui_status='v3'),
         },
-        gui_status='v2'),
+        gui_status='v3'),
     
     'Lgame': Game(
         name='L-game',

@@ -1,5 +1,3 @@
-import json
-
 from .models import AbstractGameVariant
 
 def dawsonschess_custom_start(variant_id):
@@ -18,7 +16,7 @@ class DawsonsChessGameVariant(AbstractGameVariant):
         super(DawsonsChessGameVariant, self).__init__(name, desc, status, gui_status)
 
     def start_position(self):
-        return DawsonsChessGameVariant.getUWAPIPos(1, len(self.board_str), self.board_str, "A")
+        return "R_A_0_0_" + self.board_str
 
     def stat(self, position):
         try:
@@ -51,7 +49,7 @@ class DawsonsChessGameVariant(AbstractGameVariant):
             return response
 
     def getUWAPIPos(rows, cols, board_str, player):
-        elements = ['R', player, rows, cols, board_str]
+        elements = ['R', player, 0, 0, board_str]
         return "_".join(map(str, elements))
 
     def get_player(position):

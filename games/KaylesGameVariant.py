@@ -79,7 +79,7 @@ class KaylesGameVariant(AbstractGameVariant):
         board = list(KaylesGameVariant.get_board(position))
         for i in range(len(board)): # Single pin removals
             if board[i] == 'x':
-                board[i] = '-'
+                board[i] = 'b'
                 moves[f"A_-_{self.board_len + i}_y"] = (
                     f"R_{next_turn}_0_0_{''.join(board)}",
                     f"{i}"
@@ -87,8 +87,8 @@ class KaylesGameVariant(AbstractGameVariant):
                 board[i] = 'x'
         for i in range(len(board) - 1): # Double pin removals
             if board[i] == 'x' and board[i + 1] == 'x':
-                board[i] = '-'
-                board[i + 1] = '-'
+                board[i] = 'b'
+                board[i + 1] = 'b'
                 fromIdx, toIdx = self.board_len * 2 + i, self.board_len * 3 + i
                 moves[f"L_{fromIdx}_{toIdx}_x"] = (
                     f"R_{next_turn}_0_0_{''.join(board)}",
