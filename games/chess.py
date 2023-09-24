@@ -1,5 +1,3 @@
-import json
-
 import chess
 from requests.exceptions import HTTPError
 import requests

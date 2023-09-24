@@ -472,9 +472,9 @@ games = {
                 data_provider_game_id='forestfox',
                 data_provider_variant_id=-1,
                 status='stable',
-                gui_status='v2')
+                gui_status='v3')
         },
-        gui_status='v2'),
+        gui_status='v3'),
 
     'foxandhounds': Game(
         name='Fox and Hounds',
@@ -608,12 +608,14 @@ games = {
     'kayles': Game(
         name='Kayles',
         desc='Players take turns blocking out one or two adjacent spaces on the board.',
-        variants={},
+        variants={
+            str(i): KaylesGameVariant(i, str(i), str(i)) for i in range(5, 10)
+        },
         custom_variant=kayles_custom_start,
-        gui_status='v1'),
+        gui_status='v3'),
 
     'konane': Game(
-        name='Konane',
+        name='Kōnane',
         desc="Checkers, restricted to jumping only.",
         variants={
             '4x4': GameVariant(
@@ -623,7 +625,7 @@ games = {
                 data_provider_game_id='konane',
                 data_provider_variant_id=0,
                 status='available',
-                gui_status='v2'),
+                gui_status='v3'),
             '4x5': GameVariant(
                 name='4x5',
                 desc='4x5',
@@ -631,7 +633,7 @@ games = {
                 data_provider_game_id='konane',
                 data_provider_variant_id=1,
                 status='available',
-                gui_status='v2'),
+                gui_status='v3'),
             '5x5': GameVariant(
                 name='5x5',
                 desc='5x5',
@@ -639,7 +641,7 @@ games = {
                 data_provider_game_id='konane',
                 data_provider_variant_id=2,
                 status='available',
-                gui_status='v2'),
+                gui_status='v3'),
             '5x6': GameVariant(
                 name='5x6',
                 desc='5x6',
@@ -647,9 +649,9 @@ games = {
                 data_provider_game_id='konane',
                 data_provider_variant_id=3,
                 status='available',
-                gui_status='v2'),
+                gui_status='v3'),
         },
-        gui_status='v2'),
+        gui_status='v3'),
     
     'Lgame': Game(
         name='L-game',
@@ -739,10 +741,16 @@ games = {
         name='Nim',
         desc='Players take turns taking sticks from a pile',
         variants={
-            '3_3_3': JSONGameVariant(os.path.join(dirname, 'solutions/nim/3_3_3.json'), gui_status='v1'),
+            s: NimGameVariant(p, s, s) for p, s in (
+                ((2, 3, 5, 7), '2_3_5_7'),
+                ((3, 3, 3), '3_3_3'),
+                ((1, 2, 3, 4, 5), '1_2_3_4_5'),
+                ((7, 8, 11, 13, 15), '7_8_11_13_15'),
+                ((1, 3, 5, 7, 9, 10), '1_3_5_7_9_10')
+            )
         },
         custom_variant=nim_custom_start,
-        gui_status='v1'),
+        gui_status='v3'),
     
     'ninemensmorris': Game(
         name="Nine Men's Morris",

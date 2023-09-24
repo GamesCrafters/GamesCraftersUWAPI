@@ -301,7 +301,8 @@ def get_chomp(variant_id):
                 "centers": [[i % 7 + 0.5, i // 7 + 0.5] for i in range(28)],
                 "entities": {
                     "x" : {"image": "chomp/x.svg", "scale": 1},
-                    "p" : {"image": "chomp/p.svg", "scale": 1}
+                    "p" : {"image": "chomp/p.svg", "scale": 1},
+                    "t" : {"image": "general/basichitbox.svg", "scale": 1}
                 },
                 "sounds": {"x": "chomp/chomp.mp3"},
                 "animationType": "entityFade"
@@ -385,16 +386,16 @@ def get_dao(variant_id):
 
 def get_dawsonschess(variant_id):
     size = int(variant_id)
+    entities = {"t": {"image": "general/basichitbox.svg", "scale": 1}} | {
+        e: {"image": f"dawsonschess/{e}.svg", "scale": 1} for e in 'bx'}
     return {
         "defaultTheme": "kings",
         "themes": {
             "kings": {
-                "space": [size, 1],
-                "centers": [[0.5 + i, 0.5] for i in range(size)],
-                "entities": {
-                    e: {"image": f"dawsonschess/{e}.svg", "scale": 1} for e in 'bxo'
-                },
-                "circleButtonRadius": 0.15,
+                "space": [size, size],
+                "centers": [[0.5 + i, size / 2] for i in range(size)],
+                "background": "dawsonschess/grid.svg",
+                "entities": entities,
                 "sounds": {"x": "general/place.mp3"},
                 "animationType": "entityFade"
             }
@@ -524,10 +525,11 @@ def get_forestfox(variant_id):
                 "space": [1150, 900],
                 "centers": centers,
                 "background": "forestfox/cardboard.svg",
-                "arrowWidth": 2,
                 "entities": {
                     p: {"image": f"forestfox/{pieces[p]}.svg", "scale": 200} for p in pieces
                 },
+                "circleButtonRadius": 16,
+                "sounds": {"x": "general/slide.mp3"},
                 "animationType": "simpleSlides"
             }
         }
@@ -672,6 +674,30 @@ def get_jenga(variant_id):
         }
     else:
         return None
+    
+def get_kayles(variant_id):
+    size = int(variant_id)
+    if size == 1:
+        centers = [[1, 0.9], [1, 1.6]]
+    else:
+        y = size / 2
+        centers = [[0.5 + i, y] for i in range(size)] + [[0.5 + i, y + 0.7] for i in range(size)] \
+        + [[0.75 + i, y + 0.7] for i in range(size)] + [[1.25 + i, y + 0.7] for i in range(size)]
+    return {
+        "defaultTheme": "kings",
+        "themes": {
+            "kings": {
+                "space": [max(size, 2), max(size, 2)],
+                "centers": centers,
+                "background": "kayles/grid.svg",
+                "entities": {"x": {"image": "kayles/x.svg", "scale": 1}},
+                "circleButtonRadius": 0.12,
+                "lineWidth": 0.1,
+                "sounds": {"x": "general/place.mp3", "y": "general/remove.mp3"},
+                "animationType": "entityFade"
+            }
+        }
+    }
 
 def get_konane(variant_id):
     def konane_iadata(rows, cols):
@@ -688,6 +714,7 @@ def get_konane(variant_id):
                         "o": {"image": "general/whitepiece.svg", "scale": 9}
                     },
                     "circleButtonRadius": 1.5,
+                    "sounds": {"x": "general/remove.mp3", "y": "general/slide.mp3"},
                     "animationType": "simpleSlides"
                 }
             }
@@ -773,6 +800,44 @@ def get_mutorere(variant_id):
                 "entitiesOverArrows": True,
                 "sounds": {"x": "general/slide.mp3"},
                 "animationType": "simpleSlides"
+            }
+        }
+    }
+
+def get_nim(variant_id):
+    try:
+        piles = variant_id.split('_')
+        for i in range(len(piles)):
+            piles[i] = int(piles[i])
+    except Exception as err:
+        return None
+    
+    m, n = max(piles), len(piles)
+    adjusted_m, adjusted_n = m + 2, n * 2 + 1
+    sideLength = max(adjusted_m, adjusted_n)
+    v_spacing = (sideLength - n) / (n + 1) + 1 # spacing between piles
+    y = v_spacing - 0.5 # y-coordinate of starting pile
+    
+    centers = []
+    for i in range(len(piles)):
+        pile_size = piles[i]
+        for j in range(pile_size):
+            centers.append([1.5 + j, y])
+        y += v_spacing
+
+    return {
+        "defaultTheme": "kings",
+        "themes": {
+            "kings": {
+                "space": [sideLength, sideLength],
+                "centers": centers,
+                "background": "nim/grid.svg",
+                "entities": {
+                    "x": {"image": "general/whitepiece.svg", "scale": 1},
+                    "t": {"image": "general/basichitbox.svg", "scale": 1}
+                },
+                "sounds": {"x": "general/place.mp3"},
+                "animationType": "entityFade"
             }
         }
     }
@@ -942,6 +1007,7 @@ def get_quickcross(variant_id):
                     "h": {"image": "quickcross/H.svg", "scale": 70},
                     "r": {"image": "quickcross/rotate.svg", "scale": 30}
                 },
+                "lineWidth": 4,
                 "sounds": {
                     "x": "general/place.mp3",
                     "y": "general/remove.mp3"
@@ -1241,10 +1307,12 @@ image_autogui_data_funcs = {
     "ghost": get_ghost,
     "haregame": get_haregame,
     "jenga": get_jenga,
+    "kayles": get_kayles,
     "konane": get_konane,
     "Lgame": get_Lgame,
     "lite3": get_lite3,
     "mutorere": get_mutorere,
+    "nim": get_nim,
     "ninemensmorris": get_ninemensmorris,
     "notakto": get_notakto,
     "othello": get_othello,
