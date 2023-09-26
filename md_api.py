@@ -23,7 +23,10 @@ import urllib.request
 
 
 def read_from_link(url):
-	r = urllib.request.urlopen(url).read()
+	try:
+		r = urllib.request.urlopen(url, timeout=2).read()
+	except urllib.error.URLError:
+		return None
 	d = convert_xml_dict(r)
 	return dict_to_markdown(d)
 
