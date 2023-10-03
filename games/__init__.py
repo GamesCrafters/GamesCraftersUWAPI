@@ -130,6 +130,22 @@ games = {
         },
         gui_status='v2'),
     
+    'allqueenschess': Game(
+        name='All Queens Chess',
+        desc='All queens Chess',
+        variants={
+            'standard': GameVariant(
+                name='Standard',
+                desc='Standard',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='allqueenschess',
+                data_provider_variant_id=0,
+                status='available',
+                gui_status='v3')
+        },
+        gui_status='v3'
+    ),
+    
     'baghchal': Game(
         name='Bagh-Chal',
         desc="In the first phase the goats are placed on the board while the tigers are moved. In the second phase both the goats and the tigers are moved. For the tigers, the objective is to 'capture' five goats to win. Capturing is performed as in alquerque and draughts, by jumping over the goats, although capturing is not obligatory. The goats win by blocking all the tigers' legal moves.",

@@ -166,6 +166,26 @@ def get_adugo(variant_id):
         return adugo_iadata(int(variant_id[0]))
     return None
 
+def get_allqueenschess(variant_id):
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [5, 5],
+                "centers": [[i % 5 + 0.5, i // 5 + 0.5] for i in range(25)],
+                "background": "allqueenschess/board.svg",
+                "entities": {
+                    "W": {"image": "chess/wikipedia/Q.svg", "scale": 1},
+                    "B": {"image": "chess/wikipedia/qq.svg", "scale": 1}
+                },
+                "entitiesOverArrows": True,
+                "arrowWidth": 0.06,
+                "sounds": {"x": "general/slide.mp3"},
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
 def get_baghchal(variant_id):
     entities = {f"{i}": {"image": f"general/{i}.svg", "scale": 1.2} for i in range(10)}
     entities["G"] = {"image": "baghchal/G.png", "scale": 0.7}
@@ -1286,6 +1306,7 @@ image_autogui_data_funcs = {
     "3spot": get_3spot,
     "achi": get_achi,
     "adugo": get_adugo,
+    "allqueenschess": get_allqueenschess,
     "baghchal": get_baghchal,
     "beeline": get_beeline,
     "change": get_change,
