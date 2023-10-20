@@ -166,7 +166,8 @@ def handle_game(game_id):
             }
             for (variant_id, variant) in game.variants.items() if variant.status != 'unavailable'
         ],
-        'custom': custom_variant
+        'custom': custom_variant,
+        'supportsWinBy': game.supports_win_by
     })
 
 

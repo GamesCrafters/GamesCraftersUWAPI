@@ -852,7 +852,9 @@ games = {
                 status='stable',
                 gui_status='v3')
         },
-        gui_status='v3'),
+        gui_status='v3',
+        supports_win_by=1
+        ),
     
     'quarto': Game(
         name='Quarto',
