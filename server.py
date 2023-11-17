@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, escape, request
+from flask import Flask
 from flask_cors import CORS
 
 from games import games, GamesmanClassicDataProvider
@@ -231,5 +231,4 @@ def game_randpos(game_id, variant_id):
 
 
 if __name__ == '__main__':
-    port = os.environ.get('API_PORT', None)
-    app.run(port=port)
+    app.run(port=8082)
