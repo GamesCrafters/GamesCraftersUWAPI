@@ -1,8 +1,8 @@
 import pickle, os
 
-from .models import EfficientGameVariant
+from .models import AbstractGameVariant
 
-class TootNOtto(EfficientGameVariant):
+class TootNOtto(AbstractGameVariant):
 
     def pos_to_UWAPI(self, board, turn, Tsx, Osx, Tso, Oso):
 
@@ -88,10 +88,7 @@ class TootNOtto(EfficientGameVariant):
     def start_position(self):
         return self.pos_to_UWAPI("-" * self.ROWS * self.COLS, 'x', self.COLS, self.COLS, self.COLS, self.COLS)
 
-    def stat(self, UWAPI_position):
-        return None
-
-    def full_stats(self, UWAPI_position):
+    def position_data(self, UWAPI_position):
         size = self.ROWS * self.COLS
         position, board, turn, Tsx, Osx, Tso, Oso = self.UWAPI_to_pos(UWAPI_position)
         

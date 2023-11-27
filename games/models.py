@@ -13,7 +13,7 @@ class Game:
         self.custom_variant = custom_variant
         self.status = status
         self.gui_status = gui_status
-        self.supports_win_by = supports_win_by;
+        self.supports_win_by = supports_win_by
 
     def variant(self, variant_id):
         variant_val = self.variants.get(variant_id, None)
@@ -39,17 +39,22 @@ class AbstractGameVariant:
     def start_position(self):
         return None
 
-    def stat(self, position):
-        return None
-
-    def next_stats(self, position):
+    def position_data(self, position):
         return None
     
+    
+class DataProvider:
+    """Abstract class with methods for a data provider
+    """
 
-class EfficientGameVariant(AbstractGameVariant):
-    def full_stats(self, position):
+    @staticmethod
+    def start_position(game_id, variant_id):
         return None
 
+    @staticmethod
+    def position_data(game_id, variant_id, position):
+        return None
+    
 
 class GameVariant(AbstractGameVariant):
     """Record keeping for a variant of a game
@@ -64,25 +69,5 @@ class GameVariant(AbstractGameVariant):
     def start_position(self):
         return self.data_provider.start_position(self.data_provider_game_id, self.data_provider_variant_id)
 
-    def stat(self, position):
-        return self.data_provider.stat(self.data_provider_game_id, self.data_provider_variant_id, position)
-
-    def next_stats(self, position):
-        return self.data_provider.next_stats(self.data_provider_game_id, self.data_provider_variant_id, position)
-
-
-class DataProvider:
-    """Abstract class with methods for a data provider
-    """
-
-    @staticmethod
-    def start_position(game_id, variant_id):
-        return None
-
-    @staticmethod
-    def stat(game_id, variant_id, position):
-        return None
-
-    @staticmethod
-    def next_stats(game_id, variant_id, position):
-        return None
+    def position_data(self, position):
+        return self.data_provider.position_data(self.data_provider_game_id, self.data_provider_variant_id, position)

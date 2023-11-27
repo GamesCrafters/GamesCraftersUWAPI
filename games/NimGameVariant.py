@@ -36,10 +36,11 @@ class NimGameVariant(AbstractGameVariant):
         }
         return response
 
-    def next_stats(self, position):
+    def position_data(self, position):
         position_arr = self.get_position_arr(position)
         moves = self.get_moves(position_arr, position[2])
-        response = [{
+        response = self.stat(position)
+        response['moves'] = [{
             "move": move,
             "moveName": moveName,
             **self.stat(next_position)

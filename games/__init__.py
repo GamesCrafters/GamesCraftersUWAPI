@@ -2,10 +2,8 @@ import os
 
 from .models import Game, GameVariant
 from .gamesman_classic import GamesmanClassicDataProvider
-from .gamesman_java import GamesmanJavaDataProvider, GamesmanJavaConnect4GameVariant
 from .json_game_variant import JSONGameVariant
 from .chess import RegularChessVariant
-from .TicTacToe3x3x2GameVariant import TicTacToe3x3x2GameVariant
 from .TootNOtto import TootNOtto
 from .NimGameVariant import NimGameVariant, nim_custom_start
 from .DawsonsChessGameVariant import DawsonsChessGameVariant, dawsonschess_custom_start
@@ -48,19 +46,6 @@ games = {
                 gui_status='v3')
         },
         gui_status='v3'),
-    
-    'ttt3d': Game(
-        name='3D Tic-Tac-Toe',
-        desc='3D Tic-Tac-Toe',
-        variants={
-            '3x3x2': TicTacToe3x3x2GameVariant(
-                name='3x3x2',
-                desc='3x3x2',
-                filepath=os.path.join(dirname, 'solutions/ttt3d/3x3x2.txt'),
-                status='dev',
-                gui_status='v0')
-        },
-        gui_status='v0'),
     
     '3spot': Game(
         name='3-Spot',
@@ -253,97 +238,6 @@ games = {
                 gui_status='v3')
         },
         gui_status='v3'),
-    
-    'connect4': Game(
-        name='Connect 4 (Java)',
-        desc='Tic Tac Toe with gravity',
-        variants={
-            '4x4x4': GamesmanJavaConnect4GameVariant(
-                width=4,
-                height=4,
-                pieces=4,
-                status='dev',
-                gui_status='v1'
-            ),
-            '4x5x4': GamesmanJavaConnect4GameVariant(
-                width=4,
-                height=5,
-                pieces=4,
-                status='dev',
-                gui_status='v1'
-            ),
-            '4x6x4': GamesmanJavaConnect4GameVariant(
-                width=4,
-                height=6,
-                pieces=4,
-                status='dev',
-                gui_status='v1'
-            ),
-            '5x4x4': GamesmanJavaConnect4GameVariant(
-                width=5,
-                height=4,
-                pieces=4,
-                status='dev',
-                gui_status='v1'
-            ),
-            '5x5x4': GamesmanJavaConnect4GameVariant(
-                width=5,
-                height=5,
-                pieces=4,
-                status='dev',
-                gui_status='v1'
-            ),
-            '5x6x4': GamesmanJavaConnect4GameVariant(
-                width=5,
-                height=6,
-                pieces=4,
-                status='dev',
-                gui_status='v1'
-            ),
-            '6x4x4': GamesmanJavaConnect4GameVariant(
-                width=6,
-                height=4,
-                pieces=4,
-                status='dev',
-                gui_status='v1'
-            ),
-            '6x5x4': GamesmanJavaConnect4GameVariant(
-                width=6,
-                height=5,
-                pieces=4,
-                status='dev',
-                gui_status='v1'
-            ),
-            '6x6x4': GamesmanJavaConnect4GameVariant(
-                width=6,
-                height=6,
-                pieces=4,
-                status='unavailable',
-                gui_status='v0'
-            ),
-            '7x4x4': GamesmanJavaConnect4GameVariant(
-                width=7,
-                height=4,
-                pieces=4,
-                status='dev',
-                gui_status='v0'
-            ),
-            '7x5x4': GamesmanJavaConnect4GameVariant(
-                width=7,
-                height=5,
-                pieces=4,
-                status='dev',
-                gui_status='v0'
-            ),
-            '7x6x4': GamesmanJavaConnect4GameVariant(
-                width=7,
-                height=6,
-                pieces=4,
-                status='unavailable',
-                gui_status='v0'
-            ),
-        },
-        gui_status='v1'),
     
     'dao': Game(
         name='Dao',
@@ -558,6 +452,21 @@ games = {
         gui_status='v3'
     ),
 
+    'graphgame': Game(
+        name='Graph',
+        desc="Traversing a Graph",
+        variants={
+            'drawdemo': GameVariant(
+                name='Pure Draw Analysis Demo',
+                desc='Pure Draw Analysis Demo',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='graphgame',
+                data_provider_variant_id=0,
+                status='available',
+                gui_status='v3'),
+        },
+        gui_status='v3'),
+
     'haregame': Game(
         name='Hare and Hounds',
         desc="One player controls the three hounds. The other player controls the hare. The hound player can move one of the three hounds to an empty spot each turn with the restriction of no backward moves. The hare player can move the hare to any adjacent empty spot. The hare wins by reaching the left-most cell. The hounds win if the hare is unable to move on their turn.",
@@ -610,6 +519,21 @@ games = {
                 data_provider_variant_id=6,
                 status='stable',
                 gui_status='v3')
+        },
+        gui_status='v3'),
+
+    'horse': Game(
+        name='Horse',
+        desc="Also known as Blocking or Pong Hau Ki",
+        variants={
+            'regular': GameVariant(
+                name='Regular',
+                desc='Regular',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='horse',
+                data_provider_variant_id=1,
+                status='available',
+                gui_status='v3'),
         },
         gui_status='v3'),
 

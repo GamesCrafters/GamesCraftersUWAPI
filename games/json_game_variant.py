@@ -1,5 +1,4 @@
 import json
-
 from .models import AbstractGameVariant
 
 
@@ -30,13 +29,14 @@ class JSONGameVariant(AbstractGameVariant):
             }
             return response
 
-    def next_stats(self, position):
+    def position_data(self, position):
         try:
             moves = self.data["positions"][position]["moves"]
         except Exception as err:
             print(f'Other error occurred: {err}')
         else:
-            response = []
+            response = self.stat(position)
+            json_moves = []
             for move, position in moves.items():
                 move_name = move
                 move_button_data = move.split('_')
@@ -45,11 +45,13 @@ class JSONGameVariant(AbstractGameVariant):
                         move_name = move_button_data[2]
                     else:
                         move_name = move_button_data[1] + ' ' + move_button_data[2]
-                response.append(
+                json_moves.append(
                     {
                         "move": move,
                         "moveName": move_name,
                         **self.stat(position)
                     }
                 )
+            
+            response['moves'] = json_moves
             return response

@@ -634,6 +634,27 @@ def get_ghost(variant_id):
         }
     }
 
+def get_graphgame(variant_id):
+    centers = [[70,5], [83,5], [83,15], [70,15], [83,25], [70,25], [70,35],[83,35],
+              [70,45],[83,45],[70,55],[83,55], [50,65], [40, 65], [60,55], [40, 55],
+              [20,75], [40,75], [25,85], [8,55], [23,55]]
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [90, 90],
+                "background": "graphgame/board.svg",
+                "centers": centers,
+                "entities": {
+                    "x": {"image": "chess/wikipedia/pp.svg", "scale": 4}
+                },
+                "arrowWidth": 0.5,
+                "sounds": {"x": "general/slide.mp3"},
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
 def get_haregame(variant_id):
     def haregame_iadata(name, width, num_width):
         main_centers = [[40 * i + 50, 40 * j + 10] for i in range(num_width) for j in range(3)]
@@ -666,6 +687,27 @@ def get_haregame(variant_id):
     elif variant_id == "l-hounds-first" or variant_id == "l-hare-first":
         return haregame_iadata('large', 340, 7)
     return None
+
+def get_horse(variant_id):
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [100, 100], 
+                "centers": [[10, 10], [90, 10], [50, 50], [10, 90], [90, 90]],
+                "background": "horse/board.svg",
+                "entities": {
+                    "x": {"image": "general/blue_circle.svg", "scale": 15},
+                    "o": {"image": "general/red_circle.svg", "scale": 15}
+                },
+                "entitiesOverArrows": True,
+                "sounds": {
+                    "x": "general/slide.mp3"
+                },
+                "animationType": "simpleSlides"
+            }
+        }
+    }
 
 def get_jenga(variant_id):
     if variant_id == "regular":
@@ -1326,7 +1368,9 @@ image_autogui_data_funcs = {
     "foxandhounds": get_foxandhounds,
     "gameofy": get_gameofy,
     "ghost": get_ghost,
+    "graphgame": get_graphgame,
     "haregame": get_haregame,
+    "horse": get_horse,
     "jenga": get_jenga,
     "kayles": get_kayles,
     "konane": get_konane,

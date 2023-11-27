@@ -1,9 +1,9 @@
-from .models import EfficientGameVariant
+from .models import AbstractGameVariant
 import sys, pickle, os
 
 dirname = os.path.dirname(__file__)
 
-class Ghost(EfficientGameVariant):
+class Ghost(AbstractGameVariant):
 #class Ghost:
     def __init__(self, minimum_length=4):
         name, desc = "Regular", f"Min Length = {minimum_length}"
@@ -31,7 +31,7 @@ class Ghost(EfficientGameVariant):
         
         return f'R_{turn}_0_0_{first_part}{second_part}'
     
-    def full_stats(self, position):
+    def position_data(self, position):
         with open(f'{dirname}/../data/ghost/ghost{self.minimum_length}.pkl', 'rb') as trie_file:
             trie = pickle.load(trie_file)
 
@@ -56,14 +56,7 @@ class Ghost(EfficientGameVariant):
             "remoteness": remoteness,
             "moves": moves
         }
-        return response
-
-    def stat(self, position):
-        return
-
-    def next_stats(self, position):
-        return
-    
+        return response    
 
 class Node:
     def __init__(self, letter):

@@ -20,17 +20,7 @@ class GamesmanClassicDataProvider(DataProvider):
         return GamesmanClassicDataProvider.getStart(game_id, variant_id)
 
     @staticmethod
-    def stat(game_id, variant_id, position):
-        stat = GamesmanClassicDataProvider.getMoveValue(
-            game_id, position, variant_id)
-        stat['position'] = stat.pop('board')
-        stat['positionValue'] = stat.pop('value')
-        if stat['positionValue'] == 'tie' and stat['remoteness'] == 255:
-            stat['positionValue'] = 'draw'
-        return stat
-
-    @staticmethod
-    def next_stats(game_id, variant_id, position):
+    def position_data(game_id, variant_id, position):
         def wrangle_next_stat(next_stat):
             # Rename members
             next_stat['position'] = next_stat.pop('board')
@@ -44,8 +34,8 @@ class GamesmanClassicDataProvider(DataProvider):
         def filter_multipart_by_frompos(next_stat):
             return 'fromPos' not in next_stat or next_stat['fromPos'] == position
         
-        stat = GamesmanClassicDataProvider.getNextMoveValues(game_id, position, variant_id)
-        if (stat is None):
+        stat = GamesmanClassicDataProvider.getPosition(game_id, position, variant_id)
+        if stat is None:
             return None
             
         stat['position'] = stat.pop('board')
@@ -61,7 +51,7 @@ class GamesmanClassicDataProvider(DataProvider):
         """Get starting position of game
         """
         try:
-            tempurl = GamesmanClassicDataProvider.url + game + "/getStart"
+            tempurl = GamesmanClassicDataProvider.url + game + "/start"
             if variation != -1:
                 tempurl += "?number=" + str(variation)
             response = requests.get(tempurl)
@@ -74,33 +64,13 @@ class GamesmanClassicDataProvider(DataProvider):
         else:
             return json.loads(response.content)["response"]
 
-
     @staticmethod
-    def getEnd(game, board, variation=-1):
-        """Check ending position of game
-        """
-        try:
-            tempurl = GamesmanClassicDataProvider.url + game + "/getEnd" + "?board=" + board
-            if variation != -1:
-                tempurl += "&number=" + str(variation)
-            response = requests.get(tempurl)
-
-            response.raise_for_status()
-        except HTTPError as http_err:
-            print(f'HTTP error occurred: {http_err}')
-        except Exception as err:
-            print(f'Other error occurred: {err}')
-        else:
-            return json.loads(response.content)["response"]
-
-
-    @staticmethod
-    def getNextMoveValues(game, board, variation=-1):
+    def getPosition(game, board, variation=-1):
         """Get values for the next moves
         """
         try:
             tempurl = GamesmanClassicDataProvider.url + game + \
-                "/getNextMoveValues" + "?board=" + board
+                "/position" + "?board=" + board
             if variation != -1:
                 tempurl += "&number=" + str(variation)
             response = requests.get(tempurl)
@@ -121,8 +91,3 @@ class GamesmanClassicDataProvider(DataProvider):
                 content["response"]["moves"] = m
                 content["response"].pop("multipart")
             return content["response"]
-
-
-    @staticmethod
-    def getMoveValue(game, board, variation=-1):
-        pass
