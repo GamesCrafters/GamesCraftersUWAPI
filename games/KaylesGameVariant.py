@@ -26,9 +26,10 @@ class KaylesGameVariant(AbstractGameVariant):
         }
         return response
 
-    def next_stats(self, position):
+    def position_data(self, position):
         moves = self.get_moves(position)
-        response = [{
+        response = self.stat(position)
+        response['moves'] = [{
             "move": move,
             "moveName": moveName,
             **self.stat(next_position)

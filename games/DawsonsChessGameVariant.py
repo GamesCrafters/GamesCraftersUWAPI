@@ -28,12 +28,13 @@ class DawsonsChessGameVariant(AbstractGameVariant):
         }
         return response
 
-    def next_stats(self, position):
+    def position_data(self, position):
         position_str = DawsonsChessGameVariant.get_position_str(position)
         player = position[2]
         moves = DawsonsChessGameVariant.get_moves(position_str, player)
 
-        response = [{
+        response = self.stat(position)
+        response['moves'] = [{
             "move": move,
             "moveName": moveName,
             **self.stat(next_position)

@@ -6,7 +6,6 @@ from flask_cors import CORS
 from games import games, GamesmanClassicDataProvider
 from games.image_autogui_data import *
 from games.randomized_start import *
-from games.models import EfficientGameVariant
 from games.Ghost import Node, Trie
 
 from md_api import read_from_link
@@ -195,25 +194,33 @@ def handle_position(game_id, variant_id, position):
     variant = get_game_variant(game_id, variant_id)
     if not variant:
         return format_response_err('Game/Variant not found')
-    if (hasattr(variant, 'data_provider') and variant.data_provider == GamesmanClassicDataProvider):
-        # Get all information from one API call instead of 2
-        result = variant.next_stats(position)
-        if result is None:
-            return format_response_err('Passed in Invalid Game State')
-        result['moves'] = wrangle_next_stats(position, result['moves'])
-    elif isinstance(variant, EfficientGameVariant):
-        result = variant.full_stats(position)
-        if result is None:
-            return format_response_err('Passed in Invalid Game State')
-        result['moves'] = wrangle_next_stats(position, result['moves'])
+    
+    position_data = variant.position_data(position)
+    if position_data is None:
+        return format_response_err('Passed in Invalid Game State')
+    if position_data['remoteness'] == 0:
+        position_data['moves'] = []
     else:
-        result = variant.stat(position)
-        if result is None:
-            return format_response_err('Passed in Invalid Game State')
-        result['moves'] = wrangle_next_stats(position, variant.next_stats(position))
-    if result['remoteness'] == 0:
-        result['moves'] = []
-    return format_response_ok(result)
+        position_data['moves'] = wrangle_next_stats(position, position_data['moves'])
+    # if (hasattr(variant, 'data_provider') and variant.data_provider == GamesmanClassicDataProvider):
+    #     # Get all information from one API call instead of 2
+    #     result = variant.next_stats(position)
+    #     if result is None:
+    #         return format_response_err('Passed in Invalid Game State')
+    #     result['moves'] = wrangle_next_stats(position, result['moves'])
+    # elif isinstance(variant, EfficientGameVariant):
+    #     result = variant.full_stats(position)
+    #     if result is None:
+    #         return format_response_err('Passed in Invalid Game State')
+    #     result['moves'] = wrangle_next_stats(position, result['moves'])
+    # else:
+    #     result = variant.stat(position)
+    #     if result is None:
+    #         return format_response_err('Passed in Invalid Game State')
+    #     result['moves'] = wrangle_next_stats(position, variant.next_stats(position))
+    # if result['remoteness'] == 0:
+    #     result['moves'] = []
+    return format_response_ok(position_data)
 
 
 @app.route('/games/<game_id>/<variant_id>/randpos/')

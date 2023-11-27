@@ -64,16 +64,17 @@ class EuclidsGame(AbstractGameVariant):
         second_number = int(position[-6:-3].replace('-', '0'))
         return position[8:108], position[2], first_number, second_number
 
-    def next_stats(self, position):
+    def position_data(self, position):
         """
             Assemble `moves`, a dictionary mapping each legal move 
             from the input position to the child position
             it leads to. 
         """
+        response = self.stat(position)
         selected, turn, first_number, second_number = self.parse_position_string(position)
         next_turn = 'B' if turn == 'A' else 'A'
         moves = {}
-        response = []
+        json_moves = []
         available = []
 
         if first_number == 0:
@@ -107,5 +108,7 @@ class EuclidsGame(AbstractGameVariant):
                 "moveName": str(move),
                 **self.stat(position)
             }
-            response.append(next_res)
+            json_moves.append(next_res)
+        
+        response['moves'] = json_moves
         return response

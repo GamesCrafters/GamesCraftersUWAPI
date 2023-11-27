@@ -52,19 +52,20 @@ class Jenga(AbstractGameVariant):
         except IOError:
             print("Error: Could not read JengaDatabaseFile")
 
-    def next_stats(self, position):
-        response = []
+    def position_data(self, position):
+        response = self.stat(position)
+        json_moves = []
         moves = GenerateMoves(position.split("_")[4])
         for move in moves:
             if self.get_player(position) == "A":
                 response_dict = self.stat("R_B_0_0_" + DoMove(position.split("_")[4], move))
                 response_dict.update({"move": "A_-_" + str(move)})
-                response.append(response_dict)
+                json_moves.append(response_dict)
             else:
                 response_dict = self.stat("R_A_0_0_" + DoMove(position.split("_")[4], move))
                 response_dict.update({"move": "A_-_" + str(move)})
-                response.append(response_dict)
-                
+                json_moves.append(response_dict)
+        response['moves'] = json_moves
         return response
 
     def get_player(self, position_str):
@@ -87,23 +88,23 @@ class Jenga(AbstractGameVariant):
 #
 #######################################################
 
-def isPrimative(board):
+def isPrimitive(board):
     if (GenerateMoves(board) != []):
         return False
     return True
 
 def DoMove(board, move):
-    if (not isPrimative(board) and all([board[move + m] == 'J' for m in getAdjacent(move)])):
+    if (not isPrimitive(board) and all([board[move + m] == 'J' for m in getAdjacent(move)])):
         return board[:move] + "X" + board[move+1:] + "J"
     else:
         return board
     
 
-def PrimativeValue(board):
-    if isPrimative(board):
+def PrimitiveValue(board):
+    if isPrimitive(board):
         return "L"
     else:
-        return "Not Primative"
+        return "Not Primitive"
 
 def GenerateMoves(board):
     returnLst = []
@@ -147,22 +148,22 @@ board = "J"*pieces
 myDict = {}
 
 def Solver(board):
-    board_primative = Jenga.PrimativeValue(board)
-    if (board_primative != "Not Primative"): 
-        myDict[board] = (board_primative, 0)
-        return (board_primative, 0)
+    board_primitive = Jenga.PrimitiveValue(board)
+    if (board_primitive != "Not Primitive"): 
+        myDict[board] = (board_primitive, 0)
+        return (board_primitive, 0)
     else:
         moves = Jenga.GenerateMoves(board)
-        primatives_list = []
+        primitives_list = []
         for move in moves:
             new_board = Jenga.DoMove(board, move)
             if new_board in myDict.keys():
-                primatives_list.append(myDict[new_board])
+                primitives_list.append(myDict[new_board])
             else:
-                primatives_list.append(Solver(new_board))
-        if ("Lose" in [m for (m, n) in primatives_list]):
+                primitives_list.append(Solver(new_board))
+        if ("Lose" in [m for (m, n) in primitives_list]):
             min_remote = 99999999999999
-            for item in primatives_list:
+            for item in primitives_list:
                 k, v = item
                 if k == "Lose" and v < min_remote:
                     min_remote = v
@@ -171,7 +172,7 @@ def Solver(board):
             return ("Win", min_remote)
         else:
             max_remote = -1
-            for item in primatives_list:
+            for item in primitives_list:
                 k, v = item
                 if k == "win" and v > max_remote:
                     max_remote = v

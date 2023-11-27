@@ -758,21 +758,22 @@ class RegularChineseChessVariant(AbstractGameVariant):
             "remoteness": remoteness
         }
 
-    def next_stats(self, position: str):
+    def position_data(self, position: str):
         board, turn = UWAPIToBoard(position)
         moves = generate_moves(board, turn)
-        stats = []
+        response = self.stat(position)
+        response['moves'] = []
         for move in moves:
             newBoard = do_move(copy.deepcopy(board), move)
             value, remoteness = EGTB_load(newBoard, -turn)
-            stats.append({
+            response['moves'].append({
                 "move": move.as_UWAPI(board.occupied),
                 # "moveName": "", # TODO: come up with good move names.
                 "position": boardToUWAPI(newBoard, -turn),
                 "positionValue": value,
                 "remoteness": remoteness
             })
-        return stats
+        return response
 
 
 if __name__ == "__main__":

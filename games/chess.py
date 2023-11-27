@@ -118,8 +118,7 @@ class RegularChessVariant(AbstractGameVariant):
     def start_position(self):
         return "R_A_8_8_" + "--------" + "------R-" + "------k-" + "p--pB---" + "--------" + "--------" + "r-------" + "------K-" + "_b_-_-_0_1"
 
-    def stat(self, position):
-        return syz_stat(position)
-
-    def next_stats(self, position):
-        return syz_next_stats(position)
+    def position_data(self, position):
+        response = syz_stat(position)
+        response['moves'] = syz_next_stats(position)
+        return response
