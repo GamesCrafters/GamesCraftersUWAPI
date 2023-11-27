@@ -452,6 +452,21 @@ games = {
         gui_status='v3'
     ),
 
+    'graphgame': Game(
+        name='Graph',
+        desc="Traversing a Graph",
+        variants={
+            'drawdemo': GameVariant(
+                name='Pure Draw Analysis Demo',
+                desc='Pure Draw Analysis Demo',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='graphgame',
+                data_provider_variant_id=0,
+                status='available',
+                gui_status='v3'),
+        },
+        gui_status='v3'),
+
     'haregame': Game(
         name='Hare and Hounds',
         desc="One player controls the three hounds. The other player controls the hare. The hound player can move one of the three hounds to an empty spot each turn with the restriction of no backward moves. The hare player can move the hare to any adjacent empty spot. The hare wins by reaching the left-most cell. The hounds win if the hare is unable to move on their turn.",
@@ -504,6 +519,21 @@ games = {
                 data_provider_variant_id=6,
                 status='stable',
                 gui_status='v3')
+        },
+        gui_status='v3'),
+
+    'horse': Game(
+        name='Horse',
+        desc="Also known as Blocking or Pong Hau Ki",
+        variants={
+            'regular': GameVariant(
+                name='Regular',
+                desc='Regular',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='horse',
+                data_provider_variant_id=1,
+                status='available',
+                gui_status='v3'),
         },
         gui_status='v3'),
 
