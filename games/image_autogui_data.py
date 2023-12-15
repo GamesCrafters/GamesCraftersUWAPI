@@ -40,6 +40,12 @@ get_<game>(variant_id) should return JSON of the following form:
 
 """
 
+"""
+Animation documentation
+animationType: "custom",
+animationPath: "path to anim.py",
+"""
+
 def get_1dchess(variant_id):
     return {
         "defaultTheme": "basic",
@@ -62,7 +68,7 @@ def get_1dchess(variant_id):
                     "x": "general/slide.mp3",
                     "y": "general/slideThenRemove.mp3"
                 },
-                "animationType": "simpleSlidePlaceRemove"
+                "animationType": "simpleSlidePlaceRemove",
             }
         }
     }
@@ -419,7 +425,7 @@ def get_dodgem(variant_id):
                 },
                 "entitiesOverArrows": True,
                 "sounds": {"x": "general/slide.mp3"},
-                "animationType": "simpleSlidePlaceRemove"
+                "animationType": "custom",
             }
         }
     }

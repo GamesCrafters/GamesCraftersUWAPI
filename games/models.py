@@ -20,6 +20,7 @@ class Game:
             if self.custom_variant:
                 return self.custom_variant(variant_id)
         return variant_val
+        
 
 
 class AbstractGameVariant:

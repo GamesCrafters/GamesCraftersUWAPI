@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, escape, request
+from flask import Flask, escape, request, session
 from flask_cors import CORS
 
 from games import games, GamesmanClassicDataProvider
@@ -8,11 +8,18 @@ from games.image_autogui_data import *
 from games.randomized_start import *
 from games.models import EfficientGameVariant
 from games.Ghost import Node, Trie
+from anim import *
 
 from md_api import read_from_link
+import secrets
 
 app = Flask(__name__)
+app.secret_key = secrets.token_hex(24) # Security?
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
+@app.before_first_request
+def clear_session_on_start():
+    # This function will be executed once before the first request
+    session.clear()
 
 CORS(app)
 
@@ -149,7 +156,6 @@ def handle_game(game_id):
     game = get_game(game_id)
     if not game:
         return format_response_err('Game not found')
-    
     custom_variant = 'true' if game.custom_variant else None
     return format_response_ok({
         'gameId': game_id,
@@ -173,6 +179,8 @@ def handle_game(game_id):
 @app.route('/games/<game_id>/variants/<variant_id>/')
 def handle_variant(game_id, variant_id):
     variant = get_game_variant(game_id, variant_id)
+    if (not 'prev_position' in session):
+        session['prev_position'] = variant.start_position()
     if not variant:
         return format_response_err('Game/Variant not found')
     return format_response_ok({
@@ -212,6 +220,26 @@ def handle_position(game_id, variant_id, position):
         result['moves'] = wrangle_next_stats(position, variant.next_stats(position))
     if result['remoteness'] == 0:
         result['moves'] = []
+    # Animations 
+    prev_position = None
+    if (not 'prev_position' in session):
+        session['prev_position'] = variant.start_position()
+    if ('prev_position' in session):
+        prev_position = session['prev_position']
+        session['prev_position'] = position
+    print(prev_position, position)
+    # if gameid in result, then do it
+    success, controller = match(game_id)
+    if (success):
+        print(game_id, " custom animations enabled")
+        # load and parse the animation related to this particular condition
+        r = controller.trigger(prev_position[8:], position[8:])
+        if not r is None:
+            print(game_id, " trigger pulled, playing ", r)
+            result['animation'] = r
+        else:
+            print("Animation not detected for position ", position)
+            result['animation'] = None # empty field
     return format_response_ok(result)
 
 
@@ -227,7 +255,6 @@ def game_randpos(game_id, variant_id):
         "position": random_start
     }
     return format_response_ok(response)
-
 
 if __name__ == '__main__':
     port = os.environ.get('API_PORT', None)
