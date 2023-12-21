@@ -2,8 +2,7 @@ import chess
 from requests.exceptions import HTTPError
 import requests
 
-from .models import AbstractGameVariant
-
+from .models import AbstractGameVariant, Remoteness
 
 URL = "http://tablebase.lichess.ovh/standard"
 
@@ -44,9 +43,10 @@ def convertFENToUWAPIRegular2DPositionBoardString(fen):
     return board + "_" + extra
 
 
-def makeUWAPIMoveString(move):
-    return "M_{}_{}".format(8 * (8 - int(move[1])) + (ord(move[0]) - ord('a')),
-                            8 * (8 - int(move[3])) + (ord(move[2]) - ord('a')))
+def makeUWAPIMoveString(next_position, move):
+    src = 8 * (8 - int(move[1])) + (ord(move[0]) - ord('a'))
+    dest = 8 * (8 - int(move[3])) + (ord(move[2]) - ord('a'))
+    return "M_{}_{}_{}".format(src, dest, next_position[8 + dest].upper())
 
 def makeMove(position, move):
     fen = convertUWAPIRegular2DPositionStringToFEN(position)
@@ -63,8 +63,23 @@ def positionValue(data):
         return 'lose'
     if data['stalemate']:
         return 'tie'
-    return 'draw' if data['dtm'] is None or data['dtm'] == 0 else 'lose' if data['dtm'] < 0 else 'win'
+    # data['category'] is one of win, unknown, maybe-win, cursed-win, draw, 
+    # blessed-loss, maybe-loss, loss
+    if data['category'] in ('win', 'cursed-win'):
+        return 'win'
+    elif data['category'] in ('loss', 'blessed-loss'):
+        return 'lose'
+    elif data['category'] == 'unknown':
+        return 'unsolved'
+    return 'draw'
 
+def positionRemoteness(data, value):
+    if value == 'win' or value == 'lose':
+        return Remoteness.FINITE_UNKNOWN if data['dtm'] is None else abs(data['dtm'])
+    elif value == 'draw':
+        return Remoteness.INFINITY
+    else:
+        return 1
 
 def syz_stat(position):
     try:
@@ -77,10 +92,11 @@ def syz_stat(position):
         print(f'Other error occurred: {err}')
     else:
         data = r.json()
+        value = positionValue(data)
         response = {
             "position": position,
-            "positionValue": positionValue(data),
-            "remoteness": 255 if data['dtm'] is None else abs(data['dtm']),
+            "positionValue": value,
+            "remoteness": positionRemoteness(data, value),
         }
         return response
 
@@ -96,27 +112,31 @@ def syz_next_stats(position):
         print(f'Other error occurred: {err}')
     else:
         data = r.json()
-        response = [{
-            "move": makeUWAPIMoveString(move['uci']),
-            "moveName": move['san'],
-            "position": makeMove(position, move['uci']),
-            "positionValue": positionValue(move),
-            "remoteness": 0 if move['dtm'] is None else abs(move['dtm'])
-        } for move in data['moves']]
+        response = []
+        for move in data['moves']:
+            child_value = positionValue(move)
+            next_position = makeMove(position, move['uci'])
+            response.append({
+                "move": makeUWAPIMoveString(next_position, move['uci']),
+                "moveName": move['san'],
+                "position": next_position,
+                "positionValue": child_value,
+                "remoteness": positionRemoteness(move, child_value)
+            })
         return response
 
 
 class RegularChessVariant(AbstractGameVariant):
 
-    def __init__(self):
-        name = "Regular"
-        desc = "Regular 7-man Chess"
-        status = 'stable'
-        gui_status = 'v2'
-        super(RegularChessVariant, self).__init__(name, desc, status=status, gui_status=gui_status)
+    def __init__(self, fen, name = "Chess Endgame", desc = "Chess Endgame"):
+        status = "stable"
+        gui_status = "v2"
+        self.start_fen = fen
+        super(RegularChessVariant, self).__init__(name, name, status, gui_status)
 
     def start_position(self):
-        return "R_A_8_8_" + "--------" + "------R-" + "------k-" + "p--pB---" + "--------" + "--------" + "r-------" + "------K-" + "_b_-_-_0_1"
+        turn = 'A' if self.start_fen.split(' ')[1] == 'w' else 'B'
+        return "R_{}_8_8_{}".format(turn, convertFENToUWAPIRegular2DPositionBoardString(self.start_fen))
 
     def position_data(self, position):
         response = syz_stat(position)

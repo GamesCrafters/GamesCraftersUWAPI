@@ -95,19 +95,20 @@ def get_3spot(variant_id):
         "v": {"image": "3spot/v.svg", "scale": 0.3},
     }
     entities.update({f"{i}": {"image": f"general/{i}.svg", "scale": 2} for i in range(10)})
-    
+    centers = [
+        [0.5, 0.5], [1.5, 0.5], [2.5, 0.5], [0.5, 1.5], [1.5, 1.5],
+        [2.5, 1.5], [0.5, 2.5], [1.5, 2.5], [2.5, 2.5],
+        [0.35, 3.5], [0.65, 3.5], [2.35, 3.5], [2.65, 3.5], [-99, -99],
+        [1, 0.5], [2, 0.5], [0.5, 1], [1.5, 1], [2.5, 1], [1, 1.5],
+        [2, 1.5], [0.5, 2], [1.5, 2], [2.5, 2], [1, 2.5], [2, 2.5]
+    ]
+    centers = [[x + 0.0125, y + 0.0125] for x, y in centers] # need to adjust because of stroke width
     return {
         "defaultTheme": "standard",
         "themes": {
             "standard": {
-                "space": [3, 4],
-                "centers": [
-                    [0.5, 0.5], [1.5, 0.5], [2.5, 0.5], [0.5, 1.5], [1.5, 1.5],
-                    [2.5, 1.5], [0.5, 2.5], [1.5, 2.5], [2.5, 2.5],
-                    [0.35, 3.5], [0.65, 3.5], [2.35, 3.5], [2.65, 3.5], [-99, -99],
-                    [1, 0.5], [2, 0.5], [0.5, 1], [1.5, 1], [2.5, 1], [1, 1.5],
-                    [2, 1.5], [0.5, 2], [1.5, 2], [2.5, 2], [1, 2.5], [2, 2.5]
-                ],
+                "space": [3.025, 4],
+                "centers": centers,
                 "background": "3spot/grid.svg",
                 "entities": entities,
                 "sounds": {"x": "general/place.mp3"},
@@ -124,7 +125,7 @@ def get_achi(variant_id):
             "basic": {
                 "space": [100, 100],
                 "centers": [[i % 3 * 40 + 10, i // 3 * 40 + 10] for i in range(9)],
-                "background": "achi/achiboard.svg",
+                "background": "achi/board.svg",
                 "entities": {
                     "x": {"image": "general/blackpiece.svg", "scale": 15},
                     "o": {"image": "general/whitepiece.svg", "scale": 15}
@@ -188,8 +189,8 @@ def get_allqueenschess(variant_id):
 
 def get_baghchal(variant_id):
     entities = {f"{i}": {"image": f"general/{i}.svg", "scale": 1.2} for i in range(10)}
-    entities["G"] = {"image": "baghchal/G.png", "scale": 0.7}
-    entities["T"] = {"image": "baghchal/T.png", "scale": 0.75}
+    entities["G"] = {"image": "baghchal/G.svg", "scale": 0.7}
+    entities["T"] = {"image": "baghchal/T.svg", "scale": 0.75}
     
     return {
         "defaultTheme": "regular",
@@ -216,19 +217,19 @@ def get_beeline(variant_id):
         "defaultTheme": "basic",
         "themes": {
             "basic": {
-                "space": [10, 8],
+                "space": [240, 144],
                 "centers": [
-                    [1.25, 4.75], [2.5, 4.05], [3.75, 3.3], [5.00, 2.6],
-                    [2.5, 5.5], [3.76, 4.75], [5.00, 4.05], [6.25, 3.3],
-                    [3.75, 6.2], [5, 5.5], [6.25, 4.75], [7.5, 4.05],
-                    [5.00, 6.95], [6.25, 6.2], [7.5, 5.5], [8.75, 4.75]
+                    [30, 71.9], [60, 54.6], [90, 37,3], [120, 20],
+                    [60, 89.2], [90, 71.9], [120, 54.6], [150, 37.3],
+                    [90, 106.5], [120, 89.2], [150, 71.9], [180, 54.6],
+                    [120, 123.8], [150, 106.5], [180, 89.2], [210, 71.9]
                 ],
                 "background": "beeline/board.svg",
                 "entities": {
-                    "W": {"image": "beeline/yellow_bee.svg", "scale": 1.4},
-                    "B": {"image": "beeline/red_bee.svg", "scale": 1.4}
+                    "W": {"image": "beeline/W.svg", "scale": 34.5},
+                    "B": {"image": "beeline/B.svg", "scale": 34.5}
                 },
-                "arrowWidth": 0.1,
+                "arrowWidth": 2,
                 "entitiesOverArrows": True,
                 "sounds": {"b": "animals/bee.mp3"},
                 "animationType": "simpleSlides"
@@ -248,8 +249,8 @@ def get_change(variant_id):
                 ],
                 "background": "change/graph.svg",
                 "entities": {
-                    "o": {"image": "general/red_circle.svg", "scale": 10},
-                    "x": {"image": "general/blue_circle.svg", "scale": 10}
+                    "o": {"image": "general/redpiece.svg", "scale": 10},
+                    "x": {"image": "general/bluepiece.svg", "scale": 10}
                 },
                 "arrowWidth": 1,
                 "entitiesOverArrows": True,
@@ -266,18 +267,18 @@ def get_chess(variant_id):
         "b": "bb", "n": "nn", "p": "pp"
     }
     return {
-        "defaultTheme": "wikipedia",
+        "defaultTheme": "Wikipedia",
         "themes": {
             t: {
                 "space": [8, 8],
                 "arrowWidth": 0.1,
-                "background": f"chess/{t}/grid.svg",
+                "background": f"chess/{l}/grid.svg",
                 "centers": [[i % 8 + 0.5, i // 8 + 0.5] for i in range(64)],
                 "entities": {
-                    p: {"image": f"chess/{t}/{pieces[p]}.svg", "scale": 1} for p in pieces
+                    p: {"image": f"chess/{l}/{pieces[p]}.svg", "scale": 1} for p in pieces
                 },
                 "animationType": "simpleSlides"
-            } for t in ("wikipedia", "lichess")
+            } for t, l in (("Wikipedia", "wikipedia"), ("Lichess", "lichess"))
         }
     }
 
@@ -313,15 +314,17 @@ def get_chinesechess(variant_id):
     }
 
 def get_chomp(variant_id):
+    rows, cols = variant_id.split('x')
+    rows, cols = int(rows), int(cols)
     return {
         "defaultTheme": "choco",
         "themes": {
             "choco": {
-                "space": [7, 4],
-                "centers": [[i % 7 + 0.5, i // 7 + 0.5] for i in range(28)],
+                "space": [cols, rows],
+                "centers": [[i % cols + 0.5,rows - (i // cols) - 0.5] for i in range(rows * cols)],
                 "entities": {
-                    "x" : {"image": "chomp/x.svg", "scale": 1},
-                    "p" : {"image": "chomp/p.svg", "scale": 1},
+                    "x" : {"image": "chomp/x.svg", "scale": 1.01},
+                    "p" : {"image": "chomp/p.svg", "scale": 1.01},
                     "t" : {"image": "general/basichitbox.svg", "scale": 1}
                 },
                 "sounds": {"x": "chomp/chomp.mp3"},
@@ -330,35 +333,72 @@ def get_chomp(variant_id):
         }
     }
 
-def get_chungtoi(variant_id):
+def get_chopsticks(variant_id):
+    ctrorig = [[25.5, 22.5], [28.5, 18.5], [27, 14.5], [24.5, 10.5]]
+    ctrs = ctrorig + [[x, 100 - y] for x, y in ctrorig] + [[100 - x, 100 - y] for x, y in ctrorig] + \
+        [[100 - x, y] for x, y in ctrorig] # finger centers (16)
+    
+    x, y = 42, 17
+    ctrs += [[x, y], [x, 100 - y], [100 - x, 100 - y], [100 - x, y]] # Straight-line attack arrow endpoints (4)
+
+    x,y = 39, 28
+    ctrs += [[x, y], [x, 100 - y], [100 - x, 100 - y], [100 - x, y]] # Diagonal-line attack arrow endpoints (4)
+
+    ctrs += [[x, 50] for x in [ # Transfer move button centers (18)
+        5,12,19,26,33,8.5,15.5,22.5,29.5, 95,88,81,74,67,91.5,84.5,77.5,70.5]]
+
+    entities = {c : {"image": f"chopsticks/{c}.svg", "scale": 100} for c in '678901234'}
+
     return {
         "defaultTheme": "regular",
         "themes": {
             "regular": {
-                "space": [3, 4],
-                "centers": [
-                    [0.5, 0.5], [1.5, 0.5], [2.5, 0.5], [0.5, 1.5], [1.5, 1.5], [2.5, 1.5],
-                    [0.5, 2.5], [1.5, 2.5], [2.5, 2.5], [99, 99], [99, 99], [99, 99],
-                    [1, 3.4], [2, 3.4], [99, 99], [1, 3.8], [2, 3.8], [99, 99]
-                ],
-                "background": "chungtoi/grid.svg",
-                "entities": {
-                    "R": {"image": "chungtoi/R.svg", "scale": 1},
-                    "W": {"image": "chungtoi/W.svg", "scale": 1},
-                    "T": {"image": "chungtoi/T.svg", "scale": 1},
-                    "X": {"image": "chungtoi/X.svg", "scale": 1},
-                    "t": {"image": "chungtoi/tt.svg", "scale": 1},
-                    "x": {"image": "chungtoi/xx.svg", "scale": 1},
-                    "Y": {"image": "chungtoi/X.svg", "scale": 0.6},
-                    "Z": {"image": "chungtoi/T.svg", "scale": 0.6},
-                    "y": {"image": "chungtoi/xx.svg", "scale": 0.6},
-                    "z": {"image": "chungtoi/tt.svg", "scale": 0.6}
-                }
+                "space": [100, 100],
+                "centers": ctrs,
+                "background": "chopsticks/knuckles.svg",
+                "foreground": "chopsticks/foreground.svg",
+                "entities": entities | {"f" : {"image": "chopsticks/finger.svg", "scale": 100}},
+                "arrowWidth": 1,
+                "sounds": {"x": "general/remove.mp3"},
+                "animationType": "entityFade"
             }
         }
     }
 
-def get_connect4c(variant_id):
+def get_chungtoi(variant_id):
+    gridctrs = [[i % 3 + 0.5, i // 3 + 0.5] for i in range(9)]
+    ctrs = [[i % 3 + 0.5, i // 3 + 0.5] for i in range(9)] * 2
+    ctrs += [[x - 0.2, y] for x, y in gridctrs]
+    ctrs += [[x + 0.2, y] for x, y in gridctrs]
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [3, 3],
+                "centers": ctrs,
+                "background": "chungtoi/grid.svg",
+                "entities": {
+                    "T": {"image": "chungtoi/T.svg", "scale": 1.28},
+                    "X": {"image": "chungtoi/X.svg", "scale": 1.28},
+                    "t": {"image": "chungtoi/tt.svg", "scale": 1.28},
+                    "x": {"image": "chungtoi/xx.svg", "scale": 1.28},
+                    "p": {"image": "chungtoi/p.svg", "scale": 0.4},
+                    "q": {"image": "chungtoi/q.svg", "scale": 0.4},
+                    "r": {"image": "chungtoi/rotate.svg", "scale": 1.2},
+                },
+                "arrowWidth": 0.04,
+                "sounds": {
+                    "x": "general/place.mp3",
+                    "y": "general/remove.mp3",
+                    "z": "general/slide.mp3"
+                },
+                "animationType": "simpleSlides",
+                "defaultAnimationWindow": [0, 9]
+            }
+        }
+    }
+
+def get_connect4(variant_id):
     def get_theme(cols):
         centers = [[0.5 + i // 6, 1.5 + i % 6] for i in range(cols * 6)]
         return {
@@ -369,8 +409,8 @@ def get_connect4c(variant_id):
                     "centers": centers + [[i % cols + 0.5, i // cols] for i in range(cols * 2)],
                     "foreground": f"connect4/foreground6x{cols}.svg",
                     "entities": {
-                        "X": {"image": "connect4/X.svg", "scale": 1},
-                        "O": {"image": "connect4/O.svg", "scale": 1},
+                        "X": {"image": "general/blue_circle.svg", "scale": 1},
+                        "O": {"image": "general/red_circle.svg", "scale": 1},
                     },
                     "arrowWidth": 0.13,
                     "sounds": {"x": "general/remove.mp3"},
@@ -406,15 +446,14 @@ def get_dao(variant_id):
 
 def get_dawsonschess(variant_id):
     size = int(variant_id)
-    entities = {"t": {"image": "general/basichitbox.svg", "scale": 1}} | {
-        e: {"image": f"dawsonschess/{e}.svg", "scale": 1} for e in 'bx'}
+    entities = {"t": {"image": "general/basichitbox.svg", "scale": 44}} | {
+        e: {"image": f"dawsonschess/{e}.svg", "scale": 45} for e in 'bx'}
     return {
         "defaultTheme": "kings",
         "themes": {
             "kings": {
-                "space": [size, size],
-                "centers": [[0.5 + i, size / 2] for i in range(size)],
-                "background": "dawsonschess/grid.svg",
+                "space": [45 + (size - 1) * 44, 45],
+                "centers": [[22.5 + i * 44, 22.5] for i in range(size)],
                 "entities": entities,
                 "sounds": {"x": "general/place.mp3"},
                 "animationType": "entityFade"
@@ -432,10 +471,10 @@ def get_dinododgem(variant_id):
                     [1.5, 0.5], [2.5, 0.5], [3.5, 0.5], [4.5, 0.5], 
                     [5.5, 1.5], [5.5, 2.5], [5.5, 3.5], [5.5, 4.5]
                 ],
-                "background": "dinododgem/new_grid.svg",
+                "background": "dinododgem/grid.svg",
                 "entities": {
-                    "x": {"image": "dinododgem/hadrosaur.svg", "scale": 1},
-                    "o": {"image": "dinododgem/triceratops.svg", "scale": 1}
+                    "o": {"image": "dinododgem/purple.svg", "scale": 0.9},
+                    "x": {"image": "dinododgem/triceratops.svg", "scale": 0.9}
                 },
                 "arrowWidth": 0.09,
                 "entitiesOverArrows": True,
@@ -457,8 +496,8 @@ def get_dodgem(variant_id):
                 "centers": [[i % 4 + 0.5, i // 4 + 0.5] for i in range(16)],
                 "background": "dodgem/grid.svg",
                 "entities": {
-                    "x": {"image": "dodgem/x.svg", "scale": 1}, 
-                    "o": {"image": "dodgem/o.svg", "scale": 1}
+                    "o": {"image": "general/bluepiece.svg", "scale": 1}, 
+                    "x": {"image": "general/redpiece.svg", "scale": 1}
                 },
                 "entitiesOverArrows": True,
                 "sounds": {"x": "general/slide.mp3"},
@@ -467,24 +506,67 @@ def get_dodgem(variant_id):
         }
     }
 
+def get_domineering(variant_id):
+    scale, p = 1, 1
+    sL = int(variant_id) # sideLength
+
+    if sL == 4:
+        scale, p = 24.625, 13.0625
+    elif sL == 5:
+        scale, p = 19.76, 10.48
+    else:
+        scale, p = 16.5, 8.75
+    
+    q = p + scale / 2
+    centers = [[i % sL * scale + p, i // sL * scale + p] for i in range(sL * sL)]
+    centers += [[i % (sL - 1) * scale + q, i // (sL - 1) * scale +p] for i in range(sL * (sL - 1))]
+    centers += [[i % sL * scale + p, i // sL * scale + q] for i in range(sL * (sL - 1))]
+
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [100, 100],
+                "centers": centers,
+                "background": f"domineering/{variant_id}.svg",
+                "entities": {
+                    "u": {"image": "domineering/u.svg", "scale": scale * 1.1},
+                    "d": {"image": "domineering/d.svg", "scale": scale * 1.1},
+                    "l": {"image": "domineering/l.svg", "scale": scale * 1.1},
+                    "r": {"image": "domineering/r.svg", "scale": scale * 1.1},
+                    "h": {"image": "3spot/h.svg", "scale": scale / 2.5}, 
+                    "v": {"image": "3spot/v.svg", "scale": scale / 2.5}, 
+                },
+                "sounds": {"x": "general/remove.mp3"},
+                "animationType": "entityFade"
+            }
+        }
+    }
+
 def get_dragonsandswans(variant_id):
+    entities = {
+        "x": {"image": "swans/D.svg", "scale": 8}, 
+        "o": {"image": "swans/o.svg", "scale": 6},
+        "s": {"image": "swans/s.svg", "scale": 6}
+    }
+    entities |= {c: {"image": f"general/{c}.svg", "scale": 8.8} for c in '0123456789'}
+    centers = [[i % 4 * 10 + 5, i // 4 * 10 + 5] for i in range(16)]
+    centers += [[28.7, 43], [30.2, 43], [28.7, 46], [30.2, 46]]
     return {
         "defaultTheme": "basic",
         "themes": {
             "basic": {
-                "space": [40, 40],
-                "centers": [[i % 4 * 10 + 5, i // 4 * 10 + 5] for i in range(16)],
+                "space": [40, 50],
+                "centers": centers,
                 "background": "swans/grid4.svg",
-                "entities": {
-                    "x": {"image": "swans/x.png", "scale": 8}, 
-                    "o": {"image": "swans/o.svg", "scale": 6}
-                },
+                "entities": entities,
                 "entitiesOverArrows": True,
                 "sounds": {
                     "x": "animals/dragon.mp3",
                     "o": "animals/swan.mp3"
                 },
-                "animationType": "simpleSlides"
+                "animationType": "simpleSlides",
+                "defaultAnimationWindow": [0, 16]
             }
         }
     }
@@ -495,11 +577,13 @@ def get_euclidsgame(variant_id):
         "themes": {
             "basic": {
                 "space": [10, 10],
-                "background": "euclidsgame/EuclidBoard.svg",
+                "background": "euclidsgame/grid.svg",
                 "centers": [[i % 10 + 0.5, i // 10 + 0.5] for i in range(100)],
                 "entities": {
                     "X": {"image": "euclidsgame/cut.svg", "scale": 0.9},
+                    "h": {"image": "euclidsgame/h.svg", "scale": 1},
                 },
+                "sounds": {"x": "general/remove.mp3"},
                 "animationType": "entityFade",
                 "defaultAnimationWindow": [0, 100]
             }
@@ -526,16 +610,37 @@ def get_fivefieldkono(variant_id):
         }
     }
 
+def get_fourfieldkono(variant_id):
+    return {
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "space": [4, 4],
+                "centers": [[i % 4 + 0.5, i // 4 + 0.5] for i in range(16)],
+                "background": "fourfieldkono/4fk.svg",
+                "entities": {
+                    "x": {"image": "general/whitepiece.svg", "scale": 0.9},
+                    "o": {"image": "general/blackpiece.svg", "scale": 0.9}
+                },
+                "arrowWidth": 0.08,
+                "sounds": {"x": "general/slide.mp3"},
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
 def get_forestfox(variant_id):
     pieces = {
         "a": "bell1", "b": "bell2", "c": "bell3", "d": "bell4", "e": "bell5", "f": "key1",
         "g": "key2", "h":"key3", "i": "key4", "j": "key5", "k": "moon1", "l": "moon2",
-        "m": "moon3", "n": "moon4", "o": "moon5", "0": "num0", "1": "num1", "2": "num2",
-        "3": "num3", "4": "num4", "5": "num5", "6": "num6", "7": "num7"
+        "m": "moon3", "n": "moon4", "o": "moon5"
     }
-    
-    centers = [[i % 7 * 150 + 125, i // 7 * 600 + 150] for i in range(14)]
-    centers += [[575, 450], [200, 450], [950, 450], [425, 450], [725, 450]]
+    nums = {str(n): {"image": f"general/{n}.svg", "scale": 450} for n in range(8)}
+    entities = {p: {"image": f"forestfox/{pieces[p]}.svg", "scale": 200} for p in pieces}
+    entities = entities | {"z": {"image": "forestfox/button.svg", "scale": 350}}
+    handcenters = [[i % 7 * 150 + 125, i // 7 * 600 + 150] for i in range(14)]
+    centers = handcenters + [[575, 450], [200, 450], [950, 450], [425, 450], [725, 450]]
+    centers += [[x, y + 80] for x, y in handcenters]
     # decree card, first card, second card, 1st score, 2nd score
         
     return {
@@ -545,9 +650,7 @@ def get_forestfox(variant_id):
                 "space": [1150, 900],
                 "centers": centers,
                 "background": "forestfox/cardboard.svg",
-                "entities": {
-                    p: {"image": f"forestfox/{pieces[p]}.svg", "scale": 200} for p in pieces
-                },
+                "entities": nums | entities,
                 "circleButtonRadius": 16,
                 "sounds": {"x": "general/slide.mp3"},
                 "animationType": "simpleSlides"
@@ -568,8 +671,8 @@ def get_foxandhounds(variant_id):
                 ],
                 "background": "chess/lichess/grid.svg",
                 "entities": {
-                    "F": {"image": "foxandhounds/F.png", "scale": 1},
-                    "G": {"image": "foxandhounds/G.png", "scale": 1},
+                    "F": {"image": "foxandhounds/F.svg", "scale": 1},
+                    "G": {"image": "foxandhounds/G.svg", "scale": 1},
                 },
                 "arrowWidth": 0.1,
                 "entitiesOverArrows": True,
@@ -582,39 +685,10 @@ def get_foxandhounds(variant_id):
         }
     }
 
-def get_gameofy(variant_id):
-    img_autogui_data = {
-        "defaultTheme": "basic",
-        "themes": {
-            "basic": {
-                "space": [8, 6],
-                "centers": [
-                    [4, 1.2],
-                    [3.47, 2.1], [4.53, 2.1],
-                    [2.97, 3], [4, 3], [5.03, 3],
-                    [2.44, 3.9], [3.47, 3.9], [4.53, 3.9], [5.56, 3.9]
-                ],
-                "background": "gameofy/dim4.svg",
-                "entities": {
-                    "W": {"image": "gameofy/blue_circle.svg", "scale": 0.8},
-                    "B": {"image": "gameofy/red_circle.svg", "scale": 0.8}
-                },
-                "sounds": {"x": "general/place.mp3"},
-                "animationType": "simpleSlides"
-            }
-        }
-    }
-    if variant_id == "dim5" or variant_id == "dim5-misere":
-        img_autogui_data["themes"]["basic"]["background"] = "gameofy/dim5.svg"
-        img_autogui_data["themes"]["basic"]["centers"] += [
-            [1.91, 4.8], [2.97, 4.8], [4.00, 4.8], [5.03, 4.8], [6.09, 4.8]
-        ]
-    return img_autogui_data
-
 def get_ghost(variant_id):
-    centers = [[0.5 + i, 2.5] for i in range(25)] + [[1 + i, 2.5] for i in range(24)] # Word
-    centers += [[i % 7 * 2 + 6.5, i // 7 * 2 + 7.5] for i in range(21)] # First 21 letter buttons
-    centers += [[8.5 + 2 * i, 13.5] for i in range(5)] # Last 5 letter buttons
+    centers = [[12.5, 2.63]]
+    centers += [[i % 7 * 2.5 + 5, i // 7 * 2.5 + 8.5] for i in range(21)] # First 21 letter buttons
+    centers += [[7.5 + 2.5 * i, 16] for i in range(5)] # Last 5 letter buttons
     return {
         "defaultTheme": "basic",
         "themes": {
@@ -622,12 +696,8 @@ def get_ghost(variant_id):
                 "space": [25, 25],
                 "background": "ghost/gray_background.svg",
                 "centers": centers,
-                "entities": {
-                    f"{letter}": {
-                        "image": f"general/{letter.upper()}.svg", 
-                        "scale": 1 if letter.isupper() else 2
-                    } for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-                },
+                "entities": {}, # We only use text entities and move buttons.
+                "textEntityFontSize": 1.2,
                 "sounds": {"x": "general/remove.mp3"},
                 "animationType": "entityFade"
             }
@@ -635,28 +705,49 @@ def get_ghost(variant_id):
     }
 
 def get_graphgame(variant_id):
-    centers = [[70,5], [83,5], [83,15], [70,15], [83,25], [70,25], [70,35],[83,35],
-              [70,45],[83,45],[70,55],[83,55], [50,65], [40, 65], [60,55], [40, 55],
-              [20,75], [40,75], [25,85], [8,55], [23,55]]
+    centers, space, arrowWidth, scale, img = None, None, None, None, None
+    if variant_id == "0":
+        centers = [[50, 94.588], [59, 79], [41, 79], [59, 61], [41, 61], [59, 43], [41, 43], 
+          [59, 25], [41, 25], [59, 7], [41, 7]]
+        space = [100, 100]
+        arrowWidth = 0.8
+        scale = 5
+        img = 'P'
+    elif variant_id == "1":
+        centers = [[70,5], [83,5], [83,15], [70,15], [83,25], [70,25], [70,35],[83,35],
+                [70,45],[83,45],[70,55],[83,55], [50,65], [40, 65], [60,55], [40, 55],
+                [20,75], [40,75], [25,85], [8,55], [23,55]]
+        space = [90, 90]
+        arrowWidth = 0.5
+        scale = 4
+        img = 'pp'
+    else:
+        space = [100, 100]
+        centers = [[41,14],[32,31],[50,31],[14,50],[32,50],[68,50],[86,50],[14,68],[32,68],
+                   [50,68],[68,68],[86,68],[14,86],[32,86],[50,86],[68,86]]
+        arrowWidth = 0.8
+        scale = 5
+        img = 'P'
+    
     return {
         "defaultTheme": "regular",
         "themes": {
             "regular": {
-                "space": [90, 90],
-                "background": "graphgame/board.svg",
+                "space": space,
+                "background": f"graphgame/graph{variant_id}.svg",
                 "centers": centers,
                 "entities": {
-                    "x": {"image": "chess/wikipedia/pp.svg", "scale": 4}
+                    "x": {"image": f"chess/wikipedia/{img}.svg", "scale": scale}
                 },
-                "arrowWidth": 0.5,
+                "arrowWidth": arrowWidth,
                 "sounds": {"x": "general/slide.mp3"},
                 "animationType": "simpleSlides"
             }
         }
     }
 
-def get_haregame(variant_id):
-    def haregame_iadata(name, width, num_width):
+def get_hareandhounds(variant_id):
+    def hareandhounds_iadata(name, width, num_width):
         main_centers = [[40 * i + 50, 40 * j + 10] for i in range(num_width) for j in range(3)]
         return {
             "defaultTheme": "regular",
@@ -664,10 +755,10 @@ def get_haregame(variant_id):
                 "regular": {
                     "space": [width, 100],
                     "centers": [[10, 50]] + main_centers + [[width - 10, 50]],
-                    "background": f"haregame/board{name}.svg",
+                    "background": f"hareandhounds/board{name}.svg",
                     "entities": {
-                        "d": {"image": "haregame/d.svg", "scale": 20},
-                        "r": {"image": "haregame/r.svg", "scale": 20}
+                        "d": {"image": "hareandhounds/d.svg", "scale": 20},
+                        "r": {"image": "hareandhounds/r.svg", "scale": 20}
                     },
                     "arrowWidth": 2,
                     "entitiesOverArrows": True,
@@ -681,61 +772,62 @@ def get_haregame(variant_id):
         }
 
     if variant_id == "s-hounds-first" or variant_id == "s-hare-first":
-        return haregame_iadata('small', 180, 3)
+        return hareandhounds_iadata('small', 180, 3)
     elif variant_id == "m-hounds-first" or variant_id == "m-hare-first":
-        return haregame_iadata('medium', 260, 5)
+        return hareandhounds_iadata('medium', 260, 5)
     elif variant_id == "l-hounds-first" or variant_id == "l-hare-first":
-        return haregame_iadata('large', 340, 7)
+        return hareandhounds_iadata('large', 340, 7)
     return None
 
-def get_horse(variant_id):
+def get_jenga(variant_id):
     return {
-        "defaultTheme": "regular",
+        "defaultTheme": "simple",
         "themes": {
-            "regular": {
-                "space": [100, 100], 
-                "centers": [[10, 10], [90, 10], [50, 50], [10, 90], [90, 90]],
-                "background": "horse/board.svg",
-                "entities": {
-                    "x": {"image": "general/blue_circle.svg", "scale": 15},
-                    "o": {"image": "general/red_circle.svg", "scale": 15}
-                },
-                "entitiesOverArrows": True,
-                "sounds": {
-                    "x": "general/slide.mp3"
-                },
-                "animationType": "simpleSlides"
+            "simple": {
+                "space": [6, 12], 
+                "centers": [             [3.5, 11.5], [4.5, 11.5], [5.5, 11.5], 
+                            [0.5, 10.5], [1.5, 10.5], [2.5, 10.5],   
+                                            [3.5, 9.5], [4.5, 9.5], [5.5, 9.5], 
+                            [0.5, 8.5], [1.5, 8.5], [2.5, 8.5],   
+                                            [3.5, 7.5], [4.5, 7.5], [5.5, 7.5], 
+                            [0.5, 6.5], [1.5, 6.5], [2.5, 6.5],                                    
+                                            [3.5, 5.5], [4.5, 5.5], [5.5, 5.5], 
+                            [0.5, 4.5], [1.5, 4.5], [2.5, 4.5], 
+                                            [3.5, 3.5], [4.5, 3.5], [5.5, 3.5], 
+                            [0.5, 2.5], [1.5, 2.5], [2.5, 2.5], 
+                                            [3.5, 1.5], [4.5, 1.5], [5.5, 1.5], 
+                            [0.5, 0.5], [1.5, 0.5], [2.5, 0.5]],
+                "background": "jenga/JengaBoard.svg",
+                "entities": { "J": {"image": "jenga/JengaPiece.svg", "scale": 0.9875}},
+                "sounds": {"x": "general/place.mp3"},
+                "animationType": "entityFade"
             }
         }
     }
 
-def get_jenga(variant_id):
-    if variant_id == "regular":
-        return {
-            "defaultTheme": "simple",
-            "themes": {
-                "simple": {
-                    "space": [6, 12], 
-                    "centers": [                                    [3.5, 11.5], [4.5, 11.5], [5.5, 11.5], 
-                                [0.5, 10.5], [1.5, 10.5], [2.5, 10.5],   
-                                                                    [3.5, 9.5], [4.5, 9.5], [5.5, 9.5], 
-                                [0.5, 8.5], [1.5, 8.5], [2.5, 8.5],   
-                                                                    [3.5, 7.5], [4.5, 7.5], [5.5, 7.5], 
-                                [0.5, 6.5], [1.5, 6.5], [2.5, 6.5],                                    
-                                                                    [3.5, 5.5], [4.5, 5.5], [5.5, 5.5], 
-                                [0.5, 4.5], [1.5, 4.5], [2.5, 4.5], 
-                                                                    [3.5, 3.5], [4.5, 3.5], [5.5, 3.5], 
-                                [0.5, 2.5], [1.5, 2.5], [2.5, 2.5], 
-                                                                    [3.5, 1.5], [4.5, 1.5], [5.5, 1.5], 
-                                [0.5, 0.5], [1.5, 0.5], [2.5, 0.5]],
-                    "background": "jenga/JengaBoard.svg",
-                    "entities": { "J": {"image": "jenga/JengaPiece.svg", "scale": 1}},
-                    "animationType": "entityFade"
-                }
+def get_joust(variant_id):
+    if variant_id not in ("4x4", "5x4"):
+        return None
+    r = int(variant_id[0])
+    c = int(variant_id[2])
+    d = max(r,c)
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [d, d],
+                "background": f"joust/grid{variant_id}.svg",
+                "centers": [[(i % c) + (1+d-c)/2, (i // c) + (1+d-r)/2] for i in range(r * c)],
+                "entities": {
+                    "X": {"image": "chess/wikipedia/N.svg", "scale": 1},
+                    "O": {"image": "chess/wikipedia/nn.svg", "scale": 1},
+                    "B": {"image": "joust/B.svg", "scale": 1.005},
+                },
+                "sounds": {"x": "general/slide.mp3"},
+                "animationType": "simpleSlides"
             }
         }
-    else:
-        return None
+    }
     
 def get_kayles(variant_id):
     size = int(variant_id)
@@ -746,16 +838,19 @@ def get_kayles(variant_id):
         centers = [[0.5 + i, y] for i in range(size)] + [[0.5 + i, y + 0.7] for i in range(size)] \
         + [[0.75 + i, y + 0.7] for i in range(size)] + [[1.25 + i, y + 0.7] for i in range(size)]
     return {
+        "ambience": "kayles/ambience.mp3",
         "defaultTheme": "kings",
         "themes": {
             "kings": {
                 "space": [max(size, 2), max(size, 2)],
                 "centers": centers,
                 "background": "kayles/grid.svg",
-                "entities": {"x": {"image": "kayles/x.svg", "scale": 1}},
+                "entities": {
+                    "x": {"image": "kayles/x.svg", "scale": 1}
+                },
                 "circleButtonRadius": 0.12,
                 "lineWidth": 0.1,
-                "sounds": {"x": "general/place.mp3", "y": "general/remove.mp3"},
+                "sounds": {"x": "kayles/strike.mp3"},
                 "animationType": "entityFade"
             }
         }
@@ -772,10 +867,10 @@ def get_konane(variant_id):
                     "background": f"konane/grid{rows}x{cols}.svg",
                     "centers": [[i % cols * 10 + 5, i // cols * 10 + 5] for i in range(rc)],
                     "entities": {
-                        "x": {"image": "general/blackpiece.svg", "scale": 9},
-                        "o": {"image": "general/whitepiece.svg", "scale": 9}
+                        "x": {"image": "general/whitepiece.svg", "scale": 9},
+                        "o": {"image": "general/blackpiece.svg", "scale": 9},
+                        "h": {"image": "general/basichitbox.svg", "scale": 10}
                     },
-                    "circleButtonRadius": 1.5,
                     "sounds": {"x": "general/remove.mp3", "y": "general/slide.mp3"},
                     "animationType": "simpleSlides"
                 }
@@ -786,7 +881,29 @@ def get_konane(variant_id):
         return konane_iadata(int(variant_id[0]), int(variant_id[-1]))
     return None
 
-def get_Lgame(variant_id):
+def get_lewthwaitesgame(variant_id):
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [50, 50],
+                "centers": [[i % 5 * 10 + 5, i // 5 * 10 + 5] for i in range(25)],
+                "background": "lewthwaitesgame/grid.svg",
+                "entities": {
+                    "W": {"image": "general/whitepiece.svg", "scale": 7},
+                    "B": {"image": "general/blackpiece.svg", "scale": 7},
+                },
+                "entitiesOverArrows": True,
+                "arrowWidth": 1,
+                "sounds": {
+                    "x": "general/slide.mp3",
+                },
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
+def get_lgame(variant_id):
     centers = [[i % 4 + 0.5, i // 4 + 0.5] for i in range(16)] + [[-99, 99]] * 5 # 5 multipartchars
     centers += [
         [0.15, 0.15], [1.15, 0.15], [2.15, 0.15], [0.15, 1.15], [1.15, 1.15], [2.15, 1.15],
@@ -798,18 +915,20 @@ def get_Lgame(variant_id):
         [0.625, 3.85], [0.625, 2.85], [0.625, 1.85], [1.15, 3.25], [1.625, 2.25], [1.625, 1.85], 
         [0.15, 2.15], [0.15, 1.75], [0.15, 0.75], [1.15, 2.15], [1.15, 1.75], [1.15, 0.75]
     ] # L-shaped move button centers, 6 centers for each of 8 L-piece orientations
+    entities = {
+        c: {
+            "image": f"lgame/{c}.svg", "scale": 1 if c.isalpha() else 0.6
+        } for c in 'BRWG12345678'
+    }
+    entities |= {"h": {"image": "general/basichitbox.svg", "scale": 1}}
     return {
         "defaultTheme": "regular",
         "themes": {
             "regular": {
                 "space": [4, 4],
                 "centers": centers,
-                "background": "Lgame/grid.svg",
-                "entities": {
-                    c: {
-                        "image": f"Lgame/{c}.svg", "scale": 1 if c.isalpha() else 0.6
-                    } for c in 'BRWG12345678'
-                },
+                "background": "lgame/grid.svg",
+                "entities": entities,
                 "sounds": {
                     "x": "general/place.mp3",
                     "y": "general/remove.mp3",
@@ -828,16 +947,16 @@ def get_lite3(variant_id):
             "regular": {
                 "space": [30, 30],
                 "centers": [[x % 3 * 10 + 5, x // 3 * 10 + 5] for x in range(9)],
-                "background": "lite3/3x3grid.svg",
+                "background": "ttt/3x3grid.svg",
                 "entities": {
-                    "a": {"image": "lite3/o.svg", "scale": 3},
-                    "b": {"image": "lite3/o.svg", "scale": 6},
-                    "c": {"image": "lite3/o.svg", "scale": 9},
-                    "1": {"image": "lite3/x.svg", "scale": 3},
-                    "2": {"image": "lite3/x.svg", "scale": 6},
-                    "3": {"image": "lite3/x.svg", "scale": 9}
+                    "a": {"image": "ttt/o.svg", "scale": 3},
+                    "b": {"image": "ttt/o.svg", "scale": 6},
+                    "c": {"image": "ttt/o.svg", "scale": 9},
+                    "1": {"image": "ttt/x.svg", "scale": 3},
+                    "2": {"image": "ttt/x.svg", "scale": 6},
+                    "3": {"image": "ttt/x.svg", "scale": 9},
+                    "h": {"image": "general/basichitbox.svg", "scale": 9}
                 },
-                "circleButtonRadius": 2,
                 "sounds": {"x": "general/place.mp3"},
                 "animationType": "entityFade"
             }
@@ -856,8 +975,8 @@ def get_mutorere(variant_id):
                 ],
                 "background": "mutorere/board.svg",
                 "entities": {
-                    "x": {"image": "general/blue_circle.svg", "scale": 10},
-                    "o": {"image": "general/red_circle.svg", "scale": 10}
+                    "x": {"image": "general/bluepiece.svg", "scale": 10},
+                    "o": {"image": "general/redpiece.svg", "scale": 10}
                 },
                 "entitiesOverArrows": True,
                 "sounds": {"x": "general/slide.mp3"},
@@ -874,18 +993,26 @@ def get_nim(variant_id):
     except Exception as err:
         return None
     
+    height = 0.5
+    width = 1
+    
     m, n = max(piles), len(piles)
-    adjusted_m, adjusted_n = m + 2, n * 2 + 1
+    adjusted_m, adjusted_n = m * height + 2, (n * 2 + 1) * width
     sideLength = max(adjusted_m, adjusted_n)
-    v_spacing = (sideLength - n) / (n + 1) + 1 # spacing between piles
-    y = v_spacing - 0.5 # y-coordinate of starting pile
+    h_spacing = (sideLength - n) / (n + 1) + 1 # spacing between pile x-centers
+    x = h_spacing - 0.5 # x-coordinate of starting pile
     
     centers = []
+    labels = []
     for i in range(len(piles)):
         pile_size = piles[i]
         for j in range(pile_size):
-            centers.append([1.5 + j, y])
-        y += v_spacing
+            centers.append([x, sideLength - 1.5 - height * j])
+        labels.append([x, sideLength - 0.5])
+        x += h_spacing
+    
+    centers += labels
+    textEntityFontSize = 1
 
     return {
         "defaultTheme": "kings",
@@ -895,9 +1022,10 @@ def get_nim(variant_id):
                 "centers": centers,
                 "background": "nim/grid.svg",
                 "entities": {
-                    "x": {"image": "general/whitepiece.svg", "scale": 1},
-                    "t": {"image": "general/basichitbox.svg", "scale": 1}
+                    "x": {"image": "nim/x.svg", "scale": 1},
+                    "t": {"image": "nim/t.svg", "scale": 1}
                 },
+                "textEntityFontSize": textEntityFontSize,
                 "sounds": {"x": "general/place.mp3"},
                 "animationType": "entityFade"
             }
@@ -976,8 +1104,10 @@ def get_notakto(variant_id):
         "themes": {
             "basic": {
                 "entities": {
-                    "X": {"image": "notakto/x.svg", "scale": 22}
+                    "X": {"image": "notakto/x.svg", "scale": 22},
+                    "h": {"image": "general/basichitbox.svg", "scale": 20}
                 },
+                "sounds": {"x": "general/remove.mp3"},
                 "animationType": "entityFade"
             }
         }
@@ -1000,30 +1130,92 @@ def get_notakto(variant_id):
         return None
     return notakto_iadata
 
-def get_othello(variant_id):
-    entities = {
-        "B": {"image": "general/blackpiece.svg", "scale": 9},
-        "W": {"image": "general/whitepiece.svg", "scale": 9},
-        "P": {"image": "othello/P.svg", "scale": 6}
-    }
-    entities.update({f"{i}": {"image": f"general/{i}.svg", "scale": 20} for i in range(10)})
+def get_nutictactoe(variant_id):
     return {
         "defaultTheme": "regular",
         "themes": {
             "regular": {
-                "space": [40, 50],
-                "centers": [
-                    [5, 5], [15, 5], [25, 5], [35, 5], 
-                    [5, 15], [15, 15], [25, 15], [35, 15], 
-                    [5, 25], [15, 25], [25, 25], [35, 25], 
-                    [5, 35], [15, 35], [25, 35], [35, 35], 
-                    [3, 45], [7, 45], [33, 45], [37, 45], [20, 45]
-                ],
+                "space": [5, 5],
+                "centers": [[i % 4 + 1, i // 4 + 0.5] for i in range(20)],
+                "background": "nutictactoe/board.svg",
+                "entities": {
+                    "X": {"image": "ttt/x.svg", "scale": 1},
+                    "O": {"image": "ttt/o.svg", "scale": 1}
+                },
+                "arrowWidth": 0.075,
+                "sounds": {"x": "general/slide.mp3"},
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
+def get_oddoreven(variant_id):
+    ctrs = [[i * 10 + 5, 10] for i in range(15)]
+    ctrs += [[30 + i % 2 * 10, 90 - i // 2 * 10] for i in range(12)]
+    ctrs += [[110 + i % 2 * 10, 90 - i // 2 * 10] for i in range(12)]
+    ctrs += [[75, 25], [35, 105], [115, 105]]
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [150, 150],
+                "centers": ctrs,
+                "background": "oddoreven/board.svg",
+                "entities": {
+                    "n": {"image": "oddoreven/n.svg", "scale": 10},
+                    "x": {"image": "general/bluepiece.svg", "scale": 10},
+                    "o": {"image": "general/redpiece.svg", "scale": 10}
+                },
+                "textEntityFontSize": 10,
+                "textButtonFontSize": 8,
+                "sounds": {"x": "general/place.mp3"},
+                "animationType": "entityFade"
+            }
+        }
+    }
+
+def get_othello(variant_id):
+    entities = {
+        "B": {"image": "general/blackpiece.svg", "scale": 9},
+        "W": {"image": "general/whitepiece.svg", "scale": 9},
+        "h": {"image": "general/basichitbox.svg", "scale": 10},
+        "P": {"image": "othello/P.svg", "scale": 6}
+    }
+    entities.update({f"{i}": {"image": f"general/{i}.svg", "scale": 20} for i in range(10)})
+    centers = [[5 + i % 4 * 10, 5 + i // 4 * 10] for i in range(16)]
+    centers += [[3, 45], [7, 45], [33, 45], [37, 45], [20, 45]]
+    centers = [[x + 0.06, y + 0.06] for x, y in centers]
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [40.12, 50],
+                "centers": centers,
                 "background": "othello/grid.svg",
-                "circleButtonRadius": 1.5,
                 "entities": entities,
                 "sounds": {"x": "general/place.mp3", "y": "general/remove.mp3"},
                 "animationType": "entityFade"
+            }
+        }
+    }
+
+def get_ponghauki(variant_id):
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [100, 100], 
+                "centers": [[10, 10], [90, 10], [50, 50], [10, 90], [90, 90]],
+                "background": "ponghauki/board.svg",
+                "entities": {
+                    "x": {"image": "general/bluepiece.svg", "scale": 15},
+                    "o": {"image": "general/redpiece.svg", "scale": 15}
+                },
+                "entitiesOverArrows": True,
+                "sounds": {
+                    "x": "general/slide.mp3"
+                },
+                "animationType": "simpleSlides"
             }
         }
     }
@@ -1050,31 +1242,54 @@ def get_quickchess(variant_id):
     }
 
 def get_quickcross(variant_id):
-    centers = [[i % 4 * 92.5 + 48.75, i // 4 * 92.5 + 48.75] for i in range(16)] # cross centers
-    cross_left = [[x - 27.5, y] for x, y in centers] # 16-31: left coord for hori move button
-    cross_right = [[x + 27.5, y] for x, y in centers] # 32-47: right coord for hori move button
-    cross_top = [[x, y - 27.5] for x, y in centers] # 48-63: top coord for vert move button
-    cross_bottom = [[x, y + 27.5] for x, y in centers] # 64-79: bottom coord for vert move button
+    centers = [[i % 4 * 100 + 50, i // 4 * 100 + 50] for i in range(16)] # cross centers
+    cross_left = [[x - 32, y] for x, y in centers] # 16-31: left coord for hori move button
+    cross_right = [[x + 32, y] for x, y in centers] # 32-47: right coord for hori move button
+    cross_top = [[x, y - 32] for x, y in centers] # 48-63: top coord for vert move button
+    cross_bottom = [[x, y + 32] for x, y in centers] # 64-79: bottom coord for vert move button
     centers = centers + cross_left + cross_right + cross_top + cross_bottom
 
     return {
         "defaultTheme": "moffitt", #because Cameron and Arihant worked in Moffitt
         "themes": {
             "moffitt": {
-                "space": [375, 375],
+                "space": [400, 400],
                 "centers": centers,
                 "background": "quickcross/background.svg",
                 "entities": {
                     "v": {"image": "quickcross/V.svg", "scale": 70},
                     "h": {"image": "quickcross/H.svg", "scale": 70},
-                    "r": {"image": "quickcross/rotate.svg", "scale": 30}
+                    "r": {"image": "quickcross/rotate.svg", "scale": 70}
                 },
-                "lineWidth": 4,
+                "lineWidth": 6,
                 "sounds": {
                     "x": "general/place.mp3",
                     "y": "general/remove.mp3"
                 },
                 "animationType": "entityFade"
+            }
+        }
+    }
+
+def get_rubiksmagic(variant_id):
+    entity_ctrs = [[i % 4 + 0.5, i // 4 + 0.5] for i in range(16)]
+    up_button_ctrs = [[x - 0.2, y] for x, y in entity_ctrs]
+    down_button_ctrs = [[x + 0.2, y] for x, y in entity_ctrs]
+    entities = {c: {"image": f"rubiksmagic/{c if c.isupper() else c+c}.svg", "scale": 1} for c in 'UuDd'} |\
+          {c: {"image": f"rubiksmagic/{c}.svg", "scale": 0.4} for c in 'pqrs'}
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [4, 4],
+                "centers": entity_ctrs + up_button_ctrs + down_button_ctrs,
+                "background": "rubiksmagic/background.svg",
+                "entities": entities,
+                "entitiesOverArrows": True,
+                "arrowWidth": 0.1,
+                "sounds": {"x": "general/remove.mp3", "y": "general/place.mp3"},
+                "animationType": "entityFade",
+                "defaultAnimationWindow": [0, 16]
             }
         }
     }
@@ -1096,8 +1311,7 @@ def get_shifttactoe(variant_id):
                     "x": {"image": "shifttactoe/x.svg", "scale": 1},
                     "o": {"image": "shifttactoe/o.svg", "scale": 1}
                 },
-                "arrowWidth": 0.10,
-                "animationType": "simpleSlides"
+                "arrowWidth": 0.10
             }
         }
     }
@@ -1117,8 +1331,8 @@ def get_slide5(variant_id):
                 "centers": piece_centers + arrow_centers,
                 "foreground": "slide5/foreground5x5.svg",
                 "entities": {
-                    "X": { "image": "connect4/X.svg", "scale": 33 }, 
-                    "O": { "image": "connect4/O.svg", "scale": 33 }
+                    "X": { "image": "general/blue_circle.svg", "scale": 35 }, 
+                    "O": { "image": "general/red_circle.svg", "scale": 35 }
                 },
                 "arrowWidth": 5,
                 "sounds": {"x": "general/remove.mp3"},
@@ -1128,17 +1342,42 @@ def get_slide5(variant_id):
     }
 
 def get_snake(variant_id):
+    entities = {c: {"image": f"snake/{c}.svg", "scale": 1.01} for c in '0123456789'}
+    entities = entities | {c: {"image": f"snake/{c}.svg", "scale": 1} for c in 'ht'}
+    centers = [[i % 4 + 0.5, i // 4 + 0.5] for i in range(16)]
     return {
         "defaultTheme": "slither",
         "themes": {
             "slither": {
                 "space": [4, 4],
-                "centers": [[i % 4 + 0.5, i // 4 + 0.5] for i in range(16)],
-                "background": "snake/background.svg",
-                "entities": {c: {"image": f"snake/{c}.svg", "scale": 1} for c in 'bht'},
+                "centers": centers + centers,
+                "background": "snake/grid.svg",
+                "entities": entities,
                 "entitiesOverArrows": True,
                 "sounds": {"x": "animals/snake.mp3"},
                 "animationType": "simpleSlides"
+            }
+        }
+    }
+
+def get_squaredance(variant_id):
+    scale = 9.9375
+    entity_ctrs = [[5.09375 + (i % 4 * scale), 5.09375 + (i // 4 * scale)] for i in range(16)]
+    up_button_ctrs = [[x - 2, y] for x, y in entity_ctrs]
+    down_button_ctrs = [[x + 2, y] for x, y in entity_ctrs]
+    entities = {c: {"image": f"squaredance/{c if c.isupper() else c+c}.svg", "scale": scale} for c in 'UuDdWXYZ'} |\
+          {c: {"image": f"squaredance/{c}.svg", "scale": 4} for c in 'qrst'}
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [40, 40],
+                "centers": entity_ctrs + up_button_ctrs + down_button_ctrs,
+                "background": "squaredance/background.svg",
+                "foreground": "squaredance/foreground.svg",
+                "entities": entities,
+                "sounds": {"x": "general/place.mp3"},
+                "animationType": "entityFade"
             }
         }
     }
@@ -1169,7 +1408,7 @@ def get_tactix(variant_id):
             "basic": {
                 "space": [4, 4],
                 "centers": centers,
-                "background": "snake/background.svg",
+                "background": "tactix/grid.svg",
                 "entities": {
                     "O": {"image": "Lgame/G.svg", "scale": 1}
                 },
@@ -1196,9 +1435,10 @@ def get_tictactwo(variant_id):
                     "O": {"image": "tictactwo/O.svg", "scale": 16},
                     "G": {"image": "tictactwo/tttgrid.svg", "scale": 56},
                     "g": {"image": "tictactwo/g.svg", "scale": 15},
-                    "t": {"image": "tictactwo/t.svg", "scale": 80}
+                    "t": {"image": "tictactwo/t.svg", "scale": 80},
+                    "h": {"image": "general/basichitbox.svg", "scale": 16}
                 },
-                "circleButtonRadius": 4,
+                "arrowWidth": 2,
                 "sounds": {
                     "x": "general/place.mp3",
                     "y": "general/remove.mp3",
@@ -1241,7 +1481,7 @@ def get_tootandotto(variant_id):
 def get_topitop(variant_id):
     # The four building components, 3 placement move buttons, and 1 passturn button
     entities = {
-        c: {"image": f"topitop/{c}.svg", "scale": 1 if c.isupper() else 0.3} for c in "BRSLuvw"
+        c: {"image": f"topitop/{c}.svg", "scale": 1 if c.isupper() else 0.3} for c in "BRSLtuvw"
     } | {"P": {"image": "othello/P.svg", "scale": 0.5}}
 
     centers = []
@@ -1272,10 +1512,10 @@ def get_topitop(variant_id):
     ]
 
     # Placement move buttons' centers form equilateral triangle at the center of each grid space
-    s, m = 0.866025, 0.16
-    centers += [[x, y - m] for x, y in maincenters] # Bucket place button
-    centers += [[x - m * s, y + m / 2] for x, y in maincenters] # Small pile place button
-    centers += [[x + m * s, y + m / 2] for x, y in maincenters] # Large pile place button
+    s, m, o = 0.866025, 0.18, 0.04
+    centers += [[x, y - m + o] for x, y in maincenters] # Bucket place button
+    centers += [[x - m * s, y + m / 2 + o] for x, y in maincenters] # Small pile place button
+    centers += [[x + m * s, y + m / 2 + o] for x, y in maincenters] # Large pile place button
 
     centers += [[1.5, 3.3]] # Pass turn button
 
@@ -1297,6 +1537,36 @@ def get_topitop(variant_id):
                 },
                 "animationType": "simpleSlides",
                 "defaultAnimationWindow": [0, 54]
+            }
+        }
+    }
+
+def get_y(variant_id):
+    fg = "y/dim4.svg"
+    ctrs = [[50, 15.7328], [37.875, 36.7339], [62.125, 36.7339], [25.75, 57.735], [50, 57.735],
+            [74.25, 57.735], [13.625, 78.7361], [37.875, 78.7361], [62.125, 78.7361],
+            [86.375, 78.7361]]
+    scale = 25
+    if variant_id == "dim5" or variant_id == "dim5-misere":
+        fg = "y/dim5.svg"
+        ctrs = [[50, 12.9326], [40.3, 29.7335], [59.7, 29.7335], [30.6, 46.5344], [50, 46.5344],
+                [69.4, 46.5344], [20.9, 63.3353], [40.3, 63.3353], [59.7, 63.3353],
+                [79.1, 63.3353], [11.2, 80.1362], [30.6, 80.1362], [50, 80.1362],
+                [69.4, 80.1362], [88.8, 80.1362]]
+        scale = 20
+
+    return {
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "space": [100, 100],
+                "centers": ctrs,
+                "foreground": fg,
+                "entities": {
+                    c: {"image": f"y/{c}.svg", "scale": scale} for c in "WBh"
+                },
+                "sounds": {"x": "general/place.mp3"},
+                "animationType": "simpleSlides"
             }
         }
     }
@@ -1355,41 +1625,50 @@ image_autogui_data_funcs = {
     "chess": get_chess,
     "chinesechess": get_chinesechess,
     "chomp": get_chomp,
-    "connect4c": get_connect4c,
+    "chopsticks": get_chopsticks,
+    "connect4": get_connect4,
     "chungtoi": get_chungtoi,
     "dao": get_dao,
     "dawsonschess": get_dawsonschess,
     "dinododgem": get_dinododgem,
     "dodgem": get_dodgem,
+    "domineering": get_domineering,
     "dragonsandswans": get_dragonsandswans,
     "euclidsgame": get_euclidsgame,
     "fivefieldkono": get_fivefieldkono,
+    "fourfieldkono": get_fourfieldkono,
     "forestfox": get_forestfox,
     "foxandhounds": get_foxandhounds,
-    "gameofy": get_gameofy,
     "ghost": get_ghost,
     "graphgame": get_graphgame,
-    "haregame": get_haregame,
-    "horse": get_horse,
+    "hareandhounds": get_hareandhounds,
     "jenga": get_jenga,
+    "joust": get_joust,
     "kayles": get_kayles,
     "konane": get_konane,
-    "Lgame": get_Lgame,
+    "lewthwaitesgame": get_lewthwaitesgame,
+    "lgame": get_lgame,
     "lite3": get_lite3,
     "mutorere": get_mutorere,
     "nim": get_nim,
     "ninemensmorris": get_ninemensmorris,
     "notakto": get_notakto,
+    "nutictactoe": get_nutictactoe,
+    "oddoreven": get_oddoreven,
     "othello": get_othello,
+    "ponghauki": get_ponghauki,
     "quickchess": get_quickchess,
     "quickcross": get_quickcross,
+    "rubiksmagic": get_rubiksmagic,
     "shifttactoe": get_shifttactoe,
     "slide5": get_slide5,
     "snake": get_snake,
+    "squaredance": get_squaredance,
     "tactix": get_tactix,
     "tictactwo": get_tictactwo,
     "tootandotto": get_tootandotto,
     "topitop": get_topitop,
+    "y": get_y,
     "yote": get_yote
 }
 

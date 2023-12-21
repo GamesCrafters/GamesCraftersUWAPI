@@ -6,40 +6,17 @@ from flask_cors import CORS
 from games import games, GamesmanClassicDataProvider
 from games.image_autogui_data import *
 from games.randomized_start import *
+from games.models import Remoteness
 from games.Ghost import Node, Trie
 
-from md_api import read_from_link
+from md_api import md_instr
 
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 
 CORS(app)
 
-# ID mapping from Uni to GC to get game instructions.
-ids = {'1210': '1210', 'abalone': 'abalone', 'achi': 'achi', 'ago': 'atarigo',
-       'baghchal': 'baghchal', 'chungtoi': 'chungtoi', 'dao': 'dao', 'dinododgem': 'dinododgem',
-       'dnb': 'dotsandboxes', 'dragonsandswans': 'dragonsandswans', 'foxes': 'foxandgeese',
-       'Lgame': 'lgame', 'mancala': 'mancala', 'ninemensmorris': 'ninemensmorris', 'topitop': 'topitop', 'ooe': 'oddoreven',
-       'othello': 'othello', 'quickchess': 'quickchess', 'sim': 'sim', 'snake': 'snake', '3spot': 'threespot',
-       'ttt': 'tictactoe', 'tilechess': 'tilechess', 'connect4c': 'connect4', 'dodgem': 'dodgem'}
-
 # Helper methods
-
-
-def get_link(game_id):
-    if game_id in ids:
-        gc_id = ids.get(game_id)
-        link = "http://gamescrafters.berkeley.edu/games/" + gc_id + ".xml"
-        return link
-    return None
-
-
-def md_instr(game_id):
-    gc_link = get_link(game_id)
-    if gc_link:
-        return read_from_link(gc_link)
-    return None
-
 
 def format_response_ok(response):
     return {
@@ -67,40 +44,94 @@ def get_game_variant(game_id, variant_id):
 
 
 def wrangle_next_stats(position, next_stats):
+    """
+    Given a position and next-move data, this function
+    1) Calculates the delta-remoteness of all legal moves AND
+    2) Returns the moves sorted from best-to-worst.
+
+    Delta Remoteness is an integer that helps to rank moves of the same value
+    based on their remotenesses. (Lower delta remoteness is better.)
+    - The delta remoteness of a winning move is the remoteness of the move's
+    child position minus the minimum remoteness of all lose child positions 
+    of `position`.
+    - The delta remoteness of a tying mvoe is the remoteness of the move's
+    child position minus the minimum remoteness of all tie child positions
+    of `position`.
+    - The delta remoteness of a losing move is the maximum remoteness of all
+    (win) child positions minus the remoteness of the move's child position.
+    - The delta remoteness of draw moves is infinite, however here we just say
+    that it is 0 because we treat tie and draw as different values.
+
+    This function also handles the case in which a move's child position has a
+    known value but a finite unknown remoteness. For the sake of calculating
+    delta remoteness, we treat the position as though it has a remoteness 1
+    higher than the maximum-remoteness child position of the same value. And
+    if all child posiitons of that value have an unknown finite remoteness, we
+    treat it as though the min and max remotenesses of child positions of that
+    value are 1.
+    """
     if not next_stats:
         return next_stats
-
-    def next_stats_remoteness_where_position_value(position_value):
-        return [next_stat['remoteness'] for next_stat in next_stats if next_stat['positionValue'] == position_value]
 
     def key_next_stat_by_move_value_then_delta_remoteness(next_stat):
         VALUES = ['win', 'tie', 'draw', 'lose', 'unsolved']
         move_value = next_stat['moveValue']
         delta_remotenesss = next_stat['deltaRemoteness']
-        if (move_value == 'undecided'):
+        if move_value == 'undecided':
             return 1
         return (VALUES.index(move_value), delta_remotenesss)
+    
+    lose_children_remotenesses = []
+    win_children_remotenesses = []
+    tie_children_remotenesses = []
+    win_finite_unknown_child_remoteness_exists = False
+    lose_finite_unknown_child_remoteness_exists = False
+    tie_finite_unknown_child_remoteness_exists = False
 
-    next_stats_remoteness_where_position_value_win = \
-        next_stats_remoteness_where_position_value('win')
-    next_stats_remoteness_where_position_value_lose = \
-        next_stats_remoteness_where_position_value('lose')
-    next_stats_remoteness_where_position_value_tie = \
-        next_stats_remoteness_where_position_value('tie')
+    for child in next_stats:
+        child_value = child['positionValue']
+        child_remoteness = child['remoteness']
+        if child_value == 'win':
+            if child_remoteness != Remoteness.FINITE_UNKNOWN:
+                win_children_remotenesses.append(child_remoteness)
+            else:
+                win_finite_unknown_child_remoteness_exists = True
+        elif child_value == 'lose':
+            if child_remoteness != Remoteness.FINITE_UNKNOWN:
+                lose_children_remotenesses.append(child_remoteness)
+            else:
+                lose_finite_unknown_child_remoteness_exists = True
+        elif child_value == 'tie':
+            if child_remoteness != Remoteness.FINITE_UNKNOWN:
+                tie_children_remotenesses.append(child_remoteness)
+            else:
+                tie_finite_unknown_child_remoteness_exists = True
 
-    best_next_stats_remoteness_where_move_value_win = \
-        min(next_stats_remoteness_where_position_value_lose) if next_stats_remoteness_where_position_value_lose else 0
-    best_next_stats_remoteness_where_move_value_lose = \
-        max(next_stats_remoteness_where_position_value_win) if next_stats_remoteness_where_position_value_win else 0
-    best_next_stats_remoteness_where_move_value_tie = \
-        min(next_stats_remoteness_where_position_value_tie) if next_stats_remoteness_where_position_value_tie else 0
+    max_win_child_remoteness = max(win_children_remotenesses) if win_children_remotenesses else 0
+    if win_finite_unknown_child_remoteness_exists:
+        max_win_child_remoteness += 1
+    
+    min_lose_child_remoteness = 1
+    max_lose_child_remoteness = 1
+    if lose_children_remotenesses:
+        min_lose_child_remoteness = min(lose_children_remotenesses)
+        if lose_finite_unknown_child_remoteness_exists:
+            max_lose_child_remoteness = max(lose_children_remotenesses) + 1
+
+    min_tie_child_remoteness = 1
+    max_tie_child_remoteness = 1
+    if tie_children_remotenesses:
+        min_tie_child_remoteness = min(tie_children_remotenesses)
+        if tie_finite_unknown_child_remoteness_exists:
+            max_tie_child_remoteness = max(tie_children_remotenesses) + 1
 
     def wrangle_next_stat(next_stat):
         position_value = next_stat['positionValue']
         remoteness = next_stat['remoteness']
         move_value = next_stat.get('moveValue', position_value)
 
-        # If not using UWAPI position string, assume turn switching; otherwise, determine whether turn character changed. 
+        # If not using UWAPI position string, assume turn switching; otherwise, decide 
+        # whether to switch the turn based on the current and next turn character. 
         if position[:2] != 'R_' or next_stat['position'][2] != position[2]:
             if position_value == 'win':
                 move_value = 'lose'
@@ -110,23 +141,27 @@ def wrangle_next_stats(position, next_stats):
         next_stat['moveValue'] = move_value
 
         # Delta remoteness (grouped by move value)
-        delta_remoteness = 0
+        delta_remoteness = 0         
         if move_value == 'win':
-            delta_remoteness = remoteness - best_next_stats_remoteness_where_move_value_win
+            if remoteness == Remoteness.FINITE_UNKNOWN:
+                remoteness = max_lose_child_remoteness
+            delta_remoteness = remoteness - min_lose_child_remoteness
         elif move_value == 'lose':
-            delta_remoteness = best_next_stats_remoteness_where_move_value_lose - remoteness
+            if remoteness == Remoteness.FINITE_UNKNOWN:
+                remoteness = max_win_child_remoteness
+            delta_remoteness = max_win_child_remoteness - remoteness
         elif move_value == 'tie':
-            delta_remoteness = remoteness - best_next_stats_remoteness_where_move_value_tie
+            if remoteness == Remoteness.FINITE_UNKNOWN:
+                remoteness = max_tie_child_remoteness
+            delta_remoteness = remoteness - min_tie_child_remoteness
         
         next_stat['deltaRemoteness'] = delta_remoteness
-
         return next_stat
 
     return sorted(map(wrangle_next_stat, next_stats), key=key_next_stat_by_move_value_then_delta_remoteness)
 
 
 # Routes
-
 
 @app.route("/games/")
 def handle_games():
@@ -142,6 +177,12 @@ def handle_games():
     response.sort(key=lambda g: g['name'])
     return format_response_ok(response)
 
+@app.route("/games/instructions/<type>/<game_id>/<language>/")
+def handle_instructions(type, game_id, language):
+    response = {
+        'instructions': md_instr(game_id, type, language)
+    }
+    return format_response_ok(response)
 
 @app.route("/games/<game_id>/")
 def handle_game(game_id):
@@ -153,7 +194,6 @@ def handle_game(game_id):
     return format_response_ok({
         'gameId': game_id,
         'name': game.name,
-        'instructions': md_instr(game_id),
         'variants': [
             {
                 'variantId': variant_id,
@@ -183,7 +223,8 @@ def handle_variant(game_id, variant_id):
                 'description': variant.desc,
                 'status': variant.status,
                 'startPosition': variant.start_position(),
-                'imageAutoGUIData': get_image_autogui_data(game_id, variant_id)
+                'imageAutoGUIData': get_image_autogui_data(game_id, variant_id),
+                'gui_status': variant.gui_status,
             }
         ]
     })
@@ -202,24 +243,6 @@ def handle_position(game_id, variant_id, position):
         position_data['moves'] = []
     else:
         position_data['moves'] = wrangle_next_stats(position, position_data['moves'])
-    # if (hasattr(variant, 'data_provider') and variant.data_provider == GamesmanClassicDataProvider):
-    #     # Get all information from one API call instead of 2
-    #     result = variant.next_stats(position)
-    #     if result is None:
-    #         return format_response_err('Passed in Invalid Game State')
-    #     result['moves'] = wrangle_next_stats(position, result['moves'])
-    # elif isinstance(variant, EfficientGameVariant):
-    #     result = variant.full_stats(position)
-    #     if result is None:
-    #         return format_response_err('Passed in Invalid Game State')
-    #     result['moves'] = wrangle_next_stats(position, result['moves'])
-    # else:
-    #     result = variant.stat(position)
-    #     if result is None:
-    #         return format_response_err('Passed in Invalid Game State')
-    #     result['moves'] = wrangle_next_stats(position, variant.next_stats(position))
-    # if result['remoteness'] == 0:
-    #     result['moves'] = []
     return format_response_ok(position_data)
 
 

@@ -1,4 +1,4 @@
-from .models import AbstractGameVariant
+from .models import AbstractGameVariant, Remoteness
 
 def kayles_custom_start(variant_id):
     try:
@@ -19,10 +19,20 @@ class KaylesGameVariant(AbstractGameVariant):
         return "R_A_0_0_" + 'x' * self.board_len
 
     def stat(self, position):
+        moves = self.get_moves(position)
+        position_value, mex = KaylesGameVariant.position_value(position)
+
+        mex_str = '0'
+        if mex == 1:
+            mex_str = '*'
+        elif mex != 0:
+            mex_str = f'*{mex}'
+
         response = {
             "position": position,
-            "positionValue": KaylesGameVariant.position_value(position),
-            "remoteness": 1,
+            "positionValue": position_value,
+            "remoteness": Remoteness.FINITE_UNKNOWN if moves else 0,
+            "mex": mex_str
         }
         return response
 
@@ -46,7 +56,7 @@ class KaylesGameVariant(AbstractGameVariant):
         for pile_len in pile_lengths:
             pile_mex = KaylesGameVariant.get_mex(pile_len)
             value = value ^ pile_mex
-        return "lose" if value == 0 else "win"
+        return "lose" if value == 0 else "win", value
 
     def get_pile_lengths(board):
         pile_lengths = []
@@ -69,7 +79,7 @@ class KaylesGameVariant(AbstractGameVariant):
         for i in range(len(board)): # Single pin removals
             if board[i] == 'x':
                 board[i] = '-'
-                moves[f"A_-_{self.board_len + i}_y"] = (
+                moves[f"A_-_{self.board_len + i}_x"] = (
                     f"R_{next_turn}_0_0_{''.join(board)}",
                     f"{i + 1}"
                 )

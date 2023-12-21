@@ -56,16 +56,13 @@ class Jenga(AbstractGameVariant):
         response = self.stat(position)
         json_moves = []
         moves = GenerateMoves(position.split("_")[4])
+        opp_turn = 'B' if self.get_player(position) == 'A' else 'A'
         for move in moves:
-            if self.get_player(position) == "A":
-                response_dict = self.stat("R_B_0_0_" + DoMove(position.split("_")[4], move))
-                response_dict.update({"move": "A_-_" + str(move)})
-                json_moves.append(response_dict)
-            else:
-                response_dict = self.stat("R_A_0_0_" + DoMove(position.split("_")[4], move))
-                response_dict.update({"move": "A_-_" + str(move)})
-                json_moves.append(response_dict)
-        response['moves'] = json_moves
+            response_dict = self.stat(f"R_{opp_turn}_0_0_" + DoMove(position.split("_")[4], move))
+            response_dict.update({"move": f"A_-_{move}_x"})
+            response_dict.update({"moveName": f"{move}"})
+            json_moves.append(response_dict)
+        response["moves"] = json_moves
         return response
 
     def get_player(self, position_str):

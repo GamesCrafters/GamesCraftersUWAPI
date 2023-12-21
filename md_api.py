@@ -1,35 +1,24 @@
-# This is a sample Python script.
-
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
-
 import xml.etree.ElementTree as ET
 import urllib.request
+import re
 
-# ids = {'1210': '1210', 'abalone': 'abalone', 'achi': 'achi', 'asalto': None, 'atarigo': 'ago', 'ataxx': None,
-# 				 'baghchal': 'baghchal', 'blocking': None, 'cambio': None, 'change': None, 'chungtoi': 'ctoi',
-# 				 'connections': None, 'criticalmass': None, 'dao': 'dao', 'dinododgem': 'dinododgem', 'dodgem': None,
-# 				 'dotsandboxes': 'dnb', 'dragonsandswans': 'swans', 'fandango': None, 'fourfieldkono': None,
-# 				 'foxandgeese': 'foxes', 'go': None, 'gobblet': None, 'hasamishogi': None, 'hex': None,
-# 				 'horseshoe': None, 'iceblocks': None, 'joust': None, 'lewthwaitesgame': None, 'lgame': 'Lgame',
-# 				 'linesofaction': None, 'lite3': None, 'mancala': 'mancala', 'mutorere': None, 'nim': None,
-# 				 'ninemensmorris': '369mm', 'nutictactoe': None, 'oddoreven': 'ooe', 'othello': 'othello',
-# 				 'paradux': None, 'pentago': None, 'pylos': None, 'quarto': None, 'queensland': None,
-# 				 'quickchess': 'quickchess', 'quickcross': None, 'rubikscheckers': None, 'rubiksmagic': None,
-# 				 'rubixinfinity': None, 'seega': None, 'shifttactoe': None, 'sim': 'sim', 'sliden': None,
-# 				 'snake': 'snake', 'squaredance': None, 'tactix': None, 'threespot': '3spot', 'tictacchec': None,
-# 				 'tictactier': None, 'tictactoe': 'ttt', 'tilechess': 'tilechess', 'tootandotto': None, 'topitop': None,
-# 				 'winkers': None, 'wuzhi': None, 'xigua': None, 'connect4': 'connect4'}
-
+locale_map = {
+	'en-US': 'eng',
+	'es': 'spa'
+}
 
 def read_from_link(url):
+	"""
+	It is entirely possible that the requested url does not point
+	to valid XML. Must have this try-except.
+	"""
 	try:
 		r = urllib.request.urlopen(url, timeout=2).read()
-	except urllib.error.URLError:
-		return None
-	d = convert_xml_dict(r)
-	return dict_to_markdown(d)
-
+		d = convert_xml_dict(r)
+		instructions = dict_to_markdown(d)
+		return instructions
+	except:
+		return ""
 
 def parse_list_items(bag, child, name):
 	if child.tag == name:
@@ -76,52 +65,82 @@ def convert_xml_dict(xml_string):
 		if processed:
 			continue
 		d[child.tag] = child.text
-	# print(child.tag, child.text)
 	return d
 
+def renderString(s, code):
+	replaced = re.sub(r"\[img\s+src\s*=\s*\"([^\"]*)\"([^\]]+)\]", rf"![alt](http://gamescrafters.berkeley.edu/instructions/i/{code}/\1)", s)
+	return re.sub(r"\[br\]", "\n\n", replaced)	
 
 def dict_to_markdown(d):
-	text = ''
-	text += f'## History\n{d["history"]}\n\n'
-	text += f'## The Board\n{d["board"]}\n\n'
-	text += f'## The Pieces\n{d["pieces"]}\n\n'
-	text += f'## Rules\n{d["tomove"]}\n{d["towin"]}\n\n'
+	code = d["code"]
+	text = f'# {d["name"]}\n\n'
+	if d["board"]:
+		text += f'## The Board\n---\n{renderString(d["board"], code)}\n\n'
+	if d["pieces"]:
+		text += f'## The Pieces\n{renderString(d["pieces"], code)}\n\n'
 
-	text += f'## Strategies\n'
-	for d1 in d["strategies"]:
-		for k, v in d1.items():
-			text += f'{k}: {v}\n'
-	text += '\n'
+	if d["tomove"] or d["towin"] or d["rules"]:
+		text += f'## Rules\n'
+	if d["tomove"]:
+		text += f'**To Move:** {renderString(d["tomove"], code)}\n\n'
+	if d["towin"]:
+		text += f'**To Win:** {renderString(d["towin"], code)}\n\n'
+	if d["rules"]:
+		text += f'{renderString(d["rules"], code)}\n\n'
 
-	text += f'## Variants\n'
-	for d1 in d["variants"]:
-		for k, v in d1.items():
-			text += f'{k}: {v}\n'
-	text += '\n'
+	if d["strategies"]:
+		text += f'## Strategies\n'
+		for d1 in d["strategies"]:
+			for k, v in d1.items():
+				text += f'- **{k}:** {renderString(v, code)}\n'
+		text += '\n'
 
-	text += f'## Links\n\n'
-	for d1 in d["links"]:
-		for k, v in d1.items():
-			text += f'[{v}]({k})\n'
-	text += '\n'
+	if d["variants"]:
+		text += f'## Variants\n'
+		for d1 in d["variants"]:
+			for k, v in d1.items():
+				text += f'- **{k}**: {renderString(v, code)}\n'
+		text += '\n'
 
-	text += f'## References\n\n'
-	for r in d['references']:
-		text += f' - {r}\n'
-	text += '\n'
+	if d["history"]:
+		text += f'## History\n{renderString(d["history"], code)}\n\n'
 
-	text += f'## Gamescrafters\n\n'
-	for g in d['gamescrafters']:
-		text += f' - {g}\n'
+	if d["links"]:
+		text += f'## Links\n\n'
+		for d1 in d["links"]:
+			for k, v in d1.items():
+				text += f' - [{v}]({k})\n'
+		text += '\n'
+
+	if d["references"]:
+		text += f'## References\n\n'
+		for r in d['references']:
+			text += f' - {r}\n'
+		text += '\n'
+
+	if d["gamescrafters"]:
+		text += f'## GamesCrafters\n\n'
+		for g in d['gamescrafters']:
+			text += f' - {g}\n'
 
 	return text
 
 
-def read_from_file(file):
-	with open(file, 'r') as reader:
+def read_from_file(game_id):
+	with open(f'./xmlfiles/{game_id}.md', 'r') as reader:
 		content = reader.read()
 		d = convert_xml_dict(content)
 		print(dict_to_markdown(d))
+
+
+def md_instr(game_id, type='games', language='eng'):
+	language = locale_map.get(language, language)
+	link = f"http://gamescrafters.berkeley.edu/instructions/{language}/{type}/{game_id}.xml"
+	instructions = read_from_link(link)
+	if not instructions and language != 'eng':
+		link = f"http://gamescrafters.berkeley.edu/instructions/eng/{type}/{game_id}.xml"
+		instructions = read_from_link(link)
+	return instructions
 
 
 # Press the green button in the gutter to run the script.
@@ -129,5 +148,3 @@ if __name__ == '__main__':
 	read_from_link('http://gamescrafters.berkeley.edu/games/1210.xml')
 	print('---------------------------------------------------------\n')
 	read_from_link('http://gamescrafters.berkeley.edu/games/baghchal.xml')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/

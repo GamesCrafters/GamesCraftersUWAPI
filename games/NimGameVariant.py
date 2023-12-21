@@ -1,4 +1,4 @@
-from .models import AbstractGameVariant
+from .models import AbstractGameVariant, Remoteness
 
 def nim_custom_start(variant_id):
     try:
@@ -24,15 +24,23 @@ class NimGameVariant(AbstractGameVariant):
         super(NimGameVariant, self).__init__(name, desc, status, gui_status)
 
     def start_position(self):
-        return "R_A_0_0_" + 'x' * self.cumsum[-1]
+        return self.getUWAPIPos(self.start_piles, 'A')
 
     def stat(self, position):
         position_arr = self.get_position_arr(position)
+        moves = self.get_moves(position_arr, position[2])
+        position_value, mex = NimGameVariant.position_value(position_arr)
+        mex_str = '0'
+        if mex == 1:
+            mex_str = '*'
+        elif mex != 0:
+            mex_str = f'*{mex}'
 
         response = {
             "position": position,
-            "positionValue": NimGameVariant.position_value(position_arr),
-            "remoteness": 1,
+            "positionValue": position_value,
+            "remoteness": Remoteness.FINITE_UNKNOWN if moves else 0,
+            "mex": mex_str,
         }
         return response
 
@@ -51,32 +59,20 @@ class NimGameVariant(AbstractGameVariant):
         uwapi_str = f"R_{player}_0_0_"
         for i in range(len(position_arr)):
             uwapi_str += 'x' * position_arr[i] + '-' * (self.start_piles[i] - position_arr[i])
+        uwapi_str += '.' * len(self.start_piles)
+        for pile_size in position_arr:
+            uwapi_str += f'~{pile_size}' 
         return uwapi_str
-
-    def get_board_str(position_str):
-        return position_str.split('_')[4]
 
     def position_value(position_arr):
         value = 0
         for pile in position_arr:
             value ^= int(pile)
-        return "lose" if value == 0 else "win"
+        return "lose" if value == 0 else "win", value
 
     def get_position_arr(self, position_str):
-        board_str = NimGameVariant.get_board_str(position_str)
-        position_arr = []
-        i, j = 0, 1
-        while i < len(board_str) + 1:
-            if i == self.cumsum[j] or board_str[i] == '-':
-                position_arr.append(i - self.cumsum[j - 1])
-                i = self.cumsum[j]
-                j += 1
-                if j == len(self.cumsum):
-                    break
-            else:
-                i += 1
-        return position_arr
-
+        return [int(pile_size) for pile_size in position_str.split('_')[4].split('~')[1:]]
+        
     def get_moves(self, position_arr, player):
         next_player = 'B' if player == 'A' else 'A'
         moves = {}
@@ -89,7 +85,7 @@ class NimGameVariant(AbstractGameVariant):
                 next_position_arr[i] = j
                 moves[f"A_t_{idx}_x"] = (
                     self.getUWAPIPos(next_position_arr, next_player),
-                    f"{idx + 1}"
+                    f"{pile_size - j} from Pile {i + 1}"
                 )
                 idx += 1
             idx = self.cumsum[k]

@@ -11,25 +11,15 @@ class Ghost(AbstractGameVariant):
         super(Ghost, self).__init__(name, desc, status="stable", gui_status="v2")
 
     def start_position(self):
-        return "R_A_0_0_-"
+        return "R_A_0_0_.~"
     
     def uwapi_pos_str_to_word(self, position):
-        return position[8:].replace('-', '')
+        parts = position.split('~')
+        return parts[1] if len(parts) > 1 else ''
 
     def word_to_uwapi_pos_str(self, word):
-        turn, first_part, second_part = 'A', None, None
-        s = len(word)
-        if s & 1:
-            turn = 'B'
-            sides = '-' * ((25 - s) // 2)
-            first_part = sides + word + sides
-            second_part = '-' * 24
-        else:
-            sides = '-' * ((24 - s) // 2)
-            first_part = '-' * 25
-            second_part = sides + word + sides
-        
-        return f'R_{turn}_0_0_{first_part}{second_part}'
+        turn = 'B' if len(word) & 1 else 'A'
+        return f'R_{turn}_0_0_.~{word}'
     
     def position_data(self, position):
         with open(f'{dirname}/../data/ghost/ghost{self.minimum_length}.pkl', 'rb') as trie_file:
@@ -39,9 +29,9 @@ class Ghost(AbstractGameVariant):
         moves = []
         for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
             remoteness = trie.get_remoteness(word + letter)
-            autogui_coord_id = ord(letter) - 16
+            autogui_coord_id = ord(letter) - 64
             next_res = {
-                "move": f'A_{letter.lower()}_{autogui_coord_id}_x',
+                "move": f'T_{letter}_{autogui_coord_id}_x',
                 "moveName": letter,
                 "position": self.word_to_uwapi_pos_str(word + letter),
                 "positionValue": 'lose' if remoteness & 1 else 'win',

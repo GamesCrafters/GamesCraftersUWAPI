@@ -181,7 +181,9 @@ games = {
         name='Chess',
         desc="Chess",
         variants={
-            '7-man': RegularChessVariant()
+            'endgame1': RegularChessVariant('K1k1B3/8/8/8/8/8/7N/8 w - - 0 1', name = 'Endgame 1'),
+            'endgame2': RegularChessVariant('8/6R1/6k1/p2pB3/8/8/r7/6K1 b - - 0 1', name = 'Endgame 2'),
+            'start': RegularChessVariant('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', name='Start')
         },
         gui_status='v2'),
 
@@ -195,9 +197,71 @@ games = {
     
     'chomp': Game(
         name='Chomp',
-        desc='Players take turn eating chocolate',
+        desc="Don't eat the poison square of the chocolate bar.",
         variants={
-            '4x7': JSONGameVariant(os.path.join(dirname, 'solutions/chomp/4x7.json'), gui_status='v2'),
+            '4x7': GameVariant(
+                name='4x7',
+                desc='4 Rows, 7 Columns',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='chomp',
+                data_provider_variant_id=36,
+                status='available',
+                gui_status='v3'),
+            '5x8': GameVariant(
+                name='5x8',
+                desc='5 Rows, 8 Columns',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='chomp',
+                data_provider_variant_id=47,
+                status='available',
+                gui_status='v3'),
+            '8x10': GameVariant(
+                name='8x10',
+                desc='8 Rows, 10 Columns',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='chomp',
+                data_provider_variant_id=79,
+                status='available',
+                gui_status='v3')
+        },
+        gui_status='v3'),
+
+    'chopsticks': Game(
+        name='Chopsticks',
+        desc="Kill your opponent's hands.",
+        variants={
+            '0': GameVariant(
+                name='Standard',
+                desc='[Standard] Neither pass-equivalent transfers nor full transfers allowed.',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='chopsticks',
+                data_provider_variant_id=0,
+                status='available',
+                gui_status='v3'),
+            '1': GameVariant(
+                name='1',
+                desc='Pass-equivalent transfers allowed. Full transfers not allowed.',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='chopsticks',
+                data_provider_variant_id=1,
+                status='available',
+                gui_status='v3'),
+            '2': GameVariant(
+                name='2',
+                desc='Pass-equivalent transfers not allowed. Full transfers allowed.',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='chopsticks',
+                data_provider_variant_id=2,
+                status='available',
+                gui_status='v3'),
+            '3': GameVariant(
+                name='3',
+                desc='Both pass-equivalent transfers and full transfers allowed.',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='chopsticks',
+                data_provider_variant_id=3,
+                status='available',
+                gui_status='v3'),
         },
         gui_status='v3'),
     
@@ -212,11 +276,11 @@ games = {
                 data_provider_game_id='ctoi',
                 data_provider_variant_id=-1,
                 status='available',
-                gui_status='v2')
+                gui_status='v3')
         },
-        gui_status='v2'),
+        gui_status='v3'),
     
-    'connect4c': Game(
+    'connect4': Game(
         name='Connect 4',
         desc="4-in-a-row with gravity.",
         variants={
@@ -293,6 +357,37 @@ games = {
         },
         gui_status='v3'),
 
+    'domineering': Game(
+        name='Domineering',
+        desc="Player left with no moves loses.",
+        variants={
+            '4': GameVariant(
+                name='4x4',
+                desc='4x4',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='domineering',
+                data_provider_variant_id=0,
+                status='available',
+                gui_status='v3'),
+            '5': GameVariant(
+                name='5x5',
+                desc='5x5',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='domineering',
+                data_provider_variant_id=1,
+                status='available',
+                gui_status='v3'),
+            '6': GameVariant(
+                name='6x6',
+                desc='6x6',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='domineering',
+                data_provider_variant_id=2,
+                status='available',
+                gui_status='v3')
+        },
+        gui_status='v3'),
+
     'dragonsandswans': Game(
         name='Dragons & Swans',
         desc="Swan places a piece onto the board if there are remaining pieces from the initial pile, otherwise move piece to an orthogonally adjacent empty board position. Dragon can either move a piece to an orthogonally adjacent empty square, or captures a swan by jumping over it to an empty square the other side. Swans wins when they surround all the dragons and dragons win when they eat all the swans.",
@@ -303,7 +398,7 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='swans',
                 data_provider_variant_id=-1,
-                status='dev',
+                status='available',
                 gui_status='v3'),
             '2': GameVariant(
                 name='2 Dragons',
@@ -311,7 +406,7 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='swans',
                 data_provider_variant_id=5,
-                status='dev',
+                status='available',
                 gui_status='v3'),
             '3': GameVariant(
                 name='3 Dragons',
@@ -319,7 +414,7 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='swans',
                 data_provider_variant_id=9,
-                status='dev',
+                status='available',
                 gui_status='v3'),
             '4': GameVariant(
                 name='4 Dragons',
@@ -327,7 +422,7 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='swans',
                 data_provider_variant_id=13,
-                status='dev',
+                status='available',
                 gui_status='v3')
         },
         gui_status='v3'),
@@ -371,6 +466,21 @@ games = {
         },
         gui_status='v3'),
 
+    'fourfieldkono': Game(
+        name='Four Field Kono',
+        desc="Get your opponent's pieces down to one.",
+        variants={
+            'standard': GameVariant(
+                name='Standard',
+                desc="Standard",
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='kono',
+                data_provider_variant_id=1096,
+                status='available',
+                gui_status='v3')
+        },
+        gui_status='v3'),
+
     'forestfox': Game(
         name='Forest Fox',
         desc="This is a card game adapted from The Fox in the Forest",
@@ -401,8 +511,8 @@ games = {
         },
         gui_status='v3'),
 
-    'gameofy': Game(
-        name='Game of Y',
+    'y': Game(
+        name='Y',
         desc="Place your piece onto an open space. Wins when you connect three in a row horizontally, vertically, or diagonally.",
         variants={
             'dim4': GameVariant(
@@ -456,18 +566,34 @@ games = {
         name='Graph',
         desc="Traversing a Graph",
         variants={
-            'drawdemo': GameVariant(
-                name='Pure Draw Analysis Demo',
-                desc='Pure Draw Analysis Demo',
+            '0': GameVariant(
+                name='10 to 0 by 1 or 2',
+                desc='10 to 0 by 1 or 2',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='graphgame',
+                data_provider_variant_id=1,
+                status='available',
+                gui_status='v3'),
+            '1': GameVariant(
+                name='Pure Draw Example',
+                desc='Pure Draw Example',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='graphgame',
                 data_provider_variant_id=0,
                 status='available',
                 gui_status='v3'),
+            '2': GameVariant(
+                name='Various Primitives',
+                desc='Various Primitives',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='graphgame',
+                data_provider_variant_id=2,
+                status='available',
+                gui_status='v3'),
         },
         gui_status='v3'),
 
-    'haregame': Game(
+    'hareandhounds': Game(
         name='Hare and Hounds',
         desc="One player controls the three hounds. The other player controls the hare. The hound player can move one of the three hounds to an empty spot each turn with the restriction of no backward moves. The hare player can move the hare to any adjacent empty spot. The hare wins by reaching the left-most cell. The hounds win if the hare is unable to move on their turn.",
         variants={
@@ -522,28 +648,36 @@ games = {
         },
         gui_status='v3'),
 
-    'horse': Game(
-        name='Horse',
-        desc="Also known as Blocking or Pong Hau Ki",
-        variants={
-            'regular': GameVariant(
-                name='Regular',
-                desc='Regular',
-                data_provider=GamesmanClassicDataProvider,
-                data_provider_game_id='horse',
-                data_provider_variant_id=1,
-                status='available',
-                gui_status='v3'),
-        },
-        gui_status='v3'),
-
     'jenga': Game(
         name='Jenga',
         desc='Pick any Jenga piece and place on the top of the stack. Pieces are built in a horizontal|vertical|horizontal pattern. The topmost complete level and above an unaccessible for making a move. If you run out of moves to make or make a move that causes the tower to fall you lose.',
         variants={
             "regular" : Jenga()
         },
-        gui_status='v2'),
+        gui_status='v3'),
+
+    'joust': Game(
+        name='Joust',
+        desc="A game version of knight's tour.",
+        variants={
+            '4x4': GameVariant(
+                name='4x4',
+                desc='4x4',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='joust',
+                data_provider_variant_id=288751,
+                status='available',
+                gui_status='v3'),
+            '5x4': GameVariant(
+                name='5x4',
+                desc='5x4',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='joust',
+                data_provider_variant_id=297501,
+                status='available',
+                gui_status='v3')
+        },
+        gui_status='v3'),
     
     'kayles': Game(
         name='Kayles',
@@ -593,7 +727,7 @@ games = {
         },
         gui_status='v3'),
     
-    'Lgame': Game(
+    'lgame': Game(
         name='L-game',
         desc='The L game is played on a 4x4 board. Each player has a 3×2 L-shaped piece, and there are two 1×1 neutral pieces. On each turn, a player must first move their L piece to a new location (can rotate or flip) and then may optionally move one of the neutral pieces. Wins when the opponent cannot move their L piece to a new location.',
         variants={
@@ -603,6 +737,21 @@ games = {
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='Lgame',
                 data_provider_variant_id=-1,
+                status='available',
+                gui_status='v3')
+        },
+        gui_status='v3'),
+
+    'lewthwaitesgame': Game(
+        name="Lewthwaite's Game",
+        desc='Try ot trap your opponent.',
+        variants={
+            'standard': GameVariant(
+                name='Standard',
+                desc='Standard',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='lewth',
+                data_provider_variant_id=0,
                 status='available',
                 gui_status='v3')
         },
@@ -718,7 +867,7 @@ games = {
         gui_status='v3'),
 
     'notakto': Game(
-        name='NoTakTo',
+        name='Notakto',
         desc='TicTacToe on N boards with only X being placed',
         variants={
             'regular': GameVariant(
@@ -728,7 +877,7 @@ games = {
                 data_provider_game_id='notakto',
                 data_provider_variant_id=0,
                 status='available',
-                gui_status='v2'),
+                gui_status='v3'),
             'board2': GameVariant(
                 name='2 Boards',
                 desc='2 Boards',
@@ -736,7 +885,7 @@ games = {
                 data_provider_game_id='notakto',
                 data_provider_variant_id=1,
                 status='available',
-                gui_status='v2'),
+                gui_status='v3'),
             'board3': GameVariant(
                 name='3 Boards',
                 desc='3 Boards',
@@ -744,24 +893,40 @@ games = {
                 data_provider_game_id='notakto',
                 data_provider_variant_id=2,
                 status='available',
-                gui_status='v2')
+                gui_status='v3')
         },
-        gui_status='v2'),
-     
-    'ooe': Game(
+        gui_status='v3'),
+
+    'nutictactoe': Game(
+        name='Nu Tic-Tac-Toe',
+        desc="Form a connected line of 3 marks.",
+        variants={
+            'regular': GameVariant(
+                name='Regular',
+                desc='5x4',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='nuttt',
+                data_provider_variant_id=1740,
+                status='available',
+                gui_status='v3')
+        },
+        gui_status='v3'),
+
+    'oddoreven': Game(
         name='Odd or Even',
-        desc="15 matches, take 1, 2, or 3 matches. Wins when you have even number of matches when 0 matches on board.",
+        desc="Have an even number of objects at the end of the game.",
         variants={
             'regular': GameVariant(
                 name='Regular',
                 desc='Regular',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='ooe',
-                data_provider_variant_id=-1,
-                status='dev',
-                gui_status='v0')
+                data_provider_variant_id=0,
+                status='stable',
+                gui_status='v3')
         },
-        gui_status='v0'),
+        gui_status='v3'
+    ),
     
     'othello': Game(
         name='Othello',
@@ -779,6 +944,21 @@ games = {
         gui_status='v3',
         supports_win_by=1
         ),
+
+    'ponghauki': Game(
+        name="Pong Hau K'i",
+        desc="Also known as Horse",
+        variants={
+            'regular': GameVariant(
+                name='Regular',
+                desc='Regular',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='horse',
+                data_provider_variant_id=1,
+                status='available',
+                gui_status='v3'),
+        },
+        gui_status='v3'),
     
     'quarto': Game(
         name='Quarto',
@@ -825,7 +1005,22 @@ games = {
                status='stable'),
        }, 
        gui_status='v3'),
-    
+
+    'rubiksmagic': Game(
+        name="Rubik's Magic",
+        desc="Get a lasting three-in-a-row.",
+        variants={
+            'regular': GameVariant(
+                name='Regular',
+                desc='Regular',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='rubiksmagic',
+                data_provider_variant_id=0,
+                status='available',
+                gui_status='v3')
+            },
+        gui_status='v3'),
+
     'sim': Game(
         name='Sim',
         desc="Connect two dots with a line of your color. Wins when you force your opponent to complete a triangle.",
@@ -862,7 +1057,7 @@ games = {
         variants={
             'regular': GameVariant(
                 name="Standard",
-                desc="Standard",
+                desc="[Standard] Creating a 5-in-a-Row for both players counts as a win for the player who did so.",
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='slide5',
                 data_provider_variant_id=-1,
@@ -871,7 +1066,7 @@ games = {
             ),
             'ties': GameVariant(
                 name="Tie Rule Enabled",
-                desc="Tie Rule Enabled",
+                desc="Creating a 5-in-a-Row for both players results in the game ending in a tie.",
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='slide5',
                 data_provider_variant_id=1,
@@ -895,9 +1090,24 @@ games = {
                 gui_status='v3')
             },
         gui_status='v3'),
+
+    'squaredance': Game(
+        name='Square Dance',
+        desc="Make a square of any side or orientation.",
+        variants={
+            'regular': GameVariant(
+                name='Regular',
+                desc='Regular',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='squaredance',
+                data_provider_variant_id=7,
+                status='available',
+                gui_status='v3')
+            },
+        gui_status='v3'),
     
     'tactix': Game(
-        name='Tac Tix',
+        name='TacTix',
         desc="2D Nim",
         variants={
             'regular': GameVariant(
@@ -912,7 +1122,7 @@ games = {
         gui_status='v3'
         ),
     
-    'ttt': Game(
+    'tictactoe': Game(
         name='Tic-Tac-Toe',
         desc="Place your piece onto an open square. Wins when you connect three in a row horizontally, vertically, or diagonally.",
         variants={
@@ -977,8 +1187,8 @@ games = {
         gui_status='v3'),
 
     'yote': Game(
-        name='Yote',
-        desc="Yote",
+        name='Yoté',
+        desc="Yoté",
         variants={
             '3x3': GameVariant(
                 name='3x3',

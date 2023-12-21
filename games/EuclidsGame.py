@@ -104,7 +104,7 @@ class EuclidsGame(AbstractGameVariant):
 
         for move, position in moves.items():
             next_res = {
-                "move": 'A_-_' + str(move - 1),
+                "move": f'A_h_{move - 1}_x',
                 "moveName": str(move),
                 **self.stat(position)
             }

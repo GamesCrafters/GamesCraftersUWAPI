@@ -1,3 +1,9 @@
+from enum import Enum
+
+class Remoteness(int, Enum):
+    FINITE_UNKNOWN = -100 # finite unknown
+    INFINITY = -200 # infinity
+
 class Game:
     """Record keeping for a game
     """

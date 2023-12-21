@@ -3,7 +3,7 @@ import json
 import requests
 from requests.exceptions import HTTPError
 
-from .models import DataProvider
+from .models import DataProvider, Remoteness
 from .multipart_handler import multipart_solve
 from .randomized_start import *
 
@@ -27,6 +27,7 @@ class GamesmanClassicDataProvider(DataProvider):
             next_stat['positionValue'] = next_stat.pop('value')
             if next_stat['positionValue'] == 'tie' and next_stat['remoteness'] == 255:
                 next_stat['positionValue'] = 'draw'
+                next_stat['remoteness'] = Remoteness.INFINITY
             if 'fromPos' in next_stat:
                 next_stat.pop('fromPos')
             return next_stat
@@ -42,6 +43,7 @@ class GamesmanClassicDataProvider(DataProvider):
         stat['positionValue'] = stat.pop('value')
         if stat['positionValue'] == 'tie' and stat['remoteness'] == 255:
             stat['positionValue'] = 'draw'
+            stat['remoteness'] = Remoteness.INFINITY
         stat['moves'] = list(map(wrangle_next_stat,list(filter(filter_multipart_by_frompos, stat['moves']))))
         return stat
 

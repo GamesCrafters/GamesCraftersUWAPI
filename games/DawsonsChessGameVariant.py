@@ -1,4 +1,4 @@
-from .models import AbstractGameVariant
+from .models import AbstractGameVariant, Remoteness
 
 def dawsonschess_custom_start(variant_id):
     try:
@@ -20,11 +20,20 @@ class DawsonsChessGameVariant(AbstractGameVariant):
 
     def stat(self, position):
         position_str = DawsonsChessGameVariant.get_position_str(position)
+        moves = DawsonsChessGameVariant.get_moves(position_str, position[2])
+        position_value, mex = DawsonsChessGameVariant.position_value(position_str)
+
+        mex_str = '0'
+        if mex == 1:
+            mex_str = '*'
+        elif mex != 0:
+            mex_str = f'*{mex}'
 
         response = {
             "position": position,
-            "positionValue": DawsonsChessGameVariant.position_value(position_str),
-            "remoteness": 1,
+            "positionValue": position_value,
+            "remoteness": Remoteness.FINITE_UNKNOWN if moves else 0,
+            "mex": mex_str
         }
         return response
 
@@ -53,9 +62,7 @@ class DawsonsChessGameVariant(AbstractGameVariant):
         for pile_len in pile_lengths:
             pile_mex = DawsonsChessGameVariant.get_mex(pile_len)
             value = value ^ pile_mex
-        if value == 0:
-            return "lose"
-        return "win"
+        return "lose" if value == 0 else "win", value
 
     def get_pile_lengths(position):
         pile_lengths = []
