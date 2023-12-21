@@ -59,7 +59,7 @@ class Jenga(AbstractGameVariant):
         opp_turn = 'B' if self.get_player(position) == 'A' else 'A'
         for move in moves:
             response_dict = self.stat(f"R_{opp_turn}_0_0_" + DoMove(position.split("_")[4], move))
-            response_dict.update({"move": f"A_-_{move}_x"})
+            response_dict.update({"move": f"A_h_{move}_x"})
             response_dict.update({"moveName": f"{move}"})
             json_moves.append(response_dict)
         response["moves"] = json_moves

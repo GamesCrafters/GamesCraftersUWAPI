@@ -798,7 +798,10 @@ def get_jenga(variant_id):
                                             [3.5, 1.5], [4.5, 1.5], [5.5, 1.5], 
                             [0.5, 0.5], [1.5, 0.5], [2.5, 0.5]],
                 "background": "jenga/JengaBoard.svg",
-                "entities": { "J": {"image": "jenga/JengaPiece.svg", "scale": 0.9875}},
+                "entities": { 
+                    "J": {"image": "jenga/JengaPiece.svg", "scale": 0.9875},
+                    "h": {"image": "general/basichitbox.svg", "scale": 0.9875}
+                },
                 "sounds": {"x": "general/place.mp3"},
                 "animationType": "entityFade"
             }
@@ -1410,7 +1413,7 @@ def get_tactix(variant_id):
                 "centers": centers,
                 "background": "tactix/grid.svg",
                 "entities": {
-                    "O": {"image": "Lgame/G.svg", "scale": 1}
+                    "O": {"image": "tactix/o.svg", "scale": 1}
                 },
                 "sounds": {"x": "general/place.mp3"},
                 "animationType": "entityFade"
