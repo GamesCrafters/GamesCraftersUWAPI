@@ -68,7 +68,13 @@ def convert_xml_dict(xml_string):
 	return d
 
 def renderString(s, code):
-	replaced = re.sub(r"\[img\s+src\s*=\s*\"([^\"]*)\"([^\]]+)\]", rf"![alt](http://gamescrafters.berkeley.edu/instructions/i/{code}/\1)", s)
+	"""
+		The first line uses images from gamescrafters.berkeley.edu.
+		The second one uses images from GitHub.
+		We link to images hosted on GitHub for the time being.
+	"""
+	#replaced = re.sub(r"\[img\s+src\s*=\s*\"([^\"]*)\"([^\]]+)\]", rf"![alt](http://gamescrafters.berkeley.edu/instructions/i/{code}/\1)", s)
+	replaced = re.sub(r"\[img\s+src\s*=\s*\"([^\"]*)\"([^\]]+)\]", rf"![alt](https://raw.githubusercontent.com/GamesCrafters/Explainers/master/instructions/i/{code}/\1)", s)
 	return re.sub(r"\[br\]", "\n\n", replaced)	
 
 def dict_to_markdown(d):
