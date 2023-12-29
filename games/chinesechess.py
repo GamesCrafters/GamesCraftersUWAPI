@@ -741,10 +741,9 @@ class RegularChineseChessVariant(AbstractGameVariant):
     def __init__(self):
         name = "Regular"
         desc = "Regular"
-        status = 'stable'
-        gui_status = 'v2'
+        gui = 'v2'
         super(RegularChineseChessVariant, self).__init__(
-            name, desc, status=status, gui_status=gui_status
+            name, desc, gui=gui
         )
 
     def start_position(self):

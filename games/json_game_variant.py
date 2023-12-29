@@ -4,12 +4,12 @@ from .models import AbstractGameVariant
 
 class JSONGameVariant(AbstractGameVariant):
 
-    def __init__(self, filepath, status='stable', gui_status='v0'):
+    def __init__(self, filepath, gui='v0'):
         with open(filepath) as json_file:
             self.data = json.load(json_file)
         name = self.data["name"]
         desc = self.data["desc"]
-        super(JSONGameVariant, self).__init__(name, desc, status=status, gui_status=gui_status)
+        super(JSONGameVariant, self).__init__(name, desc, gui=gui)
 
     def start_position(self):
         return self.data["startPosition"]

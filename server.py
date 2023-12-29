@@ -169,10 +169,9 @@ def handle_games():
         {
             'gameId': game_id,
             'name': game.name,
-            'status': game.status,
-            'gui_status': game.gui_status
+            'gui': game.gui
         }
-        for (game_id, game) in games.items() if game.status == 'available'
+        for (game_id, game) in games.items()
     ]
     response.sort(key=lambda g: g['name'])
     return format_response_ok(response)
@@ -198,12 +197,11 @@ def handle_game(game_id):
             {
                 'variantId': variant_id,
                 'description': variant.desc,
-                'status': variant.status,
                 'startPosition': variant.start_position(),
                 'imageAutoGUIData': get_image_autogui_data(game_id, variant_id),
-                'gui_status': variant.gui_status
+                'gui': variant.gui
             }
-            for (variant_id, variant) in game.variants.items() if variant.status != 'unavailable'
+            for (variant_id, variant) in game.variants.items()
         ],
         'custom': custom_variant,
         'supportsWinBy': game.supports_win_by
@@ -221,10 +219,9 @@ def handle_variant(game_id, variant_id):
             {
                 'variantId': variant_id,
                 'description': variant.desc,
-                'status': variant.status,
                 'startPosition': variant.start_position(),
                 'imageAutoGUIData': get_image_autogui_data(game_id, variant_id),
-                'gui_status': variant.gui_status,
+                'gui': variant.gui
             }
         ]
     })

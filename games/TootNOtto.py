@@ -80,10 +80,8 @@ class TootNOtto(AbstractGameVariant):
  
         name   = "" + str(self.ROWS) + "x" + str(self.COLS) + " Toot-N-Otto"
         desc   = str(COLS) + "x4"
-        status = "stable"
-        gui_status = 'v2'
 
-        super(TootNOtto, self).__init__(name, desc, status=status, gui_status=gui_status)
+        super(TootNOtto, self).__init__(name, desc, gui='v3')
 
     def start_position(self):
         return self.pos_to_UWAPI("-" * self.ROWS * self.COLS, 'x', self.COLS, self.COLS, self.COLS, self.COLS)

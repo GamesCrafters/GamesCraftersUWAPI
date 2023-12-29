@@ -8,17 +8,14 @@ class Game:
     """Record keeping for a game
     """
 
-    def __init__(self, name, desc, variants, custom_variant=None, status='available', gui_status='v0', supports_win_by=0):
+    def __init__(self, name, variants, custom_variant=None, gui='v0', supports_win_by=0):
         assert isinstance(name, str), 'name must be a string'
-        assert isinstance(desc, str), 'desc must be a string'
         assert isinstance(variants, dict), 'variants must be a dict'
 
         self.name = name
-        self.desc = desc
         self.variants = variants
         self.custom_variant = custom_variant
-        self.status = status
-        self.gui_status = gui_status
+        self.gui = gui
         self.supports_win_by = supports_win_by
 
     def variant(self, variant_id):
@@ -33,14 +30,13 @@ class AbstractGameVariant:
     """Abstract class for a variant of a game
     """
 
-    def __init__(self, name, desc, status='stable', gui_status='v0'):
+    def __init__(self, name, desc, gui='v0'):
         assert isinstance(name, str), 'name must be a string'
         assert isinstance(desc, str), 'desc must be a string'
 
         self.name = name
         self.desc = desc
-        self.status = status
-        self.gui_status = gui_status
+        self.gui = gui
 
     def start_position(self):
         return None
@@ -66,8 +62,8 @@ class GameVariant(AbstractGameVariant):
     """Record keeping for a variant of a game
     """
 
-    def __init__(self, name, desc, data_provider, data_provider_game_id, data_provider_variant_id, status='stable', gui_status='v0'):
-        super(GameVariant, self).__init__(name, desc, status=status, gui_status=gui_status)
+    def __init__(self, name, desc, data_provider, data_provider_game_id, data_provider_variant_id, gui='v0'):
+        super(GameVariant, self).__init__(name, desc, gui=gui)
         self.data_provider = data_provider
         self.data_provider_game_id = data_provider_game_id
         self.data_provider_variant_id = data_provider_variant_id

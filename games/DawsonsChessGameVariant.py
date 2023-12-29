@@ -10,10 +10,9 @@ def dawsonschess_custom_start(variant_id):
 class DawsonsChessGameVariant(AbstractGameVariant):
 
     def __init__(self, board_len, name = "Custom", desc = "Custom"):
-        status = "stable"
-        gui_status = "v3"
+        gui = "v3"
         self.board_len = board_len
-        super(DawsonsChessGameVariant, self).__init__(name, desc, status, gui_status)
+        super(DawsonsChessGameVariant, self).__init__(name, desc, gui)
 
     def start_position(self):
         return "R_A_0_0_" + 'b' * self.board_len

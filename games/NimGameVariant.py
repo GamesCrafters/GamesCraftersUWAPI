@@ -12,8 +12,7 @@ def nim_custom_start(variant_id):
 class NimGameVariant(AbstractGameVariant):
 
     def __init__(self, start_piles, name = "Custom", desc = "Custom"):
-        status = "stable"
-        gui_status = "v3"
+        gui = "v3"
         self.start_piles = start_piles
         self.cumsum = [0]
         total = 0
@@ -21,7 +20,7 @@ class NimGameVariant(AbstractGameVariant):
             total += pile
             self.cumsum.append(total)
 
-        super(NimGameVariant, self).__init__(name, desc, status, gui_status)
+        super(NimGameVariant, self).__init__(name, desc, gui)
 
     def start_position(self):
         return self.getUWAPIPos(self.start_piles, 'A')

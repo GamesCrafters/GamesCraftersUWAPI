@@ -8,8 +8,7 @@ class EuclidsGame(AbstractGameVariant):
     def __init__(self):
         name = "Regular"
         desc = "Regular"
-        status = "stable"
-        super(EuclidsGame, self).__init__(name, desc, status=status, gui_status="v2")
+        super(EuclidsGame, self).__init__(name, desc, gui="v2")
 
     def start_position(self):
         """

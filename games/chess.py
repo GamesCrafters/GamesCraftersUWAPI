@@ -129,10 +129,9 @@ def syz_next_stats(position):
 class RegularChessVariant(AbstractGameVariant):
 
     def __init__(self, fen, name = "Chess Endgame", desc = "Chess Endgame"):
-        status = "stable"
-        gui_status = "v2"
+        gui = "v2"
         self.start_fen = fen
-        super(RegularChessVariant, self).__init__(name, name, status, gui_status)
+        super(RegularChessVariant, self).__init__(name, name, gui)
 
     def start_position(self):
         turn = 'A' if self.start_fen.split(' ')[1] == 'w' else 'B'
