@@ -6,16 +6,13 @@ class EuclidsGame(AbstractGameVariant):
     p2Result = [('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 1), ('win', 3), ('win', 1), ('win', 53), ('win', 1), ('win', 5), ('win', 1), ('win', 3), ('win', 1), ('win', 59), ('win', 1), ('win', 61), ('win', 1), ('win', 3), ('win', 1), ('win', 5), ('win', 1), ('win', 67), ('win', 1), ('win', 3), ('win', 1), ('win', 71), ('win', 1), ('win', 73), ('win', 1), ('win', 3), ('win', 1), ('win', 7), ('win', 1), ('win', 79), ('win', 1), ('win', 9), ('win', 1), ('win', 83), ('win', 1), ('win', 17), ('win', 1), ('win', 29), ('win', 1), ('win', 89), ('win', 1), ('win', 13), ('win', 1), ('win', 31), ('win', 1), ('win', 19), ('win', 1), ('win', 97), ('win', 1), ('win', 99), ('win', 1)]
 
     def __init__(self):
-        name = "Regular"
-        desc = "Regular"
-        super(EuclidsGame, self).__init__(name, desc, gui="v2")
+        super(EuclidsGame, self).__init__('Regular', 'v2')
 
     def start_position(self):
         """
             Return a UWAPI position string corresponding 
             to the initial position.
         """
-        # pass
         return "R_A_4_4_" + '-' * 106
 
     def stat(self, position):

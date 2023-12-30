@@ -12,9 +12,8 @@ List of already added games can be found [here](https://docs.google.com/spreadsh
 In __init__.py file, add games into the `games` dictionary as below:
 
 ```python
-'ttt': Game(
+'tictactoe': Game(
     name='Tic-Tac-Toe',
-    desc='Achieve three in a row horizontally, vertically, or diagonally',
     variants={
         'regular': GameVariant(
             name='Regular',
@@ -29,9 +28,6 @@ In __init__.py file, add games into the `games` dictionary as below:
 In the example above, 'ttt' is the key
 
 - The instance variable  `name` should be the full name of the game ('Tic-Tac-Toe' in the example above).
-
-- `desc` is a very brief description of the game. Information and details about the game can be retrieved
-from the [GamesCrafters website](http://gamescrafters.berkeley.edu/games.php) or the c file in the GamesmanClassic repository.
 
 - In the initial stage of adding games, can simply add the regular variant (user does not need to change anything other than the
 `data_provider_game_id`)

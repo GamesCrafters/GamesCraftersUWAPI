@@ -2,7 +2,6 @@ import random
 
 def sortString(str) :
     str = ''.join(sorted(str))
-    print(str)
 
 def get_forestfox(variant_id):
     cards = 'abcdefghijklmno'

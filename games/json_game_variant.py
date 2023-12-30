@@ -8,8 +8,7 @@ class JSONGameVariant(AbstractGameVariant):
         with open(filepath) as json_file:
             self.data = json.load(json_file)
         name = self.data["name"]
-        desc = self.data["desc"]
-        super(JSONGameVariant, self).__init__(name, desc, gui=gui)
+        super(JSONGameVariant, self).__init__(name, gui=gui)
 
     def start_position(self):
         return self.data["startPosition"]

@@ -77,11 +77,8 @@ class TootNOtto(AbstractGameVariant):
         self.ROWS   = 4
         self.NAME = "" + str(self.ROWS) + "x" + str(self.COLS) + "Toot-N-Otto"
         self.DIRECTORY = "data/" + self.NAME + "F"
- 
-        name   = "" + str(self.ROWS) + "x" + str(self.COLS) + " Toot-N-Otto"
-        desc   = str(COLS) + "x4"
 
-        super(TootNOtto, self).__init__(name, desc, gui='v3')
+        super(TootNOtto, self).__init__(f'{COLS}x4', gui='v3')
 
     def start_position(self):
         return self.pos_to_UWAPI("-" * self.ROWS * self.COLS, 'x', self.COLS, self.COLS, self.COLS, self.COLS)

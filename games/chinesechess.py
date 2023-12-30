@@ -739,12 +739,7 @@ def tier_size_steps(tier: str):
 
 class RegularChineseChessVariant(AbstractGameVariant):
     def __init__(self):
-        name = "Regular"
-        desc = "Regular"
-        gui = 'v2'
-        super(RegularChineseChessVariant, self).__init__(
-            name, desc, gui=gui
-        )
+        super(RegularChineseChessVariant, self).__init__('Regular', 'v2')
 
     def start_position(self):
         return boardToUWAPI(get_board_default_starting(), 1)

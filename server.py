@@ -1,5 +1,3 @@
-import os
-
 from flask import Flask
 from flask_cors import CORS
 
@@ -17,31 +15,6 @@ app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 CORS(app)
 
 # Helper methods
-
-def format_response_ok(response):
-    return {
-        'status': 'ok',
-        'response': response
-    }
-
-
-def format_response_err(error_message):
-    return {
-        'status': 'error',
-        'error': error_message
-    }
-
-
-def get_game(game_id):
-    return games.get(game_id, None)
-
-
-def get_game_variant(game_id, variant_id):
-    game = get_game(game_id)
-    if not game:
-        return None
-    return game.variant(variant_id)
-
 
 def wrangle_next_stats(position, next_stats):
     """
@@ -167,36 +140,33 @@ def wrangle_next_stats(position, next_stats):
 def handle_games():
     response = [
         {
-            'gameId': game_id,
+            'id': game_id,
             'name': game.name,
             'gui': game.gui
         }
         for (game_id, game) in games.items()
     ]
     response.sort(key=lambda g: g['name'])
-    return format_response_ok(response)
+    return response
 
 @app.route("/games/instructions/<type>/<game_id>/<language>/")
 def handle_instructions(type, game_id, language):
-    response = {
-        'instructions': md_instr(game_id, type, language)
-    }
-    return format_response_ok(response)
+    return {'instructions': md_instr(game_id, type, language)}
 
 @app.route("/games/<game_id>/")
 def handle_game(game_id):
-    game = get_game(game_id)
-    if not game:
-        return format_response_err('Game not found')
+    if game_id not in games:
+        return {'error': 'Game not found'}
+    game = games[game_id]
     
     custom_variant = 'true' if game.custom_variant else None
-    return format_response_ok({
-        'gameId': game_id,
+    return {
+        'id': game_id,
         'name': game.name,
         'variants': [
             {
                 'variantId': variant_id,
-                'description': variant.desc,
+                'name': variant.name,
                 'startPosition': variant.start_position(),
                 'imageAutoGUIData': get_image_autogui_data(game_id, variant_id),
                 'gui': variant.gui
@@ -205,16 +175,19 @@ def handle_game(game_id):
         ],
         'custom': custom_variant,
         'supportsWinBy': game.supports_win_by
-    })
+    }
 
 
 @app.route('/games/<game_id>/variants/<variant_id>/')
 def handle_variant(game_id, variant_id):
-    variant = get_game_variant(game_id, variant_id)
+    if game_id not in games:
+        return {'error': 'Game not found'}
+    variant = games[game_id].variant(variant_id)
+
     if not variant:
-        return format_response_err('Game/Variant not found')
-    return format_response_ok({
-        'gameId': game_id,
+        return {'error': 'Game/Variant not found'}
+    return {
+        'id': game_id,
         'variant': [
             {
                 'variantId': variant_id,
@@ -224,38 +197,36 @@ def handle_variant(game_id, variant_id):
                 'gui': variant.gui
             }
         ]
-    })
+    }
 
 
 @app.route('/games/<game_id>/variants/<variant_id>/positions/<position>/')
 def handle_position(game_id, variant_id, position):
-    variant = get_game_variant(game_id, variant_id)
-    if not variant:
-        return format_response_err('Game/Variant not found')
+    if game_id not in games:
+        return {'error': 'Game not found'}
+    variant = games[game_id].variant(variant_id)
     
     position_data = variant.position_data(position)
     if position_data is None:
-        return format_response_err('Passed in Invalid Game State')
+        return {'error': 'Passed in Invalid Game State'}
     if position_data['remoteness'] == 0:
         position_data['moves'] = []
     else:
         position_data['moves'] = wrangle_next_stats(position, position_data['moves'])
-    return format_response_ok(position_data)
+    return position_data
 
 
 @app.route('/games/<game_id>/<variant_id>/randpos/')
 def game_randpos(game_id, variant_id):
     random_start = get_random_start(game_id, variant_id)
     if random_start is None:
-        variant = get_game_variant(game_id, variant_id)
+        if game_id not in games:
+            return {'error': 'Game not found'}
+        variant = games[game_id].variant(variant_id)
         if not variant:
-            return format_response_err('Game/Variant not found')
+            return {'error': 'Game/Variant not found'}
         random_start = variant.start_position()
-    response = {
-        "position": random_start
-    }
-    return format_response_ok(response)
-
+    return {'position': random_start}
 
 if __name__ == '__main__':
     app.run(port=8082)

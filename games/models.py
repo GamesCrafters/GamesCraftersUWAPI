@@ -5,8 +5,7 @@ class Remoteness(int, Enum):
     INFINITY = -200 # infinity
 
 class Game:
-    """Record keeping for a game
-    """
+    """Record keeping for a game"""
 
     def __init__(self, name, variants, custom_variant=None, gui='v0', supports_win_by=0):
         assert isinstance(name, str), 'name must be a string'
@@ -27,15 +26,12 @@ class Game:
 
 
 class AbstractGameVariant:
-    """Abstract class for a variant of a game
-    """
+    """Abstract class for a variant of a game"""
 
-    def __init__(self, name, desc, gui='v0'):
+    def __init__(self, name, gui='v0'):
         assert isinstance(name, str), 'name must be a string'
-        assert isinstance(desc, str), 'desc must be a string'
 
         self.name = name
-        self.desc = desc
         self.gui = gui
 
     def start_position(self):
@@ -62,8 +58,8 @@ class GameVariant(AbstractGameVariant):
     """Record keeping for a variant of a game
     """
 
-    def __init__(self, name, desc, data_provider, data_provider_game_id, data_provider_variant_id, gui='v0'):
-        super(GameVariant, self).__init__(name, desc, gui=gui)
+    def __init__(self, name, data_provider, data_provider_game_id, data_provider_variant_id, gui='v0'):
+        super(GameVariant, self).__init__(name, gui=gui)
         self.data_provider = data_provider
         self.data_provider_game_id = data_provider_game_id
         self.data_provider_variant_id = data_provider_variant_id

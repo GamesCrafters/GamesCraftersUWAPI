@@ -8,17 +8,11 @@ from .models import AbstractGameVariant
 class Jenga(AbstractGameVariant):
 
     def __init__(self):
-        name = "Jenga"
-        desc="Regular - 15 pieces"
-
-        #Change upon COMMIT
         self.DIRECTORY = "data/"
         self.FILENAME = "JengaOutput.txt"
-
-        super(Jenga, self).__init__(name, desc, gui='v3')
+        super(Jenga, self).__init__("Regular - 15 pieces", 'v3')
 
     def start_position(self):
-        #{AutoGUI}_{Player Turn A or B}_{Random int}_{Random int}_{JENGA BOARD representation (Max Length)}
         return "R_A_0_0_" + "J"*15
 
     def stat(self, position):

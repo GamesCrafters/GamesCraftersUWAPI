@@ -5,9 +5,6 @@ This is the back end team code for the internal request-routing server framework
 ### UWAPI backend link
 https://nyc.cs.berkeley.edu/universal/v1/games
 
-### UWAPI Board to String documentation (original paper)
-https://docs.google.com/document/d/e/2PACX-1vSa3uCftTOxVqw-n8HrysrTIh3iLXGXU1gpNAYUGHzY9mEwSL02c1gB23GALguN5hBAv09exvNbiTSx/pub
-
 ## Run the server locally
 To run the server on your local machine, first clone this repository and run these following commands.
 ```
@@ -15,7 +12,7 @@ git clone https://github.com/GamesCrafters/GamesCraftersUWAPI.git
 pip install -r requirements.txt
 python server.py
 ```
-These commands have been found to work on Python 3.6, 3.7, and 3.8.
+These commands have been found to work on Python 3.9, 3.10, and 3.11.
 
 ## games folder
 The games folder has four essential files and each has its own purpose.
@@ -47,13 +44,3 @@ Routes:
 
     - Calls handle_position(game_id, variant_id, position)
     - Finds game and variant if exists. Gets response of current position value from GamesCrafters website (with 'board', 'value', and remoteness), renames 'board' and 'value' fields to 'position' and 'positionValue', adds a new field 'moves' containing next wrangled moves (sorted), and returns modified response
-    
-- "/games/<game_id>/variants/<variant_id>/positions/\<position\>/move"
-
-    - Calls handle_position_moves(game_id, variant_id, position)
-    - Similar to handle_position (above) but only returns "moves" field of the response
-    
-- "/internal/classic-games"
-
-    - Calls handle_classic_games()
-    - Gets json dictionary of all games (not fully implemented. List is present, but no data)

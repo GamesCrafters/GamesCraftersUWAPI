@@ -9,10 +9,9 @@ def kayles_custom_start(variant_id):
 
 class KaylesGameVariant(AbstractGameVariant):
 
-    def __init__(self, board_len, name = "Custom", desc = "Custom"):
-        gui = "v3"
+    def __init__(self, board_len, name = "Custom"):
         self.board_len = board_len
-        super(KaylesGameVariant, self).__init__(name, desc, gui)
+        super(KaylesGameVariant, self).__init__(name, 'v3')
 
     def start_position(self):
         return "R_A_0_0_" + 'x' * self.board_len

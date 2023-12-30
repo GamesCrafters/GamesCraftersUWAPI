@@ -6,9 +6,8 @@ dirname = os.path.dirname(__file__)
 class Ghost(AbstractGameVariant):
 #class Ghost:
     def __init__(self, minimum_length=4):
-        name, desc = "Regular", f"Min Length = {minimum_length}"
         self.minimum_length = minimum_length
-        super(Ghost, self).__init__(name, desc, gui="v2")
+        super(Ghost, self).__init__(f"Min Length = {minimum_length}", 'v2')
 
     def start_position(self):
         return "R_A_0_0_.~"

@@ -47,11 +47,9 @@ class GamesmanClassicDataProvider(DataProvider):
         stat['moves'] = list(map(wrangle_next_stat,list(filter(filter_multipart_by_frompos, stat['moves']))))
         return stat
 
-
     @staticmethod
     def getStart(game, variation=-1):
-        """Get starting position of game
-        """
+        """Get starting position of game"""
         try:
             tempurl = GamesmanClassicDataProvider.url + game + "/start"
             if variation != -1:
@@ -68,8 +66,7 @@ class GamesmanClassicDataProvider(DataProvider):
 
     @staticmethod
     def getPosition(game, board, variation=-1):
-        """Get values for the next moves
-        """
+        """Get values for the next moves"""
         try:
             tempurl = GamesmanClassicDataProvider.url + game + \
                 "/position" + "?board=" + board
