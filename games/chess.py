@@ -2,7 +2,7 @@ import chess
 from requests.exceptions import HTTPError
 import requests
 
-from .models import AbstractGameVariant, Remoteness
+from .models import AbstractVariant, Remoteness
 
 URL = "http://tablebase.lichess.ovh/standard"
 
@@ -126,7 +126,7 @@ def syz_next_stats(position):
         return response
 
 
-class RegularChessVariant(AbstractGameVariant):
+class RegularChessVariant(AbstractVariant):
 
     def __init__(self, fen, name = "Chess Endgame"):
         self.start_fen = fen

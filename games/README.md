@@ -15,7 +15,7 @@ In __init__.py file, add games into the `games` dictionary as below:
 'tictactoe': Game(
     name='Tic-Tac-Toe',
     variants={
-        'regular': GameVariant(
+        'regular': Variant(
             name='Regular',
             desc='Regular',
             data_provider=GamesmanClassicDataProvider,

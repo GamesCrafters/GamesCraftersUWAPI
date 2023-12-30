@@ -1,14 +1,14 @@
 import json
-from .models import AbstractGameVariant
+from .models import AbstractVariant
 
 
-class JSONGameVariant(AbstractGameVariant):
+class JSONVariant(AbstractVariant):
 
     def __init__(self, filepath, gui='v0'):
         with open(filepath) as json_file:
             self.data = json.load(json_file)
         name = self.data["name"]
-        super(JSONGameVariant, self).__init__(name, gui=gui)
+        super(JSONVariant, self).__init__(name, gui=gui)
 
     def start_position(self):
         return self.data["startPosition"]

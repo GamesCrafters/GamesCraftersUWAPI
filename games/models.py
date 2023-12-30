@@ -25,7 +25,7 @@ class Game:
         return variant_val
 
 
-class AbstractGameVariant:
+class AbstractVariant:
     """Abstract class for a variant of a game"""
 
     def __init__(self, name, gui='v0'):
@@ -54,12 +54,12 @@ class DataProvider:
         return None
     
 
-class GameVariant(AbstractGameVariant):
+class Variant(AbstractVariant):
     """Record keeping for a variant of a game
     """
 
     def __init__(self, name, data_provider, data_provider_game_id, data_provider_variant_id, gui='v0'):
-        super(GameVariant, self).__init__(name, gui=gui)
+        super(Variant, self).__init__(name, gui=gui)
         self.data_provider = data_provider
         self.data_provider_game_id = data_provider_game_id
         self.data_provider_variant_id = data_provider_variant_id

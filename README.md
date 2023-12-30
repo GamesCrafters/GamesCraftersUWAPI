@@ -21,7 +21,7 @@ The games folder has four essential files and each has its own purpose.
 
 gamesman_classic.py: Implements the GamesmanClassicDataProvider based on the abstract DataProvider class. 
 
-models.py: Creates abstract model classes for Game, AbstractGameVariant, GameVariant, and DataProviderthat have been added to the web API 
+models.py: Creates abstract model classes for Game, AbstractVariant, Variant, and DataProviderthat have been added to the web API 
 
 chess.py: Implementation of chess for visualization in universal web API
 Note: This is a separate project from the server code itself. 

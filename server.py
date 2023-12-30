@@ -16,6 +16,9 @@ CORS(app)
 
 # Helper methods
 
+def error(a):
+    return {'error': f'Invalid {a}'}
+
 def wrangle_next_stats(position, next_stats):
     """
     Given a position and next-move data, this function
@@ -137,7 +140,7 @@ def wrangle_next_stats(position, next_stats):
 # Routes
 
 @app.route("/games/")
-def handle_games():
+def get_games_list():
     response = [
         {
             'id': game_id,
@@ -149,75 +152,66 @@ def handle_games():
     response.sort(key=lambda g: g['name'])
     return response
 
-@app.route("/games/instructions/<type>/<game_id>/<language>/")
-def handle_instructions(type, game_id, language):
+
+@app.route("/instructions/<type>/<game_id>/<language>/")
+def get_game_instructions(type, game_id, language):
     return {'instructions': md_instr(game_id, type, language)}
 
+
 @app.route("/games/<game_id>/")
-def handle_game(game_id):
-    if game_id not in games:
-        return {'error': 'Game not found'}
-    game = games[game_id]
-    
-    custom_variant = 'true' if game.custom_variant else None
-    return {
-        'id': game_id,
-        'name': game.name,
-        'variants': [
-            {
-                'variantId': variant_id,
+def get_game(game_id):
+    if game_id in games:
+        game = games[game_id]
+        return {
+            'id': game_id,
+            'name': game.name,
+            'variants': [
+                {
+                    'id': variant_id,
+                    'name': variant.name,
+                    'startPosition': variant.start_position(),
+                    'imageAutoGUIData': get_image_autogui_data(game_id, variant_id),
+                    'gui': variant.gui
+                }
+                for (variant_id, variant) in game.variants.items()
+            ],
+            'custom': 'true' if game.custom_variant else None,
+            'supportsWinBy': game.supports_win_by
+        }
+    return error('Game')
+
+
+@app.route('/games/<game_id>/variants/<variant_id>/')
+def get_variant(game_id, variant_id):
+    if game_id in games:
+        variant = games[game_id].variant(variant_id)
+        if variant:
+            return {
+                'id': variant_id,
                 'name': variant.name,
                 'startPosition': variant.start_position(),
                 'imageAutoGUIData': get_image_autogui_data(game_id, variant_id),
                 'gui': variant.gui
             }
-            for (variant_id, variant) in game.variants.items()
-        ],
-        'custom': custom_variant,
-        'supportsWinBy': game.supports_win_by
-    }
-
-
-@app.route('/games/<game_id>/variants/<variant_id>/')
-def handle_variant(game_id, variant_id):
-    if game_id not in games:
-        return {'error': 'Game not found'}
-    variant = games[game_id].variant(variant_id)
-
-    if not variant:
-        return {'error': 'Game/Variant not found'}
-    return {
-        'id': game_id,
-        'variant': [
-            {
-                'variantId': variant_id,
-                'description': variant.desc,
-                'startPosition': variant.start_position(),
-                'imageAutoGUIData': get_image_autogui_data(game_id, variant_id),
-                'gui': variant.gui
-            }
-        ]
-    }
-
+        return error('Variant')
+    return error('Game')
 
 @app.route('/games/<game_id>/variants/<variant_id>/positions/<position>/')
-def handle_position(game_id, variant_id, position):
-    if game_id not in games:
-        return {'error': 'Game not found'}
-    variant = games[game_id].variant(variant_id)
+def get_position(game_id, variant_id, position):
+    if game_id in games:
+        variant = games[game_id].variant(variant_id)
+        if variant:
+            position_data = variant.position_data(position)
+            if position_data:
+                position_data['moves'] = wrangle_next_stats(position, position_data['moves'])
+                return position_data
+            return error('Position')
+        return error('Variant')
+    return error('Game')
     
-    position_data = variant.position_data(position)
-    if position_data is None:
-        return {'error': 'Passed in Invalid Game State'}
-    if position_data['remoteness'] == 0:
-        position_data['moves'] = []
-    else:
-        position_data['moves'] = wrangle_next_stats(position, position_data['moves'])
-    return position_data
-
 
 @app.route('/games/<game_id>/<variant_id>/randpos/')
-def game_randpos(game_id, variant_id):
+def get_randpos(game_id, variant_id):
     random_start = get_random_start(game_id, variant_id)
     if random_start is None:
         if game_id not in games:

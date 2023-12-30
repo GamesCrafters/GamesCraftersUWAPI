@@ -3,9 +3,9 @@ import sys
 import pickle
 import os
 
-from .models import AbstractGameVariant
+from .models import AbstractVariant
 
-class Jenga(AbstractGameVariant):
+class Jenga(AbstractVariant):
 
     def __init__(self):
         self.DIRECTORY = "data/"

@@ -1,9 +1,9 @@
-from .models import AbstractGameVariant
+from .models import AbstractVariant
 import sys, pickle, os
 
 dirname = os.path.dirname(__file__)
 
-class Ghost(AbstractGameVariant):
+class Ghost(AbstractVariant):
 #class Ghost:
     def __init__(self, minimum_length=4):
         self.minimum_length = minimum_length

@@ -1,7 +1,7 @@
 import copy
 import os
 from math import comb
-from .models import AbstractGameVariant
+from .models import AbstractVariant
 
 
 class Piece:
@@ -737,7 +737,7 @@ def tier_size_steps(tier: str):
     return steps
 
 
-class RegularChineseChessVariant(AbstractGameVariant):
+class RegularChineseChessVariant(AbstractVariant):
     def __init__(self):
         super(RegularChineseChessVariant, self).__init__('Regular', 'v2')
 
