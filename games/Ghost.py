@@ -7,7 +7,7 @@ class Ghost(AbstractVariant):
 #class Ghost:
     def __init__(self, minimum_length=4):
         self.minimum_length = minimum_length
-        super(Ghost, self).__init__(f"Min Length = {minimum_length}", 'v2')
+        super(Ghost, self).__init__(f"Min Length = {minimum_length}", 'v3')
 
     def start_position(self):
         return "R_A_0_0_.~"

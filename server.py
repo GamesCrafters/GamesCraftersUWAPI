@@ -140,21 +140,31 @@ def wrangle_next_stats(position, next_stats):
 # Routes
 
 @app.route("/games/")
-def get_games_list():
-    response = [
-        {
+def get_games_list() -> dict[str, list[dict[str, str]]]:
+    one_player_games, two_player_games = [], []
+    for game_id, game in games.items():
+        game_obj = {
             'id': game_id,
             'name': game.name,
             'gui': game.gui
         }
-        for (game_id, game) in games.items()
-    ]
-    response.sort(key=lambda g: g['name'])
-    return response
+        if game.is_two_player_game:
+            two_player_games.append(game_obj)
+        else:
+            one_player_games.append(game_obj)
+
+    sort_by_name = lambda g: g['name']
+    one_player_games.sort(key=sort_by_name)
+    two_player_games.sort(key=sort_by_name)
+    
+    return {
+        'onePlayerGames': one_player_games,
+        'twoPlayerGames': two_player_games
+    }
 
 
 @app.route("/instructions/<type>/<game_id>/<language>/")
-def get_game_instructions(type, game_id, language):
+def get_game_instructions(type, game_id, language) -> dict[str: str]:
     return {'instructions': md_instr(game_id, type, language)}
 
 
@@ -175,7 +185,7 @@ def get_game(game_id):
                 }
                 for (variant_id, variant) in game.variants.items()
             ],
-            'custom': 'true' if game.custom_variant else None,
+            'allowCustomVariantCreation': bool(game.custom_variant),
             'supportsWinBy': game.supports_win_by
         }
     return error('Game')

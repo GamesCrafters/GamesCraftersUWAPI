@@ -1,5 +1,6 @@
 from .models import Game, Variant
 from .gamesman_classic import GamesmanClassicDataProvider
+from .gamesman_puzzles import GamesmanPuzzlesDataProvider
 from .chess import RegularChessVariant
 from .tootandotto import TootAndOtto
 from .nim import NimVariant, nim_custom_start
@@ -55,10 +56,9 @@ games = {
                 name='Regular',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='abalone',
-                data_provider_variant_id=-1,
-                gui='v0')
-        },
-        gui='v0'),
+                data_provider_variant_id=-1)
+        }
+    ),
     
     'achi': Game(
         name='Achi',
@@ -120,6 +120,21 @@ games = {
                 gui='v3')
         },
         gui='v3'),
+
+    'bishop': Game(
+        name='Bishop Puzzle',
+        variants={
+            v: Variant(
+                name='Standard',
+                data_provider=GamesmanPuzzlesDataProvider,
+                data_provider_game_id='bishop',
+                data_provider_variant_id=v,
+                gui='v3'
+            ) for v in ('4x5_8', '4x7_4', '6x7_6')
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
     
     'change': Game(
         name='Change!',
@@ -430,6 +445,21 @@ games = {
                 gui='v3'),
         },
         gui='v3'),
+    
+    'hanoi': Game(
+        name="Towers of Hanoi",
+        variants= {
+            v: Variant(
+                name=f"{v.split('_')[0]} Rod{'' if v.split('_')[0] == '1' else 's'} & {v.split('_')[1]} Disk{'' if v.split('_')[1] == '1' else 's'}",
+                data_provider=GamesmanPuzzlesDataProvider,
+                data_provider_game_id='hanoi',
+                data_provider_variant_id=v,
+                gui='v3'
+            ) for v in ("3_1", "3_2", "3_3", "3_4", "3_5", "3_6", "3_7", "3_8", "4_1", "4_2", "4_3", "4_4", "4_5", "4_6", "5_1", "5_2", "5_3", "5_4")
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
 
     'hareandhounds': Game(
         name='Hare and Hounds',
@@ -472,6 +502,21 @@ games = {
                 gui='v3')
         },
         gui='v3'),
+    
+    'hopndrop': Game(
+        name="Hop N' Drop",
+        variants= {
+            "map1": Variant(
+                name="Map 1",
+                data_provider=GamesmanPuzzlesDataProvider,
+                data_provider_game_id='hopndrop',
+                data_provider_variant_id="map1",
+                gui='v3'
+            )
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
 
     'jenga': Game(
         name='Jenga',
@@ -560,6 +605,21 @@ games = {
         },
         gui='v3'),
     
+    'lights': Game(
+        name='Lights Out',
+        variants={
+            v: Variant(
+                name=f'{v}x{v}',
+                data_provider=GamesmanPuzzlesDataProvider,
+                data_provider_game_id='lights',
+                data_provider_variant_id=v,
+                gui='v3'
+            ) for v in '2345678'
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
+    
     'lite3': Game(
         name='Lite 3',
         variants={
@@ -591,10 +651,9 @@ games = {
                 name='Regular',
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='mancala',
-                data_provider_variant_id=-1,
-                gui='v0')
-        },
-        gui='v0'),
+                data_provider_variant_id=-1)
+        }
+    ),
     
     'mutorere': Game(
         name='Mū Tōrere',
@@ -631,14 +690,14 @@ games = {
     'ninemensmorris': Game(
         name="Nine Men's Morris",
         variants={
-            'regular':  Variant(
+            'regular': Variant(
                 name="Nine Men's Morris",
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='369mm',
                 data_provider_variant_id=12,
                 gui='v3'
             ),
-            '6mmNoFly':  Variant(
+            '6mmNoFly': Variant(
                 name="Six Men's Morris",
                 data_provider=GamesmanClassicDataProvider,
                 data_provider_game_id='369mm',
@@ -671,6 +730,35 @@ games = {
                 gui='v3')
         },
         gui='v3'),
+    
+    'npuzzle': Game(
+        name='Sliding Number Puzzle',
+        variants={
+            '3': Variant(
+                name='8-Puzzle',
+                data_provider=GamesmanPuzzlesDataProvider,
+                data_provider_game_id='npuzzle',
+                data_provider_variant_id='3',
+                gui='v3')
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
+
+    'nqueens': Game(
+        name='N Queens Puzzle',
+        variants={
+            v: Variant(
+                name=f'{v} Boards',
+                data_provider=GamesmanPuzzlesDataProvider,
+                data_provider_game_id='nqueens',
+                data_provider_variant_id=v,
+                gui='v3'
+            ) for v in '4567879'
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
 
     'nutictactoe': Game(
         name='Nu Tic-Tac-Toe',
@@ -708,8 +796,23 @@ games = {
                 gui='v3')
         },
         gui='v3',
-        supports_win_by=1
-        ),
+        supports_win_by=True
+    ),
+    
+    'pegsolitaire': Game(
+        name='Peg Solitaire',
+        variants= {
+            v: Variant(
+                name=v.title(),
+                data_provider=GamesmanPuzzlesDataProvider,
+                data_provider_game_id='pegsolitaire',
+                data_provider_variant_id=v,
+                gui='v3'
+            ) for v in ('triangle', 'star', 'trapezoid')
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
 
     'ponghauki': Game(
         name="Pong Hau K'i",
@@ -759,6 +862,21 @@ games = {
             ),
        }, 
        gui='v3'),
+    
+    'rubiks': Game(
+        name="Rubik's Cube",
+        variants={
+            '2x2x2': Variant(
+                name='2x2x2',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='rubiks',
+                data_provider_variant_id='2x2x2',
+                gui='v2'
+            )
+        },
+        is_two_player_game=False,
+        gui='v2'
+    ),
 
     'rubiksmagic': Game(
         name="Rubik's Magic",
@@ -771,6 +889,21 @@ games = {
                 gui='v3')
             },
         gui='v3'),
+    
+    'rushhour': Game(
+        name="Rush Hour",
+        variants={
+            v: Variant(
+                name=v.title(),
+                data_provider=GamesmanPuzzlesDataProvider,
+                data_provider_game_id='rushhour',
+                data_provider_variant_id=v,
+                gui='v3'
+            ) for v in ('basic', 'easy', 'medium', 'hard', 'expert')
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
 
     'sim': Game(
         name='Sim',
@@ -883,6 +1016,21 @@ games = {
         },
         gui='v3'),
     
+    'toadsandfrogspuzzle': Game(
+        name='Toads and Frogs Puzzle',
+        variants={
+            v: Variant(
+                name=f'{v} Frogs, {v} Toads',
+                data_provider=GamesmanClassicDataProvider,
+                data_provider_game_id='toadsandfrogspuzzle',
+                data_provider_variant_id=str(v),
+                gui='v3'
+            ) for v in (4, 6, 8, 10)
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
+    
     'tootandotto': Game(
         name='Toot and Otto',
         variants={
@@ -904,6 +1052,21 @@ games = {
             )
         },
         gui='v3'),
+    
+    'topspin': Game(
+        name="Top Spin",
+        variants= {
+            "6_2": Variant(
+                name="6 Disks",
+                data_provider=GamesmanPuzzlesDataProvider,
+                data_provider_game_id='topspin',
+                data_provider_variant_id="6_2",
+                gui='v3'
+            )
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
     
     'y': Game(
         name='Y',
