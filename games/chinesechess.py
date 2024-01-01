@@ -1,3 +1,7 @@
+"""
+    Author: Robert Shi, Haonan Huang, Yifan Zhou, Jiachun Li
+"""
+
 import copy
 import os
 from math import comb

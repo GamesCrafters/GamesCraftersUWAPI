@@ -1,3 +1,7 @@
+"""
+    Author: Anthony Ling
+"""
+
 import chess
 from requests.exceptions import HTTPError
 import requests

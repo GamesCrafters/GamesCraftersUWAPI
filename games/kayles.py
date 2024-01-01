@@ -1,3 +1,7 @@
+"""
+    Author: Avery Liou
+"""
+
 from .models import AbstractVariant, Remoteness
 
 def kayles_custom_start(variant_id):

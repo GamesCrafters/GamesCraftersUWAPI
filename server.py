@@ -22,8 +22,11 @@ def error(a):
 def wrangle_next_stats(position, next_stats):
     """
     Given a position and next-move data, this function
-    1) Calculates the delta-remoteness of all legal moves AND
+    1) Calculates the move value and delta-remoteness of all legal moves AND
     2) Returns the moves sorted from best-to-worst.
+    (Note: A "move value" is the value of the move for the person
+    making the move, and a "position value" is the value of the position
+    for the player whose turn it is at that position.)
 
     Delta Remoteness is an integer that helps to rank moves of the same value
     based on their remotenesses. (Lower delta remoteness is better.)
@@ -139,8 +142,9 @@ def wrangle_next_stats(position, next_stats):
 
 # Routes
 
+@app.route("/")
 @app.route("/games/")
-def get_games_list() -> dict[str, list[dict[str, str]]]:
+def get_games() -> dict[str, list[dict[str, str]]]:
     one_player_games, two_player_games = [], []
     for game_id, game in games.items():
         game_obj = {
@@ -161,12 +165,6 @@ def get_games_list() -> dict[str, list[dict[str, str]]]:
         'onePlayerGames': one_player_games,
         'twoPlayerGames': two_player_games
     }
-
-
-@app.route("/instructions/<type>/<game_id>/<language>/")
-def get_game_instructions(type, game_id, language) -> dict[str: str]:
-    return {'instructions': md_instr(game_id, type, language)}
-
 
 @app.route("/games/<game_id>/")
 def get_game(game_id):
@@ -190,8 +188,7 @@ def get_game(game_id):
         }
     return error('Game')
 
-
-@app.route('/games/<game_id>/variants/<variant_id>/')
+@app.route('/games/<game_id>/<variant_id>/')
 def get_variant(game_id, variant_id):
     if game_id in games:
         variant = games[game_id].variant(variant_id)
@@ -206,7 +203,7 @@ def get_variant(game_id, variant_id):
         return error('Variant')
     return error('Game')
 
-@app.route('/games/<game_id>/variants/<variant_id>/positions/<position>/')
+@app.route('/games/<game_id>/<variant_id>/<position>/')
 def get_position(game_id, variant_id, position):
     if game_id in games:
         variant = games[game_id].variant(variant_id)
@@ -219,18 +216,9 @@ def get_position(game_id, variant_id, position):
         return error('Variant')
     return error('Game')
     
-
-@app.route('/games/<game_id>/<variant_id>/randpos/')
-def get_randpos(game_id, variant_id):
-    random_start = get_random_start(game_id, variant_id)
-    if random_start is None:
-        if game_id not in games:
-            return {'error': 'Game not found'}
-        variant = games[game_id].variant(variant_id)
-        if not variant:
-            return {'error': 'Game/Variant not found'}
-        random_start = variant.start_position()
-    return {'position': random_start}
+@app.route("/instructions/<type>/<game_id>/<language>/")
+def get_game_instructions(type, game_id, language) -> dict[str: str]:
+    return {'instructions': md_instr(game_id, type, language)}
 
 if __name__ == '__main__':
     app.run(port=8082)

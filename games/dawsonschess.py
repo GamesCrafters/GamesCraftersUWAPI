@@ -1,3 +1,7 @@
+"""
+    Author: Avery Liou
+"""
+
 from .models import AbstractVariant, Remoteness
 
 def dawsonschess_custom_start(variant_id):

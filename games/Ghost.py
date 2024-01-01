@@ -1,3 +1,7 @@
+"""
+    Author: Cameron Cheung
+"""
+
 from .models import AbstractVariant
 import sys, pickle, os
 

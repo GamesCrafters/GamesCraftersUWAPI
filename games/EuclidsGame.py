@@ -1,3 +1,7 @@
+"""
+    Author: Arihant Choudhary, Cameron Cheung
+"""
+
 from .models import AbstractVariant
 from math import gcd
 

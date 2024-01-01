@@ -1,3 +1,7 @@
+"""
+    Author: Nakul Srikanth
+"""
+
 import json
 import sys
 import pickle

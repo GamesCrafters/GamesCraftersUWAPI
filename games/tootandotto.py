@@ -1,3 +1,7 @@
+"""
+    Author: Dan Garcia
+"""
+
 import pickle, os
 
 from .models import AbstractVariant
