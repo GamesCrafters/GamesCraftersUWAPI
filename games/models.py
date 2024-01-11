@@ -29,6 +29,7 @@ class DataProvider:
 
     @staticmethod
     def position_data(game_id, variant_id, position):
+        """ Return an empty dict if error """
         return None
     
 

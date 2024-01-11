@@ -1,17 +1,13 @@
-from flask import Flask
+from flask import Flask, request
 from flask_cors import CORS
 
-from games import games, GamesmanClassicDataProvider
+from games import games
 from games.image_autogui_data import *
-from games.randomized_start import *
 from games.models import Remoteness
 from games.Ghost import Node, Trie
-
 from md_api import md_instr
 
 app = Flask(__name__)
-app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
-
 CORS(app)
 
 # Helper methods
@@ -33,7 +29,7 @@ def wrangle_next_stats(position, next_stats):
     - The delta remoteness of a winning move is the remoteness of the move's
     child position minus the minimum remoteness of all lose child positions 
     of `position`.
-    - The delta remoteness of a tying mvoe is the remoteness of the move's
+    - The delta remoteness of a tying move is the remoteness of the move's
     child position minus the minimum remoteness of all tie child positions
     of `position`.
     - The delta remoteness of a losing move is the maximum remoteness of all
@@ -139,34 +135,20 @@ def wrangle_next_stats(position, next_stats):
 
     return sorted(map(wrangle_next_stat, next_stats), key=key_next_stat_by_move_value_then_delta_remoteness)
 
-
 # Routes
 
 @app.route("/")
-@app.route("/games/")
-def get_games() -> dict[str, list[dict[str, str]]]:
-    one_player_games, two_player_games = [], []
-    for game_id, game in games.items():
-        game_obj = {
-            'id': game_id,
-            'name': game.name,
-            'gui': game.gui
-        }
-        if game.is_two_player_game:
-            two_player_games.append(game_obj)
-        else:
-            one_player_games.append(game_obj)
+def get_games() -> list[dict[str, str]]:
+    all_games = [{
+        'id': game_id,
+        'name': game.name,
+        'type': 'twoPlayer' if game.is_two_player_game else 'onePlayer',
+        'gui': game.gui
+    } for game_id, game in games.items()]
+    all_games.sort(key=lambda g: g['name'])
+    return all_games
 
-    sort_by_name = lambda g: g['name']
-    one_player_games.sort(key=sort_by_name)
-    two_player_games.sort(key=sort_by_name)
-    
-    return {
-        'onePlayerGames': one_player_games,
-        'twoPlayerGames': two_player_games
-    }
-
-@app.route("/games/<game_id>/")
+@app.route("/<game_id>/")
 def get_game(game_id):
     if game_id in games:
         game = games[game_id]
@@ -177,48 +159,56 @@ def get_game(game_id):
                 {
                     'id': variant_id,
                     'name': variant.name,
-                    'startPosition': variant.start_position(),
-                    'imageAutoGUIData': get_image_autogui_data(game_id, variant_id),
                     'gui': variant.gui
                 }
-                for (variant_id, variant) in game.variants.items()
+                for variant_id, variant in game.variants.items()
             ],
             'allowCustomVariantCreation': bool(game.custom_variant),
             'supportsWinBy': game.supports_win_by
         }
     return error('Game')
 
-@app.route('/games/<game_id>/<variant_id>/')
+@app.route('/<game_id>/<variant_id>/')
 def get_variant(game_id, variant_id):
     if game_id in games:
         variant = games[game_id].variant(variant_id)
         if variant:
+            start_position_data = variant.start_position()
             return {
                 'id': variant_id,
                 'name': variant.name,
-                'startPosition': variant.start_position(),
+                'startPosition': start_position_data[0],
+                'autoguiStartPosition': start_position_data[1],
                 'imageAutoGUIData': get_image_autogui_data(game_id, variant_id),
                 'gui': variant.gui
             }
         return error('Variant')
     return error('Game')
 
-@app.route('/games/<game_id>/<variant_id>/<position>/')
+@app.route('/<game_id>/<variant_id>/positions/<position>/')
 def get_position(game_id, variant_id, position):
     if game_id in games:
         variant = games[game_id].variant(variant_id)
         if variant:
             position_data = variant.position_data(position)
             if position_data:
-                position_data['moves'] = wrangle_next_stats(position, position_data['moves'])
+                if games[game_id].is_two_player_game:
+                    position_data['moves'] = wrangle_next_stats(position, position_data['moves'])
                 return position_data
             return error('Position')
         return error('Variant')
     return error('Game')
     
-@app.route("/instructions/<type>/<game_id>/<language>/")
-def get_game_instructions(type, game_id, language) -> dict[str: str]:
-    return {'instructions': md_instr(game_id, type, language)}
+@app.route("/<game_id>/<variant_id>/instructions")
+def get_instructions(game_id, variant_id) -> dict[str: str]:
+    # We currently give the same instruction markdown string for all
+    # variants of a particular game. Variant-specific instructions
+    # are not supported yet.
+    if game_id in games:
+        game_type = 'games' if games[game_id].is_two_player_game else 'puzzles'
+        language = request.args.get('lang', 'eng')
+        return {'instructions': md_instr(game_type, game_id, language)}
+    return error('Game')
 
 if __name__ == '__main__':
     app.run(port=8082)

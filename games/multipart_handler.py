@@ -149,7 +149,7 @@ def multipart_solve(position, input_dict):
             value_to_return = e.from_node.value
             remoteness_to_return = e.from_node.remoteness
         move_dict = {
-            'fromPos': e.from_node.board,
+            'from': e.from_node.board,
             'move': e.part_move,
             'board': e.to_node.board,
             'moveValue': e.to_node.value,

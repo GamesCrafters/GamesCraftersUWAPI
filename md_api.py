@@ -131,11 +131,13 @@ def dict_to_markdown(d):
 
 	return text
 
-def md_instr(game_id, type='games', language='eng'):
+def md_instr(game_type, game_id, language):
 	language = locale_map.get(language, language)
-	link = f"http://gamescrafters.berkeley.edu/instructions/{language}/{type}/{game_id}.xml"
+	#link = f"http://gamescrafters.berkeley.edu/instructions/{language}/{type}/{game_id}.xml"
+	link = f"https://raw.githubusercontent.com/GamesCrafters/Explainers/master/instructions/{language}/{game_type}/{game_id}.xml"
 	instructions = read_from_link(link)
 	if not instructions and language != 'eng':
-		link = f"http://gamescrafters.berkeley.edu/instructions/eng/{type}/{game_id}.xml"
+		#link = f"http://gamescrafters.berkeley.edu/instructions/eng/{type}/{game_id}.xml"
+		link = f"https://raw.githubusercontent.com/GamesCrafters/Explainers/master/instructions/eng/{game_type}/{game_id}.xml"
 		instructions = read_from_link(link)
 	return instructions

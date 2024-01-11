@@ -121,9 +121,10 @@ def syz_next_stats(position):
             child_value = positionValue(move)
             next_position = makeMove(position, move['uci'])
             response.append({
-                "move": makeUWAPIMoveString(next_position, move['uci']),
-                "moveName": move['san'],
+                "move": move['san'],
+                "autoguiMove": makeUWAPIMoveString(next_position, move['uci']),
                 "position": next_position,
+                "autoguiPosition": next_position,
                 "positionValue": child_value,
                 "remoteness": positionRemoteness(move, child_value)
             })
@@ -137,8 +138,8 @@ class RegularChessVariant(AbstractVariant):
         super(RegularChessVariant, self).__init__(name, 'v2')
 
     def start_position(self):
-        turn = 'A' if self.start_fen.split(' ')[1] == 'w' else 'B'
-        return "R_{}_8_8_{}".format(turn, convertFENToUWAPIRegular2DPositionBoardString(self.start_fen))
+        turn = '1' if self.start_fen.split(' ')[1] == 'w' else '2'
+        return self.start_fen, "{}_{}".format(turn, convertFENToUWAPIRegular2DPositionBoardString(self.start_fen))
 
     def position_data(self, position):
         response = syz_stat(position)

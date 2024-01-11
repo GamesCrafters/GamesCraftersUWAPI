@@ -1,6 +1,6 @@
 from .models import Game, Variant
-from .gamesman_classic import GamesmanClassicDataProvider
-from .gamesman_puzzles import GamesmanPuzzlesDataProvider
+from .gamesman_classic import GamesmanClassic
+from .gamesman_puzzles import GamesmanPuzzles
 from .chess import RegularChessVariant
 from .tootandotto import TootAndOtto
 from .nim import NimVariant, nim_custom_start
@@ -11,6 +11,15 @@ from .Jenga import Jenga
 from .EuclidsGame import EuclidsGame
 from .Ghost import Ghost
 
+"""
+    All one-player (puzzle) games and two-player games should be 
+    listed in the `games` dict.
+
+    Note: All keys of the `games` dict (i.e., game ids) should
+    only contain lowercase letters and numbers. No underscores,
+    spaces, or uppercase letters.
+"""
+
 games = {
   
     '0to10by1or2': Game(
@@ -18,7 +27,7 @@ games = {
         variants={
             'regular': Variant(
                 name='Regular',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='1210',
                 data_provider_variant_id=-1,
                 gui='v3')
@@ -30,7 +39,7 @@ games = {
         variants={
             'regular': Variant(
                 name='Regular',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='1dchess',
                 data_provider_variant_id=0,
                 gui='v3')
@@ -42,7 +51,7 @@ games = {
         variants={
             'regular': Variant(
                 name='Regular',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='3spot',
                 data_provider_variant_id=-1,
                 gui='v3')
@@ -54,7 +63,7 @@ games = {
         variants={
             'regular': Variant(
                 name='Regular',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='abalone',
                 data_provider_variant_id=-1)
         }
@@ -65,7 +74,7 @@ games = {
         variants={
             'regular': Variant(
                 name='Regular',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='achi',
                 data_provider_variant_id=-1,
                 gui='v3')
@@ -77,7 +86,7 @@ games = {
         variants={
             '5x5': Variant(
                 name='5x5',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='adugo',
                 data_provider_variant_id=1,
                 gui='v2'),
@@ -89,7 +98,7 @@ games = {
         variants={
             'standard': Variant(
                 name='Standard',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='allqueenschess',
                 data_provider_variant_id=0,
                 gui='v3')
@@ -102,7 +111,7 @@ games = {
         variants={
             'regular': Variant(
                 name='Standard',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='baghchal',
                 data_provider_variant_id=5,
                 gui='v3')
@@ -114,7 +123,7 @@ games = {
         variants={
             'regular': Variant(
                 name='Standard',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='beeline',
                 data_provider_variant_id=0,
                 gui='v3')
@@ -126,7 +135,7 @@ games = {
         variants={
             v: Variant(
                 name='Standard',
-                data_provider=GamesmanPuzzlesDataProvider,
+                data_provider=GamesmanPuzzles,
                 data_provider_game_id='bishop',
                 data_provider_variant_id=v,
                 gui='v3'
@@ -141,7 +150,7 @@ games = {
         variants={
             'regular': Variant(
                 name='Regular',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='change',
                 data_provider_variant_id=3,
                 gui='v3'
@@ -170,19 +179,19 @@ games = {
         variants={
             '4x7': Variant(
                 name='4 Rows, 7 Columns',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='chomp',
                 data_provider_variant_id=36,
                 gui='v3'),
             '5x8': Variant(
                 name='5 Rows, 8 Columns',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='chomp',
                 data_provider_variant_id=47,
                 gui='v3'),
             '8x10': Variant(
                 name='8 Rows, 10 Columns',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='chomp',
                 data_provider_variant_id=79,
                 gui='v3')
@@ -194,25 +203,25 @@ games = {
         variants={
             '0': Variant(
                 name='[Standard] Neither pass-equivalent transfers nor full transfers allowed.',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='chopsticks',
                 data_provider_variant_id=0,
                 gui='v3'),
             '1': Variant(
                 name='Pass-equivalent transfers allowed. Full transfers not allowed.',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='chopsticks',
                 data_provider_variant_id=1,
                 gui='v3'),
             '2': Variant(
                 name='Pass-equivalent transfers not allowed. Full transfers allowed.',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='chopsticks',
                 data_provider_variant_id=2,
                 gui='v3'),
             '3': Variant(
                 name='Both pass-equivalent transfers and full transfers allowed.',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='chopsticks',
                 data_provider_variant_id=3,
                 gui='v3'),
@@ -224,7 +233,7 @@ games = {
         variants={
             'regular': Variant(
                 name='Regular',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='ctoi',
                 data_provider_variant_id=-1,
                 gui='v3')
@@ -236,13 +245,13 @@ games = {
         variants={
             '6x6': Variant(
                 name='6x6',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='connect4',
                 data_provider_variant_id=1,
                 gui='v3'),
             '6x7': Variant(
                 name='6x7',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='connect4',
                 data_provider_variant_id=2,
                 gui='v3')
@@ -254,7 +263,7 @@ games = {
         variants={
             'regular': Variant(
                 name='Regular',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='dao',
                 data_provider_variant_id=-1,
                 gui='v3'),
@@ -274,7 +283,7 @@ games = {
         variants={
             'regular': Variant(
                 name='Regular',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='dinododgem',
                 data_provider_variant_id=-1,
                 gui='v3')
@@ -286,7 +295,7 @@ games = {
         variants={
             'regular': Variant(
                 name='Regular',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='dodgem',
                 data_provider_variant_id=-1,
                 gui='v3')
@@ -298,19 +307,19 @@ games = {
         variants={
             '4': Variant(
                 name='4x4',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='domineering',
                 data_provider_variant_id=0,
                 gui='v3'),
             '5': Variant(
                 name='5x5',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='domineering',
                 data_provider_variant_id=1,
                 gui='v3'),
             '6': Variant(
                 name='6x6',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='domineering',
                 data_provider_variant_id=2,
                 gui='v3')
@@ -322,25 +331,25 @@ games = {
         variants={
             '1': Variant(
                 name='1 Dragon',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='swans',
                 data_provider_variant_id=-1,
                 gui='v3'),
             '2': Variant(
                 name='2 Dragons',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='swans',
                 data_provider_variant_id=5,
                 gui='v3'),
             '3': Variant(
                 name='3 Dragons',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='swans',
                 data_provider_variant_id=9,
                 gui='v3'),
             '4': Variant(
                 name='4 Dragons',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='swans',
                 data_provider_variant_id=13,
                 gui='v3')
@@ -359,19 +368,19 @@ games = {
         variants={
             'regular': Variant(
                 name="Tie if you can't move",
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='fivefieldkono',
                 data_provider_variant_id=0,
                 gui='v3'),
             'delta': Variant(
                 name="Lose if you can't move",
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='fivefieldkono',
                 data_provider_variant_id=1,
                 gui='v3'),
             'omega': Variant(
                 name="Win if you can't move",
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='fivefieldkono',
                 data_provider_variant_id=2,
                 gui='v3')
@@ -383,7 +392,7 @@ games = {
         variants={
             'standard': Variant(
                 name='Standard',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='kono',
                 data_provider_variant_id=1096,
                 gui='v3')
@@ -395,7 +404,7 @@ games = {
         variants={
             'regular': Variant(
                 name='Regular',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='forestfox',
                 data_provider_variant_id=-1,
                 gui='v3')
@@ -407,7 +416,7 @@ games = {
         variants={
             'regular': Variant(
                 name='Regular',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='foxes',
                 data_provider_variant_id=1,
                 gui='v3')
@@ -427,19 +436,19 @@ games = {
         variants={
             '0': Variant(
                 name='10 to 0 by 1 or 2',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='graphgame',
                 data_provider_variant_id=1,
                 gui='v3'),
             '1': Variant(
                 name='Pure Draw Example',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='graphgame',
                 data_provider_variant_id=0,
                 gui='v3'),
             '2': Variant(
                 name='Various Primitives',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='graphgame',
                 data_provider_variant_id=2,
                 gui='v3'),
@@ -451,7 +460,7 @@ games = {
         variants= {
             v: Variant(
                 name=f"{v.split('_')[0]} Rod{'' if v.split('_')[0] == '1' else 's'} & {v.split('_')[1]} Disk{'' if v.split('_')[1] == '1' else 's'}",
-                data_provider=GamesmanPuzzlesDataProvider,
+                data_provider=GamesmanPuzzles,
                 data_provider_game_id='hanoi',
                 data_provider_variant_id=v,
                 gui='v3'
@@ -466,37 +475,37 @@ games = {
         variants={
             's-hounds-first': Variant(
                 name='Small, Hounds First',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='haregame',
                 data_provider_variant_id=1,
                 gui='v3'),
             's-hare-first': Variant(
                 name='Small, Hare First',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='haregame',
                 data_provider_variant_id=2,
                 gui='v3'),
             'm-hounds-first': Variant(
                 name='Medium, Hounds First',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='haregame',
                 data_provider_variant_id=3,
                 gui='v3'),
             'm-hare-first': Variant(
                 name='Medium, Hare First',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='haregame',
                 data_provider_variant_id=4,
                 gui='v3'),
             'l-hounds-first': Variant(
                 name='Large, Hounds First',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='haregame',
                 data_provider_variant_id=5,
                 gui='v3'),
             'l-hare-first': Variant(
                 name='Large, Hare First',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='haregame',
                 data_provider_variant_id=6,
                 gui='v3')
@@ -508,14 +517,13 @@ games = {
         variants= {
             "map1": Variant(
                 name="Map 1",
-                data_provider=GamesmanPuzzlesDataProvider,
+                data_provider=GamesmanPuzzles,
                 data_provider_game_id='hopndrop',
                 data_provider_variant_id="map1",
                 gui='v3'
             )
         },
-        is_two_player_game=False,
-        gui='v3'
+        is_two_player_game=False
     ),
 
     'jenga': Game(
@@ -530,13 +538,13 @@ games = {
         variants={
             '4x4': Variant(
                 name='4x4',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='joust',
                 data_provider_variant_id=288751,
                 gui='v3'),
             '5x4': Variant(
                 name='5x4',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='joust',
                 data_provider_variant_id=297501,
                 gui='v3')
@@ -556,25 +564,25 @@ games = {
         variants={
             '4x4': Variant(
                 name='4x4',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='konane',
                 data_provider_variant_id=0,
                 gui='v3'),
             '4x5': Variant(
                 name='4x5',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='konane',
                 data_provider_variant_id=1,
                 gui='v3'),
             '5x5': Variant(
                 name='5x5',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='konane',
                 data_provider_variant_id=2,
                 gui='v3'),
             '5x6': Variant(
                 name='5x6',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='konane',
                 data_provider_variant_id=3,
                 gui='v3'),
@@ -586,7 +594,7 @@ games = {
         variants={
             'regular': Variant(
                 name='Regular',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='Lgame',
                 data_provider_variant_id=-1,
                 gui='v3')
@@ -598,7 +606,7 @@ games = {
         variants={
             'standard': Variant(
                 name='Standard',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='lewth',
                 data_provider_variant_id=0,
                 gui='v3')
@@ -610,7 +618,7 @@ games = {
         variants={
             v: Variant(
                 name=f'{v}x{v}',
-                data_provider=GamesmanPuzzlesDataProvider,
+                data_provider=GamesmanPuzzles,
                 data_provider_game_id='lights',
                 data_provider_variant_id=v,
                 gui='v3'
@@ -625,19 +633,19 @@ games = {
         variants={
             'three-in-a-row': Variant(
                 name='Three-In-A-Row Wins',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='lite3',
                 data_provider_variant_id=1,
                 gui='v3'),
             'surround': Variant(
                 name='Surround Wins',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='lite3',
                 data_provider_variant_id=2,
                 gui='v3'),
             'both': Variant(
                 name='Three-In-A-Row and Surround BOTH win',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='lite3',
                 data_provider_variant_id=3,
                 gui='v3')
@@ -649,7 +657,7 @@ games = {
         variants={
             'regular': Variant(
                 name='Regular',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='mancala',
                 data_provider_variant_id=-1)
         }
@@ -660,13 +668,13 @@ games = {
         variants={
             'regular': Variant(
                 name='Standard',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='tore',
                 data_provider_variant_id=2,
                 gui='v3'),
             'misere': Variant(
                 name='Misere',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='tore',
                 data_provider_variant_id=1,
                 gui='v3')
@@ -692,14 +700,14 @@ games = {
         variants={
             'regular': Variant(
                 name="Nine Men's Morris",
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='369mm',
                 data_provider_variant_id=12,
                 gui='v3'
             ),
             '6mmNoFly': Variant(
                 name="Six Men's Morris",
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='369mm',
                 data_provider_variant_id=6,
                 gui='v3'
@@ -712,19 +720,19 @@ games = {
         variants={
             'regular': Variant(
                 name='1 Board',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='notakto',
                 data_provider_variant_id=0,
                 gui='v3'),
             'board2': Variant(
                 name='2 Boards',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='notakto',
                 data_provider_variant_id=1,
                 gui='v3'),
             'board3': Variant(
                 name='3 Boards',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='notakto',
                 data_provider_variant_id=2,
                 gui='v3')
@@ -736,7 +744,7 @@ games = {
         variants={
             '3': Variant(
                 name='8-Puzzle',
-                data_provider=GamesmanPuzzlesDataProvider,
+                data_provider=GamesmanPuzzles,
                 data_provider_game_id='npuzzle',
                 data_provider_variant_id='3',
                 gui='v3')
@@ -750,7 +758,7 @@ games = {
         variants={
             v: Variant(
                 name=f'{v} Boards',
-                data_provider=GamesmanPuzzlesDataProvider,
+                data_provider=GamesmanPuzzles,
                 data_provider_game_id='nqueens',
                 data_provider_variant_id=v,
                 gui='v3'
@@ -765,7 +773,7 @@ games = {
         variants={
             'regular': Variant(
                 name='5x4',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='nuttt',
                 data_provider_variant_id=1740,
                 gui='v3')
@@ -777,7 +785,7 @@ games = {
         variants={
             'regular': Variant(
                 name='Regular',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='ooe',
                 data_provider_variant_id=0,
                 gui='v3')
@@ -790,7 +798,7 @@ games = {
         variants={
             'regular': Variant(
                 name='Regular',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='othello',
                 data_provider_variant_id=-1,
                 gui='v3')
@@ -804,7 +812,7 @@ games = {
         variants= {
             v: Variant(
                 name=v.title(),
-                data_provider=GamesmanPuzzlesDataProvider,
+                data_provider=GamesmanPuzzles,
                 data_provider_game_id='pegsolitaire',
                 data_provider_variant_id=v,
                 gui='v3'
@@ -819,7 +827,7 @@ games = {
         variants={
             'regular': Variant(
                 name='Regular',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='horse',
                 data_provider_variant_id=1,
                 gui='v3'),
@@ -831,7 +839,7 @@ games = {
         variants={
             'regular': Variant(
                 name='Regular',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='quarto',
                 data_provider_variant_id=-1,
                 gui='v3')
@@ -843,7 +851,7 @@ games = {
         variants={
             'regular': Variant(
                 name='Regular',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='quickchess',
                 data_provider_variant_id=-1,
                 gui='v3')
@@ -855,7 +863,7 @@ games = {
        variants={
            'regular': Variant(
                name='Regular',
-               data_provider=GamesmanClassicDataProvider,
+               data_provider=GamesmanClassic,
                data_provider_game_id='qx',
                data_provider_variant_id=9,
                gui='v3',
@@ -868,7 +876,7 @@ games = {
         variants={
             '2x2x2': Variant(
                 name='2x2x2',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanPuzzles,
                 data_provider_game_id='rubiks',
                 data_provider_variant_id='2x2x2',
                 gui='v2'
@@ -883,7 +891,7 @@ games = {
         variants={
             'regular': Variant(
                 name='Regular',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='rubiksmagic',
                 data_provider_variant_id=0,
                 gui='v3')
@@ -895,7 +903,7 @@ games = {
         variants={
             v: Variant(
                 name=v.title(),
-                data_provider=GamesmanPuzzlesDataProvider,
+                data_provider=GamesmanPuzzles,
                 data_provider_game_id='rushhour',
                 data_provider_variant_id=v,
                 gui='v3'
@@ -910,7 +918,7 @@ games = {
         variants={
             'regular': Variant(
                 name='Regular',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='sim',
                 data_provider_variant_id=-1,
                 gui='v3')
@@ -922,7 +930,7 @@ games = {
         variants={
             'default': Variant(
                 name='Regular',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='stt',
                 data_provider_variant_id=-1,
                 gui='v2')
@@ -934,14 +942,14 @@ games = {
         variants={
             'regular': Variant(
                 name="[Standard] Creating a 5-in-a-Row for both players counts as a win for the player who did so.",
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='slide5',
                 data_provider_variant_id=-1,
                 gui='v3'
             ),
             'ties': Variant(
                 name="Creating a 5-in-a-Row for both players results in the game ending in a tie.",
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='slide5',
                 data_provider_variant_id=1,
                 gui='v3'
@@ -954,7 +962,7 @@ games = {
         variants={
             'regular': Variant(
                 name='Regular',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='snake',
                 data_provider_variant_id=-1,
                 gui='v3')
@@ -966,7 +974,7 @@ games = {
         variants={
             'regular': Variant(
                 name='Regular',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='squaredance',
                 data_provider_variant_id=7,
                 gui='v3')
@@ -978,7 +986,7 @@ games = {
         variants={
             'regular': Variant(
                 name='Regular',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='tactix',
                 data_provider_variant_id=1,
                 gui='v3')
@@ -991,13 +999,13 @@ games = {
         variants={
             'regular': Variant(
                 name='Regular',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='ttt',
                 data_provider_variant_id=-1,
                 gui='v3'),
             'misere': Variant(
                 name='Misere',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='ttt',
                 data_provider_variant_id=1,
                 gui='v3')
@@ -1009,7 +1017,7 @@ games = {
         variants={
             'regular': Variant(
                 name='Regular',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='tttwo',
                 data_provider_variant_id=-1,
                 gui='v3')
@@ -1019,9 +1027,9 @@ games = {
     'toadsandfrogspuzzle': Game(
         name='Toads and Frogs Puzzle',
         variants={
-            v: Variant(
+            str(v): Variant(
                 name=f'{v} Frogs, {v} Toads',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanPuzzles,
                 data_provider_game_id='toadsandfrogspuzzle',
                 data_provider_variant_id=str(v),
                 gui='v3'
@@ -1045,7 +1053,7 @@ games = {
         variants={
             'regular':  Variant(
                 name="Standard Topitop",
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='topitop',
                 data_provider_variant_id=-1,
                 gui='v3'
@@ -1058,14 +1066,13 @@ games = {
         variants= {
             "6_2": Variant(
                 name="6 Disks",
-                data_provider=GamesmanPuzzlesDataProvider,
+                data_provider=GamesmanPuzzles,
                 data_provider_game_id='topspin',
                 data_provider_variant_id="6_2",
                 gui='v3'
             )
         },
-        is_two_player_game=False,
-        gui='v3'
+        is_two_player_game=False
     ),
     
     'y': Game(
@@ -1073,25 +1080,25 @@ games = {
         variants={
             'dim4': Variant(
                 name='Dimension 4',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='gameofy',
                 data_provider_variant_id=0,
                 gui='v3'),
             'dim5': Variant(
                 name='Dimension 5',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='gameofy',
                 data_provider_variant_id=1,
                 gui='v3'),
             'dim4-misere': Variant(
                 name='Dimension 4 Misère',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='gameofy',
                 data_provider_variant_id=4,
                 gui='v3'),
             'dim5-misere': Variant(
                 name='Dimension 5 Misère',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='gameofy',
                 data_provider_variant_id=5,
                 gui='v3'),
@@ -1103,19 +1110,19 @@ games = {
         variants={
             '3x3': Variant(
                 name='3x3',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='yote',
                 data_provider_variant_id=0,
                 gui='v2'),
             '3x4': Variant(
                 name='3x4',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='yote',
                 data_provider_variant_id=1,
                 gui='v2'),
             '4x4': Variant(
                 name='4x4',
-                data_provider=GamesmanClassicDataProvider,
+                data_provider=GamesmanClassic,
                 data_provider_game_id='yote',
                 data_provider_variant_id=2,
                 gui='v2'),
