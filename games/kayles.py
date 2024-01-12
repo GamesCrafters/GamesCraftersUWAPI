@@ -40,7 +40,7 @@ class KaylesVariant(AbstractVariant):
         return {
             'position': position,
             'autoguiPosition': position,
-            'positionValue': "lose" if mex == 0 else "win",
+            'positionValue': 'lose' if mex == 0 else 'win',
             'remoteness': Remoteness.FINITE_UNKNOWN if self.get_moves(position) else 0,
             'mex': '*' if mex == 1 else f'*{mex}' if mex > 0 else '0'
         }

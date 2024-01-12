@@ -426,7 +426,7 @@ games = {
     'ghost': Game(
         name='Ghost',
         variants = {
-            c: Ghost(minimum_length = int(c)) for c in range(3, 7)
+            str(c): Ghost(minimum_length = int(c)) for c in range(3, 7)
         },
         gui='v3'
     ),
