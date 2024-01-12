@@ -177,8 +177,8 @@ def get_variant(game_id, variant_id):
             return {
                 'id': variant_id,
                 'name': variant.name,
-                'startPosition': start_position_data[0],
-                'autoguiStartPosition': start_position_data[1],
+                'startPosition': start_position_data.get('position', ''),
+                'autoguiStartPosition': start_position_data.get('autoguiPosition', ''),
                 'imageAutoGUIData': get_image_autogui_data(game_id, variant_id),
                 'gui': variant.gui
             }

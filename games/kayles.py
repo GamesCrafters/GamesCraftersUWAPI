@@ -9,56 +9,41 @@ def kayles_custom_start(variant_id):
         board_len = int(variant_id)
     except Exception as err:
         return None
-    return KaylesVariant(board_len, str(board_len), str(board_len))
+    return KaylesVariant(board_len, str(board_len))
 
 class KaylesVariant(AbstractVariant):
 
     def __init__(self, board_len, name = "Custom"):
         self.board_len = board_len
         super(KaylesVariant, self).__init__(name, 'v3')
-
+    
     def start_position(self):
-        return "R_A_0_0_" + 'x' * self.board_len
-
-    def stat(self, position):
-        moves = self.get_moves(position)
-        position_value, mex = KaylesVariant.position_value(position)
-
-        mex_str = '0'
-        if mex == 1:
-            mex_str = '*'
-        elif mex != 0:
-            mex_str = f'*{mex}'
-
-        response = {
-            "position": position,
-            "positionValue": position_value,
-            "remoteness": Remoteness.FINITE_UNKNOWN if moves else 0,
-            "mex": mex_str
+        return {
+            'position': '1_' + 'x' * self.board_len,
+            'autoguiPosition': '1_' + 'x' * self.board_len
         }
-        return response
-
+    
     def position_data(self, position):
-        moves = self.get_moves(position)
         response = self.stat(position)
         response['moves'] = [{
-            "move": move,
-            "moveName": moveName,
-            **self.stat(next_position)
-        } for move, (next_position, moveName) in moves.items()]
+            'move': move,
+            'autoguiMove': autogui_move,
+            **self.stat(child_position)
+        } for move, autogui_move, child_position in self.get_moves(position)]
         return response
-
-    def get_position_str(position):
-        return position.split('_')[4]
-
-    def position_value(position):
-        board = KaylesVariant.get_position_str(position)
-        value = 0
-        pile_lengths = KaylesVariant.get_pile_lengths(board)
-        for pile_len in pile_lengths:
-            pile_mex = KaylesVariant.get_mex(pile_len)
-            value = value ^ pile_mex
-        return "lose" if value == 0 else "win", value
+    
+    def stat(self, position):
+        mex = 0
+        for pile_length in KaylesVariant.get_pile_lengths(position[2:]):
+            mex ^= KaylesVariant.get_mex(pile_length)
+        
+        return {
+            'position': position,
+            'autoguiPosition': position,
+            'positionValue': "lose" if mex == 0 else "win",
+            'remoteness': Remoteness.FINITE_UNKNOWN if self.get_moves(position) else 0,
+            'mex': '*' if mex == 1 else f'*{mex}' if mex > 0 else '0'
+        }
 
     def get_pile_lengths(board):
         pile_lengths = []
@@ -74,33 +59,33 @@ class KaylesVariant(AbstractVariant):
         return pile_lengths
 
     def get_moves(self, position):
-        next_turn = 'B' if position[2] == 'A' else 'A'
-        moves = {}
-        
-        board = list(KaylesVariant.get_position_str(position))
-        for i in range(len(board)): # Single pin removals
-            if board[i] == 'x':
-                board[i] = '-'
-                moves[f"A_-_{self.board_len + i}_x"] = (
-                    f"R_{next_turn}_0_0_{''.join(board)}",
-                    f"{i + 1}"
-                )
-                board[i] = 'x'
-        for i in range(len(board) - 1): # Double pin removals
-            if board[i] == 'x' and board[i + 1] == 'x':
-                board[i] = '-'
-                board[i + 1] = '-'
-                fromIdx, toIdx = self.board_len * 2 + i, self.board_len * 3 + i
-                moves[f"L_{fromIdx}_{toIdx}_x"] = (
-                    f"R_{next_turn}_0_0_{''.join(board)}",
-                    f"{i + 1}-{i + 2}"
-                )
-                board[i] = 'x'
-                board[i + 1] = 'x'
+        next_player = '2' if position[0] == '1' else '1'
+        next_board = list(position[2:])
 
+        moves = []
+        for i in range(len(next_board)): # Single pin removals
+            if next_board[i] == 'x':
+                next_board[i] = '-'
+                moves.append([
+                    f"{i + 1}",
+                    f"A_-_{self.board_len + i}_x",
+                    f"{next_player}_{''.join(next_board)}"])
+                next_board[i] = 'x'
+        for i in range(len(next_board) - 1): # Double pin removals
+            if next_board[i] == 'x' and next_board[i + 1] == 'x':
+                next_board[i] = '-'
+                next_board[i + 1] = '-'
+                from_idx, to_idx = self.board_len * 2 + i, self.board_len * 3 + i
+                moves.append([
+                    f"{i + 1}-{i + 2}",
+                    f"L_{from_idx}_{to_idx}_x",
+                    f"{next_player}_{''.join(next_board)}"
+                ])
+                next_board[i] = 'x'
+                next_board[i + 1] = 'x'
         return moves
 
-    def get_mex(board_len):
+    def get_mex(pile_length):
         periodic = [4, 1, 2, 8, 1, 4, 7, 2, 1, 8, 2, 7]
         exceptions = {
             0: 0,
@@ -118,7 +103,7 @@ class KaylesVariant(AbstractVariant):
             57: 4,
             70: 6,
         }
-        if board_len in exceptions:
-            return exceptions[board_len]
+        if pile_length in exceptions:
+            return exceptions[pile_length]
         else:
-            return periodic[board_len % len(periodic)]
+            return periodic[pile_length % len(periodic)]

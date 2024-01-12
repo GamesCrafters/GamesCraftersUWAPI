@@ -9,7 +9,7 @@ def dawsonschess_custom_start(variant_id):
         board_len = int(variant_id)
     except Exception as err:
         return None
-    return DawsonsChessVariant(board_len, str(board_len), str(board_len))
+    return DawsonsChessVariant(board_len, str(board_len))
 
 class DawsonsChessVariant(AbstractVariant):
 
@@ -18,91 +18,50 @@ class DawsonsChessVariant(AbstractVariant):
         super(DawsonsChessVariant, self).__init__(name, 'v3')
 
     def start_position(self):
-        return "R_A_0_0_" + 'b' * self.board_len
-
-    def stat(self, position):
-        position_str = DawsonsChessVariant.get_position_str(position)
-        moves = DawsonsChessVariant.get_moves(position_str, position[2])
-        position_value, mex = DawsonsChessVariant.position_value(position_str)
-
-        mex_str = '0'
-        if mex == 1:
-            mex_str = '*'
-        elif mex != 0:
-            mex_str = f'*{mex}'
-
-        response = {
-            "position": position,
-            "positionValue": position_value,
-            "remoteness": Remoteness.FINITE_UNKNOWN if moves else 0,
-            "mex": mex_str
+        return {
+            'position': '1_' + '-' * self.board_len,
+            'autoguiPosition': '1_' + 'b' * self.board_len
         }
-        return response
 
     def position_data(self, position):
-        position_str = DawsonsChessVariant.get_position_str(position)
-        player = position[2]
-        moves = DawsonsChessVariant.get_moves(position_str, player)
-
         response = self.stat(position)
         response['moves'] = [{
-            "move": move,
-            "moveName": moveName,
-            **self.stat(next_position)
-        } for move, (next_position, moveName) in moves.items()]
+            'move': move,
+            'autoguiMove': autogui_move,
+            **self.stat(child_position)
+        } for move, autogui_move, child_position in DawsonsChessVariant.get_moves(position)]
         return response
+    
+    def stat(self, position):
+        mex = 0
+        pile_lengths = [len(contiguous_blanks) - 2 for contiguous_blanks in ('-' + position[2:] + '-').split('x') if len(contiguous_blanks) > 2]
+        for pile_length in pile_lengths:
+            mex ^= DawsonsChessVariant.get_mex(pile_length)
+        
+        return {
+            'position': position,
+            'autoguiPosition': ''.join(['b' if c == '-' else c for c in position]),
+            'positionValue': "lose" if mex == 0 else "win",
+            'remoteness': Remoteness.FINITE_UNKNOWN if DawsonsChessVariant.get_moves(position) else 0,
+            'mex': '*' if mex == 1 else f'*{mex}' if mex > 0 else '0'
+        }
 
-    def getUWAPIPos(board_str, player):
-        return f"R_{player}_0_0_{board_str}"
-
-    def get_position_str(position):
-        return position.split('_')[4]
-
-    def position_value(position):
-        value = 0
-        pile_lengths = DawsonsChessVariant.get_pile_lengths(position)
-        for pile_len in pile_lengths:
-            pile_mex = DawsonsChessVariant.get_mex(pile_len)
-            value = value ^ pile_mex
-        return "lose" if value == 0 else "win", value
-
-    def get_pile_lengths(position):
-        pile_lengths = []
-        curr_pile = 0
-        for i in range(len(position)):
-            if position[i] == 'b' and (i == 0 or position[i - 1] == 'b') \
-                and (i == (len(position) - 1) or position[i + 1] == 'b'):
-                curr_pile += 1
-            elif position[i] != 'b' and curr_pile != 0:
-                pile_lengths.append(curr_pile)
-                curr_pile = 0
-        if curr_pile != 0:
-            pile_lengths.append(curr_pile)
-        return pile_lengths
-
-    def get_moves(position_str, player):
-        next_player = 'B' if player == 'A' else 'A'
-        next_position = list(position_str)
-        moves = {}
-        for i in range(len(position_str)):
-            if position_str[i] == 'b' and (i == 0 or position_str[i - 1] == 'b') \
-                and (i == (len(position_str) - 1) or position_str[i + 1] == 'b'):
-                next_position[i] = 'x'
-                moves[f"A_t_{i}_x"] = (
-                    DawsonsChessVariant.getUWAPIPos(''.join(next_position), next_player),
-                    f"{i + 1}"
-                )
-                next_position[i] = 'b'
+    def get_moves(position):
+        player, board = position.split('_')
+        next_player = '2' if player == '1' else '1'
+        next_board = list(board)
+        moves = []
+        for i in range(len(board)):
+            if board[i] == '-' and (i == 0 or board[i - 1] == '-') and (i == (len(board) - 1) or board[i + 1] == '-'):
+                next_board[i] = 'x'
+                moves.append([f'{i + 1}', f'A_t_{i}_x', f"{next_player}_{''.join(next_board)}"])
+                next_board[i] = '-'
         return moves
 
-    def get_mex(board_len):
-        periodic = [8, 1, 1, 2, 0, 3, 1, 1, 0, 3, 3, 2, 2, 4, 4, 5, 5, 9, 3, 3, 0, 1, 1, 3, 0, 2, 1, 1, 0, 4, 5, 3, 7, 4]
-        zero_exceptions = [0, 14, 34]
-        two_exceptions = [16, 17, 31, 51]
-
-        if board_len in zero_exceptions:
+    def get_mex(pile_length):
+        if pile_length in [0, 14, 34]:
             return 0
-        elif board_len in two_exceptions:
+        elif pile_length in [16, 17, 31, 51]:
             return 2
-        else:
-            return periodic[board_len % 34]
+        periodic = [8, 1, 1, 2, 0, 3, 1, 1, 0, 3, 3, 2, 2, 4, 4, 5, 5, 9, 3, 3, 0, 1, 1, 3, 0, 2, 1, 1, 0, 4, 5, 3, 7, 4]
+        return periodic[pile_length % 34]

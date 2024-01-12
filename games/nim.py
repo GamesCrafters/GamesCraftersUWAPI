@@ -11,7 +11,7 @@ def nim_custom_start(variant_id):
             piles[i] = int(piles[i])
     except Exception as err:
         return None
-    return NimVariant(piles, variant_id, variant_id)
+    return NimVariant(piles, variant_id)
 
 class NimVariant(AbstractVariant):
 
