@@ -21,7 +21,10 @@ class GamesmanClassic(DataProvider):
     def start_position(game_id, variant_id):
         tempurl = f"{GamesmanClassic.url}{game_id}/{variant_id}/start"
         data = GamesmanClassic.read_from_url(tempurl)
-        return data.get('startPosition', ''), data.get('autoguiStartPosition', '')
+        return {
+            'position': data.get('position', ''),
+            'autoguiPosition': data.get('autoguiPosition', '')
+        }
     
     @staticmethod
     def position_data(game_id, variant_id, position):

@@ -15,7 +15,20 @@ CORS(app)
 def error(a):
     return {'error': f'Invalid {a}'}
 
-def wrangle_next_stats(position, next_stats):
+def wrangle_move_objects_1Player(position_data):
+    if 'remoteness' not in position_data:
+        position_data['remoteness'] = Remoteness.INFINITY
+    current_position_remoteness = position_data['remoteness']
+    for move_obj in position_data['moves']:
+        if 'remoteness' not in move_obj:
+            move_obj['remoteness'] = Remoteness.INFINITY
+            move_obj['moveValue'] = 'lose'
+        else:
+            delta_remoteness = current_position_remoteness - move_obj['remoteness']
+            move_obj['deltaRemoteness'] = delta_remoteness
+            move_obj['moveValue'] = 'win' if delta_remoteness > 0 else 'lose' if delta_remoteness < 0 else 'tie'
+
+def wrangle_move_objects_2Player(position, move_objs):
     """
     Given a position and next-move data, this function
     1) Calculates the move value and delta-remoteness of all legal moves AND
@@ -45,13 +58,13 @@ def wrangle_next_stats(position, next_stats):
     treat it as though the min and max remotenesses of child positions of that
     value are 1.
     """
-    if not next_stats:
-        return next_stats
+    if not move_objs:
+        return move_objs
 
-    def key_next_stat_by_move_value_then_delta_remoteness(next_stat):
+    def key_move_obj_by_move_value_then_delta_remoteness(move_obj):
         VALUES = ['win', 'tie', 'draw', 'lose', 'unsolved']
-        move_value = next_stat['moveValue']
-        delta_remotenesss = next_stat['deltaRemoteness']
+        move_value = move_obj['moveValue']
+        delta_remotenesss = move_obj['deltaRemoteness']
         if move_value == 'undecided':
             return 1
         return (VALUES.index(move_value), delta_remotenesss)
@@ -63,7 +76,7 @@ def wrangle_next_stats(position, next_stats):
     lose_finite_unknown_child_remoteness_exists = False
     tie_finite_unknown_child_remoteness_exists = False
 
-    for child in next_stats:
+    for child in move_objs:
         child_value = child['positionValue']
         child_remoteness = child['remoteness']
         if child_value == 'win':
@@ -100,20 +113,20 @@ def wrangle_next_stats(position, next_stats):
         if tie_finite_unknown_child_remoteness_exists:
             max_tie_child_remoteness = max(tie_children_remotenesses) + 1
 
-    def wrangle_next_stat(next_stat):
-        position_value = next_stat['positionValue']
-        remoteness = next_stat['remoteness']
-        move_value = next_stat.get('moveValue', position_value)
+    def wrangle_move_obj(move_obj):
+        position_value = move_obj['positionValue']
+        remoteness = move_obj['remoteness']
+        move_value = move_obj.get('moveValue', position_value)
 
         # If not using UWAPI position string, assume turn switching; otherwise, decide 
         # whether to switch the turn based on the current and next turn character. 
-        if position[:2] != 'R_' or next_stat['position'][2] != position[2]:
+        if position[:2] != 'R_' or move_obj['position'][2] != position[2]:
             if position_value == 'win':
                 move_value = 'lose'
             elif position_value == 'lose':
                 move_value = 'win'
             
-        next_stat['moveValue'] = move_value
+        move_obj['moveValue'] = move_value
 
         # Delta remoteness (grouped by move value)
         delta_remoteness = 0         
@@ -130,10 +143,10 @@ def wrangle_next_stats(position, next_stats):
                 remoteness = max_tie_child_remoteness
             delta_remoteness = remoteness - min_tie_child_remoteness
         
-        next_stat['deltaRemoteness'] = delta_remoteness
-        return next_stat
+        move_obj['deltaRemoteness'] = delta_remoteness
+        return move_obj
 
-    return sorted(map(wrangle_next_stat, next_stats), key=key_next_stat_by_move_value_then_delta_remoteness)
+    return sorted(map(wrangle_move_obj, move_objs), key=key_move_obj_by_move_value_then_delta_remoteness)
 
 # Routes
 
@@ -193,7 +206,9 @@ def get_position(game_id, variant_id, position):
             position_data = variant.position_data(position)
             if position_data:
                 if games[game_id].is_two_player_game:
-                    position_data['moves'] = wrangle_next_stats(position, position_data['moves'])
+                    position_data['moves'] = wrangle_move_objects_2Player(position, position_data['moves'])
+                else:
+                    wrangle_move_objects_1Player(position_data)
                 return position_data
             return error('Position')
         return error('Variant')
