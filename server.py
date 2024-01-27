@@ -16,19 +16,22 @@ def error(a):
     return {'error': f'Invalid {a}'}
 
 def wrangle_move_objects_1Player(position_data):
-    if 'remoteness' not in position_data:
+    if 'remoteness' not in position_data: # Means not possible to solve puzzle from this state
         position_data['remoteness'] = Remoteness.INFINITY
     current_position_remoteness = position_data['remoteness']
     for move_obj in position_data['moves']:
-        if 'remoteness' not in move_obj:
+        if 'remoteness' not in move_obj: # Not possible to solve puzzle from this state
             move_obj['remoteness'] = Remoteness.INFINITY
             move_obj['moveValue'] = 'lose'
-        else:
+        else: # Possible to solve puzzle from this state.
             delta_remoteness = current_position_remoteness - move_obj['remoteness']
             move_obj['deltaRemoteness'] = delta_remoteness
+            # Set moveValue to win, lose, or tie based on how we want to color the move buttons.
+            # Moves that reduce remoteness should be green. Moves that increase remoteness should
+            # be red. Moves that neither reduce nor increase remoteness should be yellow.
             move_obj['moveValue'] = 'win' if delta_remoteness > 0 else 'lose' if delta_remoteness < 0 else 'tie'
 
-def wrangle_move_objects_2Player(position, move_objs):
+def wrangle_move_objects_2Player(position_data):
     """
     Given a position and next-move data, this function
     1) Calculates the move value and delta-remoteness of all legal moves AND
@@ -58,15 +61,15 @@ def wrangle_move_objects_2Player(position, move_objs):
     treat it as though the min and max remotenesses of child positions of that
     value are 1.
     """
+    autogui_position = position_data['autoguiPosition']
+    move_objs = position_data['moves']
     if not move_objs:
         return move_objs
 
     def key_move_obj_by_move_value_then_delta_remoteness(move_obj):
-        VALUES = ['win', 'tie', 'draw', 'lose', 'unsolved']
+        VALUES = ('win', 'tie', 'draw', 'lose', 'unsolved', 'undecided')
         move_value = move_obj['moveValue']
         delta_remotenesss = move_obj['deltaRemoteness']
-        if move_value == 'undecided':
-            return 1
         return (VALUES.index(move_value), delta_remotenesss)
     
     lose_children_remotenesses = []
@@ -76,9 +79,9 @@ def wrangle_move_objects_2Player(position, move_objs):
     lose_finite_unknown_child_remoteness_exists = False
     tie_finite_unknown_child_remoteness_exists = False
 
-    for child in move_objs:
-        child_value = child['positionValue']
-        child_remoteness = child['remoteness']
+    for move_obj in move_objs:
+        child_value = move_obj['positionValue']
+        child_remoteness = move_obj['remoteness']
         if child_value == 'win':
             if child_remoteness != Remoteness.FINITE_UNKNOWN:
                 win_children_remotenesses.append(child_remoteness)
@@ -112,15 +115,17 @@ def wrangle_move_objects_2Player(position, move_objs):
         min_tie_child_remoteness = min(tie_children_remotenesses)
         if tie_finite_unknown_child_remoteness_exists:
             max_tie_child_remoteness = max(tie_children_remotenesses) + 1
+    
+    not_in_autogui_format = not ((autogui_position[0] == '1' or autogui_position[0] == '2') and autogui_position[1] == '_')
 
-    def wrangle_move_obj(move_obj):
+    for move_obj in move_objs:
         position_value = move_obj['positionValue']
         remoteness = move_obj['remoteness']
         move_value = move_obj.get('moveValue', position_value)
 
-        # If not using UWAPI position string, assume turn switching; otherwise, decide 
+        # If not using autogui-formatted position string, assume turn switching; otherwise, decide 
         # whether to switch the turn based on the current and next turn character. 
-        if position[:2] != 'R_' or move_obj['position'][2] != position[2]:
+        if not_in_autogui_format or move_obj['autoguiPosition'][0] != autogui_position[0]:
             if position_value == 'win':
                 move_value = 'lose'
             elif position_value == 'lose':
@@ -144,9 +149,9 @@ def wrangle_move_objects_2Player(position, move_objs):
             delta_remoteness = remoteness - min_tie_child_remoteness
         
         move_obj['deltaRemoteness'] = delta_remoteness
-        return move_obj
-
-    return sorted(map(wrangle_move_obj, move_objs), key=key_move_obj_by_move_value_then_delta_remoteness)
+    
+    move_objs.sort(key=key_move_obj_by_move_value_then_delta_remoteness)
+    
 
 # Routes
 
@@ -206,7 +211,7 @@ def get_position(game_id, variant_id, position):
             position_data = variant.position_data(position)
             if position_data:
                 if games[game_id].is_two_player_game:
-                    position_data['moves'] = wrangle_move_objects_2Player(position, position_data['moves'])
+                    wrangle_move_objects_2Player(position_data)
                 else:
                     wrangle_move_objects_1Player(position_data)
                 return position_data
