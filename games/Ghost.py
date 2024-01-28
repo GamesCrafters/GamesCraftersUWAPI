@@ -1,52 +1,59 @@
-from .models import AbstractGameVariant
+"""
+    Author: Cameron Cheung
+"""
+
+from .models import AbstractVariant
 import sys, pickle, os
 
 dirname = os.path.dirname(__file__)
 
-class Ghost(AbstractGameVariant):
+class Ghost(AbstractVariant):
 #class Ghost:
     def __init__(self, minimum_length=4):
-        name, desc = "Regular", f"Min Length = {minimum_length}"
         self.minimum_length = minimum_length
-        super(Ghost, self).__init__(name, desc, status="stable", gui_status="v2")
+        super(Ghost, self).__init__(f"Min Length = {minimum_length}", 'v3')
 
     def start_position(self):
-        return "R_A_0_0_.~"
-    
-    def uwapi_pos_str_to_word(self, position):
-        parts = position.split('~')
-        return parts[1] if len(parts) > 1 else ''
-
-    def word_to_uwapi_pos_str(self, word):
-        turn = 'B' if len(word) & 1 else 'A'
-        return f'R_{turn}_0_0_.~{word}'
+        return {'position': '-', 'autoguiPosition': '1_.~'}
     
     def position_data(self, position):
         with open(f'{dirname}/../data/ghost/ghost{self.minimum_length}.pkl', 'rb') as trie_file:
             trie = pickle.load(trie_file)
 
-        word = self.uwapi_pos_str_to_word(position)
+        word = Ghost.position_to_word(position)
+        remoteness = trie.get_remoteness(word)
         moves = []
-        for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
-            remoteness = trie.get_remoteness(word + letter)
-            autogui_coord_id = ord(letter) - 64
-            next_res = {
-                "move": f'T_{letter}_{autogui_coord_id}_x',
-                "moveName": letter,
-                "position": self.word_to_uwapi_pos_str(word + letter),
-                "positionValue": 'lose' if remoteness & 1 else 'win',
-                "remoteness": remoteness,
-            }
-            moves.append(next_res)
+
+        if remoteness > 0:
+            for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
+                remoteness = trie.get_remoteness(word + letter)
+                autogui_coord_id = ord(letter) - 64
+                moves.append({
+                    'move': letter,
+                    'autoguiMove': f'T_{letter}_{autogui_coord_id}_x',
+                    'position': word + letter,
+                    'autoguiPosition': Ghost.word_to_autogui_pos_str(word + letter),
+                    'positionValue': 'lose' if remoteness & 1 else 'win',
+                    'remoteness': remoteness,
+                })
 
         remoteness = trie.get_remoteness(word)
         response = {
-            "position": position,
-            "positionValue": 'lose' if remoteness & 1 else 'win',
-            "remoteness": remoteness,
-            "moves": moves
+            'position': position,
+            'autoguiPosition': Ghost.word_to_autogui_pos_str(position),
+            'positionValue': 'lose' if remoteness & 1 else 'win',
+            'remoteness': remoteness,
+            'moves': moves
         }
-        return response    
+        return response
+    
+    def position_to_word(position):
+        return '' if position == '-' else position
+
+    def word_to_autogui_pos_str(word):
+        if word == '-':
+            word = ''
+        return f"{'2' if len(word) & 1 else '1'}_.~{word}"
 
 class Node:
     def __init__(self, letter):
@@ -105,7 +112,7 @@ def solve_trie(trie):
            in mind that there only exist Win in Even Remoteness and Lose in
            Odd Remoteness in this game.
     """
-    REMOTENESS_MAX = 999
+    REMOTENESS_MAX = 999 # Should be fine unless your vocabulary includes some weird long chemical name
     def solve_node(node, prefix):
         if node.remoteness == 0:
             node.children = {}

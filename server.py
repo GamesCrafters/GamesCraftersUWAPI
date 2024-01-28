@@ -1,60 +1,59 @@
-import os
-
-from flask import Flask
+from flask import Flask, request
 from flask_cors import CORS
 
-from games import games, GamesmanClassicDataProvider
+from games import games
 from games.image_autogui_data import *
-from games.randomized_start import *
 from games.models import Remoteness
 from games.Ghost import Node, Trie
-
 from md_api import md_instr
 
 app = Flask(__name__)
-app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
-
 CORS(app)
 
 # Helper methods
 
-def format_response_ok(response):
-    return {
-        'status': 'ok',
-        'response': response
-    }
+def error(a):
+    return {'error': f'Invalid {a}'}
 
+def key_move_obj_by_move_value_then_delta_remoteness(move_obj):
+        VALUES = ('win', 'tie', 'draw', 'lose', 'unsolved', 'undecided')
+        move_value = move_obj['moveValue']
+        delta_remotenesss = move_obj['deltaRemoteness']
+        return (VALUES.index(move_value), delta_remotenesss)
 
-def format_response_err(error_message):
-    return {
-        'status': 'error',
-        'error': error_message
-    }
+def wrangle_move_objects_1Player(position_data):
+    if 'remoteness' not in position_data: # Means not possible to solve puzzle from this state
+        position_data['remoteness'] = Remoteness.INFINITY
+    current_position_remoteness = position_data['remoteness']
+    move_objs = position_data.get('moves', [])
+    for move_obj in move_objs:
+        if 'remoteness' not in move_obj: # Not possible to solve puzzle from this state
+            move_obj['remoteness'] = Remoteness.INFINITY
+            move_obj['moveValue'] = 'lose'
+        else: # Possible to solve puzzle from this state.
+            delta_remoteness = current_position_remoteness - move_obj['remoteness']
+            move_obj['deltaRemoteness'] = delta_remoteness
+            # Set moveValue to win, lose, or tie based on how we want to color the move buttons.
+            # Moves that reduce remoteness should be green. Moves that increase remoteness should
+            # be red. Moves that neither reduce nor increase remoteness should be yellow.
+            move_obj['moveValue'] = 'win' if delta_remoteness > 0 else 'lose' if delta_remoteness < 0 else 'tie'
+    move_objs.sort(key=key_move_obj_by_move_value_then_delta_remoteness)
 
-
-def get_game(game_id):
-    return games.get(game_id, None)
-
-
-def get_game_variant(game_id, variant_id):
-    game = get_game(game_id)
-    if not game:
-        return None
-    return game.variant(variant_id)
-
-
-def wrangle_next_stats(position, next_stats):
+def wrangle_move_objects_2Player(position_data):
     """
     Given a position and next-move data, this function
-    1) Calculates the delta-remoteness of all legal moves AND
+    1) Calculates the move value and delta-remoteness of all legal moves AND
     2) Returns the moves sorted from best-to-worst.
+    (Note: A "move value" is the value of the move for the person
+    making the move, and a "position value" is the value of the position
+    for the player whose turn it is at that position.)
 
     Delta Remoteness is an integer that helps to rank moves of the same value
     based on their remotenesses. (Lower delta remoteness is better.)
     - The delta remoteness of a winning move is the remoteness of the move's
     child position minus the minimum remoteness of all lose child positions 
     of `position`.
-    - The delta remoteness of a tying mvoe is the remoteness of the move's
+    - The delta remoteness of a tying move is the remoteness of the move's
     child position minus the minimum remoteness of all tie child positions
     of `position`.
     - The delta remoteness of a losing move is the maximum remoteness of all
@@ -70,16 +69,10 @@ def wrangle_next_stats(position, next_stats):
     treat it as though the min and max remotenesses of child positions of that
     value are 1.
     """
-    if not next_stats:
-        return next_stats
-
-    def key_next_stat_by_move_value_then_delta_remoteness(next_stat):
-        VALUES = ['win', 'tie', 'draw', 'lose', 'unsolved']
-        move_value = next_stat['moveValue']
-        delta_remotenesss = next_stat['deltaRemoteness']
-        if move_value == 'undecided':
-            return 1
-        return (VALUES.index(move_value), delta_remotenesss)
+    autogui_position = position_data['autoguiPosition']
+    move_objs = position_data['moves']
+    if not move_objs:
+        return move_objs
     
     lose_children_remotenesses = []
     win_children_remotenesses = []
@@ -88,9 +81,9 @@ def wrangle_next_stats(position, next_stats):
     lose_finite_unknown_child_remoteness_exists = False
     tie_finite_unknown_child_remoteness_exists = False
 
-    for child in next_stats:
-        child_value = child['positionValue']
-        child_remoteness = child['remoteness']
+    for move_obj in move_objs:
+        child_value = move_obj['positionValue']
+        child_remoteness = move_obj['remoteness']
         if child_value == 'win':
             if child_remoteness != Remoteness.FINITE_UNKNOWN:
                 win_children_remotenesses.append(child_remoteness)
@@ -124,21 +117,23 @@ def wrangle_next_stats(position, next_stats):
         min_tie_child_remoteness = min(tie_children_remotenesses)
         if tie_finite_unknown_child_remoteness_exists:
             max_tie_child_remoteness = max(tie_children_remotenesses) + 1
+    
+    not_in_autogui_format = not ((autogui_position[0] == '1' or autogui_position[0] == '2') and autogui_position[1] == '_')
 
-    def wrangle_next_stat(next_stat):
-        position_value = next_stat['positionValue']
-        remoteness = next_stat['remoteness']
-        move_value = next_stat.get('moveValue', position_value)
+    for move_obj in move_objs:
+        position_value = move_obj['positionValue']
+        remoteness = move_obj['remoteness']
+        move_value = move_obj.get('moveValue', position_value)
 
-        # If not using UWAPI position string, assume turn switching; otherwise, decide 
+        # If not using autogui-formatted position string, assume turn switching; otherwise, decide 
         # whether to switch the turn based on the current and next turn character. 
-        if position[:2] != 'R_' or next_stat['position'][2] != position[2]:
+        if not_in_autogui_format or move_obj['autoguiPosition'][0] != autogui_position[0]:
             if position_value == 'win':
                 move_value = 'lose'
             elif position_value == 'lose':
                 move_value = 'win'
             
-        next_stat['moveValue'] = move_value
+        move_obj['moveValue'] = move_value
 
         # Delta remoteness (grouped by move value)
         delta_remoteness = 0         
@@ -155,110 +150,87 @@ def wrangle_next_stats(position, next_stats):
                 remoteness = max_tie_child_remoteness
             delta_remoteness = remoteness - min_tie_child_remoteness
         
-        next_stat['deltaRemoteness'] = delta_remoteness
-        return next_stat
-
-    return sorted(map(wrangle_next_stat, next_stats), key=key_next_stat_by_move_value_then_delta_remoteness)
-
+        move_obj['deltaRemoteness'] = delta_remoteness
+    
+    move_objs.sort(key=key_move_obj_by_move_value_then_delta_remoteness)
+    
 
 # Routes
 
-@app.route("/games/")
-def handle_games():
-    response = [
-        {
-            'gameId': game_id,
-            'name': game.name,
-            'status': game.status,
-            'gui_status': game.gui_status
-        }
-        for (game_id, game) in games.items() if game.status == 'available'
-    ]
-    response.sort(key=lambda g: g['name'])
-    return format_response_ok(response)
-
-@app.route("/games/instructions/<type>/<game_id>/<language>/")
-def handle_instructions(type, game_id, language):
-    response = {
-        'instructions': md_instr(game_id, type, language)
-    }
-    return format_response_ok(response)
-
-@app.route("/games/<game_id>/")
-def handle_game(game_id):
-    game = get_game(game_id)
-    if not game:
-        return format_response_err('Game not found')
-    
-    custom_variant = 'true' if game.custom_variant else None
-    return format_response_ok({
-        'gameId': game_id,
+@app.route("/")
+def get_games() -> list[dict[str, str]]:
+    all_games = [{
+        'id': game_id,
         'name': game.name,
-        'variants': [
-            {
-                'variantId': variant_id,
-                'description': variant.desc,
-                'status': variant.status,
-                'startPosition': variant.start_position(),
+        'type': 'twoPlayer' if game.is_two_player_game else 'onePlayer',
+        'gui': game.gui
+    } for game_id, game in games.items()]
+    all_games.sort(key=lambda g: g['name'])
+    return all_games
+
+@app.route("/<game_id>/")
+def get_game(game_id):
+    if game_id in games:
+        game = games[game_id]
+        return {
+            'id': game_id,
+            'name': game.name,
+            'variants': [
+                {
+                    'id': variant_id,
+                    'name': variant.name,
+                    'gui': variant.gui
+                }
+                for variant_id, variant in game.variants.items()
+            ],
+            'allowCustomVariantCreation': bool(game.custom_variant),
+            'supportsWinBy': game.supports_win_by
+        }
+    return error('Game')
+
+@app.route('/<game_id>/<variant_id>/')
+def get_variant(game_id, variant_id):
+    if game_id in games:
+        variant = games[game_id].variant(variant_id)
+        if variant:
+            start_position_data = variant.start_position()
+            return {
+                'id': variant_id,
+                'name': variant.name,
+                'startPosition': start_position_data.get('position', ''),
+                'autoguiStartPosition': start_position_data.get('autoguiPosition', ''),
                 'imageAutoGUIData': get_image_autogui_data(game_id, variant_id),
-                'gui_status': variant.gui_status
+                'gui': variant.gui
             }
-            for (variant_id, variant) in game.variants.items() if variant.status != 'unavailable'
-        ],
-        'custom': custom_variant,
-        'supportsWinBy': game.supports_win_by
-    })
+        return error('Variant')
+    return error('Game')
 
-
-@app.route('/games/<game_id>/variants/<variant_id>/')
-def handle_variant(game_id, variant_id):
-    variant = get_game_variant(game_id, variant_id)
-    if not variant:
-        return format_response_err('Game/Variant not found')
-    return format_response_ok({
-        'gameId': game_id,
-        'variant': [
-            {
-                'variantId': variant_id,
-                'description': variant.desc,
-                'status': variant.status,
-                'startPosition': variant.start_position(),
-                'imageAutoGUIData': get_image_autogui_data(game_id, variant_id),
-                'gui_status': variant.gui_status,
-            }
-        ]
-    })
-
-
-@app.route('/games/<game_id>/variants/<variant_id>/positions/<position>/')
-def handle_position(game_id, variant_id, position):
-    variant = get_game_variant(game_id, variant_id)
-    if not variant:
-        return format_response_err('Game/Variant not found')
+@app.route('/<game_id>/<variant_id>/positions/<position>/')
+def get_position(game_id, variant_id, position):
+    if game_id in games:
+        variant = games[game_id].variant(variant_id)
+        if variant:
+            position_data = variant.position_data(position)
+            if position_data:
+                if games[game_id].is_two_player_game:
+                    wrangle_move_objects_2Player(position_data)
+                else:
+                    wrangle_move_objects_1Player(position_data)
+                return position_data
+            return error('Position')
+        return error('Variant')
+    return error('Game')
     
-    position_data = variant.position_data(position)
-    if position_data is None:
-        return format_response_err('Passed in Invalid Game State')
-    if position_data['remoteness'] == 0:
-        position_data['moves'] = []
-    else:
-        position_data['moves'] = wrangle_next_stats(position, position_data['moves'])
-    return format_response_ok(position_data)
-
-
-@app.route('/games/<game_id>/<variant_id>/randpos/')
-def game_randpos(game_id, variant_id):
-    random_start = get_random_start(game_id, variant_id)
-    if random_start is None:
-        variant = get_game_variant(game_id, variant_id)
-        if not variant:
-            return format_response_err('Game/Variant not found')
-        random_start = variant.start_position()
-    response = {
-        "position": random_start
-    }
-    return format_response_ok(response)
-
+@app.route("/<game_id>/<variant_id>/instructions")
+def get_instructions(game_id, variant_id) -> dict[str: str]:
+    # We currently give the same instruction markdown string for all
+    # variants of a particular game. Variant-specific instructions
+    # are not supported yet.
+    if game_id in games:
+        game_type = 'games' if games[game_id].is_two_player_game else 'puzzles'
+        language = request.args.get('lang', 'eng')
+        return {'instructions': md_instr(game_type, game_id, language)}
+    return error('Game')
 
 if __name__ == '__main__':
     app.run(port=8082)

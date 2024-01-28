@@ -5,41 +5,85 @@ from requests.exceptions import HTTPError
 
 from .models import DataProvider, Remoteness
 from .multipart_handler import multipart_solve
-from .randomized_start import *
+import random
 
-class GamesmanClassicDataProvider(DataProvider):
+class GamesmanClassic(DataProvider):
     # Use first url when running on a different machine,
     # use second when running on main gamesman server.
     #url = "http://nyc.cs.berkeley.edu:8083/"
     url = "http://localhost:8083/"
 
+    def convert_to_new(position_str):
+        """
+        TEMPORARY FUNCTION TO CONVERT POSITION STRING
+        IN OLD AUTOGUI FORMAT TO NEW AUTOGUI FORMAT
+        """
+        if len(position_str) > 2 and position_str[:2] == 'R_':
+            parts = position_str.split('_', 4)
+            turn = '1' if parts[1] == 'A' else '2'
+            return f"{turn}_{parts[4]}"
+        return position_str
+    
+    def convert_to_old(position_str):
+        if len(position_str) > 2 and position_str[1] == '_':
+            parts = position_str.split('_', 1)
+            turn = 'A' if parts[0] == '1' else 'B'
+            return f"R_{turn}_0_0_{parts[1]}"
+        return position_str
+
     @staticmethod
     def start_position(game_id, variant_id):
-        if game_id in random_start_funcs:
-            return get_random_start(game_id, variant_id)
-        return GamesmanClassicDataProvider.getStart(game_id, variant_id)
+        if game_id == 'forestfox':
+            """
+            THIS IS A SPECIAL CASE FOR forestfox THAT WILL
+            BE REMOVED IN THE GAMESMANCLASSIC-SIDE UWAPI CHANGES.
+            """
+            cards = 'abcdefghijklmno'
+            shuffled = ''.join(random.sample(cards, len(cards)))
+            first = ''.join(sorted(shuffled[:7]))
+            second = ''.join(sorted(shuffled[7:14]))
+            hands = first + second + shuffled[-1]
+            position = f'R_A_0_0_{hands}--00'
+        else:
+            position = GamesmanClassic.getStart(game_id, variant_id)
+        
+        position = GamesmanClassic.convert_to_new(position)
+        return {
+            'position': position,
+            'autoguiPosition': position
+        }
 
     @staticmethod
     def position_data(game_id, variant_id, position):
+        newf_position = position
+        position = GamesmanClassic.convert_to_old(position)
         def wrangle_next_stat(next_stat):
             # Rename members
-            next_stat['position'] = next_stat.pop('board')
+            board = GamesmanClassic.convert_to_new(next_stat.pop('board'))
+            next_stat['position'] = board
+            next_stat['autoguiPosition'] = board
             next_stat['positionValue'] = next_stat.pop('value')
+            next_stat['autoguiMove'] = next_stat.pop('move')
+            moveName = next_stat.pop('moveName')
+            if not moveName:
+                moveName = 'zzzz' + next_stat['autoguiMove']
+            next_stat['move'] = moveName
             if next_stat['positionValue'] == 'tie' and next_stat['remoteness'] == 255:
                 next_stat['positionValue'] = 'draw'
                 next_stat['remoteness'] = Remoteness.INFINITY
-            if 'fromPos' in next_stat:
-                next_stat.pop('fromPos')
+            if 'from' in next_stat:
+                next_stat.pop('from')
             return next_stat
         
         def filter_multipart_by_frompos(next_stat):
-            return 'fromPos' not in next_stat or next_stat['fromPos'] == position
+            return 'from' not in next_stat or next_stat['from'] == position
         
-        stat = GamesmanClassicDataProvider.getPosition(game_id, position, variant_id)
+        stat = GamesmanClassic.getPosition(game_id, position, variant_id)
         if stat is None:
             return None
-            
-        stat['position'] = stat.pop('board')
+        
+        stat['position'] = newf_position
+        stat['autoguiPosition'] = newf_position
         stat['positionValue'] = stat.pop('value')
         if stat['positionValue'] == 'tie' and stat['remoteness'] == 255:
             stat['positionValue'] = 'draw'
@@ -47,13 +91,12 @@ class GamesmanClassicDataProvider(DataProvider):
         stat['moves'] = list(map(wrangle_next_stat,list(filter(filter_multipart_by_frompos, stat['moves']))))
         return stat
 
-
     @staticmethod
     def getStart(game, variation=-1):
         """Get starting position of game
         """
         try:
-            tempurl = GamesmanClassicDataProvider.url + game + "/start"
+            tempurl = GamesmanClassic.url + game + "/start"
             if variation != -1:
                 tempurl += "?number=" + str(variation)
             response = requests.get(tempurl)
@@ -71,7 +114,7 @@ class GamesmanClassicDataProvider(DataProvider):
         """Get values for the next moves
         """
         try:
-            tempurl = GamesmanClassicDataProvider.url + game + \
+            tempurl = GamesmanClassic.url + game + \
                 "/position" + "?board=" + board
             if variation != -1:
                 tempurl += "&number=" + str(variation)

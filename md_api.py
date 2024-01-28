@@ -131,26 +131,13 @@ def dict_to_markdown(d):
 
 	return text
 
-
-def read_from_file(game_id):
-	with open(f'./xmlfiles/{game_id}.md', 'r') as reader:
-		content = reader.read()
-		d = convert_xml_dict(content)
-		print(dict_to_markdown(d))
-
-
-def md_instr(game_id, type='games', language='eng'):
+def md_instr(game_type, game_id, language):
 	language = locale_map.get(language, language)
-	link = f"http://gamescrafters.berkeley.edu/instructions/{language}/{type}/{game_id}.xml"
+	#link = f"http://gamescrafters.berkeley.edu/instructions/{language}/{type}/{game_id}.xml"
+	link = f"https://raw.githubusercontent.com/GamesCrafters/Explainers/master/instructions/{language}/{game_type}/{game_id}.xml"
 	instructions = read_from_link(link)
 	if not instructions and language != 'eng':
-		link = f"http://gamescrafters.berkeley.edu/instructions/eng/{type}/{game_id}.xml"
+		#link = f"http://gamescrafters.berkeley.edu/instructions/eng/{type}/{game_id}.xml"
+		link = f"https://raw.githubusercontent.com/GamesCrafters/Explainers/master/instructions/eng/{game_type}/{game_id}.xml"
 		instructions = read_from_link(link)
 	return instructions
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-	read_from_link('http://gamescrafters.berkeley.edu/games/1210.xml')
-	print('---------------------------------------------------------\n')
-	read_from_link('http://gamescrafters.berkeley.edu/games/baghchal.xml')
