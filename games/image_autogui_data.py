@@ -299,6 +299,10 @@ def get_chess(variant_id):
                 "entities": {
                     p: {"image": f"chess/{l}/{pieces[p]}.svg", "scale": 1} for p in pieces
                 },
+                "sounds": {
+                    "x": "general/slide.mp3",
+                    "y": "general/slideThenRemove.mp3"
+                },
                 "animationType": "simpleSlides"
             } for t, l in (("Wikipedia", "wikipedia"), ("Lichess", "lichess"))
         }

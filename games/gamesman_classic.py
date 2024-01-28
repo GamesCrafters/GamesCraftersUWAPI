@@ -19,7 +19,7 @@ class GamesmanClassic(DataProvider):
 
     @staticmethod
     def start_position(game_id, variant_id):
-        tempurl = f"{GamesmanClassic.url}{game_id}/{variant_id}/start"
+        tempurl = f"{GamesmanClassic.url}{game_id}/{variant_id}/start/"
         data = GamesmanClassic.read_from_url(tempurl)
         return {
             'position': data.get('position', ''),
@@ -39,7 +39,7 @@ class GamesmanClassic(DataProvider):
         def filter_multipart_by_frompos(next_stat):
             return 'from' not in next_stat or next_stat['from'] == position
         
-        tempurl = f"{GamesmanClassic.url}{game_id}/{variant_id}/positions/{position}"
+        tempurl = f"{GamesmanClassic.url}{game_id}/{variant_id}/positions/{position}/"
         stat = GamesmanClassic.read_from_url(tempurl)
 
         if "multipart" in stat: # Response includes multipart move data.

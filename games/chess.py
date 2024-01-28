@@ -10,57 +10,34 @@ from .models import AbstractVariant, Remoteness
 
 URL = "http://tablebase.lichess.ovh/standard"
 
+SLASH_REPLACEMENT = '.'
+SPACE_REPLACEMENT = '_'
 
-def convertUWAPIRegular2DPositionStringToFEN(position):
-    pieces, spaces, uri = 0, 0, ''
-    position = position.split("_", 5)
-    
-    if len(position) != 6:
-        return ""
+def fenToURLFriendly(fen):
+    return fen.replace(" ", SPACE_REPLACEMENT).replace("/", SLASH_REPLACEMENT)
 
-    for c in position[4]:
-        if c != '-' and spaces > 0:
-            uri += str(spaces)
-            spaces = 0
-        if pieces == 8:
-            if spaces > 0:
-                uri += str(spaces)
-                spaces = 0
-            uri += '/'
-            pieces = 0
-        if c == '-':
-            spaces += 1
-        else:
-            uri += c
-        pieces += 1
-    if spaces > 0:
-        uri += str(spaces)
-    
-    return uri + "_" + position[5]
-
+def URLFriendlyToFen(urlFriendlyFen):
+    return urlFriendlyFen.replace(SLASH_REPLACEMENT, "/").replace(SPACE_REPLACEMENT, " ")
 
 def convertFENToUWAPIRegular2DPositionBoardString(fen):
     board, extra = fen.replace(" ", "_").split("_", 1)
     board = board.replace("/", "")
     for i in range(10):
         board = board.replace(str(i), '-' * i)
-    return board + "_" + extra
+    turn_char = '1' if extra.split('_')[0] == 'w' else '2'
+    return f'{turn_char}_{board}'
 
-
-def makeUWAPIMoveString(next_position, move):
+def makeUWAPIMoveString(autogui_position_str, move):
     src = 8 * (8 - int(move[1])) + (ord(move[0]) - ord('a'))
     dest = 8 * (8 - int(move[3])) + (ord(move[2]) - ord('a'))
-    return "M_{}_{}_{}".format(src, dest, next_position[8 + dest].upper())
+    sound = 'x' if autogui_position_str.split('_')[-1][dest] == '-' else 'y'
+    return "M_{}_{}_{}".format(src, dest, sound)
 
-def makeMove(position, move):
-    fen = convertUWAPIRegular2DPositionStringToFEN(position)
-    board = chess.Board(fen.replace("_", " "))
+def makeMove(urlFriendlyFen, move): # returns a proper fen
+    board = chess.Board(URLFriendlyToFen(urlFriendlyFen))
     move = chess.Move.from_uci(move)
     board.push(move)
-    fen = board.fen()
-    turn = 'B' if position[2] == 'A' else 'A'
-    return "R_{}_8_8_{}".format(turn, convertFENToUWAPIRegular2DPositionBoardString(fen))
-
+    return board.fen()
 
 def positionValue(data):
     if data['checkmate']:
@@ -85,10 +62,10 @@ def positionRemoteness(data, value):
     else:
         return 1
 
-def syz_stat(position):
+def syz_stat(url_fen):
     try:
-        r = requests.get(url=URL, params={
-                         'fen': convertUWAPIRegular2DPositionStringToFEN(position)})
+        fen = URLFriendlyToFen(url_fen)
+        r = requests.get(url=URL, params={'fen': fen})
         r.raise_for_status()
     except HTTPError as http_err:
         print(f'HTTP error occurred: {http_err}')
@@ -98,17 +75,17 @@ def syz_stat(position):
         data = r.json()
         value = positionValue(data)
         response = {
-            "position": position,
+            "position": url_fen,
+            "autoguiPosition": convertFENToUWAPIRegular2DPositionBoardString(fen),
             "positionValue": value,
             "remoteness": positionRemoteness(data, value),
         }
         return response
 
 
-def syz_next_stats(position):
+def syz_next_stats(autoguiPosition, url_fen):
     try:
-        r = requests.get(url=URL, params={
-                         'fen': convertUWAPIRegular2DPositionStringToFEN(position)})
+        r = requests.get(url=URL, params={'fen': URLFriendlyToFen(url_fen)})
         r.raise_for_status()
     except HTTPError as http_err:
         print(f'HTTP error occurred: {http_err}')
@@ -119,12 +96,12 @@ def syz_next_stats(position):
         response = []
         for move in data['moves']:
             child_value = positionValue(move)
-            next_position = makeMove(position, move['uci'])
+            next_position_fen = makeMove(url_fen, move['uci'])
             response.append({
                 "move": move['san'],
-                "autoguiMove": makeUWAPIMoveString(next_position, move['uci']),
-                "position": next_position,
-                "autoguiPosition": next_position,
+                "autoguiMove": makeUWAPIMoveString(autoguiPosition, move['uci']),
+                "position": fenToURLFriendly(next_position_fen),
+                "autoguiPosition": convertFENToUWAPIRegular2DPositionBoardString(next_position_fen),
                 "positionValue": child_value,
                 "remoteness": positionRemoteness(move, child_value)
             })
@@ -138,10 +115,13 @@ class RegularChessVariant(AbstractVariant):
         super(RegularChessVariant, self).__init__(name, 'v2')
 
     def start_position(self):
-        turn = '1' if self.start_fen.split(' ')[1] == 'w' else '2'
-        return self.start_fen, "{}_{}".format(turn, convertFENToUWAPIRegular2DPositionBoardString(self.start_fen))
+        return {
+            'position': fenToURLFriendly(self.start_fen),
+            'autoguiPosition': convertFENToUWAPIRegular2DPositionBoardString(self.start_fen)
+        }
 
-    def position_data(self, position):
-        response = syz_stat(position)
-        response['moves'] = syz_next_stats(position)
+    def position_data(self, url_fen):
+        response = syz_stat(url_fen)
+        autogui_position = response['autoguiPosition']
+        response['moves'] = syz_next_stats(autogui_position, url_fen)
         return response

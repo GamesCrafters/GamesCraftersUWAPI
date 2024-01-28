@@ -399,33 +399,33 @@ def boardToUWAPI(board: Board, turn: int) -> str:
         if appending == 'q': appending = 'p'
         slots[piece.row * 9 + piece.col] = appending
     if turn == 1:
-        turnChar = 'A'
+        turnChar = '1'
     else:
-        turnChar = 'B'
-    return "R_" + turnChar + "_10_9_" + strcat(slots)
+        turnChar = '2'
+    return f"{turnChar}_{strcat(slots)}"
 
 
 def UWAPIToBoard(position: str):
     # TODO: validate board before returning.
-    position = position.split("_", 5)
-    if position[1] == 'A': turn = 1
+    turn_char, entity_string = position.split("_", 2)
+    if turn_char == '1': turn = 1
     else: turn = -1
     board = Board()
     for i in range(90):
-        if position[4][i] != '-':
+        if entity_string[i] != '-':
             row = i//9
             col = i%9
             board.occupied[row][col] = True
-            if position[4][i].isupper():
+            if entity_string[i].isupper():
                 color = 1
             else:
                 color = -1
-            if position[4][i] == 'P' and 0 <= row <= 4:
+            if entity_string[i] == 'P' and 0 <= row <= 4:
                 board.pieces.append(Piece(color, 'Q', row, col))
-            elif position[4][i] == 'p' and 5 <= row <= 9:
+            elif entity_string[i] == 'p' and 5 <= row <= 9:
                 board.pieces.append(Piece(color, 'q', row, col))
             else:
-                board.pieces.append(Piece(color, position[4][i], row, col))
+                board.pieces.append(Piece(color, entity_string[i], row, col))
     return board, turn
 
 
@@ -746,12 +746,17 @@ class RegularChineseChessVariant(AbstractVariant):
         super(RegularChineseChessVariant, self).__init__('Regular', 'v2')
 
     def start_position(self):
-        return boardToUWAPI(get_board_default_starting(), 1)
+        pos = boardToUWAPI(get_board_default_starting(), 1)
+        return {
+            'position': pos,
+            'autoguiPosition': pos
+        }
 
     def stat(self, position: str):
         value, remoteness = EGTB_load(*UWAPIToBoard(position))
         return {
             "position": position,
+            "autoguiPosition": position,
             "positionValue": value,
             "remoteness": remoteness
         }
@@ -764,10 +769,12 @@ class RegularChineseChessVariant(AbstractVariant):
         for move in moves:
             newBoard = do_move(copy.deepcopy(board), move)
             value, remoteness = EGTB_load(newBoard, -turn)
+            move_as_uwapi = move.as_UWAPI(board.occupied)
             response['moves'].append({
-                "move": move.as_UWAPI(board.occupied),
-                # "moveName": "", # TODO: come up with good move names.
+                "move": move_as_uwapi,
+                "autoguiMove": move_as_uwapi, # TODO: come up with good move names.
                 "position": boardToUWAPI(newBoard, -turn),
+                "autoguiPosition": boardToUWAPI(newBoard, -turn),
                 "positionValue": value,
                 "remoteness": remoteness
             })

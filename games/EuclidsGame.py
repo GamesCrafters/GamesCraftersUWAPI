@@ -17,7 +17,11 @@ class EuclidsGame(AbstractVariant):
             Return a UWAPI position string corresponding 
             to the initial position.
         """
-        return "R_A_4_4_" + '-' * 106
+        position_str = '1_' + '-' * 106
+        return {
+            'position': position_str,
+            'autoguiPosition': position_str
+        }
 
     def stat(self, position):
         """
@@ -27,6 +31,7 @@ class EuclidsGame(AbstractVariant):
         if (first_number == 0):
             response = {
                 "position": position,
+                "autoguiPosition": position,
                 "positionValue": "lose",
                 "remoteness": 100,
             }
@@ -34,6 +39,7 @@ class EuclidsGame(AbstractVariant):
             v, r = EuclidsGame.p2Result[first_number - 1]
             response = {
                 "position": position,
+                "autoguiPosition": position,
                 "positionValue": v,
                 "remoteness": r,
             }
@@ -46,6 +52,7 @@ class EuclidsGame(AbstractVariant):
             position_value = "win" if remoteness % 2 else "lose"
             response = {
                 "position": position,
+                "autoguiPosition": position,
                 "positionValue": position_value,
                 "remoteness": remoteness,
             }
@@ -62,7 +69,7 @@ class EuclidsGame(AbstractVariant):
 
         first_number = int(position[-3:].replace('-', '0'))
         second_number = int(position[-6:-3].replace('-', '0'))
-        return position[8:108], position[2], first_number, second_number
+        return position[2:102], position[0], first_number, second_number
 
     def position_data(self, position):
         """
@@ -72,7 +79,7 @@ class EuclidsGame(AbstractVariant):
         """
         response = self.stat(position)
         selected, turn, first_number, second_number = self.parse_position_string(position)
-        next_turn = 'B' if turn == 'A' else 'A'
+        next_turn = '2' if turn == '1' else '1'
         moves = {}
         json_moves = []
         available = []
@@ -96,7 +103,7 @@ class EuclidsGame(AbstractVariant):
                 trailing = '---' + (str(difference).zfill(3))
             elif (second_number == 0):
                 trailing = (str(difference).zfill(3)) + position[-3:]
-            moves[difference] = "R_{}_4_4_{}{}".format(
+            moves[difference] = "{}_{}{}".format(
                 next_turn, 
                 selected[:difference-1] + 'X' + selected[difference:],
                 trailing
@@ -104,8 +111,8 @@ class EuclidsGame(AbstractVariant):
 
         for move, position in moves.items():
             next_res = {
-                "move": f'A_h_{move - 1}_x',
-                "moveName": str(move),
+                "autoguiMove": f'A_h_{move - 1}_x',
+                "move": str(move),
                 **self.stat(position)
             }
             json_moves.append(next_res)

@@ -15,11 +15,18 @@ CORS(app)
 def error(a):
     return {'error': f'Invalid {a}'}
 
+def key_move_obj_by_move_value_then_delta_remoteness(move_obj):
+        VALUES = ('win', 'tie', 'draw', 'lose', 'unsolved', 'undecided')
+        move_value = move_obj['moveValue']
+        delta_remotenesss = move_obj['deltaRemoteness']
+        return (VALUES.index(move_value), delta_remotenesss)
+
 def wrangle_move_objects_1Player(position_data):
     if 'remoteness' not in position_data: # Means not possible to solve puzzle from this state
         position_data['remoteness'] = Remoteness.INFINITY
     current_position_remoteness = position_data['remoteness']
-    for move_obj in position_data['moves']:
+    move_objs = position_data.get('moves', [])
+    for move_obj in move_objs:
         if 'remoteness' not in move_obj: # Not possible to solve puzzle from this state
             move_obj['remoteness'] = Remoteness.INFINITY
             move_obj['moveValue'] = 'lose'
@@ -30,6 +37,7 @@ def wrangle_move_objects_1Player(position_data):
             # Moves that reduce remoteness should be green. Moves that increase remoteness should
             # be red. Moves that neither reduce nor increase remoteness should be yellow.
             move_obj['moveValue'] = 'win' if delta_remoteness > 0 else 'lose' if delta_remoteness < 0 else 'tie'
+    move_objs.sort(key=key_move_obj_by_move_value_then_delta_remoteness)
 
 def wrangle_move_objects_2Player(position_data):
     """
@@ -65,12 +73,6 @@ def wrangle_move_objects_2Player(position_data):
     move_objs = position_data['moves']
     if not move_objs:
         return move_objs
-
-    def key_move_obj_by_move_value_then_delta_remoteness(move_obj):
-        VALUES = ('win', 'tie', 'draw', 'lose', 'unsolved', 'undecided')
-        move_value = move_obj['moveValue']
-        delta_remotenesss = move_obj['deltaRemoteness']
-        return (VALUES.index(move_value), delta_remotenesss)
     
     lose_children_remotenesses = []
     win_children_remotenesses = []

@@ -17,7 +17,10 @@ class Jenga(AbstractVariant):
         super(Jenga, self).__init__("Regular - 15 pieces", 'v3')
 
     def start_position(self):
-        return "R_A_0_0_" + "J"*15
+        return {
+            'position': '1_' + 'J' * 15,
+            'autoguiPosition': '1_' + 'J' * 15
+        }
 
     def stat(self, position):
         try:
@@ -31,9 +34,10 @@ class Jenga(AbstractVariant):
 
                     #Parsed_Line formatting to be changed
                     parsed_Lines = line.split(" ")
-                    if parsed_Lines[2].strip("\n") == position.split("_")[4]:
+                    if parsed_Lines[2].strip("\n") == position.split("_")[1]:
                         response = {
                             "position": position,
+                            "autoguiPosition": position,
                             "positionValue": parsed_Lines[1],
                             "remoteness": int(parsed_Lines[0]),
                         }
@@ -51,19 +55,17 @@ class Jenga(AbstractVariant):
     def position_data(self, position):
         response = self.stat(position)
         json_moves = []
-        moves = GenerateMoves(position.split("_")[4])
-        opp_turn = 'B' if self.get_player(position) == 'A' else 'A'
+        moves = GenerateMoves(position.split("_")[1])
+        opp_turn = '2' if position[0] == '1' else '1'
         for move in moves:
-            response_dict = self.stat(f"R_{opp_turn}_0_0_" + DoMove(position.split("_")[4], move))
-            response_dict.update({"move": f"A_h_{move}_x"})
-            response_dict.update({"moveName": f"{move}"})
+            response_dict = {
+                "move": str(move),
+                "autoguiMove": f"A_h_{move}_x",
+                **self.stat(f"{opp_turn}_{DoMove(position.split('_')[1], move)}")
+            }
             json_moves.append(response_dict)
         response["moves"] = json_moves
         return response
-
-    def get_player(self, position_str):
-        position = position_str.split('_')
-        return position[1]
     
 
 ################### Jenga Encoded File ##########################
