@@ -29,6 +29,7 @@ def wrangle_move_objects_1Player(position_data):
     for move_obj in move_objs:
         if 'remoteness' not in move_obj: # Not possible to solve puzzle from this state
             move_obj['remoteness'] = Remoteness.INFINITY
+            move_obj['deltaRemoteness'] = 0
             move_obj['moveValue'] = 'lose'
         else: # Possible to solve puzzle from this state.
             delta_remoteness = current_position_remoteness - move_obj['remoteness']
