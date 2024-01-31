@@ -206,23 +206,25 @@ def get_variant(game_id, variant_id):
         return error('Variant')
     return error('Game')
 
-@app.route('/<game_id>/<variant_id>/positions/<position>/')
-def get_position(game_id, variant_id, position):
+@app.route('/<game_id>/<variant_id>/positions/')
+def get_position(game_id, variant_id):
     if game_id in games:
         variant = games[game_id].variant(variant_id)
         if variant:
-            position_data = variant.position_data(position)
-            if position_data:
-                if games[game_id].is_two_player_game:
-                    wrangle_move_objects_2Player(position_data)
-                else:
-                    wrangle_move_objects_1Player(position_data)
-                return position_data
+            position = request.args.get('p', None)
+            if position:
+                position_data = variant.position_data(position)
+                if position_data:
+                    if games[game_id].is_two_player_game:
+                        wrangle_move_objects_2Player(position_data)
+                    else:
+                        wrangle_move_objects_1Player(position_data)
+                    return position_data
             return error('Position')
         return error('Variant')
     return error('Game')
     
-@app.route("/<game_id>/<variant_id>/instructions")
+@app.route("/<game_id>/<variant_id>/instructions/")
 def get_instructions(game_id, variant_id) -> dict[str: str]:
     # We currently give the same instruction markdown string for all
     # variants of a particular game. Variant-specific instructions

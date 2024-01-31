@@ -18,7 +18,7 @@ class GamesmanClassic(DataProvider):
         TEMPORARY FUNCTION TO CONVERT POSITION STRING
         IN OLD AUTOGUI FORMAT TO NEW AUTOGUI FORMAT
         """
-        if len(position_str) > 2 and position_str[:2] == 'R_':
+        if position_str and len(position_str) > 2 and position_str[:2] == 'R_':
             parts = position_str.split('_', 4)
             turn = '1' if parts[1] == 'A' else '2'
             return f"{turn}_{parts[4]}"
@@ -82,6 +82,8 @@ class GamesmanClassic(DataProvider):
         if stat is None:
             return None
         
+        if 'board' in stat:
+            stat.pop('board')
         stat['position'] = newf_position
         stat['autoguiPosition'] = newf_position
         stat['positionValue'] = stat.pop('value')

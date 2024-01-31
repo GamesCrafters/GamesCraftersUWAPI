@@ -18,7 +18,7 @@ class GamesmanPuzzles(DataProvider):
 
     @staticmethod
     def start_position(puzzle_id, variant_id):
-        tempurl = f"{GamesmanPuzzles.url}{puzzle_id}/{variant_id}/start/"
+        tempurl = f"{GamesmanPuzzles.url}{puzzle_id}/{variant_id}/start"
         data = GamesmanPuzzles.read_from_url(tempurl)
         return {
             'position': data.get('position', ''),
@@ -27,5 +27,5 @@ class GamesmanPuzzles(DataProvider):
 
     @staticmethod
     def position_data(puzzle_id, variant_id, position):
-        tempurl = f"{GamesmanPuzzles.url}{puzzle_id}/{variant_id}/positions/{position}/"
+        tempurl = f"{GamesmanPuzzles.url}{puzzle_id}/{variant_id}/positions/?p={position}"
         return GamesmanPuzzles.read_from_url(tempurl)

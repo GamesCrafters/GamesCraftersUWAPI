@@ -27,8 +27,8 @@ class NimVariant(AbstractVariant):
 
     def start_position(self):
         return {
-            'position': 'A_' + '_'.join(str(p) for p in self.start_piles),
-            'autoguiPosition': self.get_autogui_pos_str(self.start_piles, 'A')
+            'position': '1_' + ','.join(str(p) for p in self.start_piles),
+            'autoguiPosition': self.get_autogui_pos_str(self.start_piles, '1')
         }
 
     def position_data(self, position):
@@ -58,10 +58,10 @@ class NimVariant(AbstractVariant):
         }
     
     def parse_pos_str(position):
-        return [int(i) for i in (position[2:].split('_'))], position[0] 
+        return [int(i) for i in (position[2:].split(','))], position[0] 
 
     def get_autogui_pos_str(self, position_arr, player):
-        autogui_pos_str = f"{'1' if player == 'A' else '2'}_"
+        autogui_pos_str = f"{'1' if player == '1' else '2'}_"
         for i in range(len(position_arr)):
             autogui_pos_str += 'x' * position_arr[i] + '-' * (self.start_piles[i] - position_arr[i])
         autogui_pos_str += '.' * len(self.start_piles)
@@ -70,7 +70,7 @@ class NimVariant(AbstractVariant):
         return autogui_pos_str
         
     def get_moves(self, pile_sizes, player):
-        next_player = 'A' if player == 'B' else 'B'
+        next_player = '1' if player == '2' else '2'
         moves = []
         idx = 0
         next_pile_sizes = pile_sizes[:]
@@ -82,7 +82,7 @@ class NimVariant(AbstractVariant):
                 moves.append([
                     f"{pile_size - j} from Pile {i + 1}",
                     f"A_t_{idx}_x",
-                    f"{next_player}_{'_'.join([str(p) for p in next_pile_sizes])}"
+                    f"{next_player}_{','.join([str(p) for p in next_pile_sizes])}"
                 ])
                 idx += 1
             idx = self.cumsum[k]

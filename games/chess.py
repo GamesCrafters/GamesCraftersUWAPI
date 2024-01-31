@@ -10,15 +10,6 @@ from .models import AbstractVariant, Remoteness
 
 URL = "http://tablebase.lichess.ovh/standard"
 
-SLASH_REPLACEMENT = '.'
-SPACE_REPLACEMENT = '_'
-
-def fenToURLFriendly(fen):
-    return fen.replace(" ", SPACE_REPLACEMENT).replace("/", SLASH_REPLACEMENT)
-
-def URLFriendlyToFen(urlFriendlyFen):
-    return urlFriendlyFen.replace(SLASH_REPLACEMENT, "/").replace(SPACE_REPLACEMENT, " ")
-
 def convertFENToUWAPIRegular2DPositionBoardString(fen):
     board, extra = fen.replace(" ", "_").split("_", 1)
     board = board.replace("/", "")
@@ -33,8 +24,8 @@ def makeUWAPIMoveString(autogui_position_str, move):
     sound = 'x' if autogui_position_str.split('_')[-1][dest] == '-' else 'y'
     return "M_{}_{}_{}".format(src, dest, sound)
 
-def makeMove(urlFriendlyFen, move): # returns a proper fen
-    board = chess.Board(URLFriendlyToFen(urlFriendlyFen))
+def makeMove(fen, move): # returns a proper fen
+    board = chess.Board(fen)
     move = chess.Move.from_uci(move)
     board.push(move)
     return board.fen()
@@ -62,9 +53,9 @@ def positionRemoteness(data, value):
     else:
         return 1
 
-def syz_stat(url_fen):
+def syz_stat(fen):
     try:
-        fen = URLFriendlyToFen(url_fen)
+        fen = fen
         r = requests.get(url=URL, params={'fen': fen})
         r.raise_for_status()
     except HTTPError as http_err:
@@ -75,7 +66,7 @@ def syz_stat(url_fen):
         data = r.json()
         value = positionValue(data)
         response = {
-            "position": url_fen,
+            "position": fen,
             "autoguiPosition": convertFENToUWAPIRegular2DPositionBoardString(fen),
             "positionValue": value,
             "remoteness": positionRemoteness(data, value),
@@ -83,9 +74,9 @@ def syz_stat(url_fen):
         return response
 
 
-def syz_next_stats(autoguiPosition, url_fen):
+def syz_next_stats(autoguiPosition, fen):
     try:
-        r = requests.get(url=URL, params={'fen': URLFriendlyToFen(url_fen)})
+        r = requests.get(url=URL, params={'fen': fen})
         r.raise_for_status()
     except HTTPError as http_err:
         print(f'HTTP error occurred: {http_err}')
@@ -96,11 +87,11 @@ def syz_next_stats(autoguiPosition, url_fen):
         response = []
         for move in data['moves']:
             child_value = positionValue(move)
-            next_position_fen = makeMove(url_fen, move['uci'])
+            next_position_fen = makeMove(fen, move['uci'])
             response.append({
                 "move": move['san'],
                 "autoguiMove": makeUWAPIMoveString(autoguiPosition, move['uci']),
-                "position": fenToURLFriendly(next_position_fen),
+                "position": next_position_fen,
                 "autoguiPosition": convertFENToUWAPIRegular2DPositionBoardString(next_position_fen),
                 "positionValue": child_value,
                 "remoteness": positionRemoteness(move, child_value)
@@ -116,7 +107,7 @@ class RegularChessVariant(AbstractVariant):
 
     def start_position(self):
         return {
-            'position': fenToURLFriendly(self.start_fen),
+            'position': self.start_fen,
             'autoguiPosition': convertFENToUWAPIRegular2DPositionBoardString(self.start_fen)
         }
 
