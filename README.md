@@ -29,21 +29,23 @@ This file sets up the server and runs it from the given port in main.
 
       ```json
       [
-          ...
+          "...",
 
           {"gui": "v3", "id": "npuzzle", "name": "Sliding Number Puzzle", "type": "onePlayer"},
           {"gui": "v3", "id": "snake", "name": "Snake", "type": "twoPlayer"},
           {"gui": "v3", "id": "squaredance", "name": "Square Dance", "type": "twoPlayer"},
           {"gui": "v3", "id": "tactix", "name": "TacTix", "type": "twoPlayer"},
-          {"gui": "v3", "id": "tictactoe", "name": "Tic-Tac-Toe", "type": "twoPlayer"}
+          {"gui": "v3", "id": "tictactoe", "name": "Tic-Tac-Toe", "type": "twoPlayer"},
 
-          ...
+          "..."
       ]
         ```
 
 - `/<game_id>/` : 
 
     - Returns general information about the game specified by `game_id`. This is used, for example, by GamesmanUni when a game is clicked in order to see which variants are available in order to render the list of available variants.
+
+      The response contains the following fields:
         - `id`: (String) The game ID, i.e., whatever `game_id` was.
         - `allowCustomVariantCreation`: (Boolean) Indicates whether the user on GamesmanUni can play a custom variant outside the default list of variants. For example, for Dawson's Chess, `allowCustomVariantCreation` is `true` because the user can specify an arbitrary board length to play with.
         - `name`: (String), The human-readable name of the game.
@@ -69,7 +71,15 @@ This file sets up the server and runs it from the given port in main.
       ```
 
 - `/<game_id>/<variant_id>/` : 
-    - Returns information about the variant specified by `variant_id` of the game specified by `game_id`. This is used, for example, by GamesmanUni when a game is clicked in order to see which variants are available in order to render the list of available variants.
+    - Returns information about the variant specified by `variant_id` of the game specified by `game_id`. This is used, for example, by GamesmanUni when a game is clicked in order to see which variants of the game are available in order to render the list of available variants.
+
+      The response contains the following fields:
+        - `id`: (String) The ID of the variant, i.e., whatever `variant_id` was.
+        - `name`: (String) The human-readable name of this variant.
+        - `gui`: (String) Used to indicate which GUI category this variant should be listed under in the Variants page of the game. It is one of "v0" (bronze, no GUI), "v1" (silver, character AutoGUI), "v2" (gold, Image AutoGUI, not animated), and "v3" (purple, Animated Image AutoGUI).
+        - `startPosition`: (String) The human-readable string representation of the starting position.
+        - `autoguiPosition`: (String) The AutoGUI-formatted string for the starting position, which tells the frontend application how to render the starting position.
+        - `imageAutoGUIData`: (Object) JSON data that GamesmanUni uses when rendering each position of this game variant. See `games/image_autogui_data.py` for more information.
 
       Below is the response for the Regular variant of Mū Tōrere (`/mutorere/regular/`), with the Image AutoGUI data object omitted for brevity.
 
@@ -80,7 +90,7 @@ This file sets up the server and runs it from the given port in main.
           "gui": "v3",
           "startPosition": "1_-ooooxxxx",
           "autoguiStartPosition": "1_-ooooxxxx",
-          "imageAutoGUIData": { ... }
+          "imageAutoGUIData": { "..." }
       }
       ```
 
@@ -137,7 +147,7 @@ This file sets up the server and runs it from the given port in main.
       }
       ```
 
-- `/<game_id>/<variant_id>/instructions/?language=<language>` : 
+- `/<game_id>/<variant_id>/instructions/?lang=<language>` : 
   - Returns a markdown string for the instructions of the game specified by `game_id` (for when a user clicks the "i" button in GamesmanUni to get the rules guide of the game they are playing).
     - It gets the data for the game instructions from the [master branch Explainers GitHub repo](https://github.com/GamesCrafters/Explainers/tree/master/instructions). If instructions are not available in the language given by `language` or if the `lang` parameter is not provided, then it defaults to English instructions for the game.
     - The URL suggests that there are different instructions for different variants of the game, but currently all variants of a game have the same set of instructions. Supporting variant-specific instructions is a (probably difficult) todo.

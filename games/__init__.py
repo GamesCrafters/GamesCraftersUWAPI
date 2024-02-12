@@ -1028,7 +1028,7 @@ games = {
         name='Toads and Frogs Puzzle',
         variants={
             str(v): Variant(
-                name=f'{v} Frogs, {v} Toads',
+                name=f'{v >> 1} Frogs, {v >> 1} Toads',
                 data_provider=GamesmanPuzzles,
                 data_provider_game_id='toadsandfrogspuzzle',
                 data_provider_variant_id=str(v),

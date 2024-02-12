@@ -170,7 +170,7 @@ def get_games() -> list[dict[str, str]]:
     return all_games
 
 @app.route("/<game_id>/")
-def get_game(game_id):
+def get_game(game_id: str):
     if game_id in games:
         game = games[game_id]
         return {
@@ -190,7 +190,7 @@ def get_game(game_id):
     return error('Game')
 
 @app.route('/<game_id>/<variant_id>/')
-def get_variant(game_id, variant_id):
+def get_variant(game_id: str, variant_id: str):
     if game_id in games:
         variant = games[game_id].variant(variant_id)
         if variant:
@@ -207,7 +207,7 @@ def get_variant(game_id, variant_id):
     return error('Game')
 
 @app.route('/<game_id>/<variant_id>/positions/')
-def get_position(game_id, variant_id):
+def get_position(game_id: str, variant_id: str):
     if game_id in games:
         variant = games[game_id].variant(variant_id)
         if variant:
@@ -225,7 +225,7 @@ def get_position(game_id, variant_id):
     return error('Game')
     
 @app.route("/<game_id>/<variant_id>/instructions/")
-def get_instructions(game_id, variant_id) -> dict[str: str]:
+def get_instructions(game_id: str, variant_id: str) -> dict[str: str]:
     # We currently give the same instruction markdown string for all
     # variants of a particular game. Variant-specific instructions
     # are not supported yet.
