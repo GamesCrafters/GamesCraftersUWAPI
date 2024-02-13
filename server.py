@@ -4,7 +4,6 @@ from flask_cors import CORS
 from games import games
 from games.image_autogui_data import *
 from games.models import Remoteness
-from games.Ghost import Node, Trie
 from md_api import md_instr
 
 app = Flask(__name__)

@@ -463,8 +463,8 @@ games = {
                 data_provider=GamesmanPuzzles,
                 data_provider_game_id='towersofhanoi',
                 data_provider_variant_id=v,
-                gui='v3'
-            ) for v in ("3_1", "3_2", "3_3", "3_4", "3_5", "3_6", "3_7", "3_8", "4_1", "4_2", "4_3", "4_4", "4_5", "4_6", "5_1", "5_2", "5_3", "5_4")
+                gui='v3' if v[0] in ('3', '4') and v[2] in ('1', '2', '3', '4') else 'v0'
+            ) for v in ("3_1", "3_2", "3_3", "3_4", "3_5", "3_6", "4_1", "4_2", "4_3", "4_4", "4_5", "4_6", "5_1", "5_2", "5_3", "5_4")
         },
         is_two_player_game=False,
         gui='v3'
