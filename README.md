@@ -59,11 +59,11 @@ This file sets up the server and runs it from the given port in main.
 
       ```json
       {
-          "id":"mutorere",
-          "name":"M\u016b T\u014drere",
+          "id": "mutorere",
+          "name": "M\u016b T\u014drere",
           "allowCustomVariantCreation": false,
           "supportsWinBy": false,
-          "variants":[
+          "variants": [
               {"gui": "v3", "id": "regular", "name": "Standard"},
               {"gui": "v3", "id": "misere", "name": "Misere"}
           ]
@@ -118,10 +118,10 @@ This file sets up the server and runs it from the given port in main.
       Below is the response for position `1_oxoooxxx-` of the Regular variant of Mū Tōrere (`/mutorere/regular/positions/?p=1_oxoooxxx-`). The position is a win in 5 with one winning move to a lose-in-4 child position and one losing move to a win-in-1 child position. In Mū Tōrere and some other games, the `position` and `autoguiPosition` fields are the same (because, for those games, we have decided that the AutoGUI-formatted position string happens to be a good human-readable position string as well), but for other games, this is not the case.
       ```json
       {
-          "position":"1_oxoooxxx-",
-          "autoguiPosition":"1_oxoooxxx-",
-          "positionValue":"win",
-          "remoteness":5,
+          "position": "1_oxoooxxx-",
+          "autoguiPosition": "1_oxoooxxx-",
+          "positionValue": "win",
+          "remoteness": 5,
           "moves": [
               {
                   "position": "2_oxoooxx-x",

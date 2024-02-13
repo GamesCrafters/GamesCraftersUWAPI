@@ -237,7 +237,7 @@ def get_beeline(variant_id):
         }
     }
 
-def get_bishop(variant_id):
+def get_bishoppuzzle(variant_id):
     rows = int(variant_id[0])
     cols = int(variant_id[2])
     return {
@@ -246,7 +246,7 @@ def get_bishop(variant_id):
             "regular": {
                 "space": [cols, rows],
                 "centers": [[0.5 + i // rows, 0.5 + i % rows] for i in range(rows * cols)],
-                "background": f"bishop/{variant_id}.svg",
+                "background": f"bishoppuzzle/{variant_id}.svg",
                 "charImages": {
                     "X": {"image": "chess/wikipedia/B.svg", "scale": 1},
                     "O": {"image": "chess/wikipedia/bb.svg", "scale": 1},
@@ -772,19 +772,19 @@ def get_graphgame(variant_id):
         }
     }
 
-def get_hanoi(variant_id):
+def get_towersofhanoi(variant_id):
     if not (len(variant_id) == 3 and variant_id[0].isdigit() and variant_id[-1].isdigit()):
         return None
     num_poles = int(variant_id[0])
     num_disks = int(variant_id[-1])
     alpha = "ABCDEFGHIJK"
     pieces = {
-        alpha[c]: {"image": f"hanoi/{alpha[c]}.svg", "scale": 1} for c in range(num_disks)
+        alpha[c]: {"image": f"towersofhanoi/{alpha[c]}.svg", "scale": 1} for c in range(num_disks)
     }
 
     regularTheme = {
         "space": [3, 3] if num_poles <= 3 else [4, 4],
-        "background": f"hanoi/{num_poles}_{num_disks}_variant_grid.svg",
+        "background": f"towersofhanoi/{num_poles}_{num_disks}_variant_grid.svg",
         "charImages": pieces,
         "arrowWidth": 0.06 if num_poles <= 3 else 0.08,
         "sounds": {"x": "general/slideThenRemove.mp3"},
@@ -1432,7 +1432,7 @@ def get_quickcross(variant_id):
         }
     }
 
-def get_rubiks(variant_id):
+def get_rubikscube(variant_id):
     # Color Centers
     centers = [
         [38.75, 41.25], [38.75, 31.25], [46.25, 43.75], [46.25, 33.75],
@@ -1455,9 +1455,9 @@ def get_rubiks(variant_id):
             "regular": {
                 "space": [100, 100],
                 "centers": centers,
-                "foreground": "rubiks/fg.svg",
+                "foreground": "rubikscube/fg.svg",
                 "charImages": {
-                    c: {"image": f"rubiks/{c}.svg", "scale": 100} for c in 'abcdefghijklmnopqr'
+                    c: {"image": f"rubikscube/{c}.svg", "scale": 100} for c in 'abcdefghijklmnopqr'
                 },
                 "arrowWidth": 1,
                 "sounds": {"x": "general/place.mp3"},
@@ -1861,7 +1861,7 @@ image_autogui_data_funcs = {
     "allqueenschess": get_allqueenschess,
     "baghchal": get_baghchal,
     "beeline": get_beeline,
-    "bishop": get_bishop,
+    "bishoppuzzle": get_bishoppuzzle,
     "change": get_change,
     "chess": get_chess,
     "chinesechess": get_chinesechess,
@@ -1882,7 +1882,7 @@ image_autogui_data_funcs = {
     "foxandhounds": get_foxandhounds,
     "ghost": get_ghost,
     "graphgame": get_graphgame,
-    "hanoi": get_hanoi,
+    "towersofhanoi": get_towersofhanoi,
     "hareandhounds": get_hareandhounds,
     "jenga": get_jenga,
     "joust": get_joust,
@@ -1890,7 +1890,7 @@ image_autogui_data_funcs = {
     "konane": get_konane,
     "lewthwaitesgame": get_lewthwaitesgame,
     "lgame": get_lgame,
-    "lights": get_lightsout,
+    "lightsout": get_lightsout,
     "lite3": get_lite3,
     "mutorere": get_mutorere,
     "nim": get_nim,
@@ -1905,7 +1905,7 @@ image_autogui_data_funcs = {
     "ponghauki": get_ponghauki,
     "quickchess": get_quickchess,
     "quickcross": get_quickcross,
-    "rubiks": get_rubiks,
+    "rubikscube": get_rubikscube,
     "rubiksmagic": get_rubiksmagic,
     "rushhour": get_rushhour,
     "shifttactoe": get_shifttactoe,
