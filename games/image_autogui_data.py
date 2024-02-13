@@ -773,46 +773,28 @@ def get_graphgame(variant_id):
     }
 
 def get_towersofhanoi(variant_id):
-    if not (len(variant_id) == 3 and variant_id[0].isdigit() and variant_id[-1].isdigit()):
-        return None
     num_poles = int(variant_id[0])
     num_disks = int(variant_id[-1])
-    alpha = "ABCDEFGHIJK"
-    pieces = {
-        alpha[c]: {"image": f"towersofhanoi/{alpha[c]}.svg", "scale": 1} for c in range(num_disks)
-    }
+    width = (num_poles * 4) * (num_disks + 2)
+    x_offset, x_step = width // (num_poles * 2), width // num_poles
+    y_offset, y_step = 4 + width // 2, 4
 
-    regularTheme = {
-        "space": [3, 3] if num_poles <= 3 else [4, 4],
-        "background": f"towersofhanoi/{num_poles}_{num_disks}_variant_grid.svg",
-        "charImages": pieces,
-        "arrowWidth": 0.06 if num_poles <= 3 else 0.08,
-        "sounds": {"x": "general/slideThenRemove.mp3"},
-        "animationType": "simpleSlides",
-    }
-
-    if variant_id == '3_4':
-        regularTheme["centers"] = [[0.5 + (i % 3), 0.2 * (i // 3) + 1.605] for i in range(12)]
-    elif variant_id == '3_3':
-        regularTheme["centers"] = [[0.5 + (i % 3), 0.2 * (i // 3) + 1.805] for i in range(9)]
-    elif variant_id == '3_2':
-        regularTheme["centers"] = [[0.5 + (i % 3), 0.2 * (i // 3) + 2.005] for i in range(9)]
-    elif variant_id == '3_1':
-        regularTheme["centers"] = [[0.5 + (i % 3), 0.2 * (i // 3) + 2.205] for i in range(9)]
-    elif variant_id == '4_1':
-        regularTheme["centers"] = [[0.5 + (i % 4), 0.2 * (i // 4) + 2.98] for i in range(16)]
-    elif variant_id == '4_2':
-        regularTheme["centers"] = [[0.5 + (i % 4), 0.2 * (i // 4) + 2.78] for i in range(16)]
-    elif variant_id == '4_3':
-        regularTheme["centers"] = [[0.5 + (i % 4), 0.2 * (i // 4) + 2.58] for i in range(16)]
-    elif variant_id == '4_4':
-        regularTheme["centers"] = [[0.5 + (i % 4), 0.2 * (i // 4) + 2.38] for i in range(16)]
-    else:
-        return None
     return {
         "defaultTheme": "regular",
         "themes": {
-            "regular": regularTheme
+            "regular": {
+                "space": [width, width],
+                "centers": [
+                    [x_offset + x * x_step, y_offset + y * y_step] 
+                    for y in range(num_disks) for x in range(num_poles)],
+                "background": f"towersofhanoi/z{num_poles}_{num_disks}.svg",
+                "charImages": {
+                    c: {"image": f"towersofhanoi/{c}.svg", "scale": 40} for c in 'ABCDEFGH'
+                },
+                "arrowWidth": 1,
+                "sounds": {"x": "general/slideThenRemove.mp3"},
+                "animationType": "simpleSlides"
+            }
         }
     }
 
