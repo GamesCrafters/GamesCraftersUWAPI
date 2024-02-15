@@ -9,16 +9,22 @@ from md_api import md_instr
 app = Flask(__name__)
 CORS(app)
 
-# Helper methods
+# Helper Functions
 
 def error(a):
     return {'error': f'Invalid {a}'}
 
 def key_move_obj_by_move_value_then_delta_remoteness(move_obj):
-        VALUES = ('win', 'tie', 'draw', 'lose', 'unsolved', 'undecided')
-        move_value = move_obj['moveValue']
-        delta_remotenesss = move_obj['deltaRemoteness']
-        return (VALUES.index(move_value), delta_remotenesss)
+    """
+    Return a sort key for the input move object.
+    As a reminder, value/remoteness tuples are listed from best to worst as follows:
+    Low-Remoteness Win, High-Remoteness Win, Low-Remoteness Tie, High-Remoteness Tie, 
+    Draw, High-Remoteness Lose, Lower Remoteness Lose
+    """
+    VALUES = ('win', 'tie', 'draw', 'lose', 'unsolved', 'undecided')
+    move_value = move_obj['moveValue']
+    delta_remotenesss = move_obj['deltaRemoteness']
+    return (VALUES.index(move_value), delta_remotenesss)
 
 def wrangle_move_objects_1Player(position_data):
     if 'remoteness' not in position_data: # Means not possible to solve puzzle from this state
@@ -48,8 +54,10 @@ def wrangle_move_objects_2Player(position_data):
     making the move, and a "position value" is the value of the position
     for the player whose turn it is at that position.)
 
-    Delta Remoteness is an integer that helps to rank moves of the same value
-    based on their remotenesses. (Lower delta remoteness is better.)
+    Suppose a move M has a move-value of V (V is one of win, tie, draw, lose).
+    The delta-remoteness of M is the magnitude of the difference between the 
+    remoteness of M and the remoteness of the best move out of all moves 
+    that have move-value V.
     - The delta remoteness of a winning move is the remoteness of the move's
     child position minus the minimum remoteness of all lose child positions 
     of `position`.
@@ -65,7 +73,7 @@ def wrangle_move_objects_2Player(position_data):
     known value but a finite unknown remoteness. For the sake of calculating
     delta remoteness, we treat the position as though it has a remoteness 1
     higher than the maximum-remoteness child position of the same value. And
-    if all child posiitons of that value have an unknown finite remoteness, we
+    if all child positions of that value have an unknown finite remoteness, we
     treat it as though the min and max remotenesses of child positions of that
     value are 1.
     """
