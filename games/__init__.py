@@ -130,13 +130,13 @@ games = {
         },
         gui='v3'),
 
-    'bishop': Game(
+    'bishoppuzzle': Game(
         name='Bishop Puzzle',
         variants={
             v: Variant(
                 name='Standard',
                 data_provider=GamesmanPuzzles,
-                data_provider_game_id='bishop',
+                data_provider_game_id='bishoppuzzle',
                 data_provider_variant_id=v,
                 gui='v3'
             ) for v in ('4x5_8', '4x7_4', '6x7_6')
@@ -455,16 +455,16 @@ games = {
         },
         gui='v3'),
     
-    'hanoi': Game(
+    'towersofhanoi': Game(
         name="Towers of Hanoi",
         variants= {
             v: Variant(
                 name=f"{v.split('_')[0]} Rod{'' if v.split('_')[0] == '1' else 's'} & {v.split('_')[1]} Disk{'' if v.split('_')[1] == '1' else 's'}",
                 data_provider=GamesmanPuzzles,
-                data_provider_game_id='hanoi',
+                data_provider_game_id='towersofhanoi',
                 data_provider_variant_id=v,
                 gui='v3'
-            ) for v in ("3_1", "3_2", "3_3", "3_4", "3_5", "3_6", "3_7", "3_8", "4_1", "4_2", "4_3", "4_4", "4_5", "4_6", "5_1", "5_2", "5_3", "5_4")
+            ) for v in (f'{x}_{y}' for x in range(3, 5) for y in range(1, 9))
         },
         is_two_player_game=False,
         gui='v3'
@@ -613,13 +613,13 @@ games = {
         },
         gui='v3'),
     
-    'lights': Game(
+    'lightsout': Game(
         name='Lights Out',
         variants={
             v: Variant(
                 name=f'{v}x{v}',
                 data_provider=GamesmanPuzzles,
-                data_provider_game_id='lights',
+                data_provider_game_id='lightsout',
                 data_provider_variant_id=v,
                 gui='v3'
             ) for v in '2345678'
@@ -871,13 +871,13 @@ games = {
        }, 
        gui='v3'),
     
-    'rubiks': Game(
+    'rubikscube': Game(
         name="Rubik's Cube",
         variants={
             '2x2x2': Variant(
                 name='2x2x2',
                 data_provider=GamesmanPuzzles,
-                data_provider_game_id='rubiks',
+                data_provider_game_id='rubikscube',
                 data_provider_variant_id='2x2x2',
                 gui='v2'
             )
@@ -1028,7 +1028,7 @@ games = {
         name='Toads and Frogs Puzzle',
         variants={
             str(v): Variant(
-                name=f'{v} Frogs, {v} Toads',
+                name=f'{v >> 1} Frogs, {v >> 1} Toads',
                 data_provider=GamesmanPuzzles,
                 data_provider_game_id='toadsandfrogspuzzle',
                 data_provider_variant_id=str(v),

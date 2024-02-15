@@ -13,8 +13,8 @@ get_<game>(variant_id) should return JSON of the following form:
                 "centers": [ [<x0>,<y0>], [<x1>, <y1>], [<x2>, <y2>], [<x3>, <y3>], ... ],
                 "background": <optional, path to background image>,
                 "foreground": <optional, path to foreground image>,
-                "entities": {
-                    <char1>: {"image": <path to entity image>, "scale": <image scale>},
+                "charImages": {
+                    <char1>: {"image": <path to image corresponding to char1>, "scale": <image scale>},
                     <char2>: { ... }
                     ...
                 },
@@ -48,7 +48,7 @@ def get_0to10by1or2(variant_id):
                 "space": [9, 11],
                 "centers": [[4.5, 0.5 + i] for i in range(10, -1, -1)],
                 "background": "0to10by1or2/grid.svg",
-                "entities": {
+                "charImages": {
                     "x": {"image": "0to10by1or2/x.svg", "scale": "1"}
                 },
                 "arrowWidth": 0.1,
@@ -67,7 +67,7 @@ def get_1dchess(variant_id):
                 "space": [8, 1],
                 "centers": [[0.5 + i, 0.5] for i in range(8)],
                 "background": "1dchess/grid.svg",
-                "entities": {
+                "charImages": {
                     "t": {"image": "chess/wikipedia/K.svg", "scale": 1},
                     "k": {"image": "chess/wikipedia/N.svg", "scale": 1},
                     "r": {"image": "chess/wikipedia/R.svg", "scale": 1},
@@ -87,14 +87,14 @@ def get_1dchess(variant_id):
     }
 
 def get_3spot(variant_id):
-    entities = {
+    char_images = {
         "R": {"image": "3spot/R.svg", "scale": 1.0},
         "W": {"image": "3spot/W.svg", "scale": 1.0},
         "B": {"image": "3spot/B.svg", "scale": 1.0},
         "h": {"image": "3spot/h.svg", "scale": 0.3},
         "v": {"image": "3spot/v.svg", "scale": 0.3},
     }
-    entities.update({f"{i}": {"image": f"general/{i}.svg", "scale": 2} for i in range(10)})
+    char_images.update({f"{i}": {"image": f"general/{i}.svg", "scale": 2} for i in range(10)})
     centers = [
         [0.5, 0.5], [1.5, 0.5], [2.5, 0.5], [0.5, 1.5], [1.5, 1.5],
         [2.5, 1.5], [0.5, 2.5], [1.5, 2.5], [2.5, 2.5],
@@ -102,7 +102,7 @@ def get_3spot(variant_id):
         [1, 0.5], [2, 0.5], [0.5, 1], [1.5, 1], [2.5, 1], [1, 1.5],
         [2, 1.5], [0.5, 2], [1.5, 2], [2.5, 2], [1, 2.5], [2, 2.5]
     ]
-    centers = [[x + 0.0125, y + 0.0125] for x, y in centers] # need to adjust because of stroke width
+    centers = [[x + 0.0125, y + 0.0125] for x, y in centers] # need to adjust b/c of stroke width
     return {
         "defaultTheme": "standard",
         "themes": {
@@ -110,7 +110,7 @@ def get_3spot(variant_id):
                 "space": [3.025, 4],
                 "centers": centers,
                 "background": "3spot/grid.svg",
-                "entities": entities,
+                "charImages": char_images,
                 "sounds": {"x": "general/place.mp3"},
                 "animationType": "entityFade",
                 "defaultAnimationWindow": [0, 13]
@@ -126,7 +126,7 @@ def get_achi(variant_id):
                 "space": [100, 100],
                 "centers": [[i % 3 * 40 + 10, i // 3 * 40 + 10] for i in range(9)],
                 "background": "achi/board.svg",
-                "entities": {
+                "charImages": {
                     "x": {"image": "general/blackpiece.svg", "scale": 15},
                     "o": {"image": "general/whitepiece.svg", "scale": 15}
                 },
@@ -153,7 +153,7 @@ def get_adugo(variant_id):
                     "centers": [[100, 100]] + [
                         [i % dim * 10 + 5, i // dim * 10 + 5] for i in range(dim * dim)
                     ],
-                    "entities": {
+                    "charImages": {
                         "B": {"image": "general/blackpiece.svg", "scale": 9},
                         "W": {"image": "general/whitepiece.svg", "scale": 9}
                     },
@@ -175,7 +175,7 @@ def get_allqueenschess(variant_id):
                 "space": [5, 5],
                 "centers": [[i % 5 + 0.5, i // 5 + 0.5] for i in range(25)],
                 "background": "allqueenschess/board.svg",
-                "entities": {
+                "charImages": {
                     "W": {"image": "chess/wikipedia/Q.svg", "scale": 1},
                     "B": {"image": "chess/wikipedia/qq.svg", "scale": 1}
                 },
@@ -188,9 +188,9 @@ def get_allqueenschess(variant_id):
     }
 
 def get_baghchal(variant_id):
-    entities = {f"{i}": {"image": f"general/{i}.svg", "scale": 1.2} for i in range(10)}
-    entities["G"] = {"image": "baghchal/G.svg", "scale": 0.7}
-    entities["T"] = {"image": "baghchal/T.svg", "scale": 0.75}
+    char_images = {f"{i}": {"image": f"general/{i}.svg", "scale": 1.2} for i in range(10)}
+    char_images["G"] = {"image": "baghchal/G.svg", "scale": 0.7}
+    char_images["T"] = {"image": "baghchal/T.svg", "scale": 0.75}
     
     return {
         "defaultTheme": "regular",
@@ -199,7 +199,7 @@ def get_baghchal(variant_id):
                 "space": [5, 6],
                 "centers": [[0.5 + (i % 5), 0.5 + (i // 5)] for i in range(25)] + [[3.75,5.2], [3.95,5.2], [3.75,5.55], [3.95,5.55]],
                 "background": "baghchal/grid5Diag.svg",
-                "entities": entities,
+                "charImages": char_images,
                 "arrowWidth": 0.05,
                 "entitiesOverArrows": True,
                 "sounds": {
@@ -225,7 +225,7 @@ def get_beeline(variant_id):
                     [120, 123.8], [150, 106.5], [180, 89.2], [210, 71.9]
                 ],
                 "background": "beeline/board.svg",
-                "entities": {
+                "charImages": {
                     "W": {"image": "beeline/W.svg", "scale": 34.5},
                     "B": {"image": "beeline/B.svg", "scale": 34.5}
                 },
@@ -237,7 +237,7 @@ def get_beeline(variant_id):
         }
     }
 
-def get_bishop(variant_id):
+def get_bishoppuzzle(variant_id):
     rows = int(variant_id[0])
     cols = int(variant_id[2])
     return {
@@ -246,8 +246,8 @@ def get_bishop(variant_id):
             "regular": {
                 "space": [cols, rows],
                 "centers": [[0.5 + i // rows, 0.5 + i % rows] for i in range(rows * cols)],
-                "background": f"bishop/{variant_id}.svg",
-                "entities": {
+                "background": f"bishoppuzzle/{variant_id}.svg",
+                "charImages": {
                     "X": {"image": "chess/wikipedia/B.svg", "scale": 1},
                     "O": {"image": "chess/wikipedia/bb.svg", "scale": 1},
                 },
@@ -270,7 +270,7 @@ def get_change(variant_id):
                     [30, 8], [30, 26], [30, 44], [30, 62], [10, 17], [10, 35], [10, 53]
                 ],
                 "background": "change/graph.svg",
-                "entities": {
+                "charImages": {
                     "o": {"image": "general/redpiece.svg", "scale": 10},
                     "x": {"image": "general/bluepiece.svg", "scale": 10}
                 },
@@ -296,7 +296,7 @@ def get_chess(variant_id):
                 "arrowWidth": 0.1,
                 "background": f"chess/{l}/grid.svg",
                 "centers": [[i % 8 + 0.5, i // 8 + 0.5] for i in range(64)],
-                "entities": {
+                "charImages": {
                     p: {"image": f"chess/{l}/{pieces[p]}.svg", "scale": 1} for p in pieces
                 },
                 "sounds": {
@@ -332,7 +332,7 @@ def get_chinesechess(variant_id):
         "defaultTheme": "regular",
         "themes": {
             t: {
-                "entities": {
+                "charImages": {
                     p: {"image": f"chinesechess/{t}/{pieces[p]}.svg", "scale": 1} for p in pieces
                 }
             } | theme for t in ("regular", "graphical")
@@ -348,7 +348,7 @@ def get_chomp(variant_id):
             "choco": {
                 "space": [cols, rows],
                 "centers": [[i % cols + 0.5,rows - (i // cols) - 0.5] for i in range(rows * cols)],
-                "entities": {
+                "charImages": {
                     "x" : {"image": "chomp/x.svg", "scale": 1.01},
                     "p" : {"image": "chomp/p.svg", "scale": 1.01},
                     "t" : {"image": "general/basichitbox.svg", "scale": 1}
@@ -373,7 +373,7 @@ def get_chopsticks(variant_id):
     ctrs += [[x, 50] for x in [ # Transfer move button centers (18)
         5,12,19,26,33,8.5,15.5,22.5,29.5, 95,88,81,74,67,91.5,84.5,77.5,70.5]]
 
-    entities = {c : {"image": f"chopsticks/{c}.svg", "scale": 100} for c in '678901234'}
+    char_images = {c : {"image": f"chopsticks/{c}.svg", "scale": 100} for c in '678901234'}
 
     return {
         "defaultTheme": "regular",
@@ -383,7 +383,7 @@ def get_chopsticks(variant_id):
                 "centers": ctrs,
                 "background": "chopsticks/knuckles.svg",
                 "foreground": "chopsticks/foreground.svg",
-                "entities": entities | {"f" : {"image": "chopsticks/finger.svg", "scale": 100}},
+                "charImages": char_images | {"f" : {"image": "chopsticks/finger.svg", "scale": 100}},
                 "arrowWidth": 1,
                 "sounds": {"x": "general/remove.mp3"},
                 "animationType": "entityFade"
@@ -403,7 +403,7 @@ def get_chungtoi(variant_id):
                 "space": [3, 3],
                 "centers": ctrs,
                 "background": "chungtoi/grid.svg",
-                "entities": {
+                "charImages": {
                     "T": {"image": "chungtoi/T.svg", "scale": 1.28},
                     "X": {"image": "chungtoi/X.svg", "scale": 1.28},
                     "t": {"image": "chungtoi/tt.svg", "scale": 1.28},
@@ -434,7 +434,7 @@ def get_connect4(variant_id):
                     "space": [cols, 7],
                     "centers": centers + [[i % cols + 0.5, i // cols] for i in range(cols * 2)],
                     "foreground": f"connect4/foreground6x{cols}.svg",
-                    "entities": {
+                    "charImages": {
                         "X": {"image": "general/blue_circle.svg", "scale": 1},
                         "O": {"image": "general/red_circle.svg", "scale": 1},
                     },
@@ -458,7 +458,7 @@ def get_dao(variant_id):
                 "space": [4, 4],
                 "centers": [[i % 4 + 0.5, i // 4 + 0.5] for i in range(16)],
                 "background": "dao/grid.svg",
-                "entities": {
+                "charImages": {
                     "O": {"image": "dao/W.svg", "scale": 0.9},
                     "X": {"image": "dao/B.svg", "scale": 0.9}
                 },
@@ -472,7 +472,7 @@ def get_dao(variant_id):
 
 def get_dawsonschess(variant_id):
     size = int(variant_id)
-    entities = {"t": {"image": "general/basichitbox.svg", "scale": 44}} | {
+    char_images = {"t": {"image": "general/basichitbox.svg", "scale": 44}} | {
         e: {"image": f"dawsonschess/{e}.svg", "scale": 45} for e in 'bx'}
     return {
         "defaultTheme": "kings",
@@ -480,7 +480,7 @@ def get_dawsonschess(variant_id):
             "kings": {
                 "space": [45 + (size - 1) * 44, 45],
                 "centers": [[22.5 + i * 44, 22.5] for i in range(size)],
-                "entities": entities,
+                "charImages": char_images,
                 "sounds": {"x": "general/place.mp3"},
                 "animationType": "entityFade"
             }
@@ -498,7 +498,7 @@ def get_dinododgem(variant_id):
                     [5.5, 1.5], [5.5, 2.5], [5.5, 3.5], [5.5, 4.5]
                 ],
                 "background": "dinododgem/grid.svg",
-                "entities": {
+                "charImages": {
                     "o": {"image": "dinododgem/purple.svg", "scale": 0.9},
                     "x": {"image": "dinododgem/triceratops.svg", "scale": 0.9}
                 },
@@ -521,7 +521,7 @@ def get_dodgem(variant_id):
                 "space": [4, 4],
                 "centers": [[i % 4 + 0.5, i // 4 + 0.5] for i in range(16)],
                 "background": "dodgem/grid.svg",
-                "entities": {
+                "charImages": {
                     "o": {"image": "general/bluepiece.svg", "scale": 1}, 
                     "x": {"image": "general/redpiece.svg", "scale": 1}
                 },
@@ -555,7 +555,7 @@ def get_domineering(variant_id):
                 "space": [100, 100],
                 "centers": centers,
                 "background": f"domineering/{variant_id}.svg",
-                "entities": {
+                "charImages": {
                     "u": {"image": "domineering/u.svg", "scale": scale * 1.1},
                     "d": {"image": "domineering/d.svg", "scale": scale * 1.1},
                     "l": {"image": "domineering/l.svg", "scale": scale * 1.1},
@@ -570,12 +570,12 @@ def get_domineering(variant_id):
     }
 
 def get_dragonsandswans(variant_id):
-    entities = {
+    char_images = {
         "x": {"image": "swans/D.svg", "scale": 8}, 
         "o": {"image": "swans/o.svg", "scale": 6},
         "s": {"image": "swans/s.svg", "scale": 6}
     }
-    entities |= {c: {"image": f"general/{c}.svg", "scale": 8.8} for c in '0123456789'}
+    char_images |= {c: {"image": f"general/{c}.svg", "scale": 8.8} for c in '0123456789'}
     centers = [[i % 4 * 10 + 5, i // 4 * 10 + 5] for i in range(16)]
     centers += [[28.7, 43], [30.2, 43], [28.7, 46], [30.2, 46]]
     return {
@@ -585,7 +585,7 @@ def get_dragonsandswans(variant_id):
                 "space": [40, 50],
                 "centers": centers,
                 "background": "swans/grid4.svg",
-                "entities": entities,
+                "charImages": char_images,
                 "entitiesOverArrows": True,
                 "sounds": {
                     "x": "animals/dragon.mp3",
@@ -605,9 +605,9 @@ def get_euclidsgame(variant_id):
                 "space": [10, 10],
                 "background": "euclidsgame/grid.svg",
                 "centers": [[i % 10 + 0.5, i // 10 + 0.5] for i in range(100)],
-                "entities": {
+                "charImages": {
                     "X": {"image": "euclidsgame/cut.svg", "scale": 0.9},
-                    "h": {"image": "euclidsgame/h.svg", "scale": 1},
+                    "h": {"image": "euclidsgame/h.svg", "scale": 1}
                 },
                 "sounds": {"x": "general/remove.mp3"},
                 "animationType": "entityFade",
@@ -624,7 +624,7 @@ def get_fivefieldkono(variant_id):
                 "space": [200, 200],
                 "centers": [[i % 5 * 40 + 20, i // 5 * 40 + 20] for i in range(25)],
                 "background": "fivefieldkono/board.svg",
-                "entities": {
+                "charImages": {
                     "x": {"image": "general/whitepiece.svg", "scale": 25},
                     "o": {"image": "general/blackpiece.svg", "scale": 25}
                 },
@@ -644,7 +644,7 @@ def get_fourfieldkono(variant_id):
                 "space": [4, 4],
                 "centers": [[i % 4 + 0.5, i // 4 + 0.5] for i in range(16)],
                 "background": "fourfieldkono/4fk.svg",
-                "entities": {
+                "charImages": {
                     "x": {"image": "general/whitepiece.svg", "scale": 0.9},
                     "o": {"image": "general/blackpiece.svg", "scale": 0.9}
                 },
@@ -662,8 +662,8 @@ def get_forestfox(variant_id):
         "m": "moon3", "n": "moon4", "o": "moon5"
     }
     nums = {str(n): {"image": f"general/{n}.svg", "scale": 450} for n in range(8)}
-    entities = {p: {"image": f"forestfox/{pieces[p]}.svg", "scale": 200} for p in pieces}
-    entities = entities | {"z": {"image": "forestfox/button.svg", "scale": 350}}
+    char_images = {p: {"image": f"forestfox/{pieces[p]}.svg", "scale": 200} for p in pieces}
+    char_images = char_images | {"z": {"image": "forestfox/button.svg", "scale": 350}}
     handcenters = [[i % 7 * 150 + 125, i // 7 * 600 + 150] for i in range(14)]
     centers = handcenters + [[575, 450], [200, 450], [950, 450], [425, 450], [725, 450]]
     centers += [[x, y + 80] for x, y in handcenters]
@@ -676,7 +676,7 @@ def get_forestfox(variant_id):
                 "space": [1150, 900],
                 "centers": centers,
                 "background": "forestfox/cardboard.svg",
-                "entities": nums | entities,
+                "charImages": nums | char_images,
                 "circleButtonRadius": 16,
                 "sounds": {"x": "general/slide.mp3"},
                 "animationType": "simpleSlides"
@@ -696,7 +696,7 @@ def get_foxandhounds(variant_id):
                      33, 35, 37, 39, 40, 42, 44, 46, 49, 51, 53, 55, 56, 58, 60, 62)
                 ],
                 "background": "chess/lichess/grid.svg",
-                "entities": {
+                "charImages": {
                     "F": {"image": "foxandhounds/F.svg", "scale": 1},
                     "G": {"image": "foxandhounds/G.svg", "scale": 1},
                 },
@@ -722,7 +722,7 @@ def get_ghost(variant_id):
                 "space": [25, 25],
                 "background": "ghost/gray_background.svg",
                 "centers": centers,
-                "entities": {}, # We only use text entities and move buttons.
+                "charImages": {}, # We only use text entities and move buttons.
                 "textEntityFontSize": 1.2,
                 "sounds": {"x": "general/remove.mp3"},
                 "animationType": "entityFade"
@@ -762,7 +762,7 @@ def get_graphgame(variant_id):
                 "space": space,
                 "background": f"graphgame/graph{variant_id}.svg",
                 "centers": centers,
-                "entities": {
+                "charImages": {
                     "x": {"image": f"chess/wikipedia/{img}.svg", "scale": scale}
                 },
                 "arrowWidth": arrowWidth,
@@ -772,47 +772,29 @@ def get_graphgame(variant_id):
         }
     }
 
-def get_hanoi(variant_id):
-    if not (len(variant_id) == 3 and variant_id[0].isdigit() and variant_id[-1].isdigit()):
-        return None
+def get_towersofhanoi(variant_id):
     num_poles = int(variant_id[0])
     num_disks = int(variant_id[-1])
-    alpha = "ABCDEFGHIJK"
-    pieces = {
-        alpha[c]: {"image": f"hanoi/{alpha[c]}.svg", "scale": 1} for c in range(num_disks)
-    }
+    width = (num_poles * 4) * (num_disks + 2)
+    x_offset, x_step = width // (num_poles * 2), width // num_poles
+    y_offset, y_step = 4 + width // 2, 4
 
-    regularTheme = {
-        "space": [3, 3] if num_poles <= 3 else [4, 4],
-        "background": f"hanoi/{num_poles}_{num_disks}_variant_grid.svg",
-        "entities": pieces,
-        "arrowWidth": 0.06 if num_poles <= 3 else 0.08,
-        "sounds": {"x": "general/slideThenRemove.mp3"},
-        "animationType": "simpleSlides",
-    }
-
-    if variant_id == '3_4':
-        regularTheme["centers"] = [[0.5 + (i % 3), 0.2 * (i // 3) + 1.605] for i in range(12)]
-    elif variant_id == '3_3':
-        regularTheme["centers"] = [[0.5 + (i % 3), 0.2 * (i // 3) + 1.805] for i in range(9)]
-    elif variant_id == '3_2':
-        regularTheme["centers"] = [[0.5 + (i % 3), 0.2 * (i // 3) + 2.005] for i in range(9)]
-    elif variant_id == '3_1':
-        regularTheme["centers"] = [[0.5 + (i % 3), 0.2 * (i // 3) + 2.205] for i in range(9)]
-    elif variant_id == '4_1':
-        regularTheme["centers"] = [[0.5 + (i % 4), 0.2 * (i // 4) + 2.98] for i in range(16)]
-    elif variant_id == '4_2':
-        regularTheme["centers"] = [[0.5 + (i % 4), 0.2 * (i // 4) + 2.78] for i in range(16)]
-    elif variant_id == '4_3':
-        regularTheme["centers"] = [[0.5 + (i % 4), 0.2 * (i // 4) + 2.58] for i in range(16)]
-    elif variant_id == '4_4':
-        regularTheme["centers"] = [[0.5 + (i % 4), 0.2 * (i // 4) + 2.38] for i in range(16)]
-    else:
-        return None
     return {
         "defaultTheme": "regular",
         "themes": {
-            "regular": regularTheme
+            "regular": {
+                "space": [width, width],
+                "centers": [
+                    [x_offset + x * x_step, y_offset + y * y_step] 
+                    for y in range(num_disks) for x in range(num_poles)],
+                "background": f"towersofhanoi/z{num_poles}_{num_disks}.svg",
+                "charImages": {
+                    c: {"image": f"towersofhanoi/{c}.svg", "scale": 40} for c in 'ABCDEFGH'
+                },
+                "arrowWidth": 1,
+                "sounds": {"x": "general/slideThenRemove.mp3"},
+                "animationType": "simpleSlides"
+            }
         }
     }
 
@@ -826,7 +808,7 @@ def get_hareandhounds(variant_id):
                     "space": [width, 100],
                     "centers": [[10, 50]] + main_centers + [[width - 10, 50]],
                     "background": f"hareandhounds/board{name}.svg",
-                    "entities": {
+                    "charImages": {
                         "d": {"image": "hareandhounds/d.svg", "scale": 20},
                         "r": {"image": "hareandhounds/r.svg", "scale": 20}
                     },
@@ -868,7 +850,7 @@ def get_jenga(variant_id):
                                             [3.5, 1.5], [4.5, 1.5], [5.5, 1.5], 
                             [0.5, 0.5], [1.5, 0.5], [2.5, 0.5]],
                 "background": "jenga/JengaBoard.svg",
-                "entities": { 
+                "charImages": { 
                     "J": {"image": "jenga/JengaPiece.svg", "scale": 0.9875},
                     "h": {"image": "general/basichitbox.svg", "scale": 0.9875}
                 },
@@ -891,7 +873,7 @@ def get_joust(variant_id):
                 "space": [d, d],
                 "background": f"joust/grid{variant_id}.svg",
                 "centers": [[(i % c) + (1+d-c)/2, (i // c) + (1+d-r)/2] for i in range(r * c)],
-                "entities": {
+                "charImages": {
                     "X": {"image": "chess/wikipedia/N.svg", "scale": 1},
                     "O": {"image": "chess/wikipedia/nn.svg", "scale": 1},
                     "B": {"image": "joust/B.svg", "scale": 1.005},
@@ -918,7 +900,7 @@ def get_kayles(variant_id):
                 "space": [max(size, 2), max(size, 2)],
                 "centers": centers,
                 "background": "kayles/grid.svg",
-                "entities": {
+                "charImages": {
                     "x": {"image": "kayles/x.svg", "scale": 1}
                 },
                 "circleButtonRadius": 0.12,
@@ -939,7 +921,7 @@ def get_konane(variant_id):
                     "space": [cols * 10, rows * 10],
                     "background": f"konane/grid{rows}x{cols}.svg",
                     "centers": [[i % cols * 10 + 5, i // cols * 10 + 5] for i in range(rc)],
-                    "entities": {
+                    "charImages": {
                         "x": {"image": "general/whitepiece.svg", "scale": 9},
                         "o": {"image": "general/blackpiece.svg", "scale": 9},
                         "h": {"image": "general/basichitbox.svg", "scale": 10}
@@ -962,7 +944,7 @@ def get_lewthwaitesgame(variant_id):
                 "space": [50, 50],
                 "centers": [[i % 5 * 10 + 5, i // 5 * 10 + 5] for i in range(25)],
                 "background": "lewthwaitesgame/grid.svg",
-                "entities": {
+                "charImages": {
                     "W": {"image": "general/whitepiece.svg", "scale": 7},
                     "B": {"image": "general/blackpiece.svg", "scale": 7},
                 },
@@ -988,12 +970,12 @@ def get_lgame(variant_id):
         [0.625, 3.85], [0.625, 2.85], [0.625, 1.85], [1.15, 3.25], [1.625, 2.25], [1.625, 1.85], 
         [0.15, 2.15], [0.15, 1.75], [0.15, 0.75], [1.15, 2.15], [1.15, 1.75], [1.15, 0.75]
     ] # L-shaped move button centers, 6 centers for each of 8 L-piece orientations
-    entities = {
+    char_images = {
         c: {
             "image": f"lgame/{c}.svg", "scale": 1 if c.isalpha() else 0.6
         } for c in 'BRWG12345678'
     }
-    entities |= {"h": {"image": "general/basichitbox.svg", "scale": 1}}
+    char_images |= {"h": {"image": "general/basichitbox.svg", "scale": 1}}
     return {
         "defaultTheme": "regular",
         "themes": {
@@ -1001,7 +983,7 @@ def get_lgame(variant_id):
                 "space": [4, 4],
                 "centers": centers,
                 "background": "lgame/grid.svg",
-                "entities": entities,
+                "charImages": char_images,
                 "sounds": {
                     "x": "general/place.mp3",
                     "y": "general/remove.mp3",
@@ -1023,7 +1005,7 @@ def get_lightsout(variant_id):
                 "space": [sideLength, sideLength],
                 "centers": [[i % sideLength + 0.5, i // sideLength + 0.5] for i in range(sL2)],
                 "background": "lightsout/background.svg",
-                "entities": {
+                "charImages": {
                     c: {"image": f"lightsout/{c}.svg", "scale": 1} for c in "01t"
                 },
                 "sounds": {"x": "general/remove.mp3"},
@@ -1040,7 +1022,7 @@ def get_lite3(variant_id):
                 "space": [30, 30],
                 "centers": [[x % 3 * 10 + 5, x // 3 * 10 + 5] for x in range(9)],
                 "background": "ttt/3x3grid.svg",
-                "entities": {
+                "charImages": {
                     "a": {"image": "ttt/o.svg", "scale": 3},
                     "b": {"image": "ttt/o.svg", "scale": 6},
                     "c": {"image": "ttt/o.svg", "scale": 9},
@@ -1066,7 +1048,7 @@ def get_mutorere(variant_id):
                      [1, 2.41421], [2.41421, 1], [2.41421, -1], [1, -2.41421]]
                 ],
                 "background": "mutorere/board.svg",
-                "entities": {
+                "charImages": {
                     "x": {"image": "general/bluepiece.svg", "scale": 10},
                     "o": {"image": "general/redpiece.svg", "scale": 10}
                 },
@@ -1113,7 +1095,7 @@ def get_nim(variant_id):
                 "space": [sideLength, sideLength],
                 "centers": centers,
                 "background": "nim/grid.svg",
-                "entities": {
+                "charImages": {
                     "x": {"image": "nim/x.svg", "scale": 1},
                     "t": {"image": "nim/t.svg", "scale": 1}
                 },
@@ -1145,7 +1127,7 @@ def get_ninemensmorris(variant_id):
                     "space": [300, 300],
                     "centers": centers,
                     "background": "369mm/board.svg",
-                    "entities": numbers | {
+                    "charImages": numbers | {
                         "B": {"image": "general/blackpiece.svg", "scale": 28.6},
                         "W": {"image": "general/whitepiece.svg", "scale": 28.6},
                         "z": {"image": "369mm/z.svg", "scale": 38}
@@ -1171,7 +1153,7 @@ def get_ninemensmorris(variant_id):
                     "space": [220, 220],
                     "centers": centers,
                     "background": "369mm/board6mm.svg",
-                    "entities": numbers | {
+                    "charImages": numbers | {
                         "B": {"image": "general/blackpiece.svg", "scale": 23},
                         "W": {"image": "general/whitepiece.svg", "scale": 23},
                         "z": {"image": "369mm/z.svg", "scale": 31}
@@ -1195,7 +1177,7 @@ def get_notakto(variant_id):
         "defaultTheme": "basic",
         "themes": {
             "basic": {
-                "entities": {
+                "charImages": {
                     "X": {"image": "notakto/x.svg", "scale": 22},
                     "h": {"image": "general/basichitbox.svg", "scale": 20}
                 },
@@ -1229,7 +1211,7 @@ def get_npuzzle(variant_id):
             "regular": {
                 "space": [3, 3],
                 "centers": [[i % 3 + 0.5, i // 3 + 0.5] for i in range(9)],
-                "entities": {
+                "charImages": {
                     str(n): {"image": f"npuzzle/{n}.svg", "scale": 1} for n in range(1, 9)
                 },
                 "entitiesOverArrows": True,
@@ -1248,7 +1230,7 @@ def get_nqueens(variant_id):
                 "space": [N, N],
                 "centers": [[i % N + 0.5, i // N + 0.5] for i in range(N * N)],
                 "background": f"nqueens/grid{N}.svg",
-                "entities": {
+                "charImages": {
                     "Q": {"image": "chess/wikipedia/Q.svg", "scale": 1},
                     "h": {"image": "general/basichitbox.svg", "scale": 1}
                 },
@@ -1266,7 +1248,7 @@ def get_nutictactoe(variant_id):
                 "space": [5, 5],
                 "centers": [[i % 4 + 1, i // 4 + 0.5] for i in range(20)],
                 "background": "nutictactoe/board.svg",
-                "entities": {
+                "charImages": {
                     "X": {"image": "ttt/x.svg", "scale": 1},
                     "O": {"image": "ttt/o.svg", "scale": 1}
                 },
@@ -1289,7 +1271,7 @@ def get_oddoreven(variant_id):
                 "space": [150, 150],
                 "centers": ctrs,
                 "background": "oddoreven/board.svg",
-                "entities": {
+                "charImages": {
                     "n": {"image": "oddoreven/n.svg", "scale": 10},
                     "x": {"image": "general/bluepiece.svg", "scale": 10},
                     "o": {"image": "general/redpiece.svg", "scale": 10}
@@ -1303,13 +1285,13 @@ def get_oddoreven(variant_id):
     }
 
 def get_othello(variant_id):
-    entities = {
+    char_images = {
         "B": {"image": "general/blackpiece.svg", "scale": 9},
         "W": {"image": "general/whitepiece.svg", "scale": 9},
         "h": {"image": "general/basichitbox.svg", "scale": 10},
         "P": {"image": "othello/P.svg", "scale": 6}
     }
-    entities.update({f"{i}": {"image": f"general/{i}.svg", "scale": 20} for i in range(10)})
+    char_images.update({f"{i}": {"image": f"general/{i}.svg", "scale": 20} for i in range(10)})
     centers = [[5 + i % 4 * 10, 5 + i // 4 * 10] for i in range(16)]
     centers += [[3, 45], [7, 45], [33, 45], [37, 45], [20, 45]]
     centers = [[x + 0.06, y + 0.06] for x, y in centers]
@@ -1320,7 +1302,7 @@ def get_othello(variant_id):
                 "space": [40.12, 50],
                 "centers": centers,
                 "background": "othello/grid.svg",
-                "entities": entities,
+                "charImages": char_images,
                 "sounds": {"x": "general/place.mp3", "y": "general/remove.mp3"},
                 "animationType": "entityFade"
             }
@@ -1352,7 +1334,7 @@ def get_pegsolitaire(variant_id):
                 'space': [100, 100],
                 'background': f'pegsolitaire/{variant_id}.svg',
                 'centers': ctrs,
-                'entities': {c: {'image': 'general/brownpiece.svg', 'scale': scale} for c in 'abcd'},
+                'charImages': {c: {'image': 'general/brownpiece.svg', 'scale': scale} for c in 'abcd'},
                 'arrowWidth': arrowWidth,
                 'sounds': {'x': 'general/slideThenRemove.mp3'},
                 'animationType': 'simpleSlides'
@@ -1368,7 +1350,7 @@ def get_ponghauki(variant_id):
                 "space": [100, 100], 
                 "centers": [[10, 10], [90, 10], [50, 50], [10, 90], [90, 90]],
                 "background": "ponghauki/board.svg",
-                "entities": {
+                "charImages": {
                     "x": {"image": "general/bluepiece.svg", "scale": 15},
                     "o": {"image": "general/redpiece.svg", "scale": 15}
                 },
@@ -1390,7 +1372,7 @@ def get_quickchess(variant_id):
                 "space": [4, 3],
                 "centers": [[i // 3 + 0.5, i % 3 + 0.5] for i in range(12)],
                 "background": "quickchess/grid.svg",
-                "entities": {
+                "charImages": {
                     c: {"image": f"chess/wikipedia/{pieces[c]}.svg", "scale": 1} for c in pieces
                 },
                 "sounds": {
@@ -1417,7 +1399,7 @@ def get_quickcross(variant_id):
                 "space": [400, 400],
                 "centers": centers,
                 "background": "quickcross/background.svg",
-                "entities": {
+                "charImages": {
                     "v": {"image": "quickcross/V.svg", "scale": 70},
                     "h": {"image": "quickcross/H.svg", "scale": 70},
                     "r": {"image": "quickcross/rotate.svg", "scale": 70}
@@ -1432,7 +1414,7 @@ def get_quickcross(variant_id):
         }
     }
 
-def get_rubiks(variant_id):
+def get_rubikscube(variant_id):
     # Color Centers
     centers = [
         [38.75, 41.25], [38.75, 31.25], [46.25, 43.75], [46.25, 33.75],
@@ -1455,9 +1437,9 @@ def get_rubiks(variant_id):
             "regular": {
                 "space": [100, 100],
                 "centers": centers,
-                "foreground": "rubiks/fg.svg",
-                "entities": {
-                    c: {"image": f"rubiks/{c}.svg", "scale": 100} for c in 'abcdefghijklmnopqr'
+                "foreground": "rubikscube/fg.svg",
+                "charImages": {
+                    c: {"image": f"rubikscube/{c}.svg", "scale": 100} for c in 'abcdefghijklmnopqr'
                 },
                 "arrowWidth": 1,
                 "sounds": {"x": "general/place.mp3"},
@@ -1470,7 +1452,7 @@ def get_rubiksmagic(variant_id):
     entity_ctrs = [[i % 4 + 0.5, i // 4 + 0.5] for i in range(16)]
     up_button_ctrs = [[x - 0.2, y] for x, y in entity_ctrs]
     down_button_ctrs = [[x + 0.2, y] for x, y in entity_ctrs]
-    entities = {c: {"image": f"rubiksmagic/{c if c.isupper() else c+c}.svg", "scale": 1} for c in 'UuDd'} |\
+    char_images = {c: {"image": f"rubiksmagic/{c if c.isupper() else c+c}.svg", "scale": 1} for c in 'UuDd'} |\
           {c: {"image": f"rubiksmagic/{c}.svg", "scale": 0.4} for c in 'pqrs'}
     return {
         "defaultTheme": "regular",
@@ -1479,7 +1461,7 @@ def get_rubiksmagic(variant_id):
                 "space": [4, 4],
                 "centers": entity_ctrs + up_button_ctrs + down_button_ctrs,
                 "background": "rubiksmagic/background.svg",
-                "entities": entities,
+                "charImages": char_images,
                 "entitiesOverArrows": True,
                 "arrowWidth": 0.1,
                 "sounds": {"x": "general/remove.mp3", "y": "general/place.mp3"},
@@ -1504,7 +1486,7 @@ def get_rushhour(variant_id):
                 "space": [100, 100],
                 "centers": centers,
                 "background": "rushhour/grid.svg",
-                "entities": {
+                "charImages": {
                     p: {"image": f"rushhour/{pieces[p]}.svg", "scale": scale * 1.05} for p in pieces
                 },
                 "arrowWidth": 1,
@@ -1526,7 +1508,7 @@ def get_shifttactoe(variant_id):
                 "space": [9, 6],
                 "centers": centers,
                 "foreground": "shifttactoe/foreground.svg",
-                "entities": {
+                "charImages": {
                     "S": {"image": "shifttactoe/S.svg", "scale": 10},
                     "x": {"image": "shifttactoe/x.svg", "scale": 1},
                     "o": {"image": "shifttactoe/o.svg", "scale": 1}
@@ -1550,7 +1532,7 @@ def get_slide5(variant_id):
                 "space": [300, 300],
                 "centers": piece_centers + arrow_centers,
                 "foreground": "slide5/foreground5x5.svg",
-                "entities": {
+                "charImages": {
                     "X": { "image": "general/blue_circle.svg", "scale": 35 }, 
                     "O": { "image": "general/red_circle.svg", "scale": 35 }
                 },
@@ -1562,8 +1544,8 @@ def get_slide5(variant_id):
     }
 
 def get_snake(variant_id):
-    entities = {c: {"image": f"snake/{c}.svg", "scale": 1.01} for c in '0123456789'}
-    entities = entities | {c: {"image": f"snake/{c}.svg", "scale": 1} for c in 'ht'}
+    char_images = {c: {"image": f"snake/{c}.svg", "scale": 1.01} for c in '0123456789'}
+    char_images = char_images | {c: {"image": f"snake/{c}.svg", "scale": 1} for c in 'ht'}
     centers = [[i % 4 + 0.5, i // 4 + 0.5] for i in range(16)]
     return {
         "defaultTheme": "slither",
@@ -1572,7 +1554,7 @@ def get_snake(variant_id):
                 "space": [4, 4],
                 "centers": centers + centers,
                 "background": "snake/grid.svg",
-                "entities": entities,
+                "charImages": char_images,
                 "entitiesOverArrows": True,
                 "sounds": {"x": "animals/snake.mp3"},
                 "animationType": "simpleSlides"
@@ -1585,7 +1567,7 @@ def get_squaredance(variant_id):
     entity_ctrs = [[5.09375 + (i % 4 * scale), 5.09375 + (i // 4 * scale)] for i in range(16)]
     up_button_ctrs = [[x - 2, y] for x, y in entity_ctrs]
     down_button_ctrs = [[x + 2, y] for x, y in entity_ctrs]
-    entities = {c: {"image": f"squaredance/{c if c.isupper() else c+c}.svg", "scale": scale} for c in 'UuDdWXYZ'} |\
+    char_images = {c: {"image": f"squaredance/{c if c.isupper() else c+c}.svg", "scale": scale} for c in 'UuDdWXYZ'} |\
           {c: {"image": f"squaredance/{c}.svg", "scale": 4} for c in 'qrst'}
     return {
         "defaultTheme": "regular",
@@ -1595,7 +1577,7 @@ def get_squaredance(variant_id):
                 "centers": entity_ctrs + up_button_ctrs + down_button_ctrs,
                 "background": "squaredance/background.svg",
                 "foreground": "squaredance/foreground.svg",
-                "entities": entities,
+                "charImages": char_images,
                 "sounds": {"x": "general/place.mp3"},
                 "animationType": "entityFade"
             }
@@ -1629,7 +1611,7 @@ def get_tactix(variant_id):
                 "space": [4, 4],
                 "centers": centers,
                 "background": "tactix/grid.svg",
-                "entities": {
+                "charImages": {
                     "O": {"image": "tactix/o.svg", "scale": 1}
                 },
                 "sounds": {"x": "general/place.mp3"},
@@ -1650,7 +1632,7 @@ def get_tictactwo(variant_id):
                 "space": [104, 124],
                 "centers": centers,
                 "background": "tictactwo/background.svg",
-                "entities": {
+                "charImages": {
                     "X": {"image": "tictactwo/X.svg", "scale": 16}, 
                     "O": {"image": "tictactwo/O.svg", "scale": 16},
                     "G": {"image": "tictactwo/tttgrid.svg", "scale": 56},
@@ -1679,7 +1661,7 @@ def get_toadsandfrogspuzzle(variant_id):
                 "space": [board_length, 3],
                 "centers": [[i + 0.5, 2] for i in range(board_length)],
                 "background": f"toadsandfrogs/pond{variant_id}.svg",
-                "entities": {
+                "charImages": {
                     "x": {"image": "toadsandfrogs/bluefrog.svg", "scale": 0.9},
                     "o": {"image": "toadsandfrogs/redfrog.svg", "scale": 0.9},
                     "h": {"image": "general/basichitbox.svg", "scale": 0.9}
@@ -1705,7 +1687,7 @@ def get_tootandotto(variant_id):
                     "centers": centers,
                     "background": f"tootandotto/background{cols}.svg",
                     "foreground": f"tootandotto/foreground{cols}.svg",
-                    "entities": {
+                    "charImages": {
                         c: {"image": f"tootandotto/{pieces[c]}.svg", "scale": 10} for c in pieces
                     },
                     "sounds": {"x": "general/remove.mp3"},
@@ -1720,7 +1702,7 @@ def get_tootandotto(variant_id):
 
 def get_topitop(variant_id):
     # The four building components, 3 placement move buttons, and 1 passturn button
-    entities = {
+    char_images = {
         c: {"image": f"topitop/{c}.svg", "scale": 1 if c.isupper() else 0.3} for c in "BRSLtuvw"
     } | {"P": {"image": "othello/P.svg", "scale": 0.5}}
 
@@ -1766,7 +1748,7 @@ def get_topitop(variant_id):
                 "space": [3, 4],
                 "centers": centers,
                 "background": "topitop/grid.svg",
-                "entities": entities,
+                "charImages": char_images,
                 "arrowWidth": 0.03,
                 "sounds": {
                     "v": "general/remove.mp3",
@@ -1802,7 +1784,7 @@ def get_y(variant_id):
                 "space": [100, 100],
                 "centers": ctrs,
                 "foreground": fg,
-                "entities": {
+                "charImages": {
                     c: {"image": f"y/{c}.svg", "scale": scale} for c in "WBh"
                 },
                 "sounds": {"x": "general/place.mp3"},
@@ -1822,7 +1804,7 @@ def get_yote(variant_id):
                     "background": f"yote/grid{rows}x{cols}.svg",
                     "centers": [[100, 100]] * 5 + [
                         [i % cols * 10 + 5, i // cols * 10 + 15] for i in range(rc)],
-                    "entities": {
+                    "charImages": {
                         p: {"image": f"general/{pieces[p]}.svg", "scale": 9} for p in pieces
                     }
                 }
@@ -1861,7 +1843,7 @@ image_autogui_data_funcs = {
     "allqueenschess": get_allqueenschess,
     "baghchal": get_baghchal,
     "beeline": get_beeline,
-    "bishop": get_bishop,
+    "bishoppuzzle": get_bishoppuzzle,
     "change": get_change,
     "chess": get_chess,
     "chinesechess": get_chinesechess,
@@ -1882,7 +1864,7 @@ image_autogui_data_funcs = {
     "foxandhounds": get_foxandhounds,
     "ghost": get_ghost,
     "graphgame": get_graphgame,
-    "hanoi": get_hanoi,
+    "towersofhanoi": get_towersofhanoi,
     "hareandhounds": get_hareandhounds,
     "jenga": get_jenga,
     "joust": get_joust,
@@ -1890,7 +1872,7 @@ image_autogui_data_funcs = {
     "konane": get_konane,
     "lewthwaitesgame": get_lewthwaitesgame,
     "lgame": get_lgame,
-    "lights": get_lightsout,
+    "lightsout": get_lightsout,
     "lite3": get_lite3,
     "mutorere": get_mutorere,
     "nim": get_nim,
@@ -1905,7 +1887,7 @@ image_autogui_data_funcs = {
     "ponghauki": get_ponghauki,
     "quickchess": get_quickchess,
     "quickcross": get_quickcross,
-    "rubiks": get_rubiks,
+    "rubikscube": get_rubikscube,
     "rubiksmagic": get_rubiksmagic,
     "rushhour": get_rushhour,
     "shifttactoe": get_shifttactoe,

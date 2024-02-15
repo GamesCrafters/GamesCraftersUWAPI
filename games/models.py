@@ -1,4 +1,9 @@
 from enum import Enum
+from typing import TypedDict
+
+class StartPosition(TypedDict):
+    position: str
+    autoguiPosition: str
 
 class Remoteness(int, Enum):
     FINITE_UNKNOWN = -100 # finite unknown
@@ -12,7 +17,7 @@ class AbstractVariant:
         self.name = name
         self.gui = gui
 
-    def start_position(self) -> str:
+    def start_position(self) -> StartPosition:
         return None
 
     def position_data(self, position: str):
@@ -23,11 +28,9 @@ class DataProvider:
     """Abstract class with methods for a data provider
     """
 
-    @staticmethod
-    def start_position(game_id, variant_id) -> str:
+    def start_position(game_id, variant_id):
         return None
 
-    @staticmethod
     def position_data(game_id, variant_id, position):
         """ Return an empty dict if error """
         return None
@@ -50,10 +53,10 @@ class Variant(AbstractVariant):
         self.data_provider_game_id = data_provider_game_id
         self.data_provider_variant_id = data_provider_variant_id
 
-    def start_position(self) -> str:
+    def start_position(self) -> StartPosition:
         return self.data_provider.start_position(self.data_provider_game_id, self.data_provider_variant_id)
 
-    def position_data(self, position):
+    def position_data(self, position: str):
         return self.data_provider.position_data(self.data_provider_game_id, self.data_provider_variant_id, position)
 
 

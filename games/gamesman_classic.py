@@ -31,7 +31,6 @@ class GamesmanClassic(DataProvider):
             return f"R_{turn}_0_0_{parts[1]}"
         return position_str
 
-    @staticmethod
     def start_position(game_id, variant_id):
         if game_id == 'forestfox':
             """
@@ -53,7 +52,6 @@ class GamesmanClassic(DataProvider):
             'autoguiPosition': position
         }
 
-    @staticmethod
     def position_data(game_id, variant_id, position):
         newf_position = position
         position = GamesmanClassic.convert_to_old(position)
@@ -93,7 +91,6 @@ class GamesmanClassic(DataProvider):
         stat['moves'] = list(map(wrangle_next_stat,list(filter(filter_multipart_by_frompos, stat['moves']))))
         return stat
 
-    @staticmethod
     def getStart(game, variation=-1):
         """Get starting position of game
         """
@@ -111,7 +108,6 @@ class GamesmanClassic(DataProvider):
         else:
             return json.loads(response.content)["response"]
 
-    @staticmethod
     def getPosition(game, board, variation=-1):
         """Get values for the next moves
         """

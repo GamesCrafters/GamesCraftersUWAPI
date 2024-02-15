@@ -2,12 +2,33 @@ import xml.etree.ElementTree as ET
 import urllib.request
 import re
 
+"""
+	By default, we use the XML files and images hosted on GitHub on the GamesCrafters
+	Explainers Repo. Set `instructions_link` to...
+	...the 1st link if you want to use the Explainers repo hosted on GitHub. (DEFAULT)
+	...the 2nd link if you want to use the Explainers repo on your computer.
+	...the 3rd link if you want to use the Explainers repo on gamescrafters.berkeley.edu.
+
+	Note: Markdown has issues displaying local images when you don't set up a webserver for it,
+	so if you decide to test what the Instructions look like on GamesmanUni and
+	set `instructions_link` to the 2nd option, you'll be able to see the text
+	but not the images. I suggest that you create a branch on the Explainers directory, 
+	put your XML files and images there, then change `instructions_link` to point to that branch
+	if you want to see what your images look like when the "i" button is clicked on Uni.
+"""
+instructions_link = "https://raw.githubusercontent.com/GamesCrafters/Explainers/master/instructions/"
+#instructions_link = "file:///<PATH TO YOUR EXPLAINERS DIRECTORY>/Explainers/instructions/"
+#instructions_link = "http://gamescrafters.berkeley.edu/instructions/"
+
+instructions_text_link = instructions_link + '{}/{}/{}.xml'
+instructions_images_directory_link = instructions_link + 'i/{}/'
+
 locale_map = {
 	'en-US': 'eng',
 	'es': 'spa'
 }
 
-def read_from_link(url):
+def read_from_link(url: str) -> str:
 	"""
 	It is entirely possible that the requested url does not point
 	to valid XML. Must have this try-except.
@@ -18,9 +39,9 @@ def read_from_link(url):
 		instructions = dict_to_markdown(d)
 		return instructions
 	except:
-		return ""
+		return ''
 
-def parse_list_items(bag, child, name):
+def parse_list_items(bag, child, name) -> bool:
 	if child.tag == name:
 		bag[name] = []
 		for r in child:
@@ -28,8 +49,7 @@ def parse_list_items(bag, child, name):
 		return True
 	return False
 
-
-def parse_nested(bag, child, name, key_tag='name', value_tag='description'):
+def parse_nested(bag, child, name: str, key_tag: str = 'name', value_tag: str = 'description'):
 	if child.tag == name:
 		bag[name] = []
 		for sub_child in child:
@@ -43,7 +63,6 @@ def parse_nested(bag, child, name, key_tag='name', value_tag='description'):
 			bag[name].append({key: value})
 		return True
 	return False
-
 
 def convert_xml_dict(xml_string):
 	root = ET.fromstring(xml_string)
@@ -73,8 +92,7 @@ def renderString(s, code):
 		The second one uses images from GitHub.
 		We link to images hosted on GitHub for the time being.
 	"""
-	#replaced = re.sub(r"\[img\s+src\s*=\s*\"([^\"]*)\"([^\]]+)\]", rf"![alt](http://gamescrafters.berkeley.edu/instructions/i/{code}/\1)", s)
-	replaced = re.sub(r"\[img\s+src\s*=\s*\"([^\"]*)\"([^\]]+)\]", rf"![alt](https://raw.githubusercontent.com/GamesCrafters/Explainers/master/instructions/i/{code}/\1)", s)
+	replaced = re.sub(r"\[img\s+src\s*=\s*\"([^\"]*)\"([^\]]+)\]", '![alt](' + instructions_images_directory_link.format(code) + r'\1)', s)
 	return re.sub(r"\[br\]", "\n\n", replaced)	
 
 def dict_to_markdown(d):
@@ -133,11 +151,7 @@ def dict_to_markdown(d):
 
 def md_instr(game_type, game_id, language):
 	language = locale_map.get(language, language)
-	#link = f"http://gamescrafters.berkeley.edu/instructions/{language}/{type}/{game_id}.xml"
-	link = f"https://raw.githubusercontent.com/GamesCrafters/Explainers/master/instructions/{language}/{game_type}/{game_id}.xml"
-	instructions = read_from_link(link)
+	instructions = read_from_link(instructions_text_link.format(language, game_type, game_id))
 	if not instructions and language != 'eng':
-		#link = f"http://gamescrafters.berkeley.edu/instructions/eng/{type}/{game_id}.xml"
-		link = f"https://raw.githubusercontent.com/GamesCrafters/Explainers/master/instructions/eng/{game_type}/{game_id}.xml"
-		instructions = read_from_link(link)
+		instructions = read_from_link(instructions_text_link.format('eng', game_type, game_id))
 	return instructions

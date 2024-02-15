@@ -16,7 +16,6 @@ class GamesmanOne(DataProvider):
             return {}
         return json.loads(response.content)
 
-    @staticmethod
     def start_position(puzzle_id, variant_id):
         tempurl = f"{GamesmanOne.url}{puzzle_id}/{variant_id}/start/"
         data = GamesmanOne.read_from_url(tempurl)
@@ -25,7 +24,6 @@ class GamesmanOne(DataProvider):
             'autoguiPosition': data.get('autoguiPosition', '')
         }
 
-    @staticmethod
     def position_data(puzzle_id, variant_id, position):
         tempurl = f"{GamesmanOne.url}{puzzle_id}/{variant_id}/positions/{position}/"
         return GamesmanOne.read_from_url(tempurl)
