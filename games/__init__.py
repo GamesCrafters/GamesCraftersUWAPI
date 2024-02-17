@@ -76,7 +76,7 @@ games = {
                 name='Regular',
                 data_provider=GamesmanClassic,
                 data_provider_game_id='achi',
-                data_provider_variant_id=-1,
+                data_provider_variant_id=2,
                 gui='v3')
         },
         gui='v3'),
@@ -1001,7 +1001,7 @@ games = {
                 name='Regular',
                 data_provider=GamesmanClassic,
                 data_provider_game_id='ttt',
-                data_provider_variant_id=-1,
+                data_provider_variant_id=3,
                 gui='v3'),
             'misere': Variant(
                 name='Misere',

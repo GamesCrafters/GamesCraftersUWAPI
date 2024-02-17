@@ -17,7 +17,7 @@ class GamesmanPuzzles(DataProvider):
         return json.loads(response.content)
 
     def start_position(puzzle_id, variant_id):
-        tempurl = f"{GamesmanPuzzles.url}{puzzle_id}/{variant_id}/start"
+        tempurl = f"{GamesmanPuzzles.url}{puzzle_id}/{variant_id}/start/"
         data = GamesmanPuzzles.read_from_url(tempurl)
         return {
             'position': data.get('position', ''),
