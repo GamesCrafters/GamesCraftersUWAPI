@@ -18,14 +18,14 @@ get_<game>(variant_id) should return JSON of the following form:
                     <char2>: { ... }
                     ...
                 },
-                "circleButtonRadius: <optional, radius of all default circle move buttons>,
+                "circleButtonRadius": <optional, radius of all default circle move buttons>,
                 "lineWidth": <optional, width of all line move buttons>,
                 "arrowWidth": <optional, width of all arrow move buttons>,
                 "entitiesOverArrows": <optional, Boolean, whether entities are drawn over arrows>,
                 "sounds": <optional> {
                     <char1>: <string, path to sound file>,
                     <char2>:
-                }
+                },
                 "animationType": <optional, string, animation type>,
                 "defaultAnimationWindow": [start, end] <optional>
             },
@@ -68,12 +68,12 @@ def get_1dchess(variant_id):
                 "centers": [[0.5 + i, 0.5] for i in range(8)],
                 "background": "1dchess/grid.svg",
                 "charImages": {
-                    "t": {"image": "chess/wikipedia/K.svg", "scale": 1},
-                    "k": {"image": "chess/wikipedia/N.svg", "scale": 1},
-                    "r": {"image": "chess/wikipedia/R.svg", "scale": 1},
-                    "T": {"image": "chess/wikipedia/kk.svg", "scale": 1},
-                    "K": {"image": "chess/wikipedia/nn.svg", "scale": 1},
-                    "R": {"image": "chess/wikipedia/rr.svg", "scale": 1},
+                    "K": {"image": "chess/wikipedia/K.svg", "scale": 1},
+                    "N": {"image": "chess/wikipedia/N.svg", "scale": 1},
+                    "R": {"image": "chess/wikipedia/R.svg", "scale": 1},
+                    "k": {"image": "chess/wikipedia/kk.svg", "scale": 1},
+                    "n": {"image": "chess/wikipedia/nn.svg", "scale": 1},
+                    "r": {"image": "chess/wikipedia/rr.svg", "scale": 1},
                 },
                 "arrowWidth": 0.1,
                 "entitiesOverArrows": False,
