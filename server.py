@@ -3,7 +3,7 @@ from flask_cors import CORS
 
 from games import games
 from games.image_autogui_data import *
-from games.models import Remoteness
+from games.models import Value, Remoteness
 from md_api import md_instr
 
 app = Flask(__name__)
@@ -21,7 +21,7 @@ def key_move_obj_by_move_value_then_delta_remoteness(move_obj):
     Low-Remoteness Win, High-Remoteness Win, Low-Remoteness Tie, High-Remoteness Tie, 
     Draw, High-Remoteness Lose, Lower Remoteness Lose
     """
-    VALUES = ('win', 'tie', 'draw', 'lose', 'unsolved', 'undecided')
+    VALUES = (Value.WIN, Value.TIE, Value.DRAW, Value.LOSE, Value.UNSOLVED, Value.UNDECIDED)
     move_value = move_obj['moveValue']
     delta_remotenesss = move_obj['deltaRemoteness']
     return (VALUES.index(move_value), delta_remotenesss)
@@ -35,14 +35,14 @@ def wrangle_move_objects_1Player(position_data):
         if 'remoteness' not in move_obj: # Not possible to solve puzzle from this state
             move_obj['remoteness'] = Remoteness.INFINITY
             move_obj['deltaRemoteness'] = 0
-            move_obj['moveValue'] = 'lose'
+            move_obj['moveValue'] = Value.LOSE
         else: # Possible to solve puzzle from this state.
             delta_remoteness = current_position_remoteness - move_obj['remoteness']
             move_obj['deltaRemoteness'] = delta_remoteness
             # Set moveValue to win, lose, or tie based on how we want to color the move buttons.
             # Moves that reduce remoteness should be green. Moves that increase remoteness should
             # be red. Moves that neither reduce nor increase remoteness should be yellow.
-            move_obj['moveValue'] = 'win' if delta_remoteness > 0 else 'lose' if delta_remoteness < 0 else 'tie'
+            move_obj['moveValue'] = Value.WIN if delta_remoteness > 0 else Value.LOSE if delta_remoteness < 0 else Value.TIE
     move_objs.sort(key=key_move_obj_by_move_value_then_delta_remoteness)
 
 def wrangle_move_objects_2Player(position_data):
@@ -77,11 +77,10 @@ def wrangle_move_objects_2Player(position_data):
     treat it as though the min and max remotenesses of child positions of that
     value are 1.
     """
-    autogui_position = position_data['autoguiPosition']
-    move_objs = position_data['moves']
-    if not move_objs:
-        return move_objs
-    
+    if position_data['positionValue'] == Value.DRAW:
+        position_data['remoteness'] = Remoteness.INFINITY
+
+    move_objs = position_data.get('moves', [])    
     lose_children_remotenesses = []
     win_children_remotenesses = []
     tie_children_remotenesses = []
@@ -91,22 +90,24 @@ def wrangle_move_objects_2Player(position_data):
 
     for move_obj in move_objs:
         child_value = move_obj['positionValue']
-        child_remoteness = move_obj['remoteness']
-        if child_value == 'win':
+        child_remoteness = move_obj.get('remoteness', Remoteness.INFINITY)
+        if child_value == Value.WIN:
             if child_remoteness != Remoteness.FINITE_UNKNOWN:
                 win_children_remotenesses.append(child_remoteness)
             else:
                 win_finite_unknown_child_remoteness_exists = True
-        elif child_value == 'lose':
+        elif child_value == Value.LOSE:
             if child_remoteness != Remoteness.FINITE_UNKNOWN:
                 lose_children_remotenesses.append(child_remoteness)
             else:
                 lose_finite_unknown_child_remoteness_exists = True
-        elif child_value == 'tie':
+        elif child_value == Value.TIE:
             if child_remoteness != Remoteness.FINITE_UNKNOWN:
                 tie_children_remotenesses.append(child_remoteness)
             else:
                 tie_finite_unknown_child_remoteness_exists = True
+        elif child_value == Value.DRAW:
+            move_obj['remoteness'] = child_remoteness
 
     max_win_child_remoteness = max(win_children_remotenesses) if win_children_remotenesses else 0
     if win_finite_unknown_child_remoteness_exists:
@@ -126,6 +127,7 @@ def wrangle_move_objects_2Player(position_data):
         if tie_finite_unknown_child_remoteness_exists:
             max_tie_child_remoteness = max(tie_children_remotenesses) + 1
     
+    autogui_position = position_data['autoguiPosition']
     not_in_autogui_format = not ((autogui_position[0] == '1' or autogui_position[0] == '2') and autogui_position[1] == '_')
 
     for move_obj in move_objs:
@@ -136,24 +138,24 @@ def wrangle_move_objects_2Player(position_data):
         # If not using autogui-formatted position string, assume turn switching; otherwise, decide 
         # whether to switch the turn based on the current and next turn character. 
         if not_in_autogui_format or move_obj['autoguiPosition'][0] != autogui_position[0]:
-            if position_value == 'win':
-                move_value = 'lose'
-            elif position_value == 'lose':
-                move_value = 'win'
+            if position_value == Value.WIN:
+                move_value = Value.LOSE
+            elif position_value == Value.LOSE:
+                move_value = Value.WIN
             
         move_obj['moveValue'] = move_value
 
         # Delta remoteness (grouped by move value)
         delta_remoteness = 0         
-        if move_value == 'win':
+        if move_value == Value.WIN:
             if remoteness == Remoteness.FINITE_UNKNOWN:
                 remoteness = max_lose_child_remoteness
             delta_remoteness = remoteness - min_lose_child_remoteness
-        elif move_value == 'lose':
+        elif move_value == Value.LOSE:
             if remoteness == Remoteness.FINITE_UNKNOWN:
                 remoteness = max_win_child_remoteness
             delta_remoteness = max_win_child_remoteness - remoteness
-        elif move_value == 'tie':
+        elif move_value == Value.TIE:
             if remoteness == Remoteness.FINITE_UNKNOWN:
                 remoteness = max_tie_child_remoteness
             delta_remoteness = remoteness - min_tie_child_remoteness
