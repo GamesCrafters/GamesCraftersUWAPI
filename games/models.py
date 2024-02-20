@@ -5,10 +5,18 @@ class StartPosition(TypedDict):
     position: str
     autoguiPosition: str
 
+class Value(str, Enum):
+    WIN = 'win'
+    TIE = 'tie'
+    DRAW = 'draw'
+    LOSE = 'lose'
+    UNDECIDED = 'undecided'
+    UNSOLVED = 'unsolved'
+
 class Remoteness(int, Enum):
     FINITE_UNKNOWN = -100 # finite unknown
     INFINITY = -200 # infinity
-
+    MAX = 65536 # max
 
 class AbstractVariant:
     """Abstract class for a variant of a game"""

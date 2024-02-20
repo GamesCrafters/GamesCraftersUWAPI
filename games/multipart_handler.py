@@ -1,161 +1,170 @@
-class Edge:
-    def __init__(self, from_node, to_node, part_move, move, move_name=None):
-        self.from_node = from_node
-        self.to_node = to_node
-        self.part_move = part_move
-        self.move = move
-        self.move_name = move_name
-
-    def __str__(self):
-        return "Edge %s %s %s %s %s" % (
-        self.from_node.board, self.to_node.board, self.part_move, self.move, self.move_name)
-
+from .models import Value, Remoteness
 
 class Node:
-    def __init__(self, board, value=None, remoteness=None, mp_remoteness=None, move_name=None, has_multipart=True):
-        self.board = board
+    def __init__(self, id, autogui_position, value=None, remoteness=None):
+        self.id = id
+        self.autogui_position = autogui_position
         self.value = value
         self.remoteness = remoteness
-        self.mp_remoteness = mp_remoteness
-        self.move_name = move_name
-        self.has_multipart = has_multipart
-        self.edges_in = []
+        self.outgoing_edges = {}
 
-    def score(self):  # Used for sorting terminal nodes
-        if self.value == 'win':
-            return self.remoteness
-        elif self.value == 'lose':
-            return 200000 - self.remoteness
+    def add_edge(src_node, dest_node, move_obj):
+        src_node.outgoing_edges[move_obj['move']] = (dest_node, move_obj)
+
+def multipart_solve(node):
+    """
+    Full-moves and part-moves to real child positions with value WIN are bad; and 
+    full-moves and part-moves to real child positions with value LOSE are good.
+
+    However, note that we are doing same-player/go-again solving here with the intermediate 
+    states, so part-moves to intermediate states with value WIN are good, and part-moves to 
+    intermediate states with value LOSE are bad.
+
+    It is assumed that the input node and all other nodes reachable from it form a DAG. 
+    No loopiness allowed! It is also assumed that the DAG has a small number of nodes.
+    """
+    if not node.outgoing_edges:
+        # Reached if `node` is a real child position
+        opposite_value = node.value
+        if node.value == Value.WIN:
+            opposite_value = Value.LOSE
+        elif node.value == Value.LOSE:
+            opposite_value = Value.WIN
+        incremented_remoteness = node.remoteness + 1 if node.value != Value.DRAW else Remoteness.INFINITY
+        return opposite_value, incremented_remoteness
+    else: 
+        # Reached if `node` is an intermediate state.
+        # Note that we are doing same-player/go-again solving here, so moves to intermediate states with 
+        # value WIN are good, and moves to intermediate states with value LOSE are bad.
+        exists_win, exists_tie, exists_draw = False, False, False
+        best_win_rem, best_tie_rem, best_lose_rem = Remoteness.MAX, Remoteness.MAX, 0
+
+        for edge in node.outgoing_edges.values():
+            value, remoteness = multipart_solve(edge[0])
+            if value == Value.WIN:
+                exists_win = True
+                best_win_rem = min(remoteness, best_win_rem)
+            elif value == Value.TIE:
+                exists_tie = True
+                best_tie_rem = min(remoteness, best_tie_rem)
+            elif value == Value.DRAW:
+                exists_draw = True
+            else:
+                best_lose_rem = max(remoteness, best_lose_rem)
+
+        if exists_win:
+            node.value = Value.WIN
+            node.remoteness = best_win_rem
+        elif exists_tie:
+            node.value = Value.TIE
+            node.remoteness = best_tie_rem
+        elif exists_draw:
+            node.value = Value.DRAW
+            node.remoteness = Remoteness.INFINITY
         else:
-            return 100000 + self.remoteness
+            node.value = Value.LOSE
+            node.remoteness = best_lose_rem
+        
+        return node.value, node.remoteness
 
-    def __str__(self):
-        return "%s %s %s %s %s (%s)" % (self.board, self.value, self.remoteness, self.mp_remoteness,
-                                        self.move_name, ','.join([('%s' % e) for e in self.edges_in]))
+def multipart_wrangle(requested_position, position_data):
+    if position_data and 'partMoves' in position_data:
+        intermediate_states = {}
+        real_child_positions = {}
+        move_name_to_real_child_position = {}
 
+        # Step 1: Create Nodes
 
-def multipart_solve(position, input_dict):
-    if not input_dict:
-        return None
-    position_is_intermediate = False
-    node_dict = {}  # Useful to keep track of which nodes have been created
-    terminal_nodes = []
-    edge_list = []
-    move_name_dict = {}
+        # 1.1: Create Parent Real Position Node
+        parent_real_position = Node(
+            position_data['position'], 
+            position_data['autoguiPosition'], 
+            position_data['positionValue'], 
+            position_data.get('remoteness', Remoteness.INFINITY)
+        )
 
-    # Get multipart edges
-    mp_response = input_dict['multipart']
-    if not mp_response:
-        return None
-    for r in mp_response:
-        from_pos = r.get('from')
-        to_pos = r.get('to')
-        if to_pos == position:
-            position_is_intermediate = True
-        part_move = r.get('partMove')
-        move = r.get('move')
-        move_name = r.get('moveName')
+        # 1.2: Create Child Real Position Nodes
+        for full_move_obj in position_data['moves']:
+            position_string = full_move_obj['position']
+            if position_string not in real_child_positions:
+                real_child_positions[position_string] = Node(
+                    position_string,
+                    full_move_obj['autoguiPosition'],
+                    full_move_obj['positionValue'], 
+                    full_move_obj.get('remoteness', Remoteness.INFINITY)
+                )
+            move_name_to_real_child_position[full_move_obj['move']] = real_child_positions[position_string]
+        
+        # 1.3: Create Intermediate State Nodes
+        for part_move_obj in position_data['partMoves']:
+            if 'from' in part_move_obj:
+                autogui_position_string = part_move_obj['from']
+                if autogui_position_string not in intermediate_states:
+                    intermediate_states[autogui_position_string] = Node(autogui_position_string, autogui_position_string)
+            if 'to' in part_move_obj:
+                autogui_position_string = part_move_obj['to']
+                if autogui_position_string not in intermediate_states:
+                    intermediate_states[autogui_position_string] = Node(autogui_position_string, autogui_position_string)
 
-        # Create nodes if needed
-        if from_pos not in node_dict:
-            node_dict[from_pos] = Node(from_pos)
-        if to_pos not in node_dict:
-            node_dict[to_pos] = Node(to_pos)
+        # Step 2: Create Edges
 
-        edge = Edge(node_dict[from_pos], node_dict[to_pos], part_move, move, move_name=move_name)
+        # 2.1: Create single-part move edges. A full-move is a single-part move if `autoguiMove` is not an empty string.          
+        for full_move_obj in position_data['moves']:
+            if full_move_obj['autoguiMove']:
+                Node.add_edge(parent_real_position, real_child_positions[full_move_obj['position']], full_move_obj)
+        
+        # 2.2: Create multi-part move edges.
+        for part_move_obj in position_data['partMoves']:
+            from_node = None
+            to_node = None
+            if 'from' in part_move_obj:
+                from_node = intermediate_states[part_move_obj['from']]
+            else:
+                from_node = parent_real_position
+            
+            if 'to' in part_move_obj:
+                to_node = intermediate_states[part_move_obj['to']]
+            else:
+                to_node = move_name_to_real_child_position[part_move_obj['move']]
+            Node.add_edge(from_node, to_node, part_move_obj)
+        
+        del move_name_to_real_child_position
 
-        # Add edges to nodes
-        node_dict[to_pos].edges_in.append(edge)
-        edge_list.append(edge)
+        # Step 3: Solve the Multipart Move Graph
+        multipart_solve(parent_real_position)
 
-    # Get terminal nodes
-    response = input_dict['moves']  # Response is a list of dicts
-    for r in response:
-        board = r.get('board')
-        remoteness = r.get('remoteness')
-        value = r.get('value')
+        # Step 4: Traverse the multipart move graph according to the sequence of partmoves given 
+        #         by the original semicolon-delimited position string in the request.
+        requested_node = parent_real_position
+        for part_move in requested_position.strip().split(';')[1:]:
+            requested_node = requested_node.outgoing_edges[part_move][0]
+        
+        
+        position_data['autoguiPosition'] = requested_node.autogui_position
+        position_data['position'] = requested_position
+        position_data['positionValue'] = requested_node.value
+        position_data['remoteness'] = requested_node.remoteness
 
-        # Flip value
-        if value == 'win':
-            value = 'lose'
-        elif value == 'lose':
-            value = 'win'
-        elif value == 'tie' and remoteness == 255:
-            value = 'draw'
+        new_move_objs = []
+        for edge in requested_node.outgoing_edges.values():
+            out_neighbor, move_obj = edge
+            next_position = ''
+            part_move_prefix = ''
+            if out_neighbor.outgoing_edges: # i.e., this edge does not go to a real child position
+                part_move_prefix = '~'
+                next_position = f'{requested_position};{move_obj["move"]}'
+            else: # i.e., this edge goes to a real child position
+                next_position = out_neighbor.id
+            new_move_objs.append(
+                {
+                    'autoguiMove': move_obj['autoguiMove'],
+                    'autoguiPosition': out_neighbor.autogui_position,
+                    'move': part_move_prefix + move_obj['move'],
+                    'position': next_position,
+                    'positionValue': out_neighbor.value,
+                    'remoteness': out_neighbor.remoteness
+                }
+            )
 
-        move = r.get('move')
-        move_name = r.get('moveName')
-        move_name_dict[move] = move_name
-
-        n = node_dict.get(board)
-        if n:
-            n.remoteness = remoteness
-            n.mp_remoteness = 0
-            n.value = value
-            n.move_name = move_name
-        else:
-            node_dict[board] = Node(board, remoteness=remoteness, mp_remoteness=0, value=value, move_name=move_name,
-                                    has_multipart=False)
-            n = node_dict[board]
-        if n not in terminal_nodes:
-            terminal_nodes.append(n)
-        if not n.has_multipart and not position_is_intermediate:
-            edge = Edge(node_dict[position], node_dict[board], move, move, move_name=move_name)
-            n.edges_in.append(edge)
-            edge_list.append(edge)
-
-    # Sort terminal nodes from best to worst
-    terminal_nodes = sorted(terminal_nodes, key=lambda n: n.score())
-
-    # Reverse DFS
-    def dfs(n, mp_remoteness):
-        mp_remoteness += 1
-        for edge in n.edges_in:
-            parent = edge.from_node
-            remoteness_increment = 1 if n in terminal_nodes and n.value != 'draw' else 0
-
-            if not parent.value:
-                parent.value = n.value
-                parent.remoteness = n.remoteness + remoteness_increment
-                parent.mp_remoteness = mp_remoteness
-                dfs(parent, mp_remoteness)
-            elif parent.value != n.value:
-                if parent.value == 'tie' and n.value == 'win' or parent.value =='lose':
-                    parent.value = n.value
-                    parent.remoteness = n.remoteness + remoteness_increment
-                    parent.mp_remoteness = mp_remoteness
-                    dfs(parent, mp_remoteness)
-            elif parent.remoteness != n.remoteness + remoteness_increment:
-                if parent.value == 'lose' and n.remoteness + remoteness_increment > parent.remoteness:
-                    parent.remoteness = n.remoteness + remoteness_increment
-                    parent.mp_remoteness = mp_remoteness
-                    dfs(parent, mp_remoteness)
-                elif parent.value != 'lose' and n.remoteness + remoteness_increment < parent.remoteness:
-                    parent.remoteness = n.remoteness
-                    parent.mp_remoteness = mp_remoteness
-                    dfs(parent, mp_remoteness)
-
-    for n in terminal_nodes:
-        dfs(n, 0)
-
-    moves = []
-    value_to_return = input_dict["value"]
-    remoteness_to_return = input_dict["remoteness"]
-    for e in edge_list:
-        move_name = move_name_dict.get(e.move)  # Move name from edge
-        if not move_name:
-            move_name = e.to_node.move_name  # Move name from node
-        if e.from_node.board == position:
-            value_to_return = e.from_node.value
-            remoteness_to_return = e.from_node.remoteness
-        move_dict = {
-            'from': e.from_node.board,
-            'move': e.part_move,
-            'board': e.to_node.board,
-            'moveValue': e.to_node.value,
-            'value': e.to_node.value if e.to_node.mp_remoteness else {'lose': 'win', 'tie': 'tie', 'win': 'lose', 'draw': 'draw'}[e.to_node.value],
-            'remoteness': e.to_node.remoteness,
-            'moveName': move_name
-        }
-        moves.append(move_dict)
-    return value_to_return, remoteness_to_return, moves
+        del position_data['partMoves']
+        position_data['moves'] = new_move_objs
