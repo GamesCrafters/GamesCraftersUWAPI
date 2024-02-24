@@ -112,8 +112,7 @@ def get_3spot(variant_id):
                 "background": "3spot/grid.svg",
                 "charImages": char_images,
                 "sounds": {"x": "general/place.mp3"},
-                "animationType": "entityFade",
-                "defaultAnimationWindow": [0, 13]
+                "animationType": "entityFade"
             }
         }
     }
@@ -393,7 +392,7 @@ def get_chopsticks(variant_id):
 
 def get_chungtoi(variant_id):
     gridctrs = [[i % 3 + 0.5, i // 3 + 0.5] for i in range(9)]
-    ctrs = [[i % 3 + 0.5, i // 3 + 0.5] for i in range(9)] * 2
+    ctrs = gridctrs + [[-99, -99]]
     ctrs += [[x - 0.2, y] for x, y in gridctrs]
     ctrs += [[x + 0.2, y] for x, y in gridctrs]
     return {
@@ -975,7 +974,6 @@ def get_lgame(variant_id):
             "image": f"lgame/{c}.svg", "scale": 1 if c.isalpha() else 0.6
         } for c in 'BRWG12345678'
     }
-    char_images |= {"h": {"image": "general/basichitbox.svg", "scale": 1}}
     return {
         "defaultTheme": "regular",
         "themes": {
@@ -984,13 +982,13 @@ def get_lgame(variant_id):
                 "centers": centers,
                 "background": "lgame/grid.svg",
                 "charImages": char_images,
+                "arrowWidth": 0.035,
                 "sounds": {
                     "x": "general/place.mp3",
                     "y": "general/remove.mp3",
-                    "z": "general/remove.mp3"
+                    "z": "general/slide.mp3"
                 },
-                "animationType": "entityFade",
-                "defaultAnimationWindow": [0, 16]
+                "animationType": "entityFade"
             }
         }
     }
@@ -1465,8 +1463,7 @@ def get_rubiksmagic(variant_id):
                 "entitiesOverArrows": True,
                 "arrowWidth": 0.1,
                 "sounds": {"x": "general/remove.mp3", "y": "general/place.mp3"},
-                "animationType": "entityFade",
-                "defaultAnimationWindow": [0, 16]
+                "animationType": "entityFade"
             }
         }
     }

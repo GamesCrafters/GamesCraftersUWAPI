@@ -589,17 +589,17 @@ games = {
         },
         gui='v3'),
     
-    # 'lgame': Game(
-    #     name='L-game',
-    #     variants={
-    #         'regular': Variant(
-    #             name='Regular',
-    #             data_provider=GamesmanClassic,
-    #             data_provider_game_id='Lgame',
-    #             data_provider_variant_id=-1,
-    #             gui='v3')
-    #     },
-    #     gui='v3'),
+    'lgame': Game(
+        name='L-game',
+        variants={
+            'regular': Variant(
+                name='Regular',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='Lgame',
+                data_provider_variant_id=2,
+                gui='v3')
+        },
+        gui='v3'),
 
     'lewthwaitesgame': Game(
         name="Lewthwaite's Game",

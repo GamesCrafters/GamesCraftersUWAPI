@@ -37,9 +37,11 @@ class GamesmanClassic(DataProvider):
         tempurl = f"{GamesmanClassic.url}{game_id}/{variant_id}/positions/?p={real_position}"
         data = GamesmanClassic.read_from_url(tempurl)
 
+        if data['positionValue'] == 'tie' and data['remoteness'] == 255:
+            data['positionValue'] = 'draw'
         for move in data.get('moves', []):
             if move['positionValue'] == 'tie' and move['remoteness'] == 255:
-                move['value'] = 'draw'
+                move['positionValue'] = 'draw'
 
         multipart_wrangle(position, data)
         return data
