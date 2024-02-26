@@ -23,11 +23,6 @@ instructions_link = "https://raw.githubusercontent.com/GamesCrafters/Explainers/
 instructions_text_link = instructions_link + '{}/{}/{}.xml'
 instructions_images_directory_link = instructions_link + 'i/{}/'
 
-locale_map = {
-	'en-US': 'eng',
-	'es': 'spa'
-}
-
 def read_from_link(url: str) -> str:
 	"""
 	It is entirely possible that the requested url does not point
@@ -150,8 +145,7 @@ def dict_to_markdown(d):
 	return text
 
 def md_instr(game_type, game_id, language):
-	language = locale_map.get(language, language)
 	instructions = read_from_link(instructions_text_link.format(language, game_type, game_id))
-	if not instructions and language != 'eng':
-		instructions = read_from_link(instructions_text_link.format('eng', game_type, game_id))
+	if not instructions and language != 'en':
+		instructions = read_from_link(instructions_text_link.format('en', game_type, game_id))
 	return instructions
