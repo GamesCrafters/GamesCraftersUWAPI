@@ -1791,16 +1791,15 @@ def get_y(variant_id):
     }
                        
 def get_yote(variant_id):
-    pieces = {"0": "0", "1": "1", "2": "2", "3": "3", "B": "blackpiece", "W": "whitepiece"}
+    pieces = {f'{c}': f'{c}' for c in range(10)}
+    pieces |= {"B": "blackpiece", "W": "whitepiece"}
     def yote_iadata(rows, cols):
-        rc = rows * cols
         return {
             "defaultTheme": "regular",
             "themes": {
                 "regular": {
                     "background": f"yote/grid{rows}x{cols}.svg",
-                    "centers": [[100, 100]] * 5 + [
-                        [i % cols * 10 + 5, i // cols * 10 + 15] for i in range(rc)],
+                    "centers": [[i % cols * 10 + 5, i // cols * 10 + 15] for i in range(rows * cols)],
                     "charImages": {
                         p: {"image": f"general/{pieces[p]}.svg", "scale": 9} for p in pieces
                     }
@@ -1808,22 +1807,19 @@ def get_yote(variant_id):
             }
         }
     
-    if variant_id not in ("3x3", "3x4", "4x4"):
-        return None
-    
     rows, cols = int(variant_id[0]), int(variant_id[-1])
     data = yote_iadata(rows, cols)
     data_regular = data["themes"]["regular"]
     
     if variant_id == "3x3":
         data_regular["space"] = [30, 40]
-        data_regular["centers"] = [[5, 5], [25, 5]] + data_regular["centers"]
+        data_regular["centers"] = data_regular["centers"] + [[5, 5], [25, 5]]
     elif variant_id == "3x4":
         data_regular["space"] = [40, 40]
-        data_regular["centers"] = [[5, 5], [35, 5]] + data_regular["centers"]
+        data_regular["centers"] = data_regular["centers"] + [[5, 5], [35, 5]]
     elif variant_id == "4x4":
         data_regular["space"] = [40, 50]
-        data_regular["centers"] = [[5, 5], [35, 5]] + data_regular["centers"]
+        data_regular["centers"] = data_regular["centers"] + [[5, 5], [35, 5]]
     return data
     
 """
