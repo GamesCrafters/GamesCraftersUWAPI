@@ -1633,7 +1633,7 @@ def get_tictactwo(variant_id):
                     "X": {"image": "tictactwo/X.svg", "scale": 16}, 
                     "O": {"image": "tictactwo/O.svg", "scale": 16},
                     "G": {"image": "tictactwo/tttgrid.svg", "scale": 56},
-                    "g": {"image": "tictactwo/g.svg", "scale": 15},
+                    "Z": {"image": "tictactwo/g.svg", "scale": 15},
                     "T": {"image": "tictactwo/t.svg", "scale": 80},
                     "h": {"image": "general/basichitbox.svg", "scale": 16}
                 },

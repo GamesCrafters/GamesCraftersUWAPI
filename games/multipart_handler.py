@@ -115,8 +115,7 @@ def multipart_wrangle(requested_position, position_data):
         
         # 2.2: Create multi-part move edges.
         for part_move_obj in position_data['partMoves']:
-            from_node = None
-            to_node = None
+            from_node, to_node = None, None
             if 'from' in part_move_obj:
                 from_node = intermediate_states[part_move_obj['from']]
             else:
@@ -153,10 +152,12 @@ def multipart_wrangle(requested_position, position_data):
             move_name = ''
             if out_neighbor.outgoing_edges: # i.e., this edge does not go to a real child position
                 move_name = '~' + move_obj['move']
+                #move_name = move_obj['move']
                 next_position = f'{requested_position};{move_obj["move"]}'
             else: # i.e., this edge goes to a real child position
                 if 'full' in move_obj: # i.e., this edge is a part-move
                     move_name = move_obj['full']
+                    #move_name = move_obj['move']
                 else: # i.e., this edge is a full-move
                     move_name = move_obj['move']
                 next_position = out_neighbor.id

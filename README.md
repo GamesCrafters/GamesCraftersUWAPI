@@ -3,9 +3,10 @@
 GamesCraftersUWAPI (Gamescrafters Universal Web API) is a middleware that connects Gamesman frontend applications (e.g, GamesmanUni) to different backend game servers (e.g., GamesmanClassic, GamesmanPuzzles, Lichess Database (the Lichess Database is not a GamesCrafters Project)). It also contains Python scripts to generate response JSON for certain games directly without the need to send requests to other servers.
 
 ## Run the server locally
-To run the server on your local machine, first clone this repository and run these following commands.
+To clone this repo and run the server on your local machine, run the following commands.
 ```
 git clone https://github.com/GamesCrafters/GamesCraftersUWAPI.git
+cd GamesCraftersUWAPI
 pip install -r requirements.txt
 python server.py
 ```
