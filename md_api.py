@@ -144,7 +144,14 @@ def dict_to_markdown(d):
 
 	return text
 
-def md_instr(game_type, game_id, language):
+def md_instr(game_type, game_id, locale):
+	"""
+	The input `locale` will be a locale string which is formatted as either "<language>", 
+	"<language>-<region>", or "<language>_<region>". For example
+	"en-US" (English, U.S.) or "es" (Spanish). We only want to extract the language code
+	and get the correction instructions based on that langauage code.
+	"""
+	language = locale.replace('_', '-').split('-')[0]
 	instructions = read_from_link(instructions_text_link.format(language, game_type, game_id))
 	if not instructions and language != 'en':
 		instructions = read_from_link(instructions_text_link.format('en', game_type, game_id))

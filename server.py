@@ -240,8 +240,8 @@ def get_instructions(game_id: str, variant_id: str) -> dict[str: str]:
     # are not supported yet.
     if game_id in games:
         game_type = 'games' if games[game_id].is_two_player_game else 'puzzles'
-        language = request.args.get('lang', 'en')
-        return {'instructions': md_instr(game_type, game_id, language)}
+        locale = request.args.get('locale', 'en')
+        return {'instructions': md_instr(game_type, game_id, locale)}
     return error('Game')
 
 if __name__ == '__main__':
