@@ -112,8 +112,7 @@ def get_3spot(variant_id):
                 "background": "3spot/grid.svg",
                 "charImages": char_images,
                 "sounds": {"x": "general/place.mp3"},
-                "animationType": "entityFade",
-                "defaultAnimationWindow": [0, 13]
+                "animationType": "entityFade"
             }
         }
     }
@@ -393,7 +392,7 @@ def get_chopsticks(variant_id):
 
 def get_chungtoi(variant_id):
     gridctrs = [[i % 3 + 0.5, i // 3 + 0.5] for i in range(9)]
-    ctrs = [[i % 3 + 0.5, i // 3 + 0.5] for i in range(9)] * 2
+    ctrs = gridctrs + [[-99, -99]]
     ctrs += [[x - 0.2, y] for x, y in gridctrs]
     ctrs += [[x + 0.2, y] for x, y in gridctrs]
     return {
@@ -975,7 +974,6 @@ def get_lgame(variant_id):
             "image": f"lgame/{c}.svg", "scale": 1 if c.isalpha() else 0.6
         } for c in 'BRWG12345678'
     }
-    char_images |= {"h": {"image": "general/basichitbox.svg", "scale": 1}}
     return {
         "defaultTheme": "regular",
         "themes": {
@@ -984,13 +982,13 @@ def get_lgame(variant_id):
                 "centers": centers,
                 "background": "lgame/grid.svg",
                 "charImages": char_images,
+                "arrowWidth": 0.035,
                 "sounds": {
                     "x": "general/place.mp3",
                     "y": "general/remove.mp3",
-                    "z": "general/remove.mp3"
+                    "z": "general/slide.mp3"
                 },
-                "animationType": "entityFade",
-                "defaultAnimationWindow": [0, 16]
+                "animationType": "entityFade"
             }
         }
     }
@@ -1465,8 +1463,7 @@ def get_rubiksmagic(variant_id):
                 "entitiesOverArrows": True,
                 "arrowWidth": 0.1,
                 "sounds": {"x": "general/remove.mp3", "y": "general/place.mp3"},
-                "animationType": "entityFade",
-                "defaultAnimationWindow": [0, 16]
+                "animationType": "entityFade"
             }
         }
     }
@@ -1636,7 +1633,7 @@ def get_tictactwo(variant_id):
                     "X": {"image": "tictactwo/X.svg", "scale": 16}, 
                     "O": {"image": "tictactwo/O.svg", "scale": 16},
                     "G": {"image": "tictactwo/tttgrid.svg", "scale": 56},
-                    "g": {"image": "tictactwo/g.svg", "scale": 15},
+                    "Z": {"image": "tictactwo/g.svg", "scale": 15},
                     "T": {"image": "tictactwo/t.svg", "scale": 80},
                     "h": {"image": "general/basichitbox.svg", "scale": 16}
                 },
@@ -1794,16 +1791,15 @@ def get_y(variant_id):
     }
                        
 def get_yote(variant_id):
-    pieces = {"0": "0", "1": "1", "2": "2", "3": "3", "B": "blackpiece", "W": "whitepiece"}
+    pieces = {f'{c}': f'{c}' for c in range(10)}
+    pieces |= {"B": "blackpiece", "W": "whitepiece"}
     def yote_iadata(rows, cols):
-        rc = rows * cols
         return {
             "defaultTheme": "regular",
             "themes": {
                 "regular": {
                     "background": f"yote/grid{rows}x{cols}.svg",
-                    "centers": [[100, 100]] * 5 + [
-                        [i % cols * 10 + 5, i // cols * 10 + 15] for i in range(rc)],
+                    "centers": [[i % cols * 10 + 5, i // cols * 10 + 15] for i in range(rows * cols)],
                     "charImages": {
                         p: {"image": f"general/{pieces[p]}.svg", "scale": 9} for p in pieces
                     }
@@ -1811,22 +1807,19 @@ def get_yote(variant_id):
             }
         }
     
-    if variant_id not in ("3x3", "3x4", "4x4"):
-        return None
-    
     rows, cols = int(variant_id[0]), int(variant_id[-1])
     data = yote_iadata(rows, cols)
     data_regular = data["themes"]["regular"]
     
     if variant_id == "3x3":
         data_regular["space"] = [30, 40]
-        data_regular["centers"] = [[5, 5], [25, 5]] + data_regular["centers"]
+        data_regular["centers"] = data_regular["centers"] + [[5, 5], [25, 5]]
     elif variant_id == "3x4":
         data_regular["space"] = [40, 40]
-        data_regular["centers"] = [[5, 5], [35, 5]] + data_regular["centers"]
+        data_regular["centers"] = data_regular["centers"] + [[5, 5], [35, 5]]
     elif variant_id == "4x4":
         data_regular["space"] = [40, 50]
-        data_regular["centers"] = [[5, 5], [35, 5]] + data_regular["centers"]
+        data_regular["centers"] = data_regular["centers"] + [[5, 5], [35, 5]]
     return data
     
 """

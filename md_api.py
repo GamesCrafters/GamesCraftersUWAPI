@@ -23,11 +23,6 @@ instructions_link = "https://raw.githubusercontent.com/GamesCrafters/Explainers/
 instructions_text_link = instructions_link + '{}/{}/{}.xml'
 instructions_images_directory_link = instructions_link + 'i/{}/'
 
-locale_map = {
-	'en-US': 'eng',
-	'es': 'spa'
-}
-
 def read_from_link(url: str) -> str:
 	"""
 	It is entirely possible that the requested url does not point
@@ -149,9 +144,15 @@ def dict_to_markdown(d):
 
 	return text
 
-def md_instr(game_type, game_id, language):
-	language = locale_map.get(language, language)
+def md_instr(game_type, game_id, locale):
+	"""
+	The input `locale` will be a locale string which is formatted as either "<language>", 
+	"<language>-<region>", or "<language>_<region>". For example
+	"en-US" (English, U.S.) or "es" (Spanish). We only want to extract the language code
+	and get the correction instructions based on that langauage code.
+	"""
+	language = locale.replace('_', '-').split('-')[0]
 	instructions = read_from_link(instructions_text_link.format(language, game_type, game_id))
-	if not instructions and language != 'eng':
-		instructions = read_from_link(instructions_text_link.format('eng', game_type, game_id))
+	if not instructions and language != 'en':
+		instructions = read_from_link(instructions_text_link.format('en', game_type, game_id))
 	return instructions

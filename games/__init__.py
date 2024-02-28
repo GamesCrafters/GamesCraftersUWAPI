@@ -589,17 +589,17 @@ games = {
         },
         gui='v3'),
     
-    # 'lgame': Game(
-    #     name='L-game',
-    #     variants={
-    #         'regular': Variant(
-    #             name='Regular',
-    #             data_provider=GamesmanClassic,
-    #             data_provider_game_id='Lgame',
-    #             data_provider_variant_id=-1,
-    #             gui='v3')
-    #     },
-    #     gui='v3'),
+    'lgame': Game(
+        name='L-game',
+        variants={
+            'regular': Variant(
+                name='Regular',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='Lgame',
+                data_provider_variant_id=2,
+                gui='v3')
+        },
+        gui='v3'),
 
     'lewthwaitesgame': Game(
         name="Lewthwaite's Game",
@@ -1105,27 +1105,27 @@ games = {
         },
         gui='v3'),
 
-    # 'yote': Game(
-    #     name='Yoté',
-    #     variants={
-    #         '3x3': Variant(
-    #             name='3x3',
-    #             data_provider=GamesmanClassic,
-    #             data_provider_game_id='yote',
-    #             data_provider_variant_id=0,
-    #             gui='v2'),
-    #         '3x4': Variant(
-    #             name='3x4',
-    #             data_provider=GamesmanClassic,
-    #             data_provider_game_id='yote',
-    #             data_provider_variant_id=1,
-    #             gui='v2'),
-    #         '4x4': Variant(
-    #             name='4x4',
-    #             data_provider=GamesmanClassic,
-    #             data_provider_game_id='yote',
-    #             data_provider_variant_id=2,
-    #             gui='v2'),
-    #     },
-    #     gui='v2')
+    'yote': Game(
+        name='Yoté',
+        variants={
+            '3x3': Variant(
+                name='3x3',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='yote',
+                data_provider_variant_id=0,
+                gui='v2'),
+            '3x4': Variant(
+                name='3x4',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='yote',
+                data_provider_variant_id=1,
+                gui='v2'),
+            '4x4': Variant(
+                name='4x4',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='yote',
+                data_provider_variant_id=2,
+                gui='v2'),
+        },
+        gui='v2')
 }

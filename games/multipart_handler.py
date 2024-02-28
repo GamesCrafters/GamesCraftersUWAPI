@@ -6,10 +6,12 @@ class Node:
         self.autogui_position = autogui_position
         self.value = value
         self.remoteness = remoteness
+        self.move_to_autogui_move = {}
         self.outgoing_edges = {}
 
     def add_edge(src_node, dest_node, move_obj):
-        src_node.outgoing_edges[move_obj['move']] = (dest_node, move_obj)
+        src_node.move_to_autogui_move[move_obj['move']] = move_obj['autoguiMove']
+        src_node.outgoing_edges[move_obj['autoguiMove']] = (dest_node, move_obj)
 
 def multipart_solve(node):
     """
@@ -97,35 +99,34 @@ def multipart_wrangle(requested_position, position_data):
         
         # 1.3: Create Intermediate State Nodes
         for part_move_obj in position_data['partMoves']:
-            if 'from' in part_move_obj:
+            if 'from' in part_move_obj: # Source node is an intermediate state
                 autogui_position_string = part_move_obj['from']
                 if autogui_position_string not in intermediate_states:
                     intermediate_states[autogui_position_string] = Node(autogui_position_string, autogui_position_string)
-            if 'to' in part_move_obj:
+            if 'to' in part_move_obj:   # Destination node is an intermediate state
                 autogui_position_string = part_move_obj['to']
                 if autogui_position_string not in intermediate_states:
                     intermediate_states[autogui_position_string] = Node(autogui_position_string, autogui_position_string)
 
         # Step 2: Create Edges
 
-        # 2.1: Create single-part move edges. A full-move is a single-part move if `autoguiMove` is not an empty string.          
+        # 2.1: Create single-part move edges. A full-move is a single-part move if `autoguiMove` is defined.          
         for full_move_obj in position_data['moves']:
-            if full_move_obj['autoguiMove']:
+            if 'autoguiMove' in full_move_obj:
                 Node.add_edge(parent_real_position, real_child_positions[full_move_obj['position']], full_move_obj)
         
         # 2.2: Create multi-part move edges.
         for part_move_obj in position_data['partMoves']:
-            from_node = None
-            to_node = None
-            if 'from' in part_move_obj:
+            from_node, to_node = None, None
+            if 'from' in part_move_obj: # Source node is an intermediate state
                 from_node = intermediate_states[part_move_obj['from']]
-            else:
+            else:                       # Source node is the real parent position
                 from_node = parent_real_position
             
-            if 'to' in part_move_obj:
+            if 'to' in part_move_obj:   # Destination node is an intermediate state
                 to_node = intermediate_states[part_move_obj['to']]
-            else:
-                to_node = move_name_to_real_child_position[part_move_obj['move']]
+            else:                       # Destination node is one of the real child positions
+                to_node = move_name_to_real_child_position[part_move_obj['full']]
             Node.add_edge(from_node, to_node, part_move_obj)
         
         del move_name_to_real_child_position
@@ -137,9 +138,10 @@ def multipart_wrangle(requested_position, position_data):
         #         by the original semicolon-delimited position string in the request.
         requested_node = parent_real_position
         for part_move in requested_position.strip().split(';')[1:]:
-            requested_node = requested_node.outgoing_edges[part_move][0]
+            requested_node = requested_node.outgoing_edges[requested_node.move_to_autogui_move[part_move]][0]
         
-        
+        # Step 5: Modify position_data to contain the correct data for the 
+        # requested state, whether the state is an intermediate state or the real parent position
         position_data['autoguiPosition'] = requested_node.autogui_position
         position_data['position'] = requested_position
         position_data['positionValue'] = requested_node.value
@@ -149,17 +151,21 @@ def multipart_wrangle(requested_position, position_data):
         for edge in requested_node.outgoing_edges.values():
             out_neighbor, move_obj = edge
             next_position = ''
-            part_move_prefix = ''
-            if out_neighbor.outgoing_edges: # i.e., this edge does not go to a real child position
-                part_move_prefix = '~'
+            move_name = ''
+            if out_neighbor.outgoing_edges: # i.e., this edge goes to an intermediate state
+                move_name = '~' + move_obj['move']
                 next_position = f'{requested_position};{move_obj["move"]}'
             else: # i.e., this edge goes to a real child position
+                if 'full' in move_obj: # i.e., this edge is a part-move
+                    move_name = move_obj['full']
+                else: # i.e., this edge is a full-move
+                    move_name = move_obj['move']
                 next_position = out_neighbor.id
             new_move_objs.append(
                 {
                     'autoguiMove': move_obj['autoguiMove'],
                     'autoguiPosition': out_neighbor.autogui_position,
-                    'move': part_move_prefix + move_obj['move'],
+                    'move': move_name,
                     'position': next_position,
                     'positionValue': out_neighbor.value,
                     'remoteness': out_neighbor.remoteness

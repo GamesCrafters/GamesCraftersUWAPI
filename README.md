@@ -3,9 +3,10 @@
 GamesCraftersUWAPI (Gamescrafters Universal Web API) is a middleware that connects Gamesman frontend applications (e.g, GamesmanUni) to different backend game servers (e.g., GamesmanClassic, GamesmanPuzzles, Lichess Database (the Lichess Database is not a GamesCrafters Project)). It also contains Python scripts to generate response JSON for certain games directly without the need to send requests to other servers.
 
 ## Run the server locally
-To run the server on your local machine, first clone this repository and run these following commands.
+To clone this repo and run the server on your local machine, run the following commands.
 ```
 git clone https://github.com/GamesCrafters/GamesCraftersUWAPI.git
+cd GamesCraftersUWAPI
 pip install -r requirements.txt
 python server.py
 ```
@@ -147,9 +148,13 @@ This file sets up the server and runs it from the given port in main.
       }
       ```
 
-- `/<game_id>/<variant_id>/instructions/?lang=<language>` : 
+- `/<game_id>/<variant_id>/instructions/?locale=<locale>` : 
   - Returns a markdown string for the instructions of the game specified by `game_id` (for when a user clicks the "i" button in GamesmanUni to get the rules guide of the game they are playing).
-    - It gets the data for the game instructions from the [master branch Explainers GitHub repo](https://github.com/GamesCrafters/Explainers/tree/master/instructions). If instructions are not available in the language given by `language` or if the `lang` parameter is not provided, then it defaults to English instructions for the game.
+    - It gets the data for the game instructions from the [master branch Explainers GitHub repo](https://github.com/GamesCrafters/Explainers/tree/master/instructions). If instructions are not available in the language code specified by `locale` or if the `locale` parameter is not provided, then it defaults to English instructions for the game.
+    - The `locale` will be a locale string which is formatted as either `<language>`, `<language>-<region>`, or `<language>_<region>`. Examples include "en-US" for United States English or "es" for Spanish. The returned instructions will be based on the `language` part of the `locale` string.
     - The URL suggests that there are different instructions for different variants of the game, but currently all variants of a game have the same set of instructions. Supporting variant-specific instructions is a (probably difficult) todo.
-    - Example Routes: (`/nqueens/4/instructions`) (`/nqueens/4/instructions/?lang=es`)
+    - Example Routes:
+      - `/nqueens/4/instructions/` (Instructions for NQueens Puzzle, defaults to English)
+      - `/nqueens/4/instructions/?locale=en-US` (English instructions for NQueens Puzzle)
+      - `/nqueens/4/instructions/?locale=es` (Spanish instructions for NQueens Puzzle)
 
