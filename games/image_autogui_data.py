@@ -1412,6 +1412,35 @@ def get_quickcross(variant_id):
         }
     }
 
+def get_quixo(variant_id):
+   
+    #board_size = 25   
+    src_centers = [[i, j] for i in range(2, 21, 4) for j in range(2, 21, 4)]
+    up_centers = [[i - 1, j] for i, j in src_centers]
+    right_centers = [[i, j + 1] for i, j in src_centers]
+    down_centers = [[i + 1, j] for i, j in src_centers]
+    left_centers = [[i, j - 1] for i, j in src_centers]
+    centers =src_centers + up_centers + right_centers + down_centers + left_centers
+    
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [20, 20],
+                "centers": centers,
+                "background": f"konane/grid{5}x{5}.svg",
+                "charImages": {
+                    "X": {"image": "ttt/x.svg", "scale": 1},
+                    "O": {"image": "ttt/o.svg", "scale": 1}
+                },
+                "arrowWidth": 0.075, #width in NuTTT, may need smaller
+                "sounds": {"x": "general/slide.mp3"},
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
+
 def get_rubikscube(variant_id):
     # Color Centers
     centers = [
@@ -1880,6 +1909,7 @@ image_autogui_data_funcs = {
     "ponghauki": get_ponghauki,
     "quickchess": get_quickchess,
     "quickcross": get_quickcross,
+    "quixo": get_quixo,
     "rubikscube": get_rubikscube,
     "rubiksmagic": get_rubiksmagic,
     "rushhour": get_rushhour,
