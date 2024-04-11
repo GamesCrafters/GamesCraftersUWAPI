@@ -22,6 +22,8 @@ get_<game>(variant_id) should return JSON of the following form:
                 "lineWidth": <optional, width of all line move buttons>,
                 "arrowWidth": <optional, width of all arrow move buttons>,
                 "entitiesOverArrows": <optional, Boolean, whether entities are drawn over arrows>,
+                "textEntityFontSize": <optional, font size of all text entities>,
+                "textButtonFontSize": <optional, font size of all text move buttons>,
                 "sounds": <optional> {
                     <char1>: <string, path to sound file>,
                     <char2>:
@@ -33,7 +35,8 @@ get_<game>(variant_id) should return JSON of the following form:
                 ...
             },
             ...
-        }
+        },
+        "ambience": <optional, path to sound file>,
     }
 
 (Scroll all the way down for Step 2).
@@ -972,7 +975,17 @@ def get_lgame(variant_id):
     char_images = {
         c: {
             "image": f"lgame/{c}.svg", "scale": 1 if c.isalpha() else 0.6
-        } for c in 'BRWG12345678'
+        } for c in 'WG12345678'
+    }
+    char_images |= {
+        c: {
+            "image": f"lgame/{c}.svg", "scale": 5
+        } for c in 'HIJKLMNO'
+    }
+    char_images |= {
+        c: {
+            "image": f"lgame/{c}{c}.svg", "scale": 5
+        } for c in 'hijklmno'
     }
     return {
         "defaultTheme": "regular",
@@ -988,7 +1001,7 @@ def get_lgame(variant_id):
                     "y": "general/remove.mp3",
                     "z": "general/slide.mp3"
                 },
-                "animationType": "entityFade"
+                "animationType": "simpleSlides"
             }
         }
     }
