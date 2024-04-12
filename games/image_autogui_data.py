@@ -1413,15 +1413,12 @@ def get_quickcross(variant_id):
     }
 
 def get_quixo(variant_id):
-
     def helper(max_size): 
-   
-        #board_size = 25   
         src_centers = [[i, j] for i in range(2, max_size + 1, 4) for j in range(2, max_size + 1, 4)]
-        up_centers = [[i - 1, j] for i, j in src_centers]
-        right_centers = [[i, j + 1] for i, j in src_centers]
-        down_centers = [[i + 1, j] for i, j in src_centers]
-        left_centers = [[i, j - 1] for i, j in src_centers]
+        up_centers = [[i - 1.5, j] for i, j in src_centers]
+        right_centers = [[i, j + 1.5] for i, j in src_centers]
+        down_centers = [[i + 1.5, j] for i, j in src_centers]
+        left_centers = [[i, j - 1.5] for i, j in src_centers]
         centers =src_centers + up_centers + right_centers + down_centers + left_centers
         
         return {
@@ -1430,24 +1427,24 @@ def get_quixo(variant_id):
                 "regular": {
                     "space": [max_size, max_size],
                     "centers": centers,
-                    #"background": f"konane/grid{5}x{5}.svg",
                     "charImages": {
-                        "X": {"image": "quixo/x.svg", "scale": 1},
-                        "O": {"image": "quixo/o.svg", "scale": 1}, 
-                        " ": {"image": "quixo/blank.svg", "scale": 1}
+                        "X": {"image": "quixo/x.svg", "scale": 4},
+                        "O": {"image": "quixo/o.svg", "scale": 4}, 
+                        "B": {"image": "quixo/blank.svg", "scale": 4}
                     },
-                    "arrowWidth": 0.075, #width in NuTTT, may need smaller
+                    "arrowWidth": 0.1,
                     "sounds": {"x": "general/slide.mp3"},
-                    "animationType": "simpleSlides"
+                    "animationType": "entityFade"
                 }
             }
         }
     
-    if variant_id == 0: 
+    if variant_id == "5x5": 
         return helper(20)
-    elif variant_id == 1: 
+    if variant_id == "4x4": 
         return helper(16)
-
+    if variant_id == "3x3":
+        return helper(12)
 
 def get_rubikscube(variant_id):
     # Color Centers

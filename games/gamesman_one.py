@@ -1,5 +1,5 @@
 import json, requests
-from .models import DataProvider, Remoteness
+from .models import DataProvider
 
 class GamesmanOne(DataProvider):
     # Use first url when running on a different machine,
@@ -17,7 +17,7 @@ class GamesmanOne(DataProvider):
         return json.loads(response.content)
 
     def start_position(puzzle_id, variant_id):
-        tempurl = f"{GamesmanOne.url}{puzzle_id}/{variant_id}/start/"
+        tempurl = f"{GamesmanOne.url}{puzzle_id}/{variant_id}/"
         data = GamesmanOne.read_from_url(tempurl)
         return {
             'position': data.get('position', ''),
@@ -25,5 +25,5 @@ class GamesmanOne(DataProvider):
         }
 
     def position_data(puzzle_id, variant_id, position):
-        tempurl = f"{GamesmanOne.url}{puzzle_id}/{variant_id}/positions/{position}/"
+        tempurl = f"{GamesmanOne.url}{puzzle_id}/{variant_id}/{position}"
         return GamesmanOne.read_from_url(tempurl)

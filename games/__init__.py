@@ -889,6 +889,13 @@ games = {
                 data_provider_variant_id = '1' ,
                 gui = 'v3',
             ),
+            '3x3': Variant(
+                name = '3x3',
+                data_provider=GamesmanOne,
+                data_provider_game_id = 'quixo' ,
+                data_provider_variant_id = '2' ,
+                gui = 'v3',
+            ),
         },
     gui = 'v3'),
     
