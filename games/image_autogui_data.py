@@ -1413,32 +1413,40 @@ def get_quickcross(variant_id):
     }
 
 def get_quixo(variant_id):
+
+    def helper(max_size): 
    
-    #board_size = 25   
-    src_centers = [[i, j] for i in range(2, 21, 4) for j in range(2, 21, 4)]
-    up_centers = [[i - 1, j] for i, j in src_centers]
-    right_centers = [[i, j + 1] for i, j in src_centers]
-    down_centers = [[i + 1, j] for i, j in src_centers]
-    left_centers = [[i, j - 1] for i, j in src_centers]
-    centers =src_centers + up_centers + right_centers + down_centers + left_centers
-    
-    return {
-        "defaultTheme": "regular",
-        "themes": {
-            "regular": {
-                "space": [20, 20],
-                "centers": centers,
-                "background": f"konane/grid{5}x{5}.svg",
-                "charImages": {
-                    "X": {"image": "ttt/x.svg", "scale": 1},
-                    "O": {"image": "ttt/o.svg", "scale": 1}
-                },
-                "arrowWidth": 0.075, #width in NuTTT, may need smaller
-                "sounds": {"x": "general/slide.mp3"},
-                "animationType": "simpleSlides"
+        #board_size = 25   
+        src_centers = [[i, j] for i in range(2, max_size + 1, 4) for j in range(2, max_size + 1, 4)]
+        up_centers = [[i - 1, j] for i, j in src_centers]
+        right_centers = [[i, j + 1] for i, j in src_centers]
+        down_centers = [[i + 1, j] for i, j in src_centers]
+        left_centers = [[i, j - 1] for i, j in src_centers]
+        centers =src_centers + up_centers + right_centers + down_centers + left_centers
+        
+        return {
+            "defaultTheme": "regular",
+            "themes": {
+                "regular": {
+                    "space": [max_size, max_size],
+                    "centers": centers,
+                    #"background": f"konane/grid{5}x{5}.svg",
+                    "charImages": {
+                        "X": {"image": "quixo/x.svg", "scale": 1},
+                        "O": {"image": "quixo/o.svg", "scale": 1}, 
+                        " ": {"image": "quixo/blank.svg", "scale": 1}
+                    },
+                    "arrowWidth": 0.075, #width in NuTTT, may need smaller
+                    "sounds": {"x": "general/slide.mp3"},
+                    "animationType": "simpleSlides"
+                }
             }
         }
-    }
+    
+    if variant_id == 0: 
+        return helper(20)
+    elif variant_id == 1: 
+        return helper(16)
 
 
 def get_rubikscube(variant_id):
