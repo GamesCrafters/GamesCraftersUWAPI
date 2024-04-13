@@ -1,6 +1,7 @@
 from .models import Game, Variant
 from .gamesman_classic import GamesmanClassic
 from .gamesman_puzzles import GamesmanPuzzles
+from .gamesman_one import GamesmanOne
 from .chess import RegularChessVariant
 from .tootandotto import TootAndOtto
 from .nim import NimVariant, nim_custom_start
@@ -870,6 +871,33 @@ games = {
             ),
        }, 
        gui='v3'),
+
+    'quixo' : Game(
+        name = 'Quixo' ,
+        variants={
+            '5x5': Variant(
+                name = '5x5',
+                data_provider=GamesmanOne,
+                data_provider_game_id = 'quixo' ,
+                data_provider_variant_id = '0' ,
+                gui = 'v3',
+            ),
+            '4x4': Variant(
+                name = '4x4',
+                data_provider=GamesmanOne,
+                data_provider_game_id = 'quixo' ,
+                data_provider_variant_id = '1' ,
+                gui = 'v3',
+            ),
+            '3x3': Variant(
+                name = '3x3',
+                data_provider=GamesmanOne,
+                data_provider_game_id = 'quixo' ,
+                data_provider_variant_id = '2' ,
+                gui = 'v3',
+            ),
+        },
+    gui = 'v3'),
     
     'rubikscube': Game(
         name="Rubik's Cube",

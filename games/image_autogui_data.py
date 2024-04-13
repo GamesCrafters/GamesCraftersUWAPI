@@ -1425,6 +1425,40 @@ def get_quickcross(variant_id):
         }
     }
 
+def get_quixo(variant_id):
+    def helper(max_size): 
+        src_centers = [[i, j] for i in range(2, max_size + 1, 4) for j in range(2, max_size + 1, 4)]
+        up_centers = [[i - 1.5, j] for i, j in src_centers]
+        right_centers = [[i, j + 1.5] for i, j in src_centers]
+        down_centers = [[i + 1.5, j] for i, j in src_centers]
+        left_centers = [[i, j - 1.5] for i, j in src_centers]
+        centers =src_centers + up_centers + right_centers + down_centers + left_centers
+        
+        return {
+            "defaultTheme": "regular",
+            "themes": {
+                "regular": {
+                    "space": [max_size, max_size],
+                    "centers": centers,
+                    "charImages": {
+                        "X": {"image": "quixo/x.svg", "scale": 4},
+                        "O": {"image": "quixo/o.svg", "scale": 4}, 
+                        "B": {"image": "quixo/blank.svg", "scale": 4}
+                    },
+                    "arrowWidth": 0.1,
+                    "sounds": {"x": "general/slide.mp3"},
+                    "animationType": "entityFade"
+                }
+            }
+        }
+    
+    if variant_id == "5x5": 
+        return helper(20)
+    if variant_id == "4x4": 
+        return helper(16)
+    if variant_id == "3x3":
+        return helper(12)
+
 def get_rubikscube(variant_id):
     # Color Centers
     centers = [
@@ -1893,6 +1927,7 @@ image_autogui_data_funcs = {
     "ponghauki": get_ponghauki,
     "quickchess": get_quickchess,
     "quickcross": get_quickcross,
+    "quixo": get_quixo,
     "rubikscube": get_rubikscube,
     "rubiksmagic": get_rubiksmagic,
     "rushhour": get_rushhour,
