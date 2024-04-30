@@ -1428,10 +1428,10 @@ def get_quickcross(variant_id):
 def get_quixo(variant_id):
     def helper(max_size): 
         src_centers = [[i, j] for i in range(2, max_size + 1, 4) for j in range(2, max_size + 1, 4)]
-        up_centers = [[i - 1.5, j] for i, j in src_centers]
-        right_centers = [[i, j + 1.5] for i, j in src_centers]
-        down_centers = [[i + 1.5, j] for i, j in src_centers]
-        left_centers = [[i, j - 1.5] for i, j in src_centers]
+        up_centers = [[i - 2, j] for i, j in src_centers]
+        right_centers = [[i, j + 2] for i, j in src_centers]
+        down_centers = [[i + 2, j] for i, j in src_centers]
+        left_centers = [[i, j - 2] for i, j in src_centers]
         centers =src_centers + up_centers + right_centers + down_centers + left_centers
         
         return {
