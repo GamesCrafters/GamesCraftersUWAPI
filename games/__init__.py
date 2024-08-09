@@ -357,6 +357,18 @@ games = {
         },
         gui='v3'),
     
+    'dshogi': Game(
+        name='Dōbutsu shōgi',
+        variants={
+            'regular': Variant(
+                name='Regular',
+                data_provider=GamesmanOne,
+                data_provider_game_id='dshogi',
+                data_provider_variant_id=0,
+                gui='v3')
+        },
+        gui='v3'),
+    
     'euclidsgame': Game(
         name="Euclid's Game",
         variants={

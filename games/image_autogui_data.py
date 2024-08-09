@@ -599,6 +599,53 @@ def get_dragonsandswans(variant_id):
         }
     }
 
+def get_dshogi(variant_id):
+    board = [[100 + x * 100, 100 + y * 100] for y in range(4) for x in range(3)]
+    forest_captured = [[425, 450], [550, 450], [485, 325]]
+    sky_captured = [[550, 51], [425, 51], [485, 175]]
+    giraffe_placement = [[100 + x * 100, 75 + y * 100] for y in range(4) for x in range(3)]
+    elephant_placement = [[75 + x * 100, 125 + y * 100] for y in range(4) for x in range(3)]
+    chick_placement = [[125 + x * 100, 125 + y * 100] for y in range(4) for x in range(3)]
+    centers = board + forest_captured + sky_captured + giraffe_placement + \
+              elephant_placement + chick_placement
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [601, 501],
+                "centers": centers,
+                "background": "dshogi/background.svg",
+                "charImages": {
+                    "a": {"image": "dshogi/a.svg", "scale": 100},
+                    "A": {"image": "dshogi/A.svg", "scale": 100},
+                    "b": {"image": "dshogi/b.svg", "scale": 100},
+                    "B": {"image": "dshogi/B.svg", "scale": 100},
+                    "c": {"image": "dshogi/c.svg", "scale": 100},
+                    "C": {"image": "dshogi/C.svg", "scale": 100},
+                    "d": {"image": "dshogi/d.svg", "scale": 100},
+                    "D": {"image": "dshogi/D.svg", "scale": 100},
+                    "e": {"image": "dshogi/e.svg", "scale": 100},
+                    "E": {"image": "dshogi/E.svg", "scale": 100},
+                    "g": {"image": "dshogi/g.svg", "scale": 100},
+                    "G": {"image": "dshogi/G.svg", "scale": 100},
+                    "h": {"image": "dshogi/h.svg", "scale": 100},
+                    "H": {"image": "dshogi/H.svg", "scale": 100},
+                    "l": {"image": "dshogi/l.svg", "scale": 100},
+                    "L": {"image": "dshogi/L.svg", "scale": 100},
+                    "0": {"image": "dshogi/GG.svg", "scale": 50},
+                    "1": {"image": "dshogi/EE.svg", "scale": 50},
+                    "2": {"image": "dshogi/CC.svg", "scale": 50},
+                },
+                "arrowWidth": 2,
+                "sounds": {
+                    "x": "general/slide.mp3",
+                    "y": "general/place.mp3"
+                },
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
 def get_euclidsgame(variant_id):
     return {
         "defaultTheme": "basic",
@@ -1897,6 +1944,7 @@ image_autogui_data_funcs = {
     "dodgem": get_dodgem,
     "domineering": get_domineering,
     "dragonsandswans": get_dragonsandswans,
+    "dshogi": get_dshogi,
     "euclidsgame": get_euclidsgame,
     "fivefieldkono": get_fivefieldkono,
     "fourfieldkono": get_fourfieldkono,
