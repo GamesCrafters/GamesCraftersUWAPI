@@ -1033,6 +1033,26 @@ games = {
             },
         gui='v3'
         ),
+
+    'teeko' : Game(
+        name = 'Teeko' ,
+        variants={
+            'standard': Variant(
+                name = 'Standard',
+                data_provider=GamesmanOne,
+                data_provider_game_id = 'teeko',
+                data_provider_variant_id = '0',
+                gui = 'v3',
+            ),
+            'advanced': Variant(
+                name = 'Advanced',
+                data_provider=GamesmanOne,
+                data_provider_game_id = 'teeko',
+                data_provider_variant_id = '1',
+                gui = 'v3',
+            ),
+        },
+    gui = 'v3'),
     
     'tictactoe': Game(
         name='Tic-Tac-Toe',
