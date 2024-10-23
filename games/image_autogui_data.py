@@ -1711,6 +1711,28 @@ def get_tactix(variant_id):
         }
     }
 
+def get_teeko(variant_id):
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [600, 600],
+                "centers": [[i * 100, j * 100] for j in range(1, 6) for i in range(1, 6)],
+                "background": "teeko/board.svg",
+                "charImages": {
+                    "X": {"image": "teeko/x.svg", "scale": 80},
+                    "O": {"image": "teeko/o.svg", "scale": 80},
+                },
+                "arrowWidth": 7,
+                "sounds": {
+                    "x": "general/slide.mp3",
+                    "y": "general/place.mp3",
+                },
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
 def get_tictactwo(variant_id):
     # 25 piece centers, 9 grid centers, 1 center for "Move grid button", 3 multipart move chars
     centers = [[i % 5 * 20 + 12, i // 5 * 20 + 12] for i in range(25)]
@@ -1984,6 +2006,7 @@ image_autogui_data_funcs = {
     "snake": get_snake,
     "squaredance": get_squaredance,
     "tactix": get_tactix,
+    "teeko": get_teeko,
     "tictactwo": get_tictactwo,
     "toadsandfrogspuzzle": get_toadsandfrogspuzzle,
     "tootandotto": get_tootandotto,
