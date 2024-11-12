@@ -128,8 +128,8 @@ def get_abrobad(variant_id):
     tile_centers += [[435, 50]]  # END GAME BUTTON
 
     char_images = {
-        "X": {"image": "y/W.svg", "scale": 100}, 
-        "O": {"image": "y/B.svg", "scale": 100},
+        "X": {"image": "y/W.svg", "scale": 117}, 
+        "O": {"image": "y/B.svg", "scale": 117},
         "E": {"image": "abrobad/propose.svg", "scale": 160},
         "t": {"image": "general/basichitbox.svg", "scale": 99} 
     }
@@ -385,6 +385,7 @@ def get_chomp(variant_id):
                 "charImages": {
                     "x" : {"image": "chomp/x.svg", "scale": 1.01},
                     "p" : {"image": "chomp/p.svg", "scale": 1.01},
+                    "t" : {"image": "general/basichitbox.svg", "scale": 1}  
                 },
                 "sounds": {"x": "chomp/chomp.mp3"},
                 "animationType": "entityFade"
