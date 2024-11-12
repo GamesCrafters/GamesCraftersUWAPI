@@ -69,6 +69,18 @@ games = {
                 data_provider_variant_id=1)
         }
     ),
+
+    'abrobad' : Game(
+        name = 'Abrobad' ,
+        variants={
+            'standard': Variant(
+                name = 'Regular',
+                data_provider= GamesmanClassic,
+                data_provider_game_id = 'abrobad',
+                data_provider_variant_id = '0',
+                gui = 'v3',)
+        },
+    gui = 'v3'),
     
     'achi': Game(
         name='Achi',

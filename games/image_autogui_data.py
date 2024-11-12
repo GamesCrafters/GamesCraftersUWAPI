@@ -120,6 +120,38 @@ def get_3spot(variant_id):
         }
     }
 
+def get_abrobad(variant_id):
+    tile_centers = [[190, 80], [300, 80],
+                [135, 175], [245, 175], [355, 175],
+                [80, 270], [190, 270], [300, 270], [410, 270],
+                [135, 365], [245, 365], [355, 365]]
+    tile_centers += [[435, 50]]  # END GAME BUTTON
+
+    char_images = {
+        "X": {"image": "y/W.svg", "scale": 100}, 
+        "O": {"image": "y/B.svg", "scale": 100},
+        "E": {"image": "abrobad/propose.svg", "scale": 160},
+        "t": {"image": "general/basichitbox.svg", "scale": 99} 
+    }
+    
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [500, 500],
+                "centers": tile_centers,
+                "background": "abrobad/board.svg",
+                "charImages": char_images,
+                "arrowWidth": 7,
+                "sounds": {
+                    "y": "general/slide.mp3",
+                    "x": "general/place.mp3"
+                },
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
 def get_achi(variant_id):
     return {
         "defaultTheme": "basic",
@@ -353,7 +385,6 @@ def get_chomp(variant_id):
                 "charImages": {
                     "x" : {"image": "chomp/x.svg", "scale": 1.01},
                     "p" : {"image": "chomp/p.svg", "scale": 1.01},
-                    "t" : {"image": "general/basichitbox.svg", "scale": 1}
                 },
                 "sounds": {"x": "chomp/chomp.mp3"},
                 "animationType": "entityFade"
@@ -1947,6 +1978,7 @@ image_autogui_data_funcs = {
     "0to10by1or2": get_0to10by1or2,
     "1dchess": get_1dchess,
     "3spot": get_3spot,
+    "abrobad": get_abrobad,
     "achi": get_achi,
     "adugo": get_adugo,
     "allqueenschess": get_allqueenschess,
