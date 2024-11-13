@@ -1033,6 +1033,19 @@ games = {
             },
         gui='v3'
         ),
+    
+    'tantfant': Game(
+        name='TantFant',
+        variants={
+            'regular': Variant(
+                name='Regular',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='tantfant',
+                data_provider_variant_id=1,
+                gui='v3')
+            },
+        gui='v3'
+        ),
 
     'teeko' : Game(
         name = 'Teeko' ,

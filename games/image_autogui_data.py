@@ -1711,6 +1711,29 @@ def get_tactix(variant_id):
         }
     }
 
+def get_tantfant(variant_id):
+    return {
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "space": [100, 100],
+                "centers": [[i % 3 * 40 + 10, i // 3 * 40 + 10] for i in range(9)],
+                "background": "tantfant/board.svg",
+                "charImages": {
+                    "X": {"image": "general/blackpiece.svg", "scale": 15},
+                    "O": {"image": "general/whitepiece.svg", "scale": 15}
+                },
+                "circleButtonRadius": 6.5,
+                "arrowWidth": 4,
+                "entitiesOverArrows": True,
+                "sounds": {
+                    "y": "general/slide.mp3"
+                },
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
 def get_teeko(variant_id):
     return {
         "defaultTheme": "regular",
@@ -2006,6 +2029,7 @@ image_autogui_data_funcs = {
     "snake": get_snake,
     "squaredance": get_squaredance,
     "tactix": get_tactix,
+    "tantfant": get_tantfant,
     "teeko": get_teeko,
     "tictactwo": get_tictactwo,
     "toadsandfrogspuzzle": get_toadsandfrogspuzzle,
