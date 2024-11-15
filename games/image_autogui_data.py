@@ -176,7 +176,7 @@ def get_allqueenschess(variant_id):
             "regular": {
                 "space": [5, 5],
                 "centers": [[i % 5 + 0.5, i // 5 + 0.5] for i in range(25)],
-                "background": "allqueenschess/board.svg",
+                "background": "general/checkerboard_gray_5x5.svg",
                 "charImages": {
                     "W": {"image": "chess/wikipedia/Q.svg", "scale": 1},
                     "B": {"image": "chess/wikipedia/qq.svg", "scale": 1}
@@ -1117,6 +1117,27 @@ def get_mutorere(variant_id):
         }
     }
 
+def get_neutron(variant_id):
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [5, 5],
+                "centers": [[i % 5 + 0.5, i // 5 + 0.5] for i in range(25)],
+                "background": "general/checkerboard_gray_5x5.svg",
+                "charImages": {
+                    "X": {"image": "general/bluepiece.svg", "scale": 1},
+                    "O": {"image": "general/redpiece.svg", "scale": 1},
+                    "N": {"image": "general/whitepiece.svg", "scale": 1}
+                },
+                "entitiesOverArrows": True,
+                "arrowWidth": 0.06,
+                "sounds": {"x": "general/slide.mp3"},
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
 def get_nim(variant_id):
     try:
         piles = variant_id.split('_')
@@ -1963,6 +1984,7 @@ image_autogui_data_funcs = {
     "lightsout": get_lightsout,
     "lite3": get_lite3,
     "mutorere": get_mutorere,
+    "neutron": get_neutron,
     "nim": get_nim,
     "ninemensmorris": get_ninemensmorris,
     "notakto": get_notakto,
