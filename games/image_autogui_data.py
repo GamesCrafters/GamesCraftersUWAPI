@@ -1876,6 +1876,30 @@ def get_topitop(variant_id):
         }
     }
 
+def get_tsoroyematatu(variant_id):
+    return {
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "space": [84, 84],
+                "centers": [[42, 10], [26, 42], [42, 42], [58, 42], [10, 74], [42, 74], [74, 74]],
+                "background": "tsoroyematatu/board.svg",
+                "charImages": {
+                    "x": {"image": "general/whitepiece.svg", "scale": 15},
+                    "o": {"image": "general/blackpiece.svg", "scale": 15}
+                },
+                "circleButtonRadius": 6.5,
+                "arrowWidth": 4,
+                "entitiesOverArrows": True,
+                "sounds": {
+                    "x": "general/place.mp3",
+                    "y": "general/slide.mp3"
+                },
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
 def get_y(variant_id):
     fg = "y/dim4.svg"
     ctrs = [[50, 15.7328], [37.875, 36.7339], [62.125, 36.7339], [25.75, 57.735], [50, 57.735],
@@ -2011,6 +2035,7 @@ image_autogui_data_funcs = {
     "toadsandfrogspuzzle": get_toadsandfrogspuzzle,
     "tootandotto": get_tootandotto,
     "topitop": get_topitop,
+    "tsoroyematatu": get_tsoroyematatu,
     "y": get_y,
     "yote": get_yote
 }
