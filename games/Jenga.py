@@ -15,13 +15,14 @@ class Jenga(AbstractGameVariant):
 
         #Change upon COMMIT
         self.DIRECTORY = "data/"
-        self.FILENAME = "JengaOutput.txt"
+        self.FILENAME = "JengaOutput2.txt"
 
         super(Jenga, self).__init__(name, desc, status=status, gui_status=gui_status)
 
     def start_position(self):
         #{AutoGUI}_{Player Turn A or B}_{Random int}_{Random int}_{JENGA BOARD representation (Max Length)}
-        return "R_A_0_0_" + "J"*15
+        levels = 3
+        return "R_A_0_0_" + "LLLRRR"*int(levels/2)
 
     def stat(self, position):
         try:
@@ -93,22 +94,24 @@ def isPrimative(board):
     return True
 
 def DoMove(board, move):
-    if (not isPrimative(board) and all([board[move + m] == 'J' for m in getAdjacent(move)])):
-        return board[:move] + "X" + board[move+1:] + "J"
+    if (not isPrimative(board) and all([(board[move + m] == 'L' or board[move + m] == 'R') for m in getAdjacent(move)])):
+        board = board[:move] + "X" + board[move+1:]
+        newPiece = "L" if len(board) % 6 < 3 else "R"
+        return board + newPiece
     else:
         return board
     
 
 def PrimativeValue(board):
     if isPrimative(board):
-        return "L"
+        return "lose"
     else:
         return "Not Primative"
 
 def GenerateMoves(board):
     returnLst = []
     for k in range(((len(board) // 3) - 1) * 3):
-        if board[k] == 'J' and all([board[k + m] == 'J' for m in getAdjacent(k)]):
+        if (board[k] == 'L' or board[k] == 'R') and all([(board[k + m] == 'L' or board[k + m] == 'R') for m in getAdjacent(k)]):
             returnLst.append(k)
 
     return returnLst
@@ -121,6 +124,41 @@ def getAdjacent(move):
         return [-1, 1]
     else:
         return [-1]
+
+# def isPrimative(board):
+#     if (GenerateMoves(board) != []):
+#         return False
+#     return True
+
+# def DoMove(board, move):
+#     if (not isPrimative(board) and all([board[move + m] == 'J' for m in getAdjacent(move)])):
+#         return board[:move] + "X" + board[move+1:] + "J"
+#     else:
+#         return board
+    
+
+# def PrimativeValue(board):
+#     if isPrimative(board):
+#         return "lose"
+#     else:
+#         return "Not Primative"
+
+# def GenerateMoves(board):
+#     returnLst = []
+#     for k in range(((len(board) // 3) - 1) * 3):
+#         if board[k] == 'J' and all([board[k + m] == 'J' for m in getAdjacent(k)]):
+#             returnLst.append(k)
+
+#     return returnLst
+
+# def getAdjacent(move):
+#     index = move % 3
+#     if(index == 0):
+#         return [1]
+#     elif(index == 1):
+#         return [-1, 1]
+#     else:
+#         return [-1]
     
 ###################### Solver ###################################
 

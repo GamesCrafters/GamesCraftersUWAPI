@@ -1,0 +1,5 @@
+0 lose XLXRRRLL
+1 win XLLRRRL
+0 lose LXLRRRL
+1 win LLXRRRL
+1 win LLLRRR

@@ -52,29 +52,45 @@ EXAMPLE:
 (Scroll all the way down for Step 2).
 
 """
-
 def get_jenga(variant_id):
+    import math
+
+    def getJengaCoords(height):
+        l_x1 = math.sqrt(3) / 4
+        l_x2 = l_x1 + (math.sqrt(3) / 2)
+        l_x3 = l_x2 + (math.sqrt(3) / 2)
+
+        l_x = [l_x1, l_x2, l_x3]
+
+        r_x1 = -1 * l_x1
+        r_x2 = -1 * l_x2
+        r_x3 = -1 * l_x3
+
+        r_x = [r_x1, r_x2, r_x3]
+
+        l_y = lambda x, i : ((1 / math.sqrt(3)) * x) + (0.5 * i)
+        r_y = lambda x, i : ((-1 / math.sqrt(3)) * x) + (0.5 * i)
+        
+        coords = []
+        for i in range(height):
+            if i % 2 == 0:
+                for a in range(3):
+                    coords.append((l_x[a] + l_x[2], l_y(l_x[a], i+1)))
+            else:
+                for b in range(3):
+                    coords.append((r_x[b] + l_x[2], r_y(r_x[b], i+1)))
+
+        return coords
+
     if variant_id == "regular":
         data = {
             "defaultTheme": "simple",
             "themes": {
                 "simple": {
-                    "backgroundGeometry": [6, 12], 
-                    "backgroundImage": "jenga/JengaBoard.svg",
-                    "centers": [                                    [3.5, 11.5], [4.5, 11.5], [5.5, 11.5], 
-                                [0.5, 10.5], [1.5, 10.5], [2.5, 10.5],   
-                                                                    [3.5, 9.5], [4.5, 9.5], [5.5, 9.5], 
-                                [0.5, 8.5], [1.5, 8.5], [2.5, 8.5],   
-                                                                    [3.5, 7.5], [4.5, 7.5], [5.5, 7.5], 
-                                [0.5, 6.5], [1.5, 6.5], [2.5, 6.5],                                    
-                                                                    [3.5, 5.5], [4.5, 5.5], [5.5, 5.5], 
-                                [0.5, 4.5], [1.5, 4.5], [2.5, 4.5], 
-                                                                    [3.5, 3.5], [4.5, 3.5], [5.5, 3.5], 
-                                [0.5, 2.5], [1.5, 2.5], [2.5, 2.5], 
-                                                                    [3.5, 1.5], [4.5, 1.5], [5.5, 1.5], 
-                                [0.5, 0.5], [1.5, 0.5], [2.5, 0.5]],
-               
-                    "pieces": { "J": {"image": "jenga/JengaPiece.svg", "scale": 1.0}}
+                    "backgroundGeometry": [100, 100], 
+                    "centers": getJengaCoords(15),
+                    "pieces": {"L": {"image": "jenga/JengaLeftBlock.svg", "scale": 1.0},
+                               "R": {"image": "jenga/JengaRightBlock.svg", "scale": 1.0}}
 
                 }
             }

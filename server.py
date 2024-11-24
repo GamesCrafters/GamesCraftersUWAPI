@@ -222,4 +222,5 @@ def handle_classic_games():
 
 if __name__ == '__main__':
     port = os.environ.get('API_PORT', None)
+    print(port)
     app.run(port=port)
