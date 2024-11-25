@@ -578,7 +578,7 @@ games = {
             'regular': Variant(
                 name='regular',
                 data_provider=GamesmanOne,
-                data_provider_game_id='kaooa',
+                data_provider_game_id='mkaooa',
                 data_provider_variant_id=0,
                 gui='v3')
         },
