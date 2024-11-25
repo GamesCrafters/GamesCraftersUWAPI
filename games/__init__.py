@@ -575,8 +575,8 @@ games = {
     'kaooa': Game(
         name='Kaooa',
         variants={
-            '6 crows': Variant(
-                name='6 crows',
+            'regular': Variant(
+                name='regular',
                 data_provider=GamesmanOne,
                 data_provider_game_id='kaooa',
                 data_provider_variant_id=0,
