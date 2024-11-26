@@ -1317,6 +1317,24 @@ def get_nutictactoe(variant_id):
         }
     }
 
+def get_4squaretictactoe(variant_id):
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [4, 4],
+                "centers": [[i % 4 + 0.5, i // 4 + 0.5] for i in range(16)],
+                "background": "4squaretictactoe/board.svg", 
+                "charImages": {
+                    "X": {"image": "ttt/x.svg", "scale": 1},
+                    "O": {"image": "ttt/o.svg", "scale": 1}
+                },  
+                "sounds": {"x": "general/place.mp3"},
+                "animationType": "entityFade"
+            }
+        }
+    }
+
 def get_oddoreven(variant_id):
     ctrs = [[i * 10 + 5, 10] for i in range(15)]
     ctrs += [[30 + i % 2 * 10, 90 - i // 2 * 10] for i in range(12)]
@@ -1947,6 +1965,7 @@ image_autogui_data_funcs = {
     "0to10by1or2": get_0to10by1or2,
     "1dchess": get_1dchess,
     "3spot": get_3spot,
+    "4squaretictactoe": get_4squaretictactoe,
     "achi": get_achi,
     "adugo": get_adugo,
     "allqueenschess": get_allqueenschess,
