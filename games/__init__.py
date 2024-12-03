@@ -539,6 +539,20 @@ games = {
         is_two_player_game=False
     ),
 
+    'jan': Game(
+        name="Jan",
+        variants={
+            '4x4': Variant(
+                name='4x4',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='jan',
+                data_provider_variant_id='1',
+                gui='v3',
+            ),
+        },
+        gui='v3',
+    ),
+
     'jenga': Game(
         name='Jenga',
         variants={

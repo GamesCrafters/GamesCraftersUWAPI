@@ -880,6 +880,29 @@ def get_hareandhounds(variant_id):
         return hareandhounds_iadata('large', 340, 7)
     return None
 
+def get_jan(variant_id):
+    return {
+        "defaultTheme": "default",
+        "themes": {
+            "default": {
+                "space": [800, 800],
+                "centers": [ [((i % 4) * 200) + 100, ((i // 4) * 200) + 100] for i in range(16)],
+                "background": "jan/board.svg",
+            "charImages": {
+                    "b": {"image": "general/blackpiece.svg", "scale": 125},
+                    "w": {"image": "general/whitepiece.svg", "scale": 125},
+                },
+                "circleButtonRadius": 6.5,
+                "arrowWidth": 25,
+                "entitiesOverArrows": True,
+                "sounds": {
+                    "s": "general/slide.mp3",
+                },
+                "animationType": "simpleSlides",
+            }
+        }
+    }
+
 def get_jenga(variant_id):
     return {
         "defaultTheme": "simple",
@@ -1976,6 +1999,7 @@ image_autogui_data_funcs = {
     "graphgame": get_graphgame,
     "towersofhanoi": get_towersofhanoi,
     "hareandhounds": get_hareandhounds,
+    "jan": get_jan,
     "jenga": get_jenga,
     "joust": get_joust,
     "kayles": get_kayles,
