@@ -1160,6 +1160,19 @@ games = {
         },
         is_two_player_game=False
     ),
+
+    'tsoroyematatu': Game(
+        name='Tsoro Yematatu',
+        variants={
+            'regular': Variant(
+                name='Regular',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='tsoroyematatu',
+                data_provider_variant_id=0,
+                gui='v3')
+        },
+        gui='v3'
+    ),
     
     'y': Game(
         name='Y',
