@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import TypedDict
+from typing import TypedDict, Union
 
 class StartPosition(TypedDict):
     position: str
@@ -53,7 +53,7 @@ class Variant(AbstractVariant):
             name: str,
             data_provider: DataProvider,
             data_provider_game_id: str,
-            data_provider_variant_id: int | str,
+            data_provider_variant_id: Union[int, str], 
             gui: str = 'v0'
         ):
         super(Variant, self).__init__(name, gui=gui)

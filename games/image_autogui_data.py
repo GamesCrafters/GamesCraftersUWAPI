@@ -1015,6 +1015,35 @@ def get_kayles(variant_id):
         }
     }
 
+def get_kaooa(variant_id):
+    char_images = {
+        "V": {"image": "kaooa/vulture.svg", "scale": 2}, 
+        "C": {"image": "kaooa/crow.svg", "scale": 1.5}
+    }
+
+    centers = [
+            [5.05, 0.6], [8.4, 3], [7.2, 7.1], [2.9, 7.1], [1.7, 3], 
+            [5.9, 3], [6.3, 4.7], [5, 5.5], [3.6, 4.7], [4.1, 3], 
+        ]
+        
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [10, 8],
+                "centers": centers,
+                "background": "kaooa/file.svg",
+                "charImages": char_images,
+                "entitiesOverArrows": False,
+                 "sounds": {
+                    "x": "general/slide.mp3",
+                    "y": "general/slide.mp3"  
+                },
+                "animationType": "simpleSlides",
+            }
+        }
+    }
+
 def get_konane(variant_id):
     def konane_iadata(rows, cols):
         rc = rows * cols
@@ -2083,6 +2112,7 @@ image_autogui_data_funcs = {
     "jenga": get_jenga,
     "joust": get_joust,
     "kayles": get_kayles,
+    "kaooa": get_kaooa, 
     "konane": get_konane,
     "lewthwaitesgame": get_lewthwaitesgame,
     "lgame": get_lgame,
