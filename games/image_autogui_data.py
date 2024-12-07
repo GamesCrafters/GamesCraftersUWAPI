@@ -120,6 +120,38 @@ def get_3spot(variant_id):
         }
     }
 
+def get_abrobad(variant_id):
+    tile_centers = [[190, 80], [300, 80],
+                [135, 175], [245, 175], [355, 175],
+                [80, 270], [190, 270], [300, 270], [410, 270],
+                [135, 365], [245, 365], [355, 365]]
+    tile_centers += [[435, 50]]  # END GAME BUTTON
+
+    char_images = {
+        "X": {"image": "y/W.svg", "scale": 117}, 
+        "O": {"image": "y/B.svg", "scale": 117},
+        "E": {"image": "abrobad/propose.svg", "scale": 160},
+        "t": {"image": "general/basichitbox.svg", "scale": 99} 
+    }
+    
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [500, 500],
+                "centers": tile_centers,
+                "background": "abrobad/board.svg",
+                "charImages": char_images,
+                "arrowWidth": 7,
+                "sounds": {
+                    "y": "general/slide.mp3",
+                    "x": "general/place.mp3"
+                },
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
 def get_achi(variant_id):
     return {
         "defaultTheme": "basic",
@@ -353,7 +385,7 @@ def get_chomp(variant_id):
                 "charImages": {
                     "x" : {"image": "chomp/x.svg", "scale": 1.01},
                     "p" : {"image": "chomp/p.svg", "scale": 1.01},
-                    "t" : {"image": "general/basichitbox.svg", "scale": 1}
+                    "t" : {"image": "general/basichitbox.svg", "scale": 1}  
                 },
                 "sounds": {"x": "chomp/chomp.mp3"},
                 "animationType": "entityFade"
@@ -879,6 +911,29 @@ def get_hareandhounds(variant_id):
     elif variant_id == "l-hounds-first" or variant_id == "l-hare-first":
         return hareandhounds_iadata('large', 340, 7)
     return None
+
+def get_jan(variant_id):
+    return {
+        "defaultTheme": "default",
+        "themes": {
+            "default": {
+                "space": [800, 800],
+                "centers": [ [((i % 4) * 200) + 100, ((i // 4) * 200) + 100] for i in range(16)],
+                "background": "jan/board.svg",
+            "charImages": {
+                    "b": {"image": "general/blackpiece.svg", "scale": 125},
+                    "w": {"image": "general/whitepiece.svg", "scale": 125},
+                },
+                "circleButtonRadius": 6.5,
+                "arrowWidth": 25,
+                "entitiesOverArrows": True,
+                "sounds": {
+                    "s": "general/slide.mp3",
+                },
+                "animationType": "simpleSlides",
+            }
+        }
+    }
 
 def get_jenga(variant_id):
     return {
@@ -1729,6 +1784,29 @@ def get_tactix(variant_id):
         }
     }
 
+def get_tantfant(variant_id):
+    return {
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "space": [100, 100],
+                "centers": [[i % 3 * 40 + 10, i // 3 * 40 + 10] for i in range(9)],
+                "background": "tantfant/board.svg",
+                "charImages": {
+                    "X": {"image": "general/blackpiece.svg", "scale": 15},
+                    "O": {"image": "general/whitepiece.svg", "scale": 15}
+                },
+                "circleButtonRadius": 6.5,
+                "arrowWidth": 4,
+                "entitiesOverArrows": True,
+                "sounds": {
+                    "y": "general/slide.mp3"
+                },
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
 def get_teeko(variant_id):
     return {
         "defaultTheme": "regular",
@@ -1894,6 +1972,30 @@ def get_topitop(variant_id):
         }
     }
 
+def get_tsoroyematatu(variant_id):
+    return {
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "space": [84, 84],
+                "centers": [[42, 10], [26, 42], [42, 42], [58, 42], [10, 74], [42, 74], [74, 74]],
+                "background": "tsoroyematatu/board.svg",
+                "charImages": {
+                    "x": {"image": "general/whitepiece.svg", "scale": 15},
+                    "o": {"image": "general/blackpiece.svg", "scale": 15}
+                },
+                "circleButtonRadius": 6.5,
+                "arrowWidth": 4,
+                "entitiesOverArrows": True,
+                "sounds": {
+                    "x": "general/place.mp3",
+                    "y": "general/slide.mp3"
+                },
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
 def get_y(variant_id):
     fg = "y/dim4.svg"
     ctrs = [[50, 15.7328], [37.875, 36.7339], [62.125, 36.7339], [25.75, 57.735], [50, 57.735],
@@ -1966,6 +2068,7 @@ image_autogui_data_funcs = {
     "1dchess": get_1dchess,
     "3spot": get_3spot,
     "4squaretictactoe": get_4squaretictactoe,
+    "abrobad": get_abrobad,
     "achi": get_achi,
     "adugo": get_adugo,
     "allqueenschess": get_allqueenschess,
@@ -1995,6 +2098,7 @@ image_autogui_data_funcs = {
     "graphgame": get_graphgame,
     "towersofhanoi": get_towersofhanoi,
     "hareandhounds": get_hareandhounds,
+    "jan": get_jan,
     "jenga": get_jenga,
     "joust": get_joust,
     "kayles": get_kayles,
@@ -2025,11 +2129,13 @@ image_autogui_data_funcs = {
     "snake": get_snake,
     "squaredance": get_squaredance,
     "tactix": get_tactix,
+    "tantfant": get_tantfant,
     "teeko": get_teeko,
     "tictactwo": get_tictactwo,
     "toadsandfrogspuzzle": get_toadsandfrogspuzzle,
     "tootandotto": get_tootandotto,
     "topitop": get_topitop,
+    "tsoroyematatu": get_tsoroyematatu,
     "y": get_y,
     "yote": get_yote
 }

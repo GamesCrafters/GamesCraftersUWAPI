@@ -69,6 +69,18 @@ games = {
                 data_provider_variant_id=1)
         }
     ),
+
+    'abrobad' : Game(
+        name = 'Abrobad' ,
+        variants={
+            'standard': Variant(
+                name = 'Regular',
+                data_provider= GamesmanClassic,
+                data_provider_game_id = 'abrobad',
+                data_provider_variant_id = '0',
+                gui = 'v3',)
+        },
+    gui = 'v3'),
     
     'achi': Game(
         name='Achi',
@@ -537,6 +549,20 @@ games = {
             )
         },
         is_two_player_game=False
+    ),
+
+    'jan': Game(
+        name="Jan",
+        variants={
+            '4x4': Variant(
+                name='4x4',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='jan',
+                data_provider_variant_id='1',
+                gui='v3',
+            ),
+        },
+        gui='v3',
     ),
 
     'jenga': Game(
@@ -1033,6 +1059,19 @@ games = {
             },
         gui='v3'
         ),
+    
+    'tantfant': Game(
+        name='TantFant',
+        variants={
+            'regular': Variant(
+                name='Regular',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='tantfant',
+                data_provider_variant_id=1,
+                gui='v3')
+            },
+        gui='v3'
+        ),
 
     'teeko' : Game(
         name = 'Teeko' ,
@@ -1133,6 +1172,19 @@ games = {
             )
         },
         is_two_player_game=False
+    ),
+
+    'tsoroyematatu': Game(
+        name='Tsoro Yematatu',
+        variants={
+            'regular': Variant(
+                name='Regular',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='tsoroyematatu',
+                data_provider_variant_id=0,
+                gui='v3')
+        },
+        gui='v3'
     ),
     
     'y': Game(
