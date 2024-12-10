@@ -598,6 +598,18 @@ games = {
         custom_variant=kayles_custom_start,
         gui='v3'),
 
+    'kaooa': Game(
+        name='Kaooa',
+        variants={
+            'regular': Variant(
+                name='regular',
+                data_provider=GamesmanOne,
+                data_provider_game_id='mkaooa',
+                data_provider_variant_id=0,
+                gui='v3')
+        },
+        gui='v3'),
+
     'konane': Game(
         name='Kōnane',
         variants={
