@@ -1264,5 +1264,35 @@ games = {
                 data_provider_variant_id=2,
                 gui='v2'),
         },
-        gui='v2')
+        gui='v2'),
+        
+        '4squaretictactoe': Game(
+        name='4-Square-Tic-Tac-Toe',
+        variants={
+            'regular': Variant(
+                name='Regular',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='ttt4',
+                data_provider_variant_id=3,
+                gui='v3'),
+            'misere': Variant(
+                name='Misere',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='ttt4',
+                data_provider_variant_id=1,
+                gui='v3'),
+            'diamond': Variant(
+                name='Diamond',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='ttt4',
+                data_provider_variant_id=4,
+                gui='v3'),
+            'diamond_misere': Variant(
+                name='Diamond Misere',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='ttt4',
+                data_provider_variant_id=2,
+                gui='v3')
+        },
+        gui='v3')
 }
