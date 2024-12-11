@@ -731,6 +731,19 @@ games = {
                 gui='v3')
         },
         gui='v3'),
+
+    'neutron' : Game(
+        name = 'Neutron' ,
+        variants={
+            'regular': Variant(
+                name = 'Home Row Wins',
+                data_provider=GamesmanOne,
+                data_provider_game_id = 'neutron' ,
+                data_provider_variant_id = '0' ,
+                gui = 'v3',
+            ),
+        },
+    gui = 'v3'),
     
     'nim': Game(
         name='Nim',
