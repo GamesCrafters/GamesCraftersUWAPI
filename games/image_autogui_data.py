@@ -1427,12 +1427,13 @@ def get_4squaretictactoe(variant_id):
         "defaultTheme": "regular",
         "themes": {
             "regular": {
-                "space": [4, 4],
-                "centers": [[i % 4 + 0.5, i // 4 + 0.5] for i in range(16)],
+                "space": [400, 400],
+                "centers": [[(i % 4 + 0.5) * 100, (i // 4 + 0.5) * 100] for i in range(16)],
                 "background": "4squaretictactoe/board.svg", 
                 "charImages": {
                     "X": {"image": "ttt/x.svg", "scale": 99},
-                    "O": {"image": "ttt/o.svg", "scale": 99}
+                    "O": {"image": "ttt/o.svg", "scale": 99},
+                    "t": {"image": "general/basichitbox.svg", "scale": 99}
                 },  
                 "sounds": {"x": "general/place.mp3"},
                 "animationType": "entityFade"
