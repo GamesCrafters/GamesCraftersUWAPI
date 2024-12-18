@@ -824,18 +824,18 @@ def get_gobblet_gobblers(variant_id):
             "regular": {
                 "space": [30, 45],
                 "centers": faces + small_board + medium_board + large_board + remaining_pieces,
-                "background": "ttt/3x3grid_tall.svg",
+                "background": "gobblet/3x3grid_tall.svg",
                 "charImages": {
                     "O": {"image": "ttt/o.svg", "scale": 2},
                     "P": {"image": "ttt/o.svg", "scale": 4.5},
                     "Q": {"image": "ttt/o.svg", "scale": 7.5},
                     "X": {"image": "ttt/x.svg", "scale": 2},
                     "Y": {"image": "ttt/x.svg", "scale": 4.5},
-                    "Z": {"image": "ttt/x.svg", "scale": 7.5},
-                    "h": {"image": "general/basichitbox.svg", "scale": 3}
+                    "Z": {"image": "ttt/x.svg", "scale": 7.5}
                 },
                 "arrowWidth": 0.4,
                 "entitiesOverArrows": True,
+                "circleButtonRadius": 0.8,
                 "sounds": {"x": "general/place.mp3"},
                 "animationType": "entityFade"
             }
