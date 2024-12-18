@@ -456,6 +456,18 @@ games = {
         gui='v3'
     ),
 
+    'gobbletgobblers': Game(
+        name='Gobblet Gobblers',
+        variants={
+            'regular': Variant(
+                name='regular',
+                data_provider=GamesmanOne,
+                data_provider_game_id='gobbletg',
+                data_provider_variant_id=0,
+                gui='v3')
+        },
+        gui='v3'),
+
     'graphgame': Game(
         name='Graph',
         variants={

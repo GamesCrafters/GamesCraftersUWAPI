@@ -811,6 +811,37 @@ def get_ghost(variant_id):
         }
     }
 
+def get_gobblet_gobblers(variant_id):
+    faces = [[4 + 10 * i, 5 + 10 * j] for j in range(3) for i in range(3)]
+    small_board = [[8.5 + 10 * i, 7.5 + 10 * j] for j in range(3) for i in range(3)]
+    medium_board = [[8.5 + 10 * i, 5 + 10 * j] for j in range(3) for i in range(3)]
+    large_board = [[8.5 + 10 * i, 2.5 + 10 * j] for j in range(3) for i in range(3)]
+    remaining_pieces = [[2, 35], [5, 34], [11, 33], [17, 35], [21, 34], [27, 33],
+                        [2, 42], [5, 41], [11, 40], [17, 42], [21, 41], [27, 40]]
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [30, 45],
+                "centers": faces + small_board + medium_board + large_board + remaining_pieces,
+                "background": "ttt/3x3grid_tall.svg",
+                "charImages": {
+                    "O": {"image": "ttt/o.svg", "scale": 2},
+                    "P": {"image": "ttt/o.svg", "scale": 4.5},
+                    "Q": {"image": "ttt/o.svg", "scale": 7.5},
+                    "X": {"image": "ttt/x.svg", "scale": 2},
+                    "Y": {"image": "ttt/x.svg", "scale": 4.5},
+                    "Z": {"image": "ttt/x.svg", "scale": 7.5},
+                    "h": {"image": "general/basichitbox.svg", "scale": 3}
+                },
+                "arrowWidth": 0.4,
+                "entitiesOverArrows": True,
+                "sounds": {"x": "general/place.mp3"},
+                "animationType": "entityFade"
+            }
+        }
+    }
+
 def get_graphgame(variant_id):
     centers, space, arrowWidth, scale, img = None, None, None, None, None
     if variant_id == "0":
@@ -2146,6 +2177,7 @@ image_autogui_data_funcs = {
     "forestfox": get_forestfox,
     "foxandhounds": get_foxandhounds,
     "ghost": get_ghost,
+    "gobbletgobblers": get_gobblet_gobblers,
     "graphgame": get_graphgame,
     "towersofhanoi": get_towersofhanoi,
     "hareandhounds": get_hareandhounds,
