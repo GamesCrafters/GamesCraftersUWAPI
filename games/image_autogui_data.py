@@ -2078,6 +2078,37 @@ def get_tsoroyematatu(variant_id):
         }
     }
 
+def get_winkers(variant_id):
+    centers = [[-45, -80],[0, -80],[45, -80],
+                [-67.5, -40],[-22.5, -40],[22.5, -40],[67.5, -40],
+                [-90, 0],[-45, 0],[0, 0],[45, 0],[90, 0],
+                [-67.5, 40],[-22.5, 40],[22.5, 40],[67.5, 40],
+                [-45, 80],[0, 80],[45, 80]]
+    centers += [[i, 120] for i in range(-90, -30, 6)]
+    centers += [[i, 120] for i in range(30, 90, 6)]
+    centers += [[i, 160] for i in range(-90, -30, 6)]
+    centers += [[i, 160] for i in range(30, 90, 6)]
+    centers = [[value + 120 for value in sublist] for sublist in centers]
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [240, 300],
+                "centers": centers,
+                "background": "winkers/background.svg",
+                "charImages": {
+                    "X": {"image": "winkers/X.svg", "scale": 50},
+                    "O": {"image": "winkers/O.svg", "scale": 50},
+                    "C": {"image": "winkers/C.svg", "scale": 50},
+                },
+                "sounds": {
+                    "x": "general/slide.mp3",
+                },
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
 def get_y(variant_id):
     fg = "y/dim4.svg"
     ctrs = [[50, 15.7328], [37.875, 36.7339], [62.125, 36.7339], [25.75, 57.735], [50, 57.735],
@@ -2221,6 +2252,7 @@ image_autogui_data_funcs = {
     "tootandotto": get_tootandotto,
     "topitop": get_topitop,
     "tsoroyematatu": get_tsoroyematatu,
+    "winkers": get_winkers,
     "y": get_y,
     "yote": get_yote
 }
