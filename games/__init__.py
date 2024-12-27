@@ -456,6 +456,18 @@ games = {
         gui='v3'
     ),
 
+    'gobbletgobblers': Game(
+        name='Gobblet Gobblers',
+        variants={
+            'regular': Variant(
+                name='regular',
+                data_provider=GamesmanOne,
+                data_provider_game_id='gobbletg',
+                data_provider_variant_id=0,
+                gui='v3')
+        },
+        gui='v3'),
+
     'graphgame': Game(
         name='Graph',
         variants={
@@ -1211,6 +1223,19 @@ games = {
         },
         gui='v3'
     ),
+
+    'winkers' : Game(
+        name = 'Winkers' ,
+        variants={
+            'simplified': Variant(
+                name = "Win if you can't move",
+                data_provider=GamesmanOne,
+                data_provider_game_id = 'winkers',
+                data_provider_variant_id = '0',
+                gui = 'v3',
+            ),
+        },
+    gui = 'v3'),
     
     'y': Game(
         name='Y',
