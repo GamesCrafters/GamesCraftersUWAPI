@@ -556,7 +556,7 @@ games = {
                 name='regular',
                 data_provider=GamesmanClassic,
                 data_provider_game_id='hobaggonu',
-                data_provider_variant_id='1',
+                data_provider_variant_id="1",
                 gui='v3',
             ),
         },
