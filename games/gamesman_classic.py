@@ -5,8 +5,8 @@ from .multipart_handler import multipart_wrangle
 class GamesmanClassic(DataProvider):
     # Use first url when running on a different machine,
     # use second when running on main gamesman server.
-    #url = "http://nyc.cs.berkeley.edu:8083/"
-    url = "http://localhost:8083/"
+    url = "http://nyc.cs.berkeley.edu:8083/"
+    #url = "http://localhost:8083/"
 
     def read_from_url(tempurl):
         try:

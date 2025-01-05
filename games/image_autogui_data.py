@@ -979,8 +979,8 @@ def get_hobaggonu(variant_id):
                             [0.5, 8.5], [2.5, 8.5], [4.5, 8.5]],
                 "background": "hobaggonu/hobaggonu.svg",
                 "charImages": { 
-                    "X": {"image": "general/blackpiece.svg", "scale": 1},
-                    "O": {"image": "general/whitepiece.svg", "scale": 1},
+                    "X": {"image": "general/blackpiece.svg", "scale": 1.3},
+                    "O": {"image": "general/whitepiece.svg", "scale": 1.3},
                 },
                 "sounds": {"x": "general/slide.mp3"},
                 "animationType": "entityFade"
