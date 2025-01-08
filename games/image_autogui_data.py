@@ -972,15 +972,15 @@ def get_hobaggonu(variant_id):
         "themes": {
             "simple": {
                 "space": [5, 9], 
-                "centers": [[0.5, 0.5], [2.5, 0.5], [4.5, 0.5], 
-                            [2.5, 2.5], 
-                            [0.5, 4.5], [2.5, 4.5], [4.5, 4.5], 
-                            [2.5, 6.5],
-                            [0.5, 8.5], [2.5, 8.5], [4.5, 8.5]],
+                "centers": [[0.25, 0.25], [1.25, 0.25], [2.25, 0.25], 
+                            [1.25, 1.25], 
+                            [0.25, 2.25], [1.25, 2.25], [2.25, 2.25], 
+                            [1.25, 3.25],
+                            [0.25, 4.25], [1.25, 4.25], [2.25, 4.25]],
                 "background": "hobaggonu/hobaggonu.svg",
                 "charImages": { 
-                    "X": {"image": "general/blackpiece.svg", "scale": 1.3},
-                    "O": {"image": "general/whitepiece.svg", "scale": 1.3},
+                    "X": {"image": "general/blackpiece.svg", "scale": 0.6},
+                    "O": {"image": "general/whitepiece.svg", "scale": 0.6},
                 },
                 "sounds": {"x": "general/slide.mp3"},
                 "animationType": "entityFade"
