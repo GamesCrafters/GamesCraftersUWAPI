@@ -971,16 +971,16 @@ def get_hobaggonu(variant_id):
         "defaultTheme": "simple",
         "themes": {
             "simple": {
-                "space": [5, 9], 
-                "centers": [[0.25, 0.25], [1.25, 0.25], [2.25, 0.25], 
-                            [1.25, 1.25], 
-                            [0.25, 2.25], [1.25, 2.25], [2.25, 2.25], 
-                            [1.25, 3.25],
-                            [0.25, 4.25], [1.25, 4.25], [2.25, 4.25]],
+                "space": [10, 18], 
+                "centers": [[3, 0.5], [5, 0.5], [7, 0.5], 
+                            [5, 2.5], 
+                            [3, 4.5], [5, 4.5], [7, 4.5], 
+                            [5, 6.5],
+                            [3, 8.5], [5, 8.5], [7, 8.5]],
                 "background": "hobaggonu/hobaggonu.svg",
                 "charImages": { 
-                    "X": {"image": "general/blackpiece.svg", "scale": 0.6},
-                    "O": {"image": "general/whitepiece.svg", "scale": 0.6},
+                    "X": {"image": "general/blackpiece.svg", "scale": 1.3},
+                    "O": {"image": "general/whitepiece.svg", "scale": 1.3},
                 },
                 "sounds": {"x": "general/slide.mp3"},
                 "animationType": "entityFade"
