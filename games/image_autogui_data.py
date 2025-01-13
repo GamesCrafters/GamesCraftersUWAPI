@@ -971,7 +971,7 @@ def get_hobaggonu(variant_id):
         "defaultTheme": "simple",
         "themes": {
             "simple": {
-                "space": [10, 18], 
+                "space": [10, 10], 
                 "centers": [[3, 0.5], [5, 0.5], [7, 0.5], 
                             [5, 2.5], 
                             [3, 4.5], [5, 4.5], [7, 4.5], 
@@ -979,8 +979,8 @@ def get_hobaggonu(variant_id):
                             [3, 8.5], [5, 8.5], [7, 8.5]],
                 "background": "hobaggonu/hobaggonu.svg",
                 "charImages": { 
-                    "X": {"image": "general/blackpiece.svg", "scale": 1.3},
-                    "O": {"image": "general/whitepiece.svg", "scale": 1.3},
+                    "X": {"image": "general/blackpiece.svg", "scale": 1.5},
+                    "O": {"image": "general/whitepiece.svg", "scale": 1.5},
                 },
                 "sounds": {"x": "general/slide.mp3"},
                 "animationType": "entityFade"
