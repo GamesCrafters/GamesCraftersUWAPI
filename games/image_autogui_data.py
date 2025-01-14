@@ -983,7 +983,7 @@ def get_hobaggonu(variant_id):
                     "O": {"image": "general/whitepiece.svg", "scale": 1.5},
                 },
                 "sounds": {"x": "general/slide.mp3"},
-                "animationType": "entityFade"
+                "animationType": "simpleSlides"
             }
         }
     }
