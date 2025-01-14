@@ -966,6 +966,28 @@ def get_jan(variant_id):
         }
     }
 
+def get_hobaggonu(variant_id):
+    return {
+        "defaultTheme": "simple",
+        "themes": {
+            "simple": {
+                "space": [10, 10], 
+                "centers": [[3, 0.5], [5, 0.5], [7, 0.5], 
+                            [5, 2.5], 
+                            [3, 4.5], [5, 4.5], [7, 4.5], 
+                            [5, 6.5],
+                            [3, 8.5], [5, 8.5], [7, 8.5]],
+                "background": "hobaggonu/hobaggonu.svg",
+                "charImages": { 
+                    "X": {"image": "general/blackpiece.svg", "scale": 1.5},
+                    "O": {"image": "general/whitepiece.svg", "scale": 1.5},
+                },
+                "sounds": {"x": "general/slide.mp3"},
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
 def get_jenga(variant_id):
     return {
         "defaultTheme": "simple",
@@ -2212,6 +2234,7 @@ image_autogui_data_funcs = {
     "graphgame": get_graphgame,
     "towersofhanoi": get_towersofhanoi,
     "hareandhounds": get_hareandhounds,
+    "hobaggonu": get_hobaggonu,
     "jan": get_jan,
     "jenga": get_jenga,
     "joust": get_joust,

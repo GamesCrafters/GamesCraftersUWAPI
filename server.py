@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 from games import games
@@ -176,7 +176,7 @@ def get_games() -> list[dict[str, str]]:
         'gui': game.gui
     } for game_id, game in games.items()]
     all_games.sort(key=lambda g: g['name'])
-    return all_games
+    return jsonify(all_games)
 
 @app.route("/<game_id>/")
 def get_game(game_id: str):

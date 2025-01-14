@@ -548,6 +548,20 @@ games = {
                 gui='v3')
         },
         gui='v3'),
+
+    'hobaggonu': Game(
+        name="HoBagGonu",
+        variants={
+            'regular': Variant(
+                name='regular',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='hobaggonu',
+                data_provider_variant_id=0,
+                gui='v3',
+            ),
+        },
+        gui='v3',
+    ),
     
     'hopndrop': Game(
         name="Hop N' Drop",
