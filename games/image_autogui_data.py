@@ -1475,6 +1475,35 @@ def get_nutictactoe(variant_id):
         }
     }
 
+def get_Nto0(variant_id):
+    if variant_id == "10_bi":
+        centers = [
+            [92.5, 50],
+            [100, 50],
+            [108.5, 50],
+        ]
+    else:
+        centers = [
+            [100, 50],
+        ]
+
+    char_images = {
+        str(d): {"image": f"general/{d}.svg", "scale": 100} for d in range(10)
+    }
+    char_images['t'] = {"image": "general/basichitbox.svg", "scale": 10}
+
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [200, 100],
+                "centers": centers,
+                "charImages": char_images,
+                "animationType": "entityFade",
+            }
+        }
+    }
+
 def get_4squaretictactoe(variant_id):
     return {
         "defaultTheme": "regular",
@@ -2253,6 +2282,7 @@ image_autogui_data_funcs = {
     "npuzzle": get_npuzzle,
     "nqueens": get_nqueens,
     "nutictactoe": get_nutictactoe,
+    "nToZero": get_Nto0,
     "oddoreven": get_oddoreven,
     "othello": get_othello,
     "pegsolitaire": get_pegsolitaire,

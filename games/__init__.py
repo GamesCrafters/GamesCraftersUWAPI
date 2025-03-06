@@ -290,7 +290,38 @@ games = {
         },
         custom_variant=dawsonschess_custom_start,
         gui='v3'),
+
     
+    'lightsout': Game(
+        name='Lights Out',
+        variants={
+            v: Variant(
+                name=f'{v}x{v}',
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='lightsout',
+                data_provider_variant_id=v,
+                gui='v3'
+            ) for v in '2345678'
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
+
+    'nToZero': Game(
+        name = "nToZero",
+        variants= {
+            v: Variant(
+                name=f"{v.split('_')[0]} {'Bidirectional' if v.split('_')[1] == 'bi' else 'Forward'}",
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='nToZero',
+                data_provider_variant_id=v,
+                gui='v3'
+            ) for v in ['4_bi', '10_bi', '4_for']
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
+
     'dinododgem': Game(
         name='Dino Dodgem',
         variants={
