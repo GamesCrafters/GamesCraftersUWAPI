@@ -1476,30 +1476,58 @@ def get_nutictactoe(variant_id):
     }
 
 def get_Nto0(variant_id):
+    background = None
     if variant_id == "10_bi":
+        background = "10-to-0-by-1-or-2-pruned.svg"
         centers = [
-            [92.5, 50],
-            [100, 50],
-            [108.5, 50],
+            [250, 699],
+            [348, 569],
+            [152, 569],
+            [348, 439],
+            [152, 439],
+            [348, 309],
+            [152, 309],
+            [348, 179],
+            [152, 179],
+            [348, 49],
+            [152, 49],
         ]
+        char_images = {
+            str(d): {"image": f"nToZero/current_position.svg", "scale": 70} for d in range(10)
+        }
+        char_images['t'] = {"image": "general/basichitbox.svg", "scale": 70}
+        arrowWidth = 11
+        space = [500, 750]
     else:
+        if variant_id == "4_bi": background = "4-to-0-by-1-or-2-pruned.svg"
+        else: background = "4-to-0-by-1-or-2-pruned.svg"
         centers = [
-            [100, 50],
+            [250, 432],
+            [386, 250],
+            [114, 250],
+            [386, 68],
+            [114, 68],
         ]
-
-    char_images = {
-        str(d): {"image": f"general/{d}.svg", "scale": 100} for d in range(10)
-    }
-    char_images['t'] = {"image": "general/basichitbox.svg", "scale": 10}
+        char_images = {
+            str(d): {"image": f"nToZero/current_position.svg", "scale": 95} for d in range(10)
+        }
+        char_images['t'] = {"image": "general/basichitbox.svg", "scale": 95}
+        arrowWidth = 14
+        space = [500, 500]
 
     return {
         "defaultTheme": "regular",
         "themes": {
             "regular": {
-                "space": [200, 100],
+                "space": space,
                 "centers": centers,
                 "charImages": char_images,
-                "animationType": "entityFade",
+                "arrowWidth": arrowWidth,
+                "animationType": "simpleSlides",
+                "sounds": {
+                    "y": "general/slide.mp3"
+                },
+                "background": f"nToZero/{background}"
             }
         }
     }
