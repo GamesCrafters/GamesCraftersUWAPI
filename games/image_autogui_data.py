@@ -1650,13 +1650,14 @@ def get_quickcross(variant_id):
     }
 
 def get_quixo(variant_id):
-    def helper(max_size): 
-        src_centers = [[i, j] for i in range(2, max_size + 1, 4) for j in range(2, max_size + 1, 4)]
-        up_centers = [[i - 2, j] for i, j in src_centers]
-        right_centers = [[i, j + 2] for i, j in src_centers]
-        down_centers = [[i + 2, j] for i, j in src_centers]
-        left_centers = [[i, j - 2] for i, j in src_centers]
-        centers =src_centers + up_centers + right_centers + down_centers + left_centers
+    def helper(side_length):
+        max_size = side_length * 4
+        src_centers = [[i, j] for j in range(2, max_size + 1, 4) for i in range(2, max_size + 1, 4) ]
+        right_centers = [[i + 2, j] for i, j in src_centers]
+        left_centers = [[i - 2, j] for i, j in src_centers]
+        down_centers = [[i, j + 2] for i, j in src_centers]
+        up_centers = [[i, j - 2] for i, j in src_centers]
+        centers = src_centers + right_centers + left_centers + down_centers + up_centers
         
         return {
             "defaultTheme": "regular",
@@ -1677,11 +1678,11 @@ def get_quixo(variant_id):
         }
     
     if variant_id == "5x5": 
-        return helper(20)
+        return helper(5)
     if variant_id == "4x4": 
-        return helper(16)
+        return helper(4)
     if variant_id == "3x3":
-        return helper(12)
+        return helper(3)
 
 def get_rubikscube(variant_id):
     # Color Centers
