@@ -1093,7 +1093,7 @@ games = {
                 name='5 Pieces',
                 data_provider=GamesmanPuzzles,
                 data_provider_game_id='spinout',
-                data_provider_variant_id=0,
+                data_provider_variant_id="5_piece",
                 gui='v3')
             },
         is_two_player_game=False,

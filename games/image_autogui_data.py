@@ -1832,7 +1832,9 @@ def get_snake(variant_id):
     }
 
 def get_spinout(variant_id):
-    char_images = {"tile": f"spinout/Spinout Tile.svg", "scale": 1.0}
+    char_images = {
+        "0": {"image" : "spinout/Spinout_Tile.svg", "scale": 1.0}
+    }
     #char_images = char_images | {c: {"image": f"snake/{c}.svg", "scale": 1} for c in 'ht'}
     #centers = [[i % 4 + 0.5, i // 4 + 0.5] for i in range(16)]
     return {
@@ -1841,7 +1843,7 @@ def get_spinout(variant_id):
             "red": {
                 "space": [5, 1],
                 "centers": [[0.5,0.5], [1.5,0.5], [2.5,0.5], [3.5,0.5], [4.5,0.5]],
-                "background": "spinout/grid.svg",
+                "background": "spinout/Spinout_Track.svg",
                 "charImages": char_images,
                 "entitiesOverArrows": False,
                 "sounds": {"x": "animals/snake.mp3"},
