@@ -1831,6 +1831,25 @@ def get_snake(variant_id):
         }
     }
 
+def get_spinout(variant_id):
+    char_images = {"tile": f"spinout/Spinout Tile.svg", "scale": 1.0}
+    #char_images = char_images | {c: {"image": f"snake/{c}.svg", "scale": 1} for c in 'ht'}
+    #centers = [[i % 4 + 0.5, i // 4 + 0.5] for i in range(16)]
+    return {
+        "defaultTheme": "red",
+        "themes": {
+            "red": {
+                "space": [5, 1],
+                "centers": [[0.5,0.5], [1.5,0.5], [2.5,0.5], [3.5,0.5], [4.5,0.5]],
+                "background": "spinout/grid.svg",
+                "charImages": char_images,
+                "entitiesOverArrows": False,
+                "sounds": {"x": "animals/snake.mp3"},
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
 def get_squaredance(variant_id):
     scale = 9.9375
     entity_ctrs = [[5.09375 + (i % 4 * scale), 5.09375 + (i // 4 * scale)] for i in range(16)]
@@ -2267,6 +2286,7 @@ image_autogui_data_funcs = {
     "shifttactoe": get_shifttactoe,
     "slide5": get_slide5,
     "snake": get_snake,
+    "spinout": get_spinout,
     "squaredance": get_squaredance,
     "tactix": get_tactix,
     "tantfant": get_tantfant,
