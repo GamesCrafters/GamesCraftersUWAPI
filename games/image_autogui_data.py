@@ -1832,21 +1832,38 @@ def get_snake(variant_id):
     }
 
 def get_spinout(variant_id):
-    char_images = {
-        "0": {"image" : "spinout/Spinout_Tile.svg", "scale": 1.0}
-    }
-    #char_images = char_images | {c: {"image": f"snake/{c}.svg", "scale": 1} for c in 'ht'}
-    #centers = [[i % 4 + 0.5, i // 4 + 0.5] for i in range(16)]
+    alphabet_string = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    tile_scale = 0.625
+    arrow_scale = 0.7
+    tile_images = [
+        {"image" : "spinout/Spinout Tile Left.svg", "scale": tile_scale},  
+        {"image" : "spinout/Spinout Tile Up.svg", "scale": tile_scale},  
+        {"image" : "spinout/Spinout Tile Right.svg", "scale": tile_scale},  
+        {"image" : "spinout/Spinout Tile Down.svg", "scale": tile_scale}  
+    ]
+    autogui_dict = {alphabet_string[i] : tile_images[i % 4] for i in range(16)}
+    autogui_dict.update({
+        "Q" : {"image" : "spinout/Spinout Tile Flat Left.svg", "scale": tile_scale},  
+        "R" : {"image" : "spinout/Spinout Tile Flat Up.svg", "scale": tile_scale},  
+        "S" : {"image" : "spinout/Spinout Tile Flat Right.svg", "scale": tile_scale},  
+        "T" : {"image" : "spinout/Spinout Tile Flat Down.svg", "scale": tile_scale},
+        "c": {"image" : "spinout/clockwise.svg", "scale": arrow_scale},
+        "w": {"image" : "spinout/counterclockwise.svg", "scale": arrow_scale}
+    })
+    arrow_scale = 0.5
     return {
         "defaultTheme": "red",
         "themes": {
             "red": {
-                "space": [5, 1],
-                "centers": [[0.5,0.5], [1.5,0.5], [2.5,0.5], [3.5,0.5], [4.5,0.5]],
+                "space": [6, 2],
+                "centers": [[x * 0.5 + 0.25, 1] for x in range(13)] + [[3.4,0.35], [4.1,0.35],],
                 "background": "spinout/Spinout_Track.svg",
-                "charImages": char_images,
+                "charImages": autogui_dict,
+                "arrowWidth" : 0.03,
+                "lineWidth" : 0.2,
                 "entitiesOverArrows": False,
-                "sounds": {"x": "animals/snake.mp3"},
+                "sounds": {"s": "spinout/Spinout Slide.mp3",
+                           "r": "spinout/Spinout Rotate.mp3"},
                 "animationType": "simpleSlides"
             }
         }
