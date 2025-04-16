@@ -202,8 +202,10 @@ def get_game(game_id: str):
 def get_variant(game_id: str, variant_id: str):
     if game_id in games:
         variant = games[game_id].variant(variant_id)
+        print(variant, variant_id)
         if variant:
             start_position_data = variant.start_position()
+            print(start_position_data)
             return {
                 'id': variant_id,
                 'name': variant.name,

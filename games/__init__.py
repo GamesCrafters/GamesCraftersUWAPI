@@ -736,9 +736,10 @@ games = {
                 name='Regular',
                 data_provider=GamesmanClassic,
                 data_provider_game_id='mancala',
-                data_provider_variant_id=1)
-        }
-    ),
+                data_provider_variant_id=1,
+                gui='v3'),
+        },
+        gui='v3'),
     
     'mutorere': Game(
         name='Mū Tōrere',
@@ -1173,7 +1174,21 @@ games = {
                 gui='v3')
         },
         gui='v3'),
-    
+
+    'tiltago': Game(
+        name='Tiltago',
+        variants={
+            'regular': Variant(
+                name='regular',
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='tiltago',
+                data_provider_variant_id="regular",
+                gui='v3')
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
+
     'toadsandfrogspuzzle': Game(
         name='Toads and Frogs Puzzle',
         variants={
