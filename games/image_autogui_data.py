@@ -2083,10 +2083,19 @@ def get_topspin(variant_id):
         "themes": {
             "regular": {
                 "space": [10, 8],
-                "centers": [[4.2, 3], [5.5, 3], [7.5, 3], [8.2, 3], [8.2, 5], [7.5, 6.5], [5.5, 6.5], [4.2, 6.5], [2.5, 6.5], [1.5, 5], [2.5, 3]],
-                "background": "topspin/revised_topspin_board.svg",
+                "centers": [[5, 1], [4.2, 3], [5.5, 3], [7.5, 3], [8.2, 3], [8.2, 5], [7.5, 6.5], [5.5, 6.5], [4.2, 6.5], [2.5, 6.5], [1.5, 5], [2.5, 3]],
+                "background": "topspin/revised_top_spin_board.svg",
                 "charImages": {
                     "1": {"image": "topspin/revised_piece_1.svg", "scale": 0.5},
+                    "2": {"image": "topspin/revised_piece_2.svg", "scale": 0.5},
+                    "3": {"image": "topspin/revised_piece_3.svg", "scale": 0.5},
+                    "4": {"image": "topspin/revised_piece_4.svg", "scale": 0.5},
+                    "5": {"image": "topspin/revised_piece_5.svg", "scale": 0.5},
+                    "6": {"image": "topspin/revised_piece_6.svg", "scale": 0.5},
+                    "7": {"image": "topspin/revised_piece_7.svg", "scale": 0.5},
+                    "8": {"image": "topspin/revised_piece_8.svg", "scale": 0.5},
+                    "9": {"image": "topspin/revised_piece_9.svg", "scale": 0.5},
+                    "10": {"image": "topspin/revised_piece_10.svg", "scale": 0.5}
                 },
                 "sounds": {"x": "general/slide.mp3"},
                 "animationType": "simpleSlides"
