@@ -2083,10 +2083,9 @@ def get_topspin(variant_id):
         "themes": {
             "regular": {
                 "space": [10, 8],
-                "centers": [[5, 1], [4.2, 3], [5.5, 3], [7.5, 3], [8.2, 5], [7.5, 6.5], [5.5, 6.5], [4.2, 6.5], [2.5, 6.5], [1.5, 5], [2.5, 3]],
+                "centers": [[5, 1.6], [4.15, 3], [5.8, 3], [7.75, 3], [8.45, 4.5], [7.75, 6], [5.8, 6], [4.15, 6], [2.35, 6], [1.5, 4.5], [2.35, 3]],
                 "background": "topspin/revised_top_spin_board.svg",
-                "charImages": {
-                    "a" : {"image": "topspin/arrow.svg", "scale": 1.5},
+                "charImages": {"a" : {"image": "topspin/arrow.svg", "scale": 2},
                     "1": {"image": "topspin/1_custom.svg", "scale": 1.5},
                     "2": {"image": "topspin/2_custom.svg", "scale": 1.5},
                     "3": {"image": "topspin/3_custom.svg", "scale": 1.5},
@@ -2098,7 +2097,7 @@ def get_topspin(variant_id):
                     "9": {"image": "topspin/9_custom.svg", "scale": 1.5},
                     "0": {"image": "topspin/0_custom.svg", "scale": 1.5},
                 },
-                "circleButtonRadius": 0.5,
+                "circleButtonRadius": 0.2,
                 "sounds": {"x": "general/slide.mp3"},
                 "animationType": "simpleSlides"
             }
