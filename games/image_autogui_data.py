@@ -2077,6 +2077,23 @@ def get_topitop(variant_id):
         }
     }
 
+def get_topspin(variant_id):
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [10, 8],
+                "centers": [[4.2, 3], [5.5, 3], [7.5, 3], [8.2, 3], [8.2, 5], [7.5, 6.5], [5.5, 6.5], [4.2, 6.5], [2.5, 6.5], [1.5, 5], [2.5, 3]],
+                "background": "topspin/revised_topspin_board.svg",
+                "charImages": {
+                    "1": {"image": "topspin/revised_piece_1.svg", "scale": 0.5},
+                },
+                "sounds": {"x": "general/slide.mp3"},
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
 def get_tsoroyematatu(variant_id):
     return {
         "defaultTheme": "basic",
@@ -2275,6 +2292,7 @@ image_autogui_data_funcs = {
     "toadsandfrogspuzzle": get_toadsandfrogspuzzle,
     "tootandotto": get_tootandotto,
     "topitop": get_topitop,
+    "topspin": get_topspin,
     "tsoroyematatu": get_tsoroyematatu,
     "winkers": get_winkers,
     "y": get_y,

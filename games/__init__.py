@@ -1220,6 +1220,13 @@ games = {
                 data_provider_game_id='topspin',
                 data_provider_variant_id="6_2",
                 gui='v3'
+            ),
+            "10_4": Variant(
+                name="10 Disks",
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='topspin',
+                data_provider_variant_id="10_4",
+                gui='v3'
             )
         },
         is_two_player_game=False
