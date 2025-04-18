@@ -2085,7 +2085,8 @@ def get_topspin(variant_id):
                 "space": [10, 8],
                 "centers": [[5, 1.6], [4.15, 3], [5.8, 3], [7.75, 3], [8.45, 4.5], [7.75, 6], [5.8, 6], [4.15, 6], [2.35, 6], [1.5, 4.5], [2.35, 3]],
                 "background": "topspin/revised_top_spin_board.svg",
-                "charImages": {"a" : {"image": "topspin/arrow.svg", "scale": 2},
+                "charImages": {
+                    "a": {"image": "topspin/arrow_transparent.svg", "scale": 6},
                     "1": {"image": "topspin/1_custom.svg", "scale": 1.5},
                     "2": {"image": "topspin/2_custom.svg", "scale": 1.5},
                     "3": {"image": "topspin/3_custom.svg", "scale": 1.5},
