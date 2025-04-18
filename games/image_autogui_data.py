@@ -1853,6 +1853,33 @@ def get_squaredance(variant_id):
         }
     }
 
+def get_squirrels_go_nuts(variant_id):
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [400, 400],  # board dimensions; should match background svg
+                "centers": [
+                    [65, 65], [155, 65], [245, 65], [335, 65],
+                    [65, 155], [155, 155], [245, 155], [335, 155],
+                    [65, 245], [155, 245], [245, 245], [335, 245],
+                    [65, 335], [155, 335], [245, 335], [335, 335]
+                ],
+                "background": "squirrels/board.svg",
+                "charImages": {
+                    "A": {"image": "squirrels/acorn.svg", "scale": 1},
+                    "B": {"image": "squirrels/bottom_squirrel_piece.svg", "scale": 1},
+                    "X": {"image": "squirrels/flower.svg", "scale": 1},
+                    "T": {"image": "squirrels/top_squirrel_piece.svg", "scale": 1},
+                    "a": {"image": "squirrels/acorn.svg", "scale": 1},
+                },
+                "arrowWidth": 1,
+                "sounds": {"x": "general/slide.mp3"},
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
 def get_tactix(variant_id):
     centers = [[i % 4 + 0.5, i // 4 + 0.5] for i in range(16)]
     centers += [
@@ -2268,6 +2295,7 @@ image_autogui_data_funcs = {
     "slide5": get_slide5,
     "snake": get_snake,
     "squaredance": get_squaredance,
+    "squirrels": get_squirrels_go_nuts,
     "tactix": get_tactix,
     "tantfant": get_tantfant,
     "teeko": get_teeko,

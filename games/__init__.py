@@ -1097,6 +1097,19 @@ games = {
                 gui='v3')
             },
         gui='v3'),
+
+    'squirrels': Game(
+        name="squirrels",
+            variants= {
+                'starter': Variant(name='starter',
+                    data_provider=GamesmanPuzzles,
+                    data_provider_game_id='squirrels',
+                    data_provider_variant_id='starter',
+                    gui='v3'),
+            },
+        is_two_player_game=False,
+        gui='v3'
+        ),
     
     'tactix': Game(
         name='TacTix',
