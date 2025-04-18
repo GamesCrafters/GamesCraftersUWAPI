@@ -43,6 +43,40 @@ get_<game>(variant_id) should return JSON of the following form:
 
 """
 
+"returns AUTO GUI JSON DATA for variant_id parameter"
+def get_squirrels_go_nuts(variant_id):
+
+    return {
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "space": [400, 400],  # board dimensions; should match background svg
+                "centers": [
+                    [65, 65], [155, 65], [245, 65], [335, 65],
+                    [65, 155], [155, 155], [245, 155], [335, 155],
+                    [65, 245], [155, 245], [245, 245], [335, 245],
+                    [65, 335], [155, 335], [245, 335], [335, 335]
+                ],
+                "background": "board.svg",
+                "charImages": {
+                    "a": {"image": "acorn.svg", "scale": 1},
+                    "b": {"image": "board.svg", "scale": 1},
+                    "s": {"image": "bottom_squirrel_piece.svg", "scale": 1},
+                    "f": {"image": "flower.svg", "scale": 1},
+                    "S": {"image": "top_squirrel_piece.svg", "scale": 1},
+                },
+                "arrowWidth": 1,
+                "sounds": {"x": "general/slide.mp3"},
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
+
+
+
+
+
 def get_0to10by1or2(variant_id):
     return {
         "defaultTheme": "basic",
@@ -2268,6 +2302,7 @@ image_autogui_data_funcs = {
     "slide5": get_slide5,
     "snake": get_snake,
     "squaredance": get_squaredance,
+    "squirrels": get_squirrels_go_nuts,
     "tactix": get_tactix,
     "tantfant": get_tantfant,
     "teeko": get_teeko,

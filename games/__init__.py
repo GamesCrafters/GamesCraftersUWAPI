@@ -1,3 +1,6 @@
+import sys
+print(sys.path)
+
 from .models import Game, Variant
 from .gamesman_classic import GamesmanClassic
 from .gamesman_puzzles import GamesmanPuzzles
@@ -22,6 +25,17 @@ from .Ghost import Ghost
 """
 
 games = {
+    'squirrels': Game(name="squirrels",
+                    variants= {
+                        'junior': Variant(name='junior',
+                            data_provider=GamesmanPuzzles,
+                            data_provider_game_id='squirrels',
+                            data_provider_variant_id='starter',
+                            gui='v3'),
+                        },
+                    is_two_player_game=False,
+                    gui='v3'),
+
   
     '0to10by1or2': Game(
         name='0 to 10 by 1 or 2',
