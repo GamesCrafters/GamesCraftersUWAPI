@@ -1834,7 +1834,7 @@ def get_snake(variant_id):
 def get_spinout(variant_id):
     alphabet_string = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     tile_scale = 0.625
-    arrow_scale = 0.7
+    arrow_scale = 1
     tile_images = [
         {"image" : "spinout/Spinout Tile Left.svg", "scale": tile_scale},  
         {"image" : "spinout/Spinout Tile Up.svg", "scale": tile_scale},  
@@ -1856,7 +1856,7 @@ def get_spinout(variant_id):
         "themes": {
             "red": {
                 "space": [6, 2],
-                "centers": [[x * 0.5 + 0.25, 1] for x in range(13)] + [[3.4,0.35], [4.1,0.35],],
+                "centers": [[x * 0.5 + 0.25, 1] for x in range(13)] + [[3.85,0.6], [3.85,1.3],],
                 "background": "spinout/Spinout_Track.svg",
                 "charImages": autogui_dict,
                 "arrowWidth" : 0.03,
