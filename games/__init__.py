@@ -550,10 +550,10 @@ games = {
         gui='v3'),
 
     'hobaggonu': Game(
-        name="HoBagGonu",
+        name="Ho-Bag Gonu",
         variants={
             'regular': Variant(
-                name='regular',
+                name='Regular',
                 data_provider=GamesmanClassic,
                 data_provider_game_id='hobaggonu',
                 data_provider_variant_id=0,
@@ -628,7 +628,7 @@ games = {
         name='Kaooa',
         variants={
             'regular': Variant(
-                name='regular',
+                name='Regular',
                 data_provider=GamesmanOne,
                 data_provider_game_id='mkaooa',
                 data_provider_variant_id=0,
