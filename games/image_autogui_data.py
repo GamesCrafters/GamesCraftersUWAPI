@@ -1912,6 +1912,78 @@ def get_tantfant(variant_id):
         }
     }
 
+def get_tantrix(variant_id):
+    """
+    50 -->
+    28.5
+    """
+
+    dx = 50
+    dy = 28.875
+    curr_y = 146
+    centers = []
+    c = 0
+    for y in range(21):
+        if y % 2 == 0:
+            curr_x = 150
+        else:
+            curr_x = 200
+        for x in range(6 - (y % 2)):
+            c += 1
+            centers.append([curr_x + x * 2 * dx, curr_y])
+        curr_y += dy
+
+    centers.append([745, 275])
+    centers.append([800, 261.5])
+    centers.append([745, 345])
+    centers.append([800, 331.5])
+    centers.append([745, 415])
+    centers.append([800, 401.5])
+
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [825, 825],
+                "centers": centers,
+                "background": f"tantrix/board.svg",
+                "charImages": {
+                    "A" : {"image": f"tantrix/0_1.svg", "scale": 66.25},
+                    "B" : {"image": f"tantrix/0_2.svg", "scale": 66.25},
+                    "C" : {"image": f"tantrix/0_3.svg", "scale": 66.25},
+                    "D" : {"image": f"tantrix/0_4.svg", "scale": 66.25},
+                    "E" : {"image": f"tantrix/0_5.svg", "scale": 66.25},
+                    "F" : {"image": f"tantrix/1_2.svg", "scale": 66.25},
+                    "G" : {"image": f"tantrix/1_3.svg", "scale": 66.25},
+                    "H" : {"image": f"tantrix/1_4.svg", "scale": 66.25},
+                    "I" : {"image": f"tantrix/1_5.svg", "scale": 66.25},
+                    "J" : {"image": f"tantrix/2_3.svg", "scale": 66.25},
+                    "K" : {"image": f"tantrix/2_4.svg", "scale": 66.25},
+                    "L" : {"image": f"tantrix/2_5.svg", "scale": 66.25},
+                    "M" : {"image": f"tantrix/3_4.svg", "scale": 66.25},
+                    "N" : {"image": f"tantrix/3_5.svg", "scale": 66.25},
+                    "O" : {"image": f"tantrix/4_5.svg", "scale": 66.25},
+                    "P" : {"image": f"tantrix/Sharp_Curve_Faded.svg", "scale": 66.25},
+                    "Q" : {"image": f"tantrix/Soft_Curve_Faded.svg", "scale": 66.25},
+                    "R" : {"image": f"tantrix/Straight_Faded.svg", "scale": 66.25},
+                    "0" : {"image": f"tantrix/Num_0.svg", "scale": 400.00},
+                    "1" : {"image": f"tantrix/Num_1.svg", "scale": 400.00},
+                    "2" : {"image": f"tantrix/Num_2.svg", "scale": 400.00},
+                    "3" : {"image": f"tantrix/Num_3.svg", "scale": 400.00},
+                    "4" : {"image": f"tantrix/Num_4.svg", "scale": 400.00},
+                    "5" : {"image": f"tantrix/Num_5.svg", "scale": 400.00},
+                    "6" : {"image": f"tantrix/Num_6.svg", "scale": 400.00},
+                    "7" : {"image": f"tantrix/Num_7.svg", "scale": 400.00},
+                    "8" : {"image": f"tantrix/Num_8.svg", "scale": 400.00},
+                    "9" : {"image": f"tantrix/Num_9.svg", "scale": 400.00},
+                },
+                "lineWidth": 0.5,
+                "sounds": {"x": "general/place.mp3"},
+                "animationType": "entityFade"
+            }
+        }
+    }
+
 def get_teeko(variant_id):
     return {
         "defaultTheme": "regular",
@@ -2270,6 +2342,7 @@ image_autogui_data_funcs = {
     "squaredance": get_squaredance,
     "tactix": get_tactix,
     "tantfant": get_tantfant,
+    "tantrix": get_tantrix,
     "teeko": get_teeko,
     "tictactwo": get_tictactwo,
     "toadsandfrogspuzzle": get_toadsandfrogspuzzle,
