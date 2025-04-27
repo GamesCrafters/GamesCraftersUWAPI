@@ -988,6 +988,28 @@ def get_hobaggonu(variant_id):
         }
     }
 
+def get_mancala(variant_id):
+    return {
+        "defaultTheme": "simple",
+        "themes": {
+            "simple": {
+                "space": [10, 10], 
+                "centers": [[3, 0.5], [5, 0.5], [7, 0.5], 
+                            [5, 2.5], 
+                            [3, 4.5], [5, 4.5], [7, 4.5], 
+                            [5, 6.5],
+                            [3, 8.5], [5, 8.5], [7, 8.5]],
+                "background": "mancala/mancala.svg",
+                "charImages": { 
+                    "4s": {"image": "general/blackpiece.svg", "scale": 1.5},
+                    "0s": {"image": "general/whitepiece.svg", "scale": 1.5},
+                },
+                "sounds": {"x": "general/slide.mp3"},
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
 def get_jenga(variant_id):
     return {
         "defaultTheme": "simple",
@@ -2149,6 +2171,26 @@ def get_topitop(variant_id):
         }
     }
 
+def get_tiltago(variant_id):
+    pieces = [str(i) for i in range(1,6)] + ["B"]
+    centers = [[4,1], [4,2.5], [1,4], [2.5,4], [4,4], [5.5, 4], [7,4], [4, 5.5], [4, 7]]
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [8, 8],
+                "centers": centers,
+                "background": "tiltago/board_small.svg",
+                "charImages": {
+                    p: {"image": f"tiltago/{p}.svg", "scale": 1} for p in pieces
+                },
+                "arrowWidth": 0.3,
+                "sounds": {"x": "general/slide.mp3"},
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
 def get_tsoroyematatu(variant_id):
     return {
         "defaultTheme": "basic",
@@ -2318,6 +2360,7 @@ image_autogui_data_funcs = {
     "lgame": get_lgame,
     "lightsout": get_lightsout,
     "lite3": get_lite3,
+    "mancala": get_mancala,
     "mutorere": get_mutorere,
     "neutron": get_neutron,
     "nim": get_nim,
@@ -2345,6 +2388,7 @@ image_autogui_data_funcs = {
     "tantrix": get_tantrix,
     "teeko": get_teeko,
     "tictactwo": get_tictactwo,
+    "tiltago": get_tiltago,
     "toadsandfrogspuzzle": get_toadsandfrogspuzzle,
     "tootandotto": get_tootandotto,
     "topitop": get_topitop,
