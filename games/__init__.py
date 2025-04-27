@@ -1123,6 +1123,84 @@ games = {
             },
         gui='v3'
         ),
+    
+    'tantrix': Game(
+        name="Tantrix",
+        variants= {
+            "3_0_0": Variant(
+                name="3_0_0",
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='tantrix',
+                data_provider_variant_id="3_0_0",
+                gui='v3'
+            ),
+            "2_2_0": Variant(
+                name="2_2_0",
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='tantrix',
+                data_provider_variant_id="2_2_0",
+                gui='v3'
+            ),
+            "2_2_1": Variant(
+                name="2_2_1",
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='tantrix',
+                data_provider_variant_id="2_2_1",
+                gui='v3'
+            ),
+            "2_2_2": Variant(
+                name="2_2_2",
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='tantrix',
+                data_provider_variant_id="2_2_2",
+                gui='v3'
+            ),
+            "2_4_1": Variant(
+                name="2_4_1",
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='tantrix',
+                data_provider_variant_id="2_4_1",
+                gui='v3'
+            ),
+            "4_2_2": Variant(
+                name="4_2_2",
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='tantrix',
+                data_provider_variant_id="4_2_2",
+                gui='v3'
+            ),
+            "4_4_1": Variant(
+                name="4_4_1",
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='tantrix',
+                data_provider_variant_id="4_4_1",
+                gui='v3'
+            ),
+            "4_4_2": Variant(
+                name="4_4_2",
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='tantrix',
+                data_provider_variant_id="4_4_2",
+                gui='v3'
+            ),
+            "2_6_2": Variant(
+                name="2_6_2",
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='tantrix',
+                data_provider_variant_id="2_6_2",
+                gui='v3'
+            ),
+            "5_4_1": Variant(
+                name="5_4_1",
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='tantrix',
+                data_provider_variant_id="5_4_1",
+                gui='v3'
+            ),
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
 
     'teeko' : Game(
         name = 'Teeko' ,
