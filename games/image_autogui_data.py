@@ -1853,6 +1853,25 @@ def get_snake(variant_id):
         }
     }
 
+def get_solitaire_chess(variant_id):
+    pieces = {"K", "Q", "R", "B", "N", "P"}
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [4, 4],
+                "arrowWidth": 0.1,
+                "background": f"solitairechess/board4x4.svg",
+                "centers": [[i % 4 + 0.5, i // 4 + 0.5] for i in range(16)],
+                "charImages": {
+                    p: {"image": f"solitairechess/{p}.svg", "scale": 1} for p in pieces
+                },
+                "sounds": {"x": "general/slide.mp3"},
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
 def get_squaredance(variant_id):
     scale = 9.9375
     entity_ctrs = [[5.09375 + (i % 4 * scale), 5.09375 + (i // 4 * scale)] for i in range(16)]
@@ -2382,6 +2401,7 @@ image_autogui_data_funcs = {
     "shifttactoe": get_shifttactoe,
     "slide5": get_slide5,
     "snake": get_snake,
+    "solitairechess": get_solitaire_chess,
     "squaredance": get_squaredance,
     "tactix": get_tactix,
     "tantfant": get_tantfant,
