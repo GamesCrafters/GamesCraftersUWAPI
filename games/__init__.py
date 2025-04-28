@@ -736,10 +736,9 @@ games = {
                 name='Regular',
                 data_provider=GamesmanClassic,
                 data_provider_game_id='mancala',
-                data_provider_variant_id=1,
-                gui='v3'),
-        },
-        gui='v3'),
+                data_provider_variant_id=1)
+        }
+    ),
     
     'mutorere': Game(
         name='Mū Tōrere',
@@ -1086,6 +1085,20 @@ games = {
                 gui='v3')
             },
         gui='v3'),
+
+    'solitairechess': Game(
+        name='Solitaire Chess',
+        variants= {
+           v: Variant(
+                name=v.title(),
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='solitairechess',
+                data_provider_variant_id=v,
+                gui='v3') for v in ('1', '2', '3','4','5','6','7','8','9','10')
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
 
     'squaredance': Game(
         name='Square Dance',

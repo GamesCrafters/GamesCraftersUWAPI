@@ -988,28 +988,6 @@ def get_hobaggonu(variant_id):
         }
     }
 
-def get_mancala(variant_id):
-    return {
-        "defaultTheme": "simple",
-        "themes": {
-            "simple": {
-                "space": [10, 10], 
-                "centers": [[3, 0.5], [5, 0.5], [7, 0.5], 
-                            [5, 2.5], 
-                            [3, 4.5], [5, 4.5], [7, 4.5], 
-                            [5, 6.5],
-                            [3, 8.5], [5, 8.5], [7, 8.5]],
-                "background": "mancala/mancala.svg",
-                "charImages": { 
-                    "4s": {"image": "general/blackpiece.svg", "scale": 1.5},
-                    "0s": {"image": "general/whitepiece.svg", "scale": 1.5},
-                },
-                "sounds": {"x": "general/slide.mp3"},
-                "animationType": "simpleSlides"
-            }
-        }
-    }
-
 def get_jenga(variant_id):
     return {
         "defaultTheme": "simple",
@@ -1853,6 +1831,25 @@ def get_snake(variant_id):
         }
     }
 
+def get_solitaire_chess(variant_id):
+    pieces = {"K", "Q", "R", "B", "N", "P"}
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [4, 4],
+                "arrowWidth": 0.1,
+                "background": f"solitairechess/board4x4.svg",
+                "centers": [[i % 4 + 0.5, i // 4 + 0.5] for i in range(16)],
+                "charImages": {
+                    p: {"image": f"solitairechess/{p}.svg", "scale": 1} for p in pieces
+                },
+                "sounds": {"x": "general/slide.mp3"},
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
 def get_squaredance(variant_id):
     scale = 9.9375
     entity_ctrs = [[5.09375 + (i % 4 * scale), 5.09375 + (i // 4 * scale)] for i in range(16)]
@@ -2360,7 +2357,6 @@ image_autogui_data_funcs = {
     "lgame": get_lgame,
     "lightsout": get_lightsout,
     "lite3": get_lite3,
-    "mancala": get_mancala,
     "mutorere": get_mutorere,
     "neutron": get_neutron,
     "nim": get_nim,
@@ -2382,6 +2378,7 @@ image_autogui_data_funcs = {
     "shifttactoe": get_shifttactoe,
     "slide5": get_slide5,
     "snake": get_snake,
+    "solitairechess": get_solitaire_chess,
     "squaredance": get_squaredance,
     "tactix": get_tactix,
     "tantfant": get_tantfant,
