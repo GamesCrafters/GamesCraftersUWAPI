@@ -1113,7 +1113,7 @@ games = {
         ),
     
     'tantfant': Game(
-        name='TantFant',
+        name='Tant Fant',
         variants={
             'regular': Variant(
                 name='Regular',
@@ -1257,7 +1257,7 @@ games = {
         name='Tiltago',
         variants={
             'regular': Variant(
-                name='regular',
+                name='Regular',
                 data_provider=GamesmanPuzzles,
                 data_provider_game_id='tiltago',
                 data_provider_variant_id="regular",
