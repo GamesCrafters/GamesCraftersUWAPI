@@ -843,6 +843,20 @@ games = {
         gui='v3'
     ),
 
+    'eightball': Game(
+        name='Diamond 8-Ball',
+        variants={
+            '3': Variant(
+                name='8-Ball Puzzle',
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='eightball',
+                data_provider_variant_id='3',
+                gui='v3')
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
+
     'nqueens': Game(
         name='N Queens Puzzle',
         variants={
