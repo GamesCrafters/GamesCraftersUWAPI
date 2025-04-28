@@ -1437,6 +1437,27 @@ def get_npuzzle(variant_id):
         }
     }
 
+def get_eightball(variant_id):
+    return {
+        "ambience": "billiards/billiards_ambience.mp3",
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [3, 3],
+                "centers": [[i % 3 + 0.5, i // 3 + 0.5] for i in range(9)],
+                # change
+                "background": "eightball/pool_table_with_lines_light.svg",
+                "charImages": {
+                    str(n): {"image": f"eightball/eightball{n}.svg", "scale": 1.1} for n in range(1, 9)
+                },
+                "entitiesOverArrows": False,
+                "arrowWidth": 0.1,
+                "sounds": {"x": "billiards/pool_table_break.mp3"},
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
 def get_nqueens(variant_id):
     N = int(variant_id)
     return {
@@ -2363,6 +2384,7 @@ image_autogui_data_funcs = {
     "ninemensmorris": get_ninemensmorris,
     "notakto": get_notakto,
     "npuzzle": get_npuzzle,
+    "eightball": get_eightball,
     "nqueens": get_nqueens,
     "nutictactoe": get_nutictactoe,
     "oddoreven": get_oddoreven,
