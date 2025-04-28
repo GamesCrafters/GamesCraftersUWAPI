@@ -736,10 +736,9 @@ games = {
                 name='Regular',
                 data_provider=GamesmanClassic,
                 data_provider_game_id='mancala',
-                data_provider_variant_id=1,
-                gui='v3'),
-        },
-        gui='v3'),
+                data_provider_variant_id=1)
+        }
+    ),
     
     'mutorere': Game(
         name='Mū Tōrere',
