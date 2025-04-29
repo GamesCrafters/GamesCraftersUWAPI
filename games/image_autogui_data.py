@@ -1437,6 +1437,27 @@ def get_npuzzle(variant_id):
         }
     }
 
+def get_eightball(variant_id):
+    return {
+        "ambience": "billiards/billiards_ambience.mp3",
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [3, 3],
+                "centers": [[i % 3 + 0.5, i // 3 + 0.5] for i in range(9)],
+                # change
+                "background": "eightball/pool_table_with_lines_light.svg",
+                "charImages": {
+                    str(n): {"image": f"eightball/eightball{n}.svg", "scale": 1.1} for n in range(1, 9)
+                },
+                "entitiesOverArrows": False,
+                "arrowWidth": 0.1,
+                "sounds": {"x": "billiards/pool_table_break.mp3"},
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
 def get_nqueens(variant_id):
     N = int(variant_id)
     return {
@@ -1868,6 +1889,23 @@ def get_spinout(variant_id):
             }
         }
     }
+def get_solitaire_chess(variant_id):
+    pieces = {"K", "Q", "R", "B", "N", "P"}
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [4, 4],
+                "arrowWidth": 0.1,
+                "background": f"solitairechess/board4x4.svg",
+                "centers": [[i % 4 + 0.5, i // 4 + 0.5] for i in range(16)],
+                "charImages": {
+                    p: {"image": f"solitairechess/{p}.svg", "scale": 1} for p in pieces
+                },
+                "sounds": {"x": "general/slide.mp3"},
+            }
+        }
+    }
 
 def get_squaredance(variant_id):
     scale = 9.9375
@@ -1946,6 +1984,78 @@ def get_tantfant(variant_id):
                     "y": "general/slide.mp3"
                 },
                 "animationType": "simpleSlides"
+            }
+        }
+    }
+
+def get_tantrix(variant_id):
+    """
+    50 -->
+    28.5
+    """
+
+    dx = 50
+    dy = 28.875
+    curr_y = 146
+    centers = []
+    c = 0
+    for y in range(21):
+        if y % 2 == 0:
+            curr_x = 150
+        else:
+            curr_x = 200
+        for x in range(6 - (y % 2)):
+            c += 1
+            centers.append([curr_x + x * 2 * dx, curr_y])
+        curr_y += dy
+
+    centers.append([745, 275])
+    centers.append([800, 261.5])
+    centers.append([745, 345])
+    centers.append([800, 331.5])
+    centers.append([745, 415])
+    centers.append([800, 401.5])
+
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [825, 825],
+                "centers": centers,
+                "background": f"tantrix/board.svg",
+                "charImages": {
+                    "A" : {"image": f"tantrix/0_1.svg", "scale": 66.25},
+                    "B" : {"image": f"tantrix/0_2.svg", "scale": 66.25},
+                    "C" : {"image": f"tantrix/0_3.svg", "scale": 66.25},
+                    "D" : {"image": f"tantrix/0_4.svg", "scale": 66.25},
+                    "E" : {"image": f"tantrix/0_5.svg", "scale": 66.25},
+                    "F" : {"image": f"tantrix/1_2.svg", "scale": 66.25},
+                    "G" : {"image": f"tantrix/1_3.svg", "scale": 66.25},
+                    "H" : {"image": f"tantrix/1_4.svg", "scale": 66.25},
+                    "I" : {"image": f"tantrix/1_5.svg", "scale": 66.25},
+                    "J" : {"image": f"tantrix/2_3.svg", "scale": 66.25},
+                    "K" : {"image": f"tantrix/2_4.svg", "scale": 66.25},
+                    "L" : {"image": f"tantrix/2_5.svg", "scale": 66.25},
+                    "M" : {"image": f"tantrix/3_4.svg", "scale": 66.25},
+                    "N" : {"image": f"tantrix/3_5.svg", "scale": 66.25},
+                    "O" : {"image": f"tantrix/4_5.svg", "scale": 66.25},
+                    "P" : {"image": f"tantrix/Sharp_Curve_Faded.svg", "scale": 66.25},
+                    "Q" : {"image": f"tantrix/Soft_Curve_Faded.svg", "scale": 66.25},
+                    "R" : {"image": f"tantrix/Straight_Faded.svg", "scale": 66.25},
+                    "0" : {"image": f"tantrix/Num_0.svg", "scale": 400.00},
+                    "1" : {"image": f"tantrix/Num_1.svg", "scale": 400.00},
+                    "2" : {"image": f"tantrix/Num_2.svg", "scale": 400.00},
+                    "3" : {"image": f"tantrix/Num_3.svg", "scale": 400.00},
+                    "4" : {"image": f"tantrix/Num_4.svg", "scale": 400.00},
+                    "5" : {"image": f"tantrix/Num_5.svg", "scale": 400.00},
+                    "6" : {"image": f"tantrix/Num_6.svg", "scale": 400.00},
+                    "7" : {"image": f"tantrix/Num_7.svg", "scale": 400.00},
+                    "8" : {"image": f"tantrix/Num_8.svg", "scale": 400.00},
+                    "9" : {"image": f"tantrix/Num_9.svg", "scale": 400.00},
+                },
+                "lineWidth": 0.5,
+                "sounds": {"x": "general/place.mp3"},
+                "animationType": "entityFade"
             }
         }
     }
@@ -2111,6 +2221,26 @@ def get_topitop(variant_id):
                 },
                 "animationType": "simpleSlides",
                 "defaultAnimationWindow": [0, 54]
+            }
+        }
+    }
+
+def get_tiltago(variant_id):
+    pieces = [str(i) for i in range(1,6)] + ["B"]
+    centers = [[4,1], [4,2.5], [1,4], [2.5,4], [4,4], [5.5, 4], [7,4], [4, 5.5], [4, 7]]
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [8, 8],
+                "centers": centers,
+                "background": "tiltago/board_small.svg",
+                "charImages": {
+                    p: {"image": f"tiltago/{p}.svg", "scale": 1} for p in pieces
+                },
+                "arrowWidth": 0.3,
+                "sounds": {"x": "general/slide.mp3"},
+                "animationType": "simpleSlides"
             }
         }
     }
@@ -2290,6 +2420,7 @@ image_autogui_data_funcs = {
     "ninemensmorris": get_ninemensmorris,
     "notakto": get_notakto,
     "npuzzle": get_npuzzle,
+    "eightball": get_eightball,
     "nqueens": get_nqueens,
     "nutictactoe": get_nutictactoe,
     "oddoreven": get_oddoreven,
@@ -2306,11 +2437,14 @@ image_autogui_data_funcs = {
     "slide5": get_slide5,
     "snake": get_snake,
     "spinout": get_spinout,
+    "solitairechess": get_solitaire_chess,
     "squaredance": get_squaredance,
     "tactix": get_tactix,
     "tantfant": get_tantfant,
+    "tantrix": get_tantrix,
     "teeko": get_teeko,
     "tictactwo": get_tictactwo,
+    "tiltago": get_tiltago,
     "toadsandfrogspuzzle": get_toadsandfrogspuzzle,
     "tootandotto": get_tootandotto,
     "topitop": get_topitop,

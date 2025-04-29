@@ -550,10 +550,10 @@ games = {
         gui='v3'),
 
     'hobaggonu': Game(
-        name="HoBagGonu",
+        name="Ho-Bag Gonu",
         variants={
             'regular': Variant(
-                name='regular',
+                name='Regular',
                 data_provider=GamesmanClassic,
                 data_provider_game_id='hobaggonu',
                 data_provider_variant_id=0,
@@ -628,7 +628,7 @@ games = {
         name='Kaooa',
         variants={
             'regular': Variant(
-                name='regular',
+                name='Regular',
                 data_provider=GamesmanOne,
                 data_provider_game_id='mkaooa',
                 data_provider_variant_id=0,
@@ -836,6 +836,20 @@ games = {
                 name='8-Puzzle',
                 data_provider=GamesmanPuzzles,
                 data_provider_game_id='npuzzle',
+                data_provider_variant_id='3',
+                gui='v3')
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
+
+    'eightball': Game(
+        name='Diamond 8-Ball',
+        variants={
+            '3': Variant(
+                name='8-Ball Puzzle',
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='eightball',
                 data_provider_variant_id='3',
                 gui='v3')
         },
@@ -1085,7 +1099,6 @@ games = {
                 gui='v3')
             },
         gui='v3'),
-
     'spinout': Game(
         name='Spinout',
         variants={
@@ -1098,7 +1111,19 @@ games = {
             },
         is_two_player_game=False,
         gui='v3'),
-
+    'solitairechess': Game(
+        name='Solitaire Chess',
+        variants= {
+           v: Variant(
+                name=v.title(),
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='solitairechess',
+                data_provider_variant_id=v,
+                gui='v3') for v in ('1', '2', '3','4','5','6','7','8','9','10')
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
     'squaredance': Game(
         name='Square Dance',
         variants={
@@ -1125,7 +1150,7 @@ games = {
         ),
     
     'tantfant': Game(
-        name='TantFant',
+        name='Tant Fant',
         variants={
             'regular': Variant(
                 name='Regular',
@@ -1136,6 +1161,84 @@ games = {
             },
         gui='v3'
         ),
+    
+    'tantrix': Game(
+        name="Tantrix",
+        variants= {
+            "3_0_0": Variant(
+                name="3_0_0",
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='tantrix',
+                data_provider_variant_id="3_0_0",
+                gui='v3'
+            ),
+            "2_2_0": Variant(
+                name="2_2_0",
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='tantrix',
+                data_provider_variant_id="2_2_0",
+                gui='v3'
+            ),
+            "2_2_1": Variant(
+                name="2_2_1",
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='tantrix',
+                data_provider_variant_id="2_2_1",
+                gui='v3'
+            ),
+            "2_2_2": Variant(
+                name="2_2_2",
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='tantrix',
+                data_provider_variant_id="2_2_2",
+                gui='v3'
+            ),
+            "2_4_1": Variant(
+                name="2_4_1",
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='tantrix',
+                data_provider_variant_id="2_4_1",
+                gui='v3'
+            ),
+            "4_2_2": Variant(
+                name="4_2_2",
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='tantrix',
+                data_provider_variant_id="4_2_2",
+                gui='v3'
+            ),
+            "4_4_1": Variant(
+                name="4_4_1",
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='tantrix',
+                data_provider_variant_id="4_4_1",
+                gui='v3'
+            ),
+            "4_4_2": Variant(
+                name="4_4_2",
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='tantrix',
+                data_provider_variant_id="4_4_2",
+                gui='v3'
+            ),
+            "2_6_2": Variant(
+                name="2_6_2",
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='tantrix',
+                data_provider_variant_id="2_6_2",
+                gui='v3'
+            ),
+            "5_4_1": Variant(
+                name="5_4_1",
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='tantrix',
+                data_provider_variant_id="5_4_1",
+                gui='v3'
+            ),
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
 
     'teeko' : Game(
         name = 'Teeko' ,
@@ -1186,7 +1289,21 @@ games = {
                 gui='v3')
         },
         gui='v3'),
-    
+
+    'tiltago': Game(
+        name='Tiltago',
+        variants={
+            'regular': Variant(
+                name='Regular',
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='tiltago',
+                data_provider_variant_id="regular",
+                gui='v3')
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
+
     'toadsandfrogspuzzle': Game(
         name='Toads and Frogs Puzzle',
         variants={
