@@ -1099,6 +1099,7 @@ games = {
                 gui='v3')
             },
         gui='v3'),
+    
     'spinout': Game(
         name='Spinout',
         variants={
@@ -1111,6 +1112,7 @@ games = {
             },
         is_two_player_game=False,
         gui='v3'),
+    
     'solitairechess': Game(
         name='Solitaire Chess',
         variants= {
