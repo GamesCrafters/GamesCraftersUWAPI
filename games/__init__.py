@@ -1349,7 +1349,8 @@ games = {
                 gui='v3'
             )
         },
-        is_two_player_game=False
+       is_two_player_game=False,
+        gui='v3'
     ),
 
     'tsoroyematatu': Game(
