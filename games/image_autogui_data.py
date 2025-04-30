@@ -62,6 +62,26 @@ def get_0to10by1or2(variant_id):
         }
     }
 
+def get_sevenpennies(variant_id):
+    return {
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "space": [960,960],
+                "centers": [[739.289, 76.657],[877.283, 215.999],[876.166, 727.324],[739.289, 882.208],[228.001, 881.834],[86.283, 727.324],[85.148, 215.999],[228.001, 77.012]],
+                "background": "sevenpennies/7pennies.svg",
+                "charImages": {
+                    "p": {"image": "sevenpennies/penny.svg", "scale": "150"}
+                },
+                "arrowWidth": 30,
+                "entitiesOverArrows": True,
+                "sounds": {"x": "general/slide.mp3",
+                            "y": "general/place.mp3"},
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
 def get_1dchess(variant_id):
     return {
         "defaultTheme": "basic",
@@ -2397,6 +2417,7 @@ image_autogui_data_funcs = {
     "rubikscube": get_rubikscube,
     "rubiksmagic": get_rubiksmagic,
     "rushhour": get_rushhour,
+    "sevenpennies": get_sevenpennies,
     "shifttactoe": get_shifttactoe,
     "slide5": get_slide5,
     "snake": get_snake,
