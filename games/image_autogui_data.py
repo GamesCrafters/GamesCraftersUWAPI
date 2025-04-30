@@ -2258,10 +2258,10 @@ def get_tiltago(variant_id):
                 "centers": centers,
                 "background": "tiltago/board_small.svg",
                 "charImages": {
-                    p: {"image": f"tiltago/{p}.svg", "scale": 1} for p in pieces
+                    p: {"image": f"tiltago/{p}.svg", "scale": 1.5} for p in pieces
                 },
                 "arrowWidth": 0.3,
-                "sounds": {"x": "general/slide.mp3"},
+                "sounds": {"x": "general/place.mp3"},
                 "animationType": "simpleSlides"
             }
         }
