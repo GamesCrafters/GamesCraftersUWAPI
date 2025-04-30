@@ -253,6 +253,44 @@ games = {
         },
         gui='v3'),
     
+    'clocksolitaire': Game(
+        name='Clock Solitaire',
+        variants= {
+            'regular': Variant(
+                name='Regular',
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='clocksolitaire',
+                data_provider_variant_id='regular',
+                gui='v3'),
+            'pattern4': Variant(
+                name='Pattern 4',
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='clocksolitaire',
+                data_provider_variant_id='pattern4',
+                gui='v3'),
+            'pattern7': Variant(
+                name='Pattern 7',
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='clocksolitaire',
+                data_provider_variant_id='pattern7',
+                gui='v3'),
+            'pattern10': Variant(
+                name='Pattern 10',
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='clocksolitaire',
+                data_provider_variant_id='pattern10',
+                gui='v3'),
+            'pattern12': Variant(
+                name='Pattern 12',
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='clocksolitaire',
+                data_provider_variant_id='pattern12',
+                gui='v3')
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
+    
     'connect4': Game(
         name='Connect 4',
         variants={
