@@ -1852,6 +1852,43 @@ def get_snake(variant_id):
         }
     }
 
+def get_spinout(variant_id):
+    alphabet_string = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    tile_scale = 0.625
+    arrow_scale = 1
+    tile_images = [
+        {"image" : "spinout/Spinout Tile Left.svg", "scale": tile_scale},  
+        {"image" : "spinout/Spinout Tile Up.svg", "scale": tile_scale},  
+        {"image" : "spinout/Spinout Tile Right.svg", "scale": tile_scale},  
+        {"image" : "spinout/Spinout Tile Down.svg", "scale": tile_scale}  
+    ]
+    autogui_dict = {alphabet_string[i] : tile_images[i % 4] for i in range(16)}
+    autogui_dict.update({
+        "Q" : {"image" : "spinout/Spinout Tile Flat Left.svg", "scale": tile_scale},  
+        "R" : {"image" : "spinout/Spinout Tile Flat Up.svg", "scale": tile_scale},  
+        "S" : {"image" : "spinout/Spinout Tile Flat Right.svg", "scale": tile_scale},  
+        "T" : {"image" : "spinout/Spinout Tile Flat Down.svg", "scale": tile_scale},
+        "c": {"image" : "spinout/clockwise.svg", "scale": arrow_scale},
+        "w": {"image" : "spinout/counterclockwise.svg", "scale": arrow_scale}
+    })
+    arrow_scale = 0.5
+    return {
+        "defaultTheme": "red",
+        "themes": {
+            "red": {
+                "space": [6, 2],
+                "centers": [[x * 0.5 + 0.25, 1] for x in range(13)] + [[3.85,0.6], [3.85,1.3],],
+                "background": "spinout/Spinout_Track.svg",
+                "charImages": autogui_dict,
+                "arrowWidth" : 0.03,
+                "lineWidth" : 0.2,
+                "entitiesOverArrows": False,
+                "sounds": {"s": "spinout/Spinout Slide.mp3",
+                           "r": "spinout/Spinout Rotate.mp3"},
+                "animationType": "simpleSlides"
+            }
+        }
+    }
 def get_solitaire_chess(variant_id):
     pieces = {"K", "Q", "R", "B", "N", "P"}
     return {
@@ -2400,6 +2437,7 @@ image_autogui_data_funcs = {
     "shifttactoe": get_shifttactoe,
     "slide5": get_slide5,
     "snake": get_snake,
+    "spinout": get_spinout,
     "solitairechess": get_solitaire_chess,
     "squaredance": get_squaredance,
     "tactix": get_tactix,

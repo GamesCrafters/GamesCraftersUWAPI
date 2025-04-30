@@ -1100,6 +1100,19 @@ games = {
             },
         gui='v3'),
 
+    'spinout': Game(
+        name='Spinout',
+        variants={
+            '5_piece': Variant(
+                name='5 Pieces',
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='spinout',
+                data_provider_variant_id="5_piece",
+                gui='v3')
+            },
+        is_two_player_game=False,
+        gui='v3'),
+
     'solitairechess': Game(
         name='Solitaire Chess',
         variants= {
@@ -1113,7 +1126,7 @@ games = {
         is_two_player_game=False,
         gui='v3'
     ),
-
+    
     'squaredance': Game(
         name='Square Dance',
         variants={
