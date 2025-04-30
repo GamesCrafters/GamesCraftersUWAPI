@@ -1214,18 +1214,18 @@ games = {
     'topspin': Game(
         name="Top Spin",
         variants= {
-            # "6_2": Variant(
-            #     name="6 Disks",
-            #     data_provider=GamesmanPuzzles,
-            #     data_provider_game_id='topspin',
-            #     data_provider_variant_id="6_2",
-            #     gui='v3'
-            # )
             "10_2": Variant(
                 name="10 Disks",
                 data_provider=GamesmanPuzzles,
                 data_provider_game_id='topspin',
                 data_provider_variant_id="10_2",
+                gui='v3'
+            ),
+            "12_3": Variant(
+                name="12 Disks",
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='topspin',
+                data_provider_variant_id="12_3",
                 gui='v3'
             )
         },
