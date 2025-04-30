@@ -2083,10 +2083,10 @@ def get_topspin(variant_id):
         "themes": {
             "regular": {
                 "space": [10, 8],
-                "centers": [[5.1, 2.4], [4.15, 3.65], [5.8, 3.65], [7.75, 3.65], [8.55, 5.15], [7.75, 6.65], [5.8, 6.65], [4.15, 6.65], [2.35, 6.65], [1.8, 5.15], [2.35, 3.65]],
+                "centers": [[5.1, 1.8], [4.15, 3.65], [5.8, 3.65], [7.75, 3.65], [8.55, 5.15], [7.75, 6.65], [5.8, 6.65], [4.15, 6.65], [2.35, 6.65], [1.8, 5.15], [2.35, 3.65]],
                 "background": "topspin/revised_top_spin_board.svg",
                 "charImages": {
-                    "a": {"image": "topspin/arrow_transparent.svg", "scale": 2.5},
+                    "a": {"image": "topspin/arrow_transparent.svg", "scale": 1.5},
                     "1": {"image": "topspin/1_custom.svg", "scale": 3.5},
                     "2": {"image": "topspin/2_custom.svg", "scale": 3.5},
                     "3": {"image": "topspin/3_custom.svg", "scale": 3.5},
