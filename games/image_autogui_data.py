@@ -1903,6 +1903,7 @@ def get_solitaire_chess(variant_id):
                     p: {"image": f"solitairechess/{p}.svg", "scale": 1} for p in pieces
                 },
                 "sounds": {"x": "general/slide.mp3"},
+                "animationType": "simpleSlides"
             }
         }
     }
