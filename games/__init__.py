@@ -34,6 +34,19 @@ games = {
                 gui='v3')
         },
         gui='v3'),
+        
+    'sevenpennies': Game(
+        name='Seven Pennies',
+        variants={
+            'regular': Variant(
+                name='Regular',
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='sevenpennies',
+                data_provider_variant_id='regular',
+                gui='v3')
+        },
+        is_two_player_game=False,
+        gui='v3'),
 
     '1dchess': Game(
         name='1D Chess',
