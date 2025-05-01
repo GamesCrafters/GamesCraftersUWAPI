@@ -478,6 +478,25 @@ def get_chungtoi(variant_id):
         }
     }
 
+def get_clock_solitaire(variant_id):
+    scale = 1
+    arrowWidth = 0.15
+    ctrs = [[5, 1.34], [6.99, 1.83], [8.33, 3.23], [8.86, 5], [8.33, 6.87], [6.99, 8.3], [5, 8.66], [2.93, 8.29], [1.64, 6.87], [1.14, 5], [1.64, 3.24], [2.93, 1.83], [5.93, 3.44], [6.93, 5], [5.93, 6.68], [3.92, 6.68], [3.13, 5], [3.92, 3.44], [5, 5]]
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [10, 10],
+                "centers": ctrs,
+                "background": f"clocksolitaire/{variant_id}_grid.svg",
+                'charImages': {"x": {'image': 'general/brownpiece.svg', 'scale': scale}},
+                'arrowWidth': arrowWidth,
+                'sounds': {'x': 'general/slideThenRemove.mp3'},
+                'animationType': 'entityFade'
+            },
+        },
+    }
+
 def get_connect4(variant_id):
     def get_theme(cols):
         centers = [[0.5 + i // 6, 1.5 + i % 6] for i in range(cols * 6)]
@@ -2405,6 +2424,7 @@ image_autogui_data_funcs = {
     "chinesechess": get_chinesechess,
     "chomp": get_chomp,
     "chopsticks": get_chopsticks,
+    "clocksolitaire": get_clock_solitaire,
     "connect4": get_connect4,
     "chungtoi": get_chungtoi,
     "dao": get_dao,
