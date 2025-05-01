@@ -1860,22 +1860,32 @@ def get_squirrels_go_nuts(variant_id):
             "regular": {
                 "space": [400, 400],  # board dimensions; should match background svg
                 "centers": [
-                    [65, 65], [155, 65], [245, 65], [335, 65],
-                    [65, 155], [155, 155], [245, 155], [335, 155],
-                    [65, 245], [155, 245], [245, 245], [335, 245],
-                    [65, 335], [155, 335], [245, 335], [335, 335]
+                    [55, 55], [150, 55], [245, 55], [340, 55],
+                    [55, 150], [150, 150], [245, 150], [340, 150],
+                    [55, 245], [150, 245], [245, 245], [340, 245],
+                    [55, 340], [150, 340], [245, 340], [340, 340]
                 ],
                 "background": "squirrels/board.svg",
                 "charImages": {
-                    "A": {"image": "squirrels/acorn.svg", "scale": 1},
-                    "B": {"image": "squirrels/bottom_squirrel_piece.svg", "scale": 1},
-                    "X": {"image": "squirrels/flower.svg", "scale": 1},
-                    "T": {"image": "squirrels/top_squirrel_piece.svg", "scale": 1},
-                    "a": {"image": "squirrels/acorn.svg", "scale": 1},
+                    "H": {"image": "squirrels/hole.svg", "scale": 120},
+                    "A": {"image": "squirrels/acorn.svg", "scale": 80},
+                    "L": {"image": "squirrels/squirrel_left.svg", "scale": 325},
+                    "l": {"image": "squirrels/squirrel_empty.svg", "scale": 120},
+                    "4": {"image": "squirrels/squirrel_acorn.svg", "scale": 120},
+                    "X": {"image": "squirrels/flower.svg", "scale": 200},
+                    "R": {"image": "squirrels/squirrel_right.svg", "scale": 325},
+                    "r": {"image": "squirrels/squirrel_empty.svg", "scale": 120},
+                    "2": {"image": "squirrels/squirrel_acorn.svg", "scale": 120},
+                    "T": {"image": "squirrels/squirrel_top.svg", "scale": 325},
+                    "t": {"image": "squirrels/squirrel_empty.svg", "scale": 120},
+                    "1": {"image": "squirrels/squirrel_acorn.svg", "scale": 120},
+                    "B": {"image": "squirrels/squirrel_bottom.svg", "scale": 325},
+                    "b": {"image": "squirrels/squirrel_empty.svg", "scale": 120},
+                    "3": {"image": "squirrels/squirrel_acorn.svg", "scale": 120},
                 },
-                "arrowWidth": 1,
+                "arrowWidth": 5,
                 "sounds": {"x": "general/slide.mp3"},
-                "animationType": "simpleSlides"
+                "animationType": "simpleSlides",
             }
         }
     }
