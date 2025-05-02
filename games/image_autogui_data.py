@@ -2307,6 +2307,64 @@ def get_topitop(variant_id):
         }
     }
 
+def get_topspin(variant_id):
+    if variant_id == '10_2': 
+        return {
+            "defaultTheme": "regular",
+            "themes": {
+                "regular": {
+                    "space": [10, 8],
+                    "centers": [[5.1, 1.8], [4.15, 3.65], [5.8, 3.65], [7.75, 3.65], [8.55, 5.15], [7.75, 6.65], [5.8, 6.65], [4.15, 6.65], [2.35, 6.65], [1.8, 5.15], [2.35, 3.65]],
+                    "background": "topspin/revised_top_spin_board.svg",
+                    "charImages": {
+                        "a": {"image": "topspin/arrow_transparent.svg", "scale": 1.5},
+                        "1": {"image": "topspin/1_custom.svg", "scale": 3.5},
+                        "2": {"image": "topspin/2_custom.svg", "scale": 3.5},
+                        "3": {"image": "topspin/3_custom.svg", "scale": 3.5},
+                        "4": {"image": "topspin/4_custom.svg", "scale": 3.5},
+                        "5": {"image": "topspin/5_custom.svg", "scale": 3.5},
+                        "6": {"image": "topspin/6_custom.svg", "scale": 3.5},
+                        "7": {"image": "topspin/7_custom.svg", "scale": 3.5},
+                        "8": {"image": "topspin/8_custom.svg", "scale": 3.5},
+                        "9": {"image": "topspin/9_custom.svg", "scale": 3.5},
+                        "b": {"image": "topspin/0_custom.svg", "scale": 3.5},
+                    },
+                    "circleButtonRadius": 1,
+                    "sounds": {"x": "general/slide.mp3"},
+                    "animationType": "simpleSlides"
+                }
+            }
+        }
+    else: # 12_3 variant
+        return {
+            "defaultTheme": "regular",
+            "themes": {
+                "regular": {
+                    "space": [10, 8],
+                    "centers": [[4.8, 1.7], [3.8, 3.65], [5.2115, 3.65], [6.6, 3.65], [8.1, 3.65], [8.7, 5.15], [8.2, 6.65], [6.7, 6.65], [5.2, 6.65], [3.7, 6.65], [2.2, 6.65], [1.8, 5.15], [2.35, 3.65]],
+                    "background": "topspin/12_3_topspin_board.svg",
+                    "charImages": {
+                        "a": {"image": "topspin/arrow_transparent.svg", "scale": 1.8},
+                        "1": {"image": "topspin/1_custom.svg", "scale": 3.5},
+                        "2": {"image": "topspin/2_custom.svg", "scale": 3.5},
+                        "3": {"image": "topspin/3_custom.svg", "scale": 3.5},
+                        "4": {"image": "topspin/4_custom.svg", "scale": 3.5},
+                        "5": {"image": "topspin/5_custom.svg", "scale": 3.5},
+                        "6": {"image": "topspin/6_custom.svg", "scale": 3.5},
+                        "7": {"image": "topspin/7_custom.svg", "scale": 3.5},
+                        "8": {"image": "topspin/8_custom.svg", "scale": 3.5},
+                        "9": {"image": "topspin/9_custom.svg", "scale": 3.5},
+                        "b": {"image": "topspin/0_custom.svg", "scale": 3.5},
+                        "c": {"image": "topspin/11_custom.svg", "scale": 3.5},
+                        "d": {"image": "topspin/12_custom.svg", "scale": 3.5}
+                    },
+                    "circleButtonRadius": 1,
+                    "sounds": {"x": "general/slide.mp3"},
+                    "animationType": "simpleSlides"
+                } 
+            }
+        }
+
 def get_tiltago(variant_id):
     pieces = [str(i) for i in range(1,6)] + ["B"]
     centers = [[4,1], [4,2.5], [1,4], [2.5,4], [4,4], [5.5, 4], [7,4], [4, 5.5], [4, 7]]
@@ -2533,6 +2591,7 @@ image_autogui_data_funcs = {
     "toadsandfrogspuzzle": get_toadsandfrogspuzzle,
     "tootandotto": get_tootandotto,
     "topitop": get_topitop,
+    "topspin": get_topspin,
     "tsoroyematatu": get_tsoroyematatu,
     "winkers": get_winkers,
     "y": get_y,

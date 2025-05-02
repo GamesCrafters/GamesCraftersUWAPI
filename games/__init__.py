@@ -13,7 +13,7 @@ from .EuclidsGame import EuclidsGame
 from .Ghost import Ghost
 
 """
-    All one-player (puzzle) games and two-player games should be 
+    All one-player (puzzle) games and two-player games should be
     listed in the `games` dict.
 
     Note: All keys of the `games` dict (i.e., game ids) should
@@ -22,7 +22,7 @@ from .Ghost import Ghost
 """
 
 games = {
-  
+
     '0to10by1or2': Game(
         name='0 to 10 by 1 or 2',
         variants={
@@ -34,7 +34,7 @@ games = {
                 gui='v3')
         },
         gui='v3'),
-        
+
     'sevenpennies': Game(
         name='Seven Pennies',
         variants={
@@ -59,7 +59,7 @@ games = {
                 gui='v3')
         },
         gui='v3'),
-    
+
     '3spot': Game(
         name='3-Spot',
         variants={
@@ -71,7 +71,7 @@ games = {
                 gui='v3')
         },
         gui='v3'),
-    
+
     'abalone': Game(
         name='Abalone',
         variants={
@@ -94,7 +94,7 @@ games = {
                 gui = 'v3',)
         },
     gui = 'v3'),
-    
+
     'achi': Game(
         name='Achi',
         variants={
@@ -106,7 +106,7 @@ games = {
                 gui='v3')
         },
         gui='v3'),
-    
+
     'adugo': Game(
         name='Adugo',
         variants={
@@ -118,7 +118,7 @@ games = {
                 gui='v2'),
         },
         gui='v2'),
-    
+
     'allqueenschess': Game(
         name='All Queens Chess',
         variants={
@@ -131,7 +131,7 @@ games = {
         },
         gui='v3'
     ),
-    
+
     'baghchal': Game(
         name='Bagh-Chal',
         variants={
@@ -170,7 +170,7 @@ games = {
         is_two_player_game=False,
         gui='v3'
     ),
-    
+
     'change': Game(
         name='Change!',
         variants={
@@ -183,7 +183,7 @@ games = {
             )
         },
         gui='v3'),
-    
+
     'chess': Game(
         name='Chess',
         variants={
@@ -199,7 +199,7 @@ games = {
             'regular': RegularChineseChessVariant()
         },
         gui='v3'),
-    
+
     'chomp': Game(
         name='Chomp',
         variants={
@@ -253,7 +253,7 @@ games = {
                 gui='v3'),
         },
         gui='v3'),
-    
+
     'chungtoi': Game(
         name='Chung-Toi',
         variants={
@@ -265,7 +265,7 @@ games = {
                 gui='v3')
         },
         gui='v3'),
-    
+
     'clocksolitaire': Game(
         name='Clock Solitaire',
         variants= {
@@ -303,7 +303,7 @@ games = {
         is_two_player_game=False,
         gui='v3'
     ),
-    
+
     'connect4': Game(
         name='Connect 4',
         variants={
@@ -321,7 +321,7 @@ games = {
                 gui='v3')
         },
         gui='v3'),
-    
+
     'dao': Game(
         name='Dao',
         variants={
@@ -333,7 +333,7 @@ games = {
                 gui='v3'),
         },
         gui='v3'),
-        
+
     'dawsonschess': Game(
         name='Dawson\'s Chess',
         variants={
@@ -341,7 +341,7 @@ games = {
         },
         custom_variant=dawsonschess_custom_start,
         gui='v3'),
-    
+
     'dinododgem': Game(
         name='Dino Dodgem',
         variants={
@@ -353,7 +353,7 @@ games = {
                 gui='v3')
         },
         gui='v3'),
-    
+
     'dodgem': Game(
         name='Dodgem',
         variants={
@@ -419,7 +419,7 @@ games = {
                 gui='v3')
         },
         gui='v3'),
-    
+
     'dshogi': Game(
         name='Dōbutsu shōgi',
         variants={
@@ -431,7 +431,7 @@ games = {
                 gui='v3')
         },
         gui='v3'),
-    
+
     'euclidsgame': Game(
         name="Euclid's Game",
         variants={
@@ -542,7 +542,7 @@ games = {
                 gui='v3'),
         },
         gui='v3'),
-    
+
     'towersofhanoi': Game(
         name="Towers of Hanoi",
         variants= {
@@ -613,7 +613,7 @@ games = {
         },
         gui='v3',
     ),
-    
+
     'hopndrop': Game(
         name="Hop N' Drop",
         variants= {
@@ -666,7 +666,7 @@ games = {
                 gui='v3')
         },
         gui='v3'),
-    
+
     'kayles': Game(
         name='Kayles',
         variants={
@@ -716,7 +716,7 @@ games = {
                 gui='v3'),
         },
         gui='v3'),
-    
+
     'lgame': Game(
         name='L-game',
         variants={
@@ -740,7 +740,7 @@ games = {
                 gui='v3')
         },
         gui='v3'),
-    
+
     'lightsout': Game(
         name='Lights Out',
         variants={
@@ -755,7 +755,7 @@ games = {
         is_two_player_game=False,
         gui='v3'
     ),
-    
+
     'lite3': Game(
         name='Lite 3',
         variants={
@@ -779,7 +779,7 @@ games = {
                 gui='v3')
         },
         gui='v3'),
-    
+
     'mancala': Game(
         name='Mancala',
         variants={
@@ -790,7 +790,7 @@ games = {
                 data_provider_variant_id=1)
         }
     ),
-    
+
     'mutorere': Game(
         name='Mū Tōrere',
         variants={
@@ -821,7 +821,7 @@ games = {
             ),
         },
     gui = 'v3'),
-    
+
     'nim': Game(
         name='Nim',
         variants={
@@ -835,7 +835,7 @@ games = {
         },
         custom_variant=nim_custom_start,
         gui='v3'),
-    
+
     'ninemensmorris': Game(
         name="Nine Men's Morris",
         variants={
@@ -879,7 +879,7 @@ games = {
                 gui='v3')
         },
         gui='v3'),
-    
+
     'npuzzle': Game(
         name='Sliding Number Puzzle',
         variants={
@@ -947,7 +947,7 @@ games = {
         },
         gui='v3'
     ),
-    
+
     'othello': Game(
         name='Othello',
         variants={
@@ -961,7 +961,7 @@ games = {
         gui='v3',
         supports_win_by=True
     ),
-    
+
     'pegsolitaire': Game(
         name='Peg Solitaire',
         variants= {
@@ -988,7 +988,7 @@ games = {
                 gui='v3'),
         },
         gui='v3'),
-    
+
     'quarto': Game(
         name='Quarto',
         variants={
@@ -1000,7 +1000,7 @@ games = {
                 gui='v3')
         },
         gui='v3'),
-    
+
     'quickchess': Game(
         name='Quick Chess',
         variants={
@@ -1013,7 +1013,7 @@ games = {
         },
         gui='v3'),
 
-    'quickcross': Game(   
+    'quickcross': Game(
        name='Quick Cross',
        variants={
            'regular': Variant(
@@ -1023,7 +1023,7 @@ games = {
                data_provider_variant_id=9,
                gui='v3',
             ),
-       }, 
+       },
        gui='v3'),
 
     'quixo' : Game(
@@ -1052,7 +1052,7 @@ games = {
             ),
         },
     gui = 'v3'),
-    
+
     'rubikscube': Game(
         name="Rubik's Cube",
         variants={
@@ -1079,7 +1079,7 @@ games = {
                 gui='v3')
             },
         gui='v3'),
-    
+
     'rushhour': Game(
         name="Rush Hour",
         variants={
@@ -1106,7 +1106,7 @@ games = {
                 gui='v3')
         },
         gui='v3'),
-    
+
     'shifttactoe': Game(
         name='Shift Tac Toe',
         variants={
@@ -1118,7 +1118,7 @@ games = {
                 gui='v2')
         },
         gui='v2'),
-    
+
     'slide5': Game(
         name="Slide-5",
         variants={
@@ -1177,7 +1177,7 @@ games = {
         is_two_player_game=False,
         gui='v3'
     ),
-    
+
     'squaredance': Game(
         name='Square Dance',
         variants={
@@ -1222,7 +1222,7 @@ games = {
         is_two_player_game=False,
         gui='v3'
         ),
-    
+
     'tactix': Game(
         name='TacTix',
         variants={
@@ -1235,7 +1235,7 @@ games = {
             },
         gui='v3'
         ),
-    
+
     'tantfant': Game(
         name='Tant Fant',
         variants={
@@ -1248,7 +1248,7 @@ games = {
             },
         gui='v3'
         ),
-    
+
     'tantrix': Game(
         name="Tantrix",
         variants= {
@@ -1346,7 +1346,7 @@ games = {
             ),
         },
     gui = 'v3'),
-    
+
     'tictactoe': Game(
         name='Tic-Tac-Toe',
         variants={
@@ -1405,7 +1405,7 @@ games = {
         is_two_player_game=False,
         gui='v3'
     ),
-    
+
     'tootandotto': Game(
         name='Toot and Otto',
         variants={
@@ -1414,7 +1414,7 @@ games = {
             '6': TootAndOtto(6)
         },
         gui='v3'),
-    
+
     'topitop': Game(
         name="Topitop",
         variants={
@@ -1427,19 +1427,27 @@ games = {
             )
         },
         gui='v3'),
-    
+
     'topspin': Game(
         name="Top Spin",
         variants= {
-            "6_2": Variant(
-                name="6 Disks",
+            "10_2": Variant(
+                name="10 disks, size-2 knob",
                 data_provider=GamesmanPuzzles,
                 data_provider_game_id='topspin',
-                data_provider_variant_id="6_2",
+                data_provider_variant_id="10_2",
+                gui='v3'
+            ),
+            "12_3": Variant(
+                name="12 disks, size-3 knob",
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='topspin',
+                data_provider_variant_id="12_3",
                 gui='v3'
             )
         },
-        is_two_player_game=False
+       is_two_player_game=False,
+        gui='v3'
     ),
 
     'tsoroyematatu': Game(
@@ -1467,7 +1475,7 @@ games = {
             ),
         },
     gui = 'v3'),
-    
+
     'y': Game(
         name='Y',
         variants={
@@ -1521,7 +1529,7 @@ games = {
                 gui='v2'),
         },
         gui='v2'),
-        
+
         '4squaretictactoe': Game(
         name='4-Square-Tic-Tac-Toe',
         variants={
