@@ -35,6 +35,19 @@ games = {
         },
         gui='v3'),
 
+    'sevenpennies': Game(
+        name='Seven Pennies',
+        variants={
+            'regular': Variant(
+                name='Regular',
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='sevenpennies',
+                data_provider_variant_id='regular',
+                gui='v3')
+        },
+        is_two_player_game=False,
+        gui='v3'),
+
     '1dchess': Game(
         name='1D Chess',
         variants={
@@ -252,6 +265,44 @@ games = {
                 gui='v3')
         },
         gui='v3'),
+
+    'clocksolitaire': Game(
+        name='Clock Solitaire',
+        variants= {
+            'regular': Variant(
+                name='Regular',
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='clocksolitaire',
+                data_provider_variant_id='regular',
+                gui='v3'),
+            'pattern4': Variant(
+                name='Pattern 4',
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='clocksolitaire',
+                data_provider_variant_id='pattern4',
+                gui='v3'),
+            'pattern7': Variant(
+                name='Pattern 7',
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='clocksolitaire',
+                data_provider_variant_id='pattern7',
+                gui='v3'),
+            'pattern10': Variant(
+                name='Pattern 10',
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='clocksolitaire',
+                data_provider_variant_id='pattern10',
+                gui='v3'),
+            'pattern12': Variant(
+                name='Pattern 12',
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='clocksolitaire',
+                data_provider_variant_id='pattern12',
+                gui='v3')
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
 
     'connect4': Game(
         name='Connect 4',
@@ -1100,6 +1151,19 @@ games = {
             },
         gui='v3'),
 
+    'spinout': Game(
+        name='Spinout',
+        variants={
+            '5_piece': Variant(
+                name='5 Pieces',
+                data_provider=GamesmanPuzzles,
+                data_provider_game_id='spinout',
+                data_provider_variant_id="5_piece",
+                gui='v3')
+            },
+        is_two_player_game=False,
+        gui='v3'),
+
     'solitairechess': Game(
         name='Solitaire Chess',
         variants= {
@@ -1126,6 +1190,42 @@ games = {
             },
         gui='v3'),
 
+<<<<<<< HEAD
+=======
+    'squirrels': Game(
+        name="Squirrels Go Nuts",
+            variants= {
+                'starter': Variant(name='Starter',
+                    data_provider=GamesmanPuzzles,
+                    data_provider_game_id='squirrels',
+                    data_provider_variant_id='starter',
+                    gui='v3'),
+                'junior': Variant(name='Junior',
+                    data_provider=GamesmanPuzzles,
+                    data_provider_game_id='squirrels',
+                    data_provider_variant_id='junior',
+                    gui='v3'),
+                'expert': Variant(name='Expert',
+                    data_provider=GamesmanPuzzles,
+                    data_provider_game_id='squirrels',
+                    data_provider_variant_id='expert',
+                    gui='v3'),
+                'master': Variant(name='Master',
+                    data_provider=GamesmanPuzzles,
+                    data_provider_game_id='squirrels',
+                    data_provider_variant_id='master',
+                    gui='v3'),
+                'wizard': Variant(name='Wizard',
+                    data_provider=GamesmanPuzzles,
+                    data_provider_game_id='squirrels',
+                    data_provider_variant_id='wizard',
+                    gui='v3'),
+            },
+        is_two_player_game=False,
+        gui='v3'
+        ),
+
+>>>>>>> master
     'tactix': Game(
         name='TacTix',
         variants={

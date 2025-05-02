@@ -62,6 +62,26 @@ def get_0to10by1or2(variant_id):
         }
     }
 
+def get_sevenpennies(variant_id):
+    return {
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "space": [960,960],
+                "centers": [[739.289, 76.657],[877.283, 215.999],[876.166, 727.324],[739.289, 882.208],[228.001, 881.834],[86.283, 727.324],[85.148, 215.999],[228.001, 77.012]],
+                "background": "sevenpennies/7pennies.svg",
+                "charImages": {
+                    "p": {"image": "sevenpennies/penny.svg", "scale": "150"}
+                },
+                "arrowWidth": 30,
+                "entitiesOverArrows": True,
+                "sounds": {"x": "general/slide.mp3",
+                            "y": "general/place.mp3"},
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
 def get_1dchess(variant_id):
     return {
         "defaultTheme": "basic",
@@ -456,6 +476,25 @@ def get_chungtoi(variant_id):
                 "defaultAnimationWindow": [0, 9]
             }
         }
+    }
+
+def get_clock_solitaire(variant_id):
+    scale = 1
+    arrowWidth = 0.15
+    ctrs = [[5, 1.34], [6.99, 1.83], [8.33, 3.23], [8.86, 5], [8.33, 6.87], [6.99, 8.3], [5, 8.66], [2.93, 8.29], [1.64, 6.87], [1.14, 5], [1.64, 3.24], [2.93, 1.83], [5.93, 3.44], [6.93, 5], [5.93, 6.68], [3.92, 6.68], [3.13, 5], [3.92, 3.44], [5, 5]]
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [10, 10],
+                "centers": ctrs,
+                "background": f"clocksolitaire/{variant_id}_grid.svg",
+                'charImages': {"x": {'image': 'general/brownpiece.svg', 'scale': scale}},
+                'arrowWidth': arrowWidth,
+                'sounds': {'x': 'general/slideThenRemove.mp3'},
+                'animationType': 'entityFade'
+            },
+        },
     }
 
 def get_connect4(variant_id):
@@ -1852,6 +1891,43 @@ def get_snake(variant_id):
         }
     }
 
+def get_spinout(variant_id):
+    alphabet_string = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    tile_scale = 0.625
+    arrow_scale = 1
+    tile_images = [
+        {"image" : "spinout/Spinout Tile Left.svg", "scale": tile_scale},  
+        {"image" : "spinout/Spinout Tile Up.svg", "scale": tile_scale},  
+        {"image" : "spinout/Spinout Tile Right.svg", "scale": tile_scale},  
+        {"image" : "spinout/Spinout Tile Down.svg", "scale": tile_scale}  
+    ]
+    autogui_dict = {alphabet_string[i] : tile_images[i % 4] for i in range(16)}
+    autogui_dict.update({
+        "Q" : {"image" : "spinout/Spinout Tile Flat Left.svg", "scale": tile_scale},  
+        "R" : {"image" : "spinout/Spinout Tile Flat Up.svg", "scale": tile_scale},  
+        "S" : {"image" : "spinout/Spinout Tile Flat Right.svg", "scale": tile_scale},  
+        "T" : {"image" : "spinout/Spinout Tile Flat Down.svg", "scale": tile_scale},
+        "c": {"image" : "spinout/clockwise.svg", "scale": arrow_scale},
+        "w": {"image" : "spinout/counterclockwise.svg", "scale": arrow_scale}
+    })
+    arrow_scale = 0.5
+    return {
+        "defaultTheme": "red",
+        "themes": {
+            "red": {
+                "space": [6, 2],
+                "centers": [[x * 0.5 + 0.25, 1] for x in range(13)] + [[3.85,0.6], [3.85,1.3],],
+                "background": "spinout/Spinout_Track.svg",
+                "charImages": autogui_dict,
+                "arrowWidth" : 0.03,
+                "lineWidth" : 0.2,
+                "entitiesOverArrows": False,
+                "sounds": {"s": "spinout/Spinout Slide.mp3",
+                           "r": "spinout/Spinout Rotate.mp3"},
+                "animationType": "simpleSlides"
+            }
+        }
+    }
 def get_solitaire_chess(variant_id):
     pieces = {"K", "Q", "R", "B", "N", "P"}
     return {
@@ -1889,6 +1965,48 @@ def get_squaredance(variant_id):
                 "charImages": char_images,
                 "sounds": {"x": "general/place.mp3"},
                 "animationType": "entityFade"
+            }
+        }
+    }
+
+def get_squirrels_go_nuts(variant_id):
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [400, 400],  # board dimensions; should match background svg
+                "centers": [
+                    [55, 55], [150, 55], [245, 55], [340, 55],
+                    [55, 150], [150, 150], [245, 150], [340, 150],
+                    [55, 245], [150, 245], [245, 245], [340, 245],
+                    [55, 340], [150, 340], [245, 340], [340, 340]
+                ],
+                "background": "squirrels/board.svg",
+                "charImages": {
+                    "H": {"image": "squirrels/hole.svg", "scale": 120},
+                    "A": {"image": "squirrels/acorn.svg", "scale": 80},
+                    "5": {"image": "squirrels/acorn.svg", "scale": 80},
+                    "6": {"image": "squirrels/acorn.svg", "scale": 80},
+                    "7": {"image": "squirrels/acorn.svg", "scale": 80},
+                    "8": {"image": "squirrels/acorn.svg", "scale": 80},
+                    "9": {"image": "squirrels/acorn.svg", "scale": 80},
+                    "L": {"image": "squirrels/squirrel_left.svg", "scale": 325},
+                    "l": {"image": "squirrels/squirrel_empty.svg", "scale": 120},
+                    "4": {"image": "squirrels/squirrel_acorn.svg", "scale": 120},
+                    "X": {"image": "squirrels/flower.svg", "scale": 200},
+                    "R": {"image": "squirrels/squirrel_right.svg", "scale": 325},
+                    "r": {"image": "squirrels/squirrel_empty.svg", "scale": 120},
+                    "2": {"image": "squirrels/squirrel_acorn.svg", "scale": 120},
+                    "T": {"image": "squirrels/squirrel_top.svg", "scale": 325},
+                    "t": {"image": "squirrels/squirrel_empty.svg", "scale": 120},
+                    "1": {"image": "squirrels/squirrel_acorn.svg", "scale": 120},
+                    "B": {"image": "squirrels/squirrel_bottom.svg", "scale": 325},
+                    "b": {"image": "squirrels/squirrel_empty.svg", "scale": 120},
+                    "3": {"image": "squirrels/squirrel_acorn.svg", "scale": 120},
+                },
+                "arrowWidth": 5,
+                "sounds": {"x": "general/slide.mp3"},
+                "animationType": "simpleSlides",
             }
         }
     }
@@ -2406,6 +2524,7 @@ image_autogui_data_funcs = {
     "chinesechess": get_chinesechess,
     "chomp": get_chomp,
     "chopsticks": get_chopsticks,
+    "clocksolitaire": get_clock_solitaire,
     "connect4": get_connect4,
     "chungtoi": get_chungtoi,
     "dao": get_dao,
@@ -2455,11 +2574,14 @@ image_autogui_data_funcs = {
     "rubikscube": get_rubikscube,
     "rubiksmagic": get_rubiksmagic,
     "rushhour": get_rushhour,
+    "sevenpennies": get_sevenpennies,
     "shifttactoe": get_shifttactoe,
     "slide5": get_slide5,
     "snake": get_snake,
+    "spinout": get_spinout,
     "solitairechess": get_solitaire_chess,
     "squaredance": get_squaredance,
+    "squirrels": get_squirrels_go_nuts,
     "tactix": get_tactix,
     "tantfant": get_tantfant,
     "tantrix": get_tantrix,
