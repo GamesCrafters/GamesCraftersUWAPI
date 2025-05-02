@@ -1189,6 +1189,39 @@ games = {
                 gui='v3')
             },
         gui='v3'),
+
+    'squirrels': Game(
+        name="Squirrels Go Nuts",
+            variants= {
+                'starter': Variant(name='Starter',
+                    data_provider=GamesmanPuzzles,
+                    data_provider_game_id='squirrels',
+                    data_provider_variant_id='starter',
+                    gui='v3'),
+                'junior': Variant(name='Junior',
+                    data_provider=GamesmanPuzzles,
+                    data_provider_game_id='squirrels',
+                    data_provider_variant_id='junior',
+                    gui='v3'),
+                'expert': Variant(name='Expert',
+                    data_provider=GamesmanPuzzles,
+                    data_provider_game_id='squirrels',
+                    data_provider_variant_id='expert',
+                    gui='v3'),
+                'master': Variant(name='Master',
+                    data_provider=GamesmanPuzzles,
+                    data_provider_game_id='squirrels',
+                    data_provider_variant_id='master',
+                    gui='v3'),
+                'wizard': Variant(name='Wizard',
+                    data_provider=GamesmanPuzzles,
+                    data_provider_game_id='squirrels',
+                    data_provider_variant_id='wizard',
+                    gui='v3'),
+            },
+        is_two_player_game=False,
+        gui='v3'
+        ),
     
     'tactix': Game(
         name='TacTix',

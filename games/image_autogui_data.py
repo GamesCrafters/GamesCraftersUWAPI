@@ -1969,6 +1969,48 @@ def get_squaredance(variant_id):
         }
     }
 
+def get_squirrels_go_nuts(variant_id):
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [400, 400],  # board dimensions; should match background svg
+                "centers": [
+                    [55, 55], [150, 55], [245, 55], [340, 55],
+                    [55, 150], [150, 150], [245, 150], [340, 150],
+                    [55, 245], [150, 245], [245, 245], [340, 245],
+                    [55, 340], [150, 340], [245, 340], [340, 340]
+                ],
+                "background": "squirrels/board.svg",
+                "charImages": {
+                    "H": {"image": "squirrels/hole.svg", "scale": 120},
+                    "A": {"image": "squirrels/acorn.svg", "scale": 80},
+                    "5": {"image": "squirrels/acorn.svg", "scale": 80},
+                    "6": {"image": "squirrels/acorn.svg", "scale": 80},
+                    "7": {"image": "squirrels/acorn.svg", "scale": 80},
+                    "8": {"image": "squirrels/acorn.svg", "scale": 80},
+                    "9": {"image": "squirrels/acorn.svg", "scale": 80},
+                    "L": {"image": "squirrels/squirrel_left.svg", "scale": 325},
+                    "l": {"image": "squirrels/squirrel_empty.svg", "scale": 120},
+                    "4": {"image": "squirrels/squirrel_acorn.svg", "scale": 120},
+                    "X": {"image": "squirrels/flower.svg", "scale": 200},
+                    "R": {"image": "squirrels/squirrel_right.svg", "scale": 325},
+                    "r": {"image": "squirrels/squirrel_empty.svg", "scale": 120},
+                    "2": {"image": "squirrels/squirrel_acorn.svg", "scale": 120},
+                    "T": {"image": "squirrels/squirrel_top.svg", "scale": 325},
+                    "t": {"image": "squirrels/squirrel_empty.svg", "scale": 120},
+                    "1": {"image": "squirrels/squirrel_acorn.svg", "scale": 120},
+                    "B": {"image": "squirrels/squirrel_bottom.svg", "scale": 325},
+                    "b": {"image": "squirrels/squirrel_empty.svg", "scale": 120},
+                    "3": {"image": "squirrels/squirrel_acorn.svg", "scale": 120},
+                },
+                "arrowWidth": 5,
+                "sounds": {"x": "general/slide.mp3"},
+                "animationType": "simpleSlides",
+            }
+        }
+    }
+
 def get_tactix(variant_id):
     centers = [[i % 4 + 0.5, i // 4 + 0.5] for i in range(16)]
     centers += [
@@ -2481,6 +2523,7 @@ image_autogui_data_funcs = {
     "spinout": get_spinout,
     "solitairechess": get_solitaire_chess,
     "squaredance": get_squaredance,
+    "squirrels": get_squirrels_go_nuts,
     "tactix": get_tactix,
     "tantfant": get_tantfant,
     "tantrix": get_tantrix,
