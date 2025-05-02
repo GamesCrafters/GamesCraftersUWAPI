@@ -1190,8 +1190,6 @@ games = {
             },
         gui='v3'),
 
-<<<<<<< HEAD
-=======
     'squirrels': Game(
         name="Squirrels Go Nuts",
             variants= {
@@ -1225,7 +1223,6 @@ games = {
         gui='v3'
         ),
 
->>>>>>> master
     'tactix': Game(
         name='TacTix',
         variants={
