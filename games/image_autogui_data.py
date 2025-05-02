@@ -1869,6 +1869,11 @@ def get_squirrels_go_nuts(variant_id):
                 "charImages": {
                     "H": {"image": "squirrels/hole.svg", "scale": 120},
                     "A": {"image": "squirrels/acorn.svg", "scale": 80},
+                    "5": {"image": "squirrels/acorn.svg", "scale": 80},
+                    "6": {"image": "squirrels/acorn.svg", "scale": 80},
+                    "7": {"image": "squirrels/acorn.svg", "scale": 80},
+                    "8": {"image": "squirrels/acorn.svg", "scale": 80},
+                    "9": {"image": "squirrels/acorn.svg", "scale": 80},
                     "L": {"image": "squirrels/squirrel_left.svg", "scale": 325},
                     "l": {"image": "squirrels/squirrel_empty.svg", "scale": 120},
                     "4": {"image": "squirrels/squirrel_acorn.svg", "scale": 120},
