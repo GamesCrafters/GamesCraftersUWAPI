@@ -1432,14 +1432,14 @@ games = {
         name="Top Spin",
         variants= {
             "10_2": Variant(
-                name="10 disks with size-2 knob",
+                name="10 disks, size-2 knob",
                 data_provider=GamesmanPuzzles,
                 data_provider_game_id='topspin',
                 data_provider_variant_id="10_2",
                 gui='v3'
             ),
             "12_3": Variant(
-                name="12 disks with size-3 knob",
+                name="12 disks, size-3 knob",
                 data_provider=GamesmanPuzzles,
                 data_provider_game_id='topspin',
                 data_provider_variant_id="12_3",
