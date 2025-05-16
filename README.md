@@ -42,6 +42,54 @@ This file sets up the server and runs it from the given port in main.
       ]
         ```
 
+- `/health/` : 
+    - Returns the current health and status of the UWAPI middleware and its dependant backend services.
+    
+      UWAPI health fields:
+        - `status`: (String) Always `"ok"`. Indicates that UWAPI is online.
+        - `http_code`: (Integer) Always HTTP `200`. Indicates that UWAPI is online.
+        - `timestamp`: (Integer) ISO 8601 UTC timestamp of when the health response was made (e.g., `"2025-05-16T20:25:55Z"`).
+        - `uptime`: (String) Time UWAPI has been running in `Xd Yh Zm Ws` format.
+        - `cpu_usage`: (String) The percentage of CPU currently being used by the UWAPI (e.g., `"21.2%"`).
+        - `memory_usage`: (String) The percentage of total system memory currently used by UWAPI (e.g., `"10.1%"`).
+        - `process_count`: (String) Number of processes currently running on the system.
+        - `backend_services`: (Object) An object describing the status of each backend service UWAPI depends on.
+
+        For each available backend service the following health fields are appended `backend_services`:
+        - `status`: (String) `"ok"` if the service responded successfully; `"fail"` if it did not respond or returned an error.
+         - `http_code`: (Integer) Service health check response HTTP code.
+        - `latency`: (Integer) Present only if the health check succeeded. Round-trip latency in milliseconds to reach the service.
+        - `error`: (String)Present only if the health check failed. Contains a short error message.
+
+      Below is an example response from `health/`:
+
+      ```json
+      {
+        "backend_services": {
+          "gamesmanclassic": {
+            "http_code": 200,
+            "latency_ms": 109,
+            "status": "ok"
+          },
+          "gamesmanone": {
+            "error": "HTTPConnectionPool(host='nyc.cs.berkeley.edu', port=8084): Max retries exceeded with url: /health (Caused by ConnectTimeoutError(\u003Curllib3.connection.HTTPConnection object at 0x106b46c10\u003E, 'Connection to nyc.cs.berkeley.edu timed out. (connect timeout=1.5)'))",
+            "status": "fail"
+          },
+          "gamesmanpuzzles": {
+            "http_code": 200,
+            "latency_ms": 40,
+            "status": "ok"
+          }
+        },
+        "cpu_usage": "6.1%",
+        "memory_usage": "58.5%",
+        "process_count": 887,
+        "status": "ok",
+        "timestamp": "2025-05-16T20:47:47Z",
+        "uptime": "0d 0h 0m 1s"
+      }
+      ```
+
 - `/<game_id>/` : 
 
     - Returns general information about the game specified by `game_id`. This is used, for example, by GamesmanUni when a game is clicked in order to see which variants are available in order to render the list of available variants.

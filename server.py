@@ -6,8 +6,20 @@ from games.image_autogui_data import *
 from games.models import Value, Remoteness
 from md_api import md_instr
 
+from games.gamesman_classic import GamesmanClassic
+from games.gamesman_one import GamesmanOne
+from games.gamesman_puzzles import GamesmanPuzzles
+import requests
+
+import time
+import psutil
+from datetime import datetime, timezone
+
 app = Flask(__name__)
 CORS(app)
+
+start_time = time.time()
+BACKEND_SERVICES = [GamesmanClassic, GamesmanPuzzles, GamesmanOne]
 
 # Helper Functions
 
@@ -165,6 +177,13 @@ def wrangle_move_objects_2Player(position_data):
     move_objs.sort(key=key_move_obj_by_move_value_then_delta_remoteness)
     
 
+def format_time(seconds: float) -> str:
+    seconds = int(seconds)
+    days = seconds // 86400
+    hours = (seconds % 86400) // 3600
+    minutes = (seconds % 3600) // 60
+    secs = seconds % 60
+    return f"{days}d {hours}h {minutes}m {secs}s"
 # Routes
 
 @app.route("/")
@@ -177,6 +196,56 @@ def get_games() -> list[dict[str, str]]:
     } for game_id, game in games.items()]
     all_games.sort(key=lambda g: g['name'])
     return jsonify(all_games)
+
+@app.route("/health")
+def get_health():
+    uptime_seconds = time.time() - start_time
+    uptime = format_time(uptime_seconds)
+    cpu_usage = psutil.cpu_percent(interval=0.1)
+    memory = psutil.virtual_memory()
+    memory_usage = f"{memory.percent}%"
+    process_count = len(psutil.pids())
+    timestamp = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace('+00:00', 'Z')
+
+    services_status = {}
+
+    for service_cls in BACKEND_SERVICES:
+        service_name = service_cls.__name__.lower()
+        try:
+            start = time.time()
+            health_url = f"{service_cls.url}health"
+            res = requests.get(health_url, timeout=1.5)
+            latency_ms = round((time.time() - start) * 1000)
+            if res.status_code == 200:
+                services_status[service_name] = {
+                    "status": "ok",
+                    "http_code": res.status_code,
+                    "latency_ms": latency_ms
+                }
+            else:
+                services_status[service_name] = {
+                    "status": "fail",
+                    "http_code": res.status_code,
+                    "latency_ms": latency_ms,
+                    "error": f"Status code {res.status_code}"
+                }
+        except Exception as e:
+            services_status[service_name] = {
+                "status": "fail",
+                "error": str(e)
+            }
+
+    payload = {
+        "status": "ok",
+        "uptime": uptime,
+        "cpu_usage": f"{cpu_usage}%",
+        "memory_usage": memory_usage,
+        "process_count": process_count,
+        "timestamp": timestamp,
+        "backend_services": services_status
+    }
+
+    return jsonify(payload), 200
 
 @app.route("/<game_id>/")
 def get_game(game_id: str):
