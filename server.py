@@ -232,7 +232,6 @@ def get_health():
         except Exception as e:
             services_status[service_name] = {
                 "status": "fail",
-                "error": str(e)
             }
 
     payload = {

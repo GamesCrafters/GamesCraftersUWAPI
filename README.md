@@ -57,11 +57,10 @@ This file sets up the server and runs it from the given port in main.
 
         For each available backend service the following health fields are appended `backend_services`:
         - `status`: (String) `"ok"` if the service responded successfully; `"fail"` if it did not respond or returned an error.
-         - `http_code`: (Integer) Service health check response HTTP code.
-        - `latency`: (Integer) Present only if the health check succeeded. Round-trip latency in milliseconds to reach the service.
-        - `error`: (String)Present only if the health check failed. Contains a short error message.
+         - `http_code`: (Integer) Service healthcheck response HTTP code.
+        - `latency`: (Integer) Present only if the healthcheck succeeded. Round-trip latency in milliseconds to reach the service.
 
-      Below is an example response from `health/`:
+      Below is an example response from `/health/`:
 
       ```json
       {
@@ -72,7 +71,6 @@ This file sets up the server and runs it from the given port in main.
             "status": "ok"
           },
           "gamesmanone": {
-            "error": "HTTPConnectionPool(host='nyc.cs.berkeley.edu', port=8084): Max retries exceeded with url: /health (Caused by ConnectTimeoutError(\u003Curllib3.connection.HTTPConnection object at 0x106b46c10\u003E, 'Connection to nyc.cs.berkeley.edu timed out. (connect timeout=1.5)'))",
             "status": "fail"
           },
           "gamesmanpuzzles": {
