@@ -42,7 +42,7 @@ This file sets up the server and runs it from the given port in main.
       ]
         ```
 
-- `/health/` : 
+- `/health` : 
     - Returns the current health and status of the UWAPI middleware and its dependant backend services.
     
       UWAPI health fields:
@@ -50,8 +50,8 @@ This file sets up the server and runs it from the given port in main.
         - `http_code`: (Integer) Always HTTP `200`. Indicates that UWAPI is online.
         - `timestamp`: (Integer) ISO 8601 UTC timestamp of when the health response was made (e.g., `"2025-05-16T20:25:55Z"`).
         - `uptime`: (String) Time UWAPI has been running in `Xd Yh Zm Ws` format.
-        - `cpu_usage`: (String) The percentage of CPU currently being used by the UWAPI (e.g., `"21.2%"`).
-        - `memory_usage`: (String) The percentage of total system memory currently used by UWAPI (e.g., `"10.1%"`).
+        - `cpu_usage`: (String) The percentage of CPU currently used (e.g., `"21.2%"`).
+        - `memory_usage`: (String) The percentage of total system memory currently used (e.g., `"10.1%"`).
         - `process_count`: (String) Number of processes currently running on the system.
         - `backend_services`: (Object) An object describing the status of each backend service UWAPI depends on.
 
@@ -60,7 +60,7 @@ This file sets up the server and runs it from the given port in main.
          - `http_code`: (Integer) Service healthcheck response HTTP code.
         - `latency`: (Integer) Present only if the healthcheck succeeded. Round-trip latency in milliseconds to reach the service.
 
-      Below is an example response from `/health/`:
+      Below is an example response from `/health`:
 
       ```json
       {
