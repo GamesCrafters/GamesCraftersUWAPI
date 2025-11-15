@@ -2523,7 +2523,7 @@ def get_orbito(variant_id):
         }
     }
 
-    if variant_id == "inner-sq-clockwise":
+    if variant_id == "inner-sq-clockwise" or variant_id == "diagonal-and-rotation":
         data["themes"]["regular"]["background"] = "orbito/orbito_board_reversed.svg"
 
     return data

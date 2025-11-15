@@ -992,6 +992,13 @@ games = {
                 data_provider_game_id = 'orbito' ,
                 data_provider_variant_id = '3' ,
                 gui = 'v3',
+            ),
+            'diagonal-and-rotation': Variant(
+                name = 'Diagonal Movies and Inner Clockwise',
+                data_provider=GamesmanClassic,
+                data_provider_game_id = 'orbito' ,
+                data_provider_variant_id = '4' ,
+                gui = 'v3',
             )
         },
         gui = 'v3',
