@@ -954,7 +954,7 @@ games = {
             'regular': Variant(
                 name='Regular',
                 data_provider=GamesmanClassic,
-                data_provider_game_id= 'othello',
+                data_provider_game_id='othello',
                 data_provider_variant_id=136,
                 gui='v3')
         },
@@ -966,42 +966,42 @@ games = {
         name='Orbito',
         variants={
             'regular': Variant(
-                name ='Regular',
+                name='Regular',
                 data_provider=GamesmanClassic,
-                data_provider_game_id = 'orbito',
-                data_provider_variant_id = '0' ,
-                gui = 'v3',
+                data_provider_game_id='orbito',
+                data_provider_variant_id='0',
+                gui='v3',
             ),
             'inner-sq-clockwise': Variant(
-                name = 'Inner Clockwise',
+                name='Inner Clockwise',
                 data_provider=GamesmanClassic,
-                data_provider_game_id = 'orbito' ,
-                data_provider_variant_id = '1' ,
-                gui = 'v3',
+                data_provider_game_id='orbito',
+                data_provider_variant_id='1',
+                gui='v3',
             ),
             'opp-adjacent': Variant(
-                name = 'Diagonal Moves',
+                name='Diagonal Moves',
                 data_provider=GamesmanClassic,
-                data_provider_game_id = 'orbito' ,
-                data_provider_variant_id = '2' ,
-                gui = 'v3',
+                data_provider_game_id='orbito',
+                data_provider_variant_id='2',
+                gui='v3',
             ),
             'misere': Variant(
-                name = 'Misere Version',
+                name='Misere Version',
                 data_provider=GamesmanClassic,
-                data_provider_game_id = 'orbito' ,
-                data_provider_variant_id = '3' ,
-                gui = 'v3',
+                data_provider_game_id='orbito',
+                data_provider_variant_id='3',
+                gui='v3',
             ),
             'diagonal-and-rotation': Variant(
-                name = 'Diagonal Movies and Inner Clockwise',
+                name='Diagonal Movies and Inner Clockwise',
                 data_provider=GamesmanClassic,
-                data_provider_game_id = 'orbito' ,
-                data_provider_variant_id = '4' ,
-                gui = 'v3',
+                data_provider_game_id='orbito' ,
+                data_provider_variant_id='4',
+                gui='v3',
             )
         },
-        gui = 'v3',
+        gui='v3',
         is_two_player_game=True,
         custom_variant=False
         ), 
@@ -1019,7 +1019,7 @@ games = {
             ) for v in ('triangle', 'star', 'trapezoid')
         },
         is_two_player_game=False,
-        gui='v3' 
+        gui='v3'
     ),
 
     'ponghauki': Game(
