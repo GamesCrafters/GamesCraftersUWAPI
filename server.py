@@ -23,6 +23,8 @@ def key_move_obj_by_move_value_then_delta_remoteness(move_obj):
     """
     VALUES = (Value.WIN, Value.TIE, Value.DRAW, Value.LOSE, Value.UNSOLVED, Value.UNDECIDED)
     move_value = move_obj['moveValue']
+    print(move_value)
+
     delta_remotenesss = move_obj['deltaRemoteness']
     return (VALUES.index(move_value), delta_remotenesss)
 
