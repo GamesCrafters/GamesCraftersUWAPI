@@ -529,7 +529,7 @@ def get_connect4twist(variant_id):
             offset = 0.8
             y_offset = 1.2
             scale = 0.8
-            piece_scale = 0.9
+            piece_scale = 0.85
         else:
             offset = 0.4
             y_offset = 1.3
