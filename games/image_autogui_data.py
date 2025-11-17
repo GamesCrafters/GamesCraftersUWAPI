@@ -527,21 +527,25 @@ def get_connect4twist(variant_id):
     def get_theme(cols):
         if cols == 4:
             offset = 0.8
+            y_offset = 1.2
             scale = 0.8
+            piece_scale = 0.9
         else:
             offset = 0.4
+            y_offset = 1.3
             scale = 0.775
-        centers = [[offset + (i % cols) * scale, 1.2 + (i // cols) * 0.8] for i in range(cols * 4)]
+            piece_scale = 0.75
+        centers = [[offset + (i % cols) * scale, y_offset + (i // cols) * scale] for i in range(cols * 4)]
         return {
             "defaultTheme": "normal",
             "themes": {
                 "normal": {
                     "space": [4, cols],
-                    "centers": centers + [[offset + (i % cols) * scale, (i // cols) * 0.75] for i in range(cols * 2)],
+                    "centers": centers + [[offset + (i % cols) * scale, (i // cols) * scale] for i in range(cols * 2)],
                     "foreground": f"connect4twist/foreground4x{cols}.svg",
                     "charImages": {
-                        "x": {"image": "general/blue_circle.svg", "scale": 0.9},
-                        "o": {"image": "general/red_circle.svg", "scale": 0.9},
+                        "x": {"image": "general/blue_circle.svg", "scale": piece_scale},
+                        "o": {"image": "general/red_circle.svg", "scale": piece_scale},
                         "l": {"image": "connect4twist/left.svg", "scale": 0.5},
                         "r": {"image": "connect4twist/right.svg", "scale": 0.5}
                     },
