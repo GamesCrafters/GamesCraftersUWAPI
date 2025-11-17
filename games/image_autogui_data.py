@@ -1161,6 +1161,24 @@ def get_konane(variant_id):
         return konane_iadata(int(variant_id[0]), int(variant_id[-1]))
     return None
 
+def get_legrec(variant_id):
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [4, 4],
+                "centers": [[i % 4 + 0.5, i // 4 + 0.5] for i in range(16)],
+                "background": "legrec/grid.svg",
+                "charImages": {
+                    "X": {"image": "general/whitepiece.svg", "scale": 1},
+                    "O": {"image": "general/blackpiece.svg", "scale": 1}
+                },
+                "sounds": {"x": "general/slide.mp3"},
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
 def get_lewthwaitesgame(variant_id):
     return {
         "defaultTheme": "regular",
@@ -2551,6 +2569,7 @@ image_autogui_data_funcs = {
     "kayles": get_kayles,
     "kaooa": get_kaooa, 
     "konane": get_konane,
+    "legrec": get_legrec,
     "lewthwaitesgame": get_lewthwaitesgame,
     "lgame": get_lgame,
     "lightsout": get_lightsout,
