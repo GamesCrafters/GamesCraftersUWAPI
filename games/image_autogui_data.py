@@ -2576,7 +2576,7 @@ image_autogui_data_funcs = {
     "kayles": get_kayles,
     "kaooa": get_kaooa, 
     "konane": get_konane,
-    "laukatikata":get_laukatikata,
+    "laukatikata": get_laukatikata,
     "lewthwaitesgame": get_lewthwaitesgame,
     "lgame": get_lgame,
     "lightsout": get_lightsout,
