@@ -43,6 +43,28 @@ get_<game>(variant_id) should return JSON of the following form:
 
 """
 
+def get_hexapawn(variant_id):
+   width = (int(variant_id) % 4) + 3
+   height = 3
+
+   return {
+       "defaultTheme": "regular",
+       "themes": {
+           "regular": {
+               "space" : [8 * width, 24],
+               "centers": [[(i % width) * 8 + 4, (i // width) * 8 + 4] for i in range(width * height)],
+               "background": f"hexapawn/{width}.svg",
+               "charImages": {
+                   "W": {"image": "chess/wikipedia/P.svg", "scale": 7},
+                   "B": {"image": "chess/wikipedia/pp.svg", "scale": 7},
+               },
+               "arrowWidth": 1,
+               "sounds": {"x": "general/remove.mp3"},
+               "animationType": "simpleSlides"
+           }
+       }
+   }
+
 def get_0to10by1or2(variant_id):
     return {
         "defaultTheme": "basic",
@@ -2544,6 +2566,7 @@ image_autogui_data_funcs = {
     "graphgame": get_graphgame,
     "towersofhanoi": get_towersofhanoi,
     "hareandhounds": get_hareandhounds,
+    "hexapawn": get_hexapawn,
     "hobaggonu": get_hobaggonu,
     "jan": get_jan,
     "jenga": get_jenga,

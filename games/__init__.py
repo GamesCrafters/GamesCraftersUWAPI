@@ -600,6 +600,74 @@ games = {
         },
         gui='v3'),
 
+    'hexapawn': Game(
+        name="Hexapawn",
+        variants={
+            '0': Variant(
+                name='Length 3',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='hexapawn',
+                data_provider_variant_id=0,
+                gui='v3',
+            ),
+
+            '1': Variant(
+                name='Length 4',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='hexapawn',
+                data_provider_variant_id=1,
+                gui='v3',
+            ),
+            '2': Variant(
+                name='Length 5',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='hexapawn',
+                data_provider_variant_id=2,
+                gui='v3',
+            ),
+
+            '3': Variant(
+                name='Length 6',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='hexapawn',
+                data_provider_variant_id=3,
+                gui='v3',
+            ),
+
+            '4': Variant(
+                name='Length 3 Misere',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='hexapawn',
+                data_provider_variant_id=4,
+                gui='v3',
+            ),
+
+            '5': Variant(
+                name='Length 4 Misere',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='hexapawn',
+                data_provider_variant_id=5,
+                gui='v3',
+            ),
+            '6': Variant(
+                name='Length 5 Misere',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='hexapawn',
+                data_provider_variant_id=6,
+                gui='v3',
+            ),
+
+               '7': Variant(
+                   name='Length 6 Misere',
+                   data_provider=GamesmanClassic,
+                   data_provider_game_id='hexapawn',
+                   data_provider_variant_id=7,
+                   gui='v3',
+               ),
+           },
+           gui='v3',
+       ),
+
     'hobaggonu': Game(
         name="Ho-Bag Gonu",
         variants={
