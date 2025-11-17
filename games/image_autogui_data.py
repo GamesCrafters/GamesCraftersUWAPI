@@ -2501,7 +2501,32 @@ def get_yote(variant_id):
         data_regular["space"] = [40, 50]
         data_regular["centers"] = data_regular["centers"] + [[5, 5], [35, 5]]
     return data
+
     
+def get_orbito(variant_id):
+    data = {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [8, 8],
+                "centers": [[1, 1], [3, 1], [5, 1], [7, 1], [1, 3], [3, 3], [5, 3], [7, 3], [1, 5], [3, 5], [5, 5], [7, 5], [1, 7], [3, 7], [5, 7], [7, 7]],
+                "background": "orbito/orbito_board.svg",
+                "charImages": {
+                    "B": {"image": "general/blackpiece.svg", "scale": 1.5},
+                    "W": {"image": "general/whitepiece.svg", "scale": 1.5},
+                },
+                "circleButtonRadius": 0.25,
+                "entitiesOverArrows": True,
+                "sounds": {"x": "general/slide.mp3"},
+                "animationType": "simpleSlide",
+            }
+        }
+    }
+
+    if variant_id == "inner-sq-clockwise" or variant_id == "diagonal-and-rotation":
+        data["themes"]["regular"]["background"] = "orbito/orbito_board_reversed.svg"
+
+    return data
 """
 ===== STEP 2 ===== 
 Add your function to the image_autogui_data_funcs dict in alphabetical order by game_id.
@@ -2565,6 +2590,7 @@ image_autogui_data_funcs = {
     "nqueens": get_nqueens,
     "nutictactoe": get_nutictactoe,
     "oddoreven": get_oddoreven,
+    "orbito" : get_orbito, 
     "othello": get_othello,
     "pegsolitaire": get_pegsolitaire,
     "ponghauki": get_ponghauki,
