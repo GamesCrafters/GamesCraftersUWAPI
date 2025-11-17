@@ -2502,6 +2502,33 @@ def get_yote(variant_id):
         data_regular["centers"] = data_regular["centers"] + [[5, 5], [35, 5]]
     return data
     
+def get_laukatikata(variant_id):
+    return {
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "space": [100, 100],
+                "centers": [
+                [9, 10], [50, 10], [91, 10],     
+                [30, 30], [50, 30], [70, 30],    
+                [50, 50],                         
+                [30, 70], [50, 70], [70, 70],     
+                [9, 90], [50, 90], [91, 90] 
+                ],
+                "background": "laukatikata/board.svg",
+                "charImages": {
+                    "B": {"image": "laukatikata/blackpiece.svg", "scale": 10},
+                    "W": {"image": "laukatikata/whitepiece.svg", "scale": 10},
+                    "-": {"image": "general/blank.svg", "scale": 10}
+                },
+                "arrowWidth": 3,
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
+
+
 """
 ===== STEP 2 ===== 
 Add your function to the image_autogui_data_funcs dict in alphabetical order by game_id.
@@ -2551,6 +2578,7 @@ image_autogui_data_funcs = {
     "kayles": get_kayles,
     "kaooa": get_kaooa, 
     "konane": get_konane,
+    "laukatikata":get_laukatikata,
     "lewthwaitesgame": get_lewthwaitesgame,
     "lgame": get_lgame,
     "lightsout": get_lightsout,
@@ -2595,7 +2623,7 @@ image_autogui_data_funcs = {
     "tsoroyematatu": get_tsoroyematatu,
     "winkers": get_winkers,
     "y": get_y,
-    "yote": get_yote
+    "yote": get_yote,
 }
 
 def get_image_autogui_data(game_id, variant_id):
