@@ -1004,8 +1004,7 @@ games = {
         gui='v3',
         is_two_player_game=True,
         custom_variant=False
-        ), 
-
+        ),
 
     'pegsolitaire': Game(
         name='Peg Solitaire',
