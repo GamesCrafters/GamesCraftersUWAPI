@@ -2527,8 +2527,6 @@ def get_laukatikata(variant_id):
         }
     }
 
-
-
 """
 ===== STEP 2 ===== 
 Add your function to the image_autogui_data_funcs dict in alphabetical order by game_id.
@@ -2623,7 +2621,7 @@ image_autogui_data_funcs = {
     "tsoroyematatu": get_tsoroyematatu,
     "winkers": get_winkers,
     "y": get_y,
-    "yote": get_yote,
+    "yote": get_yote
 }
 
 def get_image_autogui_data(game_id, variant_id):
