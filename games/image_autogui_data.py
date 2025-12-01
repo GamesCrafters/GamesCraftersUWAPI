@@ -736,6 +736,38 @@ def get_euclidsgame(variant_id):
         }
     }
 
+def get_expantix(variant_id):
+    rows = int(variant_id)
+    cols = int(variant_id)
+    boardsize = rows * cols
+    center_references = [[i % cols + 1.5, rows - 1 - i // cols + 0.5] for i in range(boardsize)] + [[i + 1.5, rows + 0.5] for i in range(cols)] + [[0.5, i + 0.5] for i in range(rows + 1)]
+    centers = []
+    for x, y in [[0, 0], [0.32, -0.1], [0.32, 0.1], [-0.1, -0.32], [0.1, -0.32], [-0.32, -0.1], [-0.32, 0.1], [-0.1, 0.32], [0.1, 0.32]]:
+        centers.extend([[col + x, row + y] for col, row in center_references])
+    return {
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "space": [rows + 1, cols + 1],
+                "centers": centers,
+                "background": f"expantix/grid{rows}.svg",
+                "charImages": {
+                    "X": {"image": "general/blackpiece.svg", "scale": 1},
+                    "r": {"image": "expantix/right.svg", "scale": 0.2},
+                    "R": {"image": "expantix/rightt.svg", "scale": 0.2},
+                    "u": {"image": "expantix/up.svg", "scale": 0.2},
+                    "U": {"image": "expantix/upp.svg", "scale": 0.2},
+                    "l": {"image": "expantix/left.svg", "scale": 0.2},
+                    "L": {"image": "expantix/leftt.svg", "scale": 0.2},
+                    "d": {"image": "expantix/down.svg", "scale": 0.2},
+                    "D": {"image": "expantix/downn.svg", "scale": 0.2},
+                },
+                "circleButtonRadius": 0.125,
+                "sounds": {"x": "general/place.mp3"},
+            }
+        }
+    }
+
 def get_fivefieldkono(variant_id):
     return {
         "defaultTheme": "basic",
@@ -2535,6 +2567,7 @@ image_autogui_data_funcs = {
     "dragonsandswans": get_dragonsandswans,
     "dshogi": get_dshogi,
     "euclidsgame": get_euclidsgame,
+    "expantix": get_expantix,
     "fivefieldkono": get_fivefieldkono,
     "fourfieldkono": get_fourfieldkono,
     "forestfox": get_forestfox,
