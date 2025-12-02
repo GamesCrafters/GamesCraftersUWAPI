@@ -718,11 +718,46 @@ games = {
     'jan': Game(
         name="Jan",
         variants={
-            '4x4': Variant(
-                name='4x4',
+            'Standard No Diagonals': Variant(
+                name='Standard No Diagonals',
                 data_provider=GamesmanClassic,
                 data_provider_game_id='jan',
                 data_provider_variant_id='1',
+                gui='v3',
+            ),
+            'Standard All Diagonals': Variant(
+                name='Standard All Diagonals',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='jan',
+                data_provider_variant_id='2',
+                gui='v3',
+            ),
+            'Standard Main Diagonals': Variant(
+                name='Standard Main Diagonals',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='jan',
+                data_provider_variant_id='3',
+                gui='v3',
+            ),
+            'Misere No Diagonals': Variant(
+                name='Misere No Diagonals',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='jan',
+                data_provider_variant_id='4',
+                gui='v3',
+            ),
+            'Misere All Diagonals': Variant(
+                name='Misere All Diagonals',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='jan',
+                data_provider_variant_id='5',
+                gui='v3',
+            ),
+            'Misere Main Diagonals': Variant(
+                name='Misere Main Diagonals',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='jan',
+                data_provider_variant_id='6',
                 gui='v3',
             ),
         },
