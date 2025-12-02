@@ -2,6 +2,7 @@ from .models import Game, Variant
 from .gamesman_classic import GamesmanClassic
 from .gamesman_puzzles import GamesmanPuzzles
 from .gamesman_one import GamesmanOne
+from .gamesman_py import GamesmanPy
 from .chess import RegularChessVariant
 from .tootandotto import TootAndOtto
 from .nim import NimVariant, nim_custom_start
@@ -263,6 +264,18 @@ games = {
                 data_provider_game_id='ctoi',
                 data_provider_variant_id=62,
                 gui='v3')
+        },
+        gui='v3'),
+
+    'clobber': Game(
+        name='Clobber',
+        variants={
+            variant_id: Variant(
+                name=variant_id,
+                data_provider=GamesmanPy,
+                data_provider_game_id='clobber',
+                data_provider_variant_id=variant_id,
+                gui='v3') for variant_id in ['3x4', '3x6', '5x3', '5x4']
         },
         gui='v3'),
 
@@ -608,6 +621,27 @@ games = {
                 data_provider=GamesmanClassic,
                 data_provider_game_id='hobaggonu',
                 data_provider_variant_id=0,
+                gui='v3',
+            ),
+        },
+        gui='v3',
+    ),
+
+    'horses': Game(
+        name="Horses",
+        variants={
+            'regular': Variant(
+                name='Regular',
+                data_provider=GamesmanPy,
+                data_provider_game_id='horses',
+                data_provider_variant_id='regular',
+                gui='v3',
+            ),
+            'misere': Variant(
+                name='Misere',
+                data_provider=GamesmanPy,
+                data_provider_game_id='horses',
+                data_provider_variant_id='misere',
                 gui='v3',
             ),
         },
@@ -1020,6 +1054,37 @@ games = {
         is_two_player_game=False,
         gui='v3'
     ),
+
+    'pancakes': Game(
+        name="Pancakes",
+        variants={
+            '5': Variant(
+                name='5',
+                data_provider=GamesmanPy,
+                data_provider_game_id='pancakes',
+                data_provider_variant_id='5',
+                gui='v3'),
+            '6': Variant(
+                name='6',
+                data_provider=GamesmanPy,
+                data_provider_game_id='pancakes',
+                data_provider_variant_id='6',
+                gui='v3'),
+            '7': Variant(
+                name='7',
+                data_provider=GamesmanPy,
+                data_provider_game_id='pancakes',
+                data_provider_variant_id='7',
+                gui='v3'),
+            '8': Variant(
+                name='8',
+                data_provider=GamesmanPy,
+                data_provider_game_id='pancakes',
+                data_provider_variant_id='8',
+                gui='v3'),
+        },
+        is_two_player_game=False,
+        gui='v3'),
 
     'ponghauki': Game(
         name="Pong Hau K'i",

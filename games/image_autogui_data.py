@@ -478,6 +478,33 @@ def get_chungtoi(variant_id):
         }
     }
 
+def get_clobber(variant_id):
+    def get_theme(cols, rows):
+        return {
+            "defaultTheme": "regular",
+            "themes": {
+                "regular": {
+                    "space": [cols, rows],
+                    "centers": [[0.5 + i % cols, 0.5 + i // cols] for i in range(rows * cols)],
+                    "background": f"clobber/{variant_id}.svg",
+                    "charImages": {
+                        "x": {"image": "general/blackpiece.svg", "scale": 1},
+                        "o": {"image": "general/whitepiece.svg", "scale": 1},
+                    },
+                    "arrowWidth": 0.1,
+                    "sounds": {
+                        "x": "general/slide.mp3",
+                    },
+                    "animationType": "simpleSlides",
+                }
+            }
+        }
+    match variant_id:
+        case '3x4': return get_theme(3, 4)
+        case '3x6': return get_theme(3, 6)
+        case '5x3': return get_theme(5, 3)
+        case '5x4': return get_theme(5, 4)
+
 def get_clock_solitaire(variant_id):
     scale = 1
     arrowWidth = 0.15
@@ -1023,6 +1050,39 @@ def get_hobaggonu(variant_id):
                 },
                 "sounds": {"x": "general/slide.mp3"},
                 "animationType": "simpleSlides"
+            }
+        }
+    }
+
+def get_horses(variant_id):
+    centers = [
+        [100, 30],
+        [149.4975, 50.5025],
+        [170, 100],
+        [149.4975, 149.4975],
+        [100, 170],
+        [50.5025, 149.4975],
+        [30, 100],
+        [50.5025, 50.5025],
+        [100, 100],
+    ]
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [200, 200],
+                "background": "horses/background.svg",
+                "centers": centers,
+                "charImages": {
+                    "x": {"image": "general/bluepiece.svg", "scale": 25},
+                    "o": {"image": "general/redpiece.svg", "scale": 25},
+                },
+                "arrowWidth": 2.5,
+                "sounds": {
+                    "x": "general/place.mp3",
+                    "y": "general/slide.mp3",
+                },
+                "animationType": "simpleSlides",
             }
         }
     }
@@ -1599,6 +1659,41 @@ def get_othello(variant_id):
                 "background": "othello/grid.svg",
                 "charImages": char_images,
                 "sounds": {"x": "general/place.mp3", "y": "general/remove.mp3"},
+                "animationType": "entityFade"
+            }
+        }
+    }
+
+def get_pancakes(variant_id):
+    rows = int(variant_id)
+    height = 1.25 * rows
+    centers = [[8, height - 0.5 - (1.25 * i)] for i in range(rows)]
+    space = [16, height]
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": space,
+                "centers": centers,
+                "charImages": {
+                    "1": {"image": "pancakes/pancake1.svg", "scale": 15},
+                    "2": {"image": "pancakes/pancake2.svg", "scale": 15},
+                    "3": {"image": "pancakes/pancake3.svg", "scale": 15},
+                    "4": {"image": "pancakes/pancake4.svg", "scale": 15},
+                    "5": {"image": "pancakes/pancake5.svg", "scale": 15},
+                    "6": {"image": "pancakes/pancake6.svg", "scale": 15},
+                    "7": {"image": "pancakes/pancake7.svg", "scale": 15},
+                    "8": {"image": "pancakes/pancake8.svg", "scale": 15},
+                    "a": {"image": "pancakes/pancake1f.svg", "scale": 15},
+                    "b": {"image": "pancakes/pancake2f.svg", "scale": 15},
+                    "c": {"image": "pancakes/pancake3f.svg", "scale": 15},
+                    "d": {"image": "pancakes/pancake4f.svg", "scale": 15},
+                    "e": {"image": "pancakes/pancake5f.svg", "scale": 15},
+                    "f": {"image": "pancakes/pancake6f.svg", "scale": 15},
+                    "g": {"image": "pancakes/pancake7f.svg", "scale": 15},
+                    "h": {"image": "pancakes/pancake8f.svg", "scale": 15},
+                },
+                "sounds": {"x": "general/place.mp3"},
                 "animationType": "entityFade"
             }
         }
@@ -2549,6 +2644,7 @@ image_autogui_data_funcs = {
     "chinesechess": get_chinesechess,
     "chomp": get_chomp,
     "chopsticks": get_chopsticks,
+    "clobber": get_clobber,
     "clocksolitaire": get_clock_solitaire,
     "connect4": get_connect4,
     "chungtoi": get_chungtoi,
@@ -2570,6 +2666,7 @@ image_autogui_data_funcs = {
     "towersofhanoi": get_towersofhanoi,
     "hareandhounds": get_hareandhounds,
     "hobaggonu": get_hobaggonu,
+    "horses": get_horses,
     "jan": get_jan,
     "jenga": get_jenga,
     "joust": get_joust,
@@ -2592,6 +2689,7 @@ image_autogui_data_funcs = {
     "oddoreven": get_oddoreven,
     "orbito" : get_orbito, 
     "othello": get_othello,
+    "pancakes": get_pancakes,
     "pegsolitaire": get_pegsolitaire,
     "ponghauki": get_ponghauki,
     "quickchess": get_quickchess,
