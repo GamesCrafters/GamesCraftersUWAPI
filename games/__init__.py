@@ -321,6 +321,25 @@ games = {
                 gui='v3')
         },
         gui='v3'),
+    
+    'connect4twist': Game(
+        name='Connect 4 Twist and Turn',
+        variants={
+            '4x4': Variant(
+                name='4x4',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='connect4twist',
+                data_provider_variant_id=1,
+                gui='v3'),
+            '4x5': Variant(
+                name='4x5',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='connect4twist',
+                data_provider_variant_id=2,
+                gui='v3'),
+
+        },
+        gui='v3'),
 
     'dao': Game(
         name='Dao',
@@ -801,13 +820,25 @@ games = {
         },
         gui='v3'),
 
-    'lgame': Game(
-        name='L-game',
+    'legrec': Game(
+        name='Le Grec',
         variants={
-            'regular': Variant(
+            'advancement-comparison': Variant(
                 name='Regular',
                 data_provider=GamesmanClassic,
-                data_provider_game_id='Lgame',
+                data_provider_game_id='legrec',
+                data_provider_variant_id=0,
+                gui='v3'),
+            'stuck-player-wins': Variant(
+                name='Stuck Player Wins',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='legrec',
+                data_provider_variant_id=1,
+                gui='v3'),
+            'stuck-player-loses': Variant(
+                name='Stuck Player Loses',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='legrec',
                 data_provider_variant_id=2,
                 gui='v3')
         },
@@ -821,6 +852,18 @@ games = {
                 data_provider=GamesmanClassic,
                 data_provider_game_id='lewth',
                 data_provider_variant_id=0,
+                gui='v3')
+        },
+        gui='v3'),
+
+    'lgame': Game(
+        name='L-game',
+        variants={
+            'regular': Variant(
+                name='Regular',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='Lgame',
+                data_provider_variant_id=2,
                 gui='v3')
         },
         gui='v3'),
@@ -1045,6 +1088,50 @@ games = {
         gui='v3',
         supports_win_by=True
     ),
+
+    'orbito': Game(
+        name='Orbito',
+        variants={
+            'regular': Variant(
+                name='Regular',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='orbito',
+                data_provider_variant_id='0',
+                gui='v3',
+            ),
+            'inner-sq-clockwise': Variant(
+                name='Inner Clockwise',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='orbito',
+                data_provider_variant_id='1',
+                gui='v3',
+            ),
+            'opp-adjacent': Variant(
+                name='Diagonal Moves',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='orbito',
+                data_provider_variant_id='2',
+                gui='v3',
+            ),
+            'misere': Variant(
+                name='Misere Version',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='orbito',
+                data_provider_variant_id='3',
+                gui='v3',
+            ),
+            'diagonal-and-rotation': Variant(
+                name='Diagonal Movies and Inner Clockwise',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='orbito' ,
+                data_provider_variant_id='4',
+                gui='v3',
+            )
+        },
+        gui='v3',
+        is_two_player_game=True,
+        custom_variant=False
+        ),
 
     'pegsolitaire': Game(
         name='Peg Solitaire',

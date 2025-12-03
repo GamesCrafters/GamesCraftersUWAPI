@@ -545,6 +545,44 @@ def get_connect4(variant_id):
         return get_theme(7)
     return None
 
+def get_connect4twist(variant_id):
+    def get_theme(cols):
+        if cols == 4:
+            offset = 0.8
+            y_offset = 1.2
+            scale = 0.8
+            piece_scale = 0.85
+        else:
+            offset = 0.4
+            y_offset = 1.3
+            scale = 0.775
+            piece_scale = 0.75
+        centers = [[offset + (i % cols) * scale, y_offset + (i // cols) * scale] for i in range(cols * 4)]
+        return {
+            "defaultTheme": "normal",
+            "themes": {
+                "normal": {
+                    "space": [4, cols],
+                    "centers": centers + [[offset + (i % cols) * scale, (i // cols) * scale] for i in range(cols * 2)],
+                    "foreground": f"connect4twist/foreground4x{cols}.svg",
+                    "charImages": {
+                        "x": {"image": "general/blue_circle.svg", "scale": piece_scale},
+                        "o": {"image": "general/red_circle.svg", "scale": piece_scale},
+                        "l": {"image": "connect4twist/left.svg", "scale": 0.5},
+                        "r": {"image": "connect4twist/right.svg", "scale": 0.5}
+                    },
+                    "arrowWidth": 0.13,
+                    "sounds": {"x": "general/remove.mp3"},
+                    "animationType": "entityFade"
+                }
+            }
+        }
+    if variant_id == "4x4":
+        return get_theme(4)
+    elif variant_id == "4x5":
+        return get_theme(5)
+    return None
+
 def get_dao(variant_id):
     return {
         "defaultTheme": "basic",
@@ -1182,6 +1220,24 @@ def get_konane(variant_id):
     if variant_id in ("4x4", "4x5", "5x5", "5x6", "6x6"):
         return konane_iadata(int(variant_id[0]), int(variant_id[-1]))
     return None
+
+def get_legrec(variant_id):
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [4, 4],
+                "centers": [[i % 4 + 0.5, i // 4 + 0.5] for i in range(16)],
+                "background": "legrec/grid.svg",
+                "charImages": {
+                    "X": {"image": "general/whitepiece.svg", "scale": 1},
+                    "O": {"image": "general/blackpiece.svg", "scale": 1}
+                },
+                "sounds": {"x": "general/slide.mp3"},
+                "animationType": "simpleSlides"
+            }
+        }
+    }
 
 def get_lewthwaitesgame(variant_id):
     return {
@@ -2523,7 +2579,32 @@ def get_yote(variant_id):
         data_regular["space"] = [40, 50]
         data_regular["centers"] = data_regular["centers"] + [[5, 5], [35, 5]]
     return data
+
     
+def get_orbito(variant_id):
+    data = {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [8, 8],
+                "centers": [[1, 1], [3, 1], [5, 1], [7, 1], [1, 3], [3, 3], [5, 3], [7, 3], [1, 5], [3, 5], [5, 5], [7, 5], [1, 7], [3, 7], [5, 7], [7, 7]],
+                "background": "orbito/orbito_board.svg",
+                "charImages": {
+                    "B": {"image": "general/blackpiece.svg", "scale": 1.5},
+                    "W": {"image": "general/whitepiece.svg", "scale": 1.5},
+                },
+                "circleButtonRadius": 0.25,
+                "entitiesOverArrows": True,
+                "sounds": {"x": "general/slide.mp3"},
+                "animationType": "simpleSlide",
+            }
+        }
+    }
+
+    if variant_id == "inner-sq-clockwise" or variant_id == "diagonal-and-rotation":
+        data["themes"]["regular"]["background"] = "orbito/orbito_board_reversed.svg"
+
+    return data
 """
 ===== STEP 2 ===== 
 Add your function to the image_autogui_data_funcs dict in alphabetical order by game_id.
@@ -2548,6 +2629,7 @@ image_autogui_data_funcs = {
     "chopsticks": get_chopsticks,
     "clocksolitaire": get_clock_solitaire,
     "connect4": get_connect4,
+    "connect4twist": get_connect4twist,
     "chungtoi": get_chungtoi,
     "dao": get_dao,
     "dawsonschess": get_dawsonschess,
@@ -2574,6 +2656,7 @@ image_autogui_data_funcs = {
     "kayles": get_kayles,
     "kaooa": get_kaooa, 
     "konane": get_konane,
+    "legrec": get_legrec,
     "lewthwaitesgame": get_lewthwaitesgame,
     "lgame": get_lgame,
     "lightsout": get_lightsout,
@@ -2588,6 +2671,7 @@ image_autogui_data_funcs = {
     "nqueens": get_nqueens,
     "nutictactoe": get_nutictactoe,
     "oddoreven": get_oddoreven,
+    "orbito" : get_orbito, 
     "othello": get_othello,
     "pegsolitaire": get_pegsolitaire,
     "ponghauki": get_ponghauki,
