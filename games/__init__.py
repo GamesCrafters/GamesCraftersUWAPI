@@ -683,6 +683,22 @@ games = {
                    data_provider_variant_id=7,
                    gui='v3',
                ),
+
+                '8': Variant(
+                   name='Length 3 Compulsory Capture',
+                   data_provider=GamesmanClassic,
+                   data_provider_game_id='hexapawn',
+                   data_provider_variant_id=8,
+                   gui='v3',
+               ),
+
+                '9': Variant(
+                   name='Length 4 Compulsory Capture',
+                   data_provider=GamesmanClassic,
+                   data_provider_game_id='hexapawn',
+                   data_provider_variant_id=9,
+                   gui='v3',
+               ),
            },
            gui='v3',
        ),
