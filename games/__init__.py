@@ -23,29 +23,6 @@ from .Ghost import Ghost
 
 games = {
 
-    'laukatikata': Game(
-    name='Lau Kati Kata',
-    variants={
-        'default': Variant(
-            name='Default',
-            data_provider=GamesmanClassic,
-            data_provider_game_id='laukatikata',
-            data_provider_variant_id='0',
-            gui='v3'
-        ),
-        '19-point': Variant(
-            name='9x9',
-            data_provider=GamesmanClassic,
-            data_provider_game_id='laukatikata',
-            data_provider_variant_id='1',
-            gui='v3'
-        )
-    },
-    is_two_player_game=True,
-    gui='v3'
-),
-
-
     '0to10by1or2': Game(
         name='0 to 10 by 1 or 2',
         variants={
@@ -344,6 +321,25 @@ games = {
                 gui='v3')
         },
         gui='v3'),
+    
+    'connect4twist': Game(
+        name='Connect 4 Twist and Turn',
+        variants={
+            '4x4': Variant(
+                name='4x4',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='connect4twist',
+                data_provider_variant_id=1,
+                gui='v3'),
+            '4x5': Variant(
+                name='4x5',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='connect4twist',
+                data_provider_variant_id=2,
+                gui='v3'),
+
+        },
+        gui='v3'),
 
     'dao': Game(
         name='Dao',
@@ -623,6 +619,74 @@ games = {
         },
         gui='v3'),
 
+    'hexapawn': Game(
+        name="Hexapawn",
+        variants={
+            '0': Variant(
+                name='Length 3',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='hexapawn',
+                data_provider_variant_id=0,
+                gui='v3',
+            ),
+
+            '1': Variant(
+                name='Length 4',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='hexapawn',
+                data_provider_variant_id=1,
+                gui='v3',
+            ),
+            '2': Variant(
+                name='Length 5',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='hexapawn',
+                data_provider_variant_id=2,
+                gui='v3',
+            ),
+
+            '3': Variant(
+                name='Length 6',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='hexapawn',
+                data_provider_variant_id=3,
+                gui='v3',
+            ),
+
+            '4': Variant(
+                name='Length 3 Misere',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='hexapawn',
+                data_provider_variant_id=4,
+                gui='v3',
+            ),
+
+            '5': Variant(
+                name='Length 4 Misere',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='hexapawn',
+                data_provider_variant_id=5,
+                gui='v3',
+            ),
+            '6': Variant(
+                name='Length 5 Misere',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='hexapawn',
+                data_provider_variant_id=6,
+                gui='v3',
+            ),
+
+               '7': Variant(
+                   name='Length 6 Misere',
+                   data_provider=GamesmanClassic,
+                   data_provider_game_id='hexapawn',
+                   data_provider_variant_id=7,
+                   gui='v3',
+               ),
+           },
+           gui='v3',
+       ),
+
     'hobaggonu': Game(
         name="Ho-Bag Gonu",
         variants={
@@ -739,14 +803,47 @@ games = {
                 gui='v3'),
         },
         gui='v3'),
+        
+    'laukatikata': Game(
+    name='Lau Kati Kata',
+    variants={
+        'default': Variant(
+            name='Default',
+            data_provider=GamesmanClassic,
+            data_provider_game_id='laukatikata',
+            data_provider_variant_id='0',
+            gui='v3'
+        ),
+        '19-point': Variant(
+            name='9x9',
+            data_provider=GamesmanClassic,
+            data_provider_game_id='laukatikata',
+            data_provider_variant_id='1',
+            gui='v3'
+        )
+    },
+    is_two_player_game=True,
+    gui='v3'),
 
-    'lgame': Game(
-        name='L-game',
+    'legrec': Game(
+        name='Le Grec',
         variants={
-            'regular': Variant(
+            'advancement-comparison': Variant(
                 name='Regular',
                 data_provider=GamesmanClassic,
-                data_provider_game_id='Lgame',
+                data_provider_game_id='legrec',
+                data_provider_variant_id=0,
+                gui='v3'),
+            'stuck-player-wins': Variant(
+                name='Stuck Player Wins',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='legrec',
+                data_provider_variant_id=1,
+                gui='v3'),
+            'stuck-player-loses': Variant(
+                name='Stuck Player Loses',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='legrec',
                 data_provider_variant_id=2,
                 gui='v3')
         },
@@ -760,6 +857,18 @@ games = {
                 data_provider=GamesmanClassic,
                 data_provider_game_id='lewth',
                 data_provider_variant_id=0,
+                gui='v3')
+        },
+        gui='v3'),
+
+    'lgame': Game(
+        name='L-game',
+        variants={
+            'regular': Variant(
+                name='Regular',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='Lgame',
+                data_provider_variant_id=2,
                 gui='v3')
         },
         gui='v3'),
@@ -984,6 +1093,50 @@ games = {
         gui='v3',
         supports_win_by=True
     ),
+
+    'orbito': Game(
+        name='Orbito',
+        variants={
+            'regular': Variant(
+                name='Regular',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='orbito',
+                data_provider_variant_id='0',
+                gui='v3',
+            ),
+            'inner-sq-clockwise': Variant(
+                name='Inner Clockwise',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='orbito',
+                data_provider_variant_id='1',
+                gui='v3',
+            ),
+            'opp-adjacent': Variant(
+                name='Diagonal Moves',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='orbito',
+                data_provider_variant_id='2',
+                gui='v3',
+            ),
+            'misere': Variant(
+                name='Misere Version',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='orbito',
+                data_provider_variant_id='3',
+                gui='v3',
+            ),
+            'diagonal-and-rotation': Variant(
+                name='Diagonal Movies and Inner Clockwise',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='orbito' ,
+                data_provider_variant_id='4',
+                gui='v3',
+            )
+        },
+        gui='v3',
+        is_two_player_game=True,
+        custom_variant=False
+        ),
 
     'pegsolitaire': Game(
         name='Peg Solitaire',
