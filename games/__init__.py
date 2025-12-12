@@ -458,6 +458,31 @@ games = {
         },
         gui='v2'),
 
+    'expantix': Game(
+        name='ExpanTix',
+        variants={
+            '3': Variant(
+                name='3x3',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='expantix',
+                data_provider_variant_id=3,
+                gui='v3'),
+            '4': Variant(
+                name='4x4',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='expantix',
+                data_provider_variant_id=4,
+                gui='v3'),
+            '5': Variant(
+                name='5x5',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='expantix',
+                data_provider_variant_id=5,
+                gui='v3')
+            },
+        gui='v3'
+        ),
+
     'fivefieldkono': Game(
         name='Five Field Kono',
         variants={
