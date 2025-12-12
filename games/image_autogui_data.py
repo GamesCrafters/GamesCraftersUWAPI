@@ -43,8 +43,7 @@ get_<game>(variant_id) should return JSON of the following form:
 
 """
 
-def get_0to10by1or2(variant_id):
-    return {def get_hexapawn(variant_id):
+def get_hexapawn(variant_id):
    width = (int(variant_id) % 4) + 3
    height = 3
 
@@ -2772,3 +2771,4 @@ image_autogui_data_funcs = {
     "winkers": get_winkers,
     "y": get_y,
     "yote": get_yote
+}
