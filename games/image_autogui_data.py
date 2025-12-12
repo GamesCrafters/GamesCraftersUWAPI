@@ -43,7 +43,8 @@ get_<game>(variant_id) should return JSON of the following form:
 
 """
 
-def get_hexapawn(variant_id):
+def get_0to10by1or2(variant_id):
+    return {def get_hexapawn(variant_id):
    width = (int(variant_id) % 4) + 3
    height = 3
 
@@ -2612,7 +2613,74 @@ def get_yote(variant_id):
         data_regular["centers"] = data_regular["centers"] + [[5, 5], [35, 5]]
     return data
 
-    
+def get_laukatikata(variant_id):
+    return {
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "space": [100, 100],
+                "centers": [
+                [9, 10], [50, 10], [91, 10],     
+                [30, 30], [50, 30], [70, 30],    
+                [50, 50],                         
+                [30, 70], [50, 70], [70, 70],     
+                [9, 90], [50, 90], [91, 90] 
+                ],
+                "background": "laukatikata/board.svg",
+                "charImages": {
+                    "B": {"image": "laukatikata/blackpiece.svg", "scale": 10},
+                    "W": {"image": "laukatikata/whitepiece.svg", "scale": 10},
+                    "-": {"image": "general/blank.svg", "scale": 10}
+                },
+                "arrowWidth": 3,
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
+def get_laukatikata(variant_id):
+
+    centers_13 = [
+        [9, 10], [50, 10], [91, 10],
+        [30, 30], [50, 30], [70, 30],
+        [50, 50],
+        [30, 70], [50, 70], [70, 70],
+        [9, 90], [50, 90], [91, 90]
+    ]
+
+    centers_19 = [
+        [9, 10.00],  [50, 10.00],  [91, 10.00],
+        [9, 23.33],  [50, 23.33],  [91, 23.33],
+        [30, 36.67], [50, 36.67], [70, 36.67],
+        [50, 50.00],
+        [30, 63.33], [50, 63.33], [70, 63.33],
+        [9, 76.67],  [50, 76.67],  [91, 76.67],
+        [9, 90.00],  [50, 90.00],  [91, 90.00],
+    ]
+
+    background = (
+        "laukatikata/board.svg" if variant_id == "0"
+        else "laukatikata/board19.svg"
+    )
+
+    return {
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "space": [100, 100],
+                "centers": centers_13 if variant_id == "0" else centers_19,
+                "background": background,
+                "charImages": {
+                    "B": {"image": "laukatikata/blackpiece.svg", "scale": 10},
+                    "W": {"image": "laukatikata/whitepiece.svg", "scale": 10},
+                    "-": {"image": "general/blank.svg", "scale": 10}
+                },
+                "arrowWidth": 3,
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
 def get_orbito(variant_id):
     data = {
         "defaultTheme": "regular",
@@ -2689,6 +2757,7 @@ image_autogui_data_funcs = {
     "kayles": get_kayles,
     "kaooa": get_kaooa, 
     "konane": get_konane,
+    "laukatikata": get_laukatikata,
     "legrec": get_legrec,
     "lewthwaitesgame": get_lewthwaitesgame,
     "lgame": get_lgame,
@@ -2736,9 +2805,3 @@ image_autogui_data_funcs = {
     "winkers": get_winkers,
     "y": get_y,
     "yote": get_yote
-}
-
-def get_image_autogui_data(game_id, variant_id):
-    if game_id in image_autogui_data_funcs:
-        return image_autogui_data_funcs[game_id](variant_id)
-    return None
