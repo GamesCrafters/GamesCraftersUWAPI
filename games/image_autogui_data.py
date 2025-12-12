@@ -2772,3 +2772,8 @@ image_autogui_data_funcs = {
     "y": get_y,
     "yote": get_yote
 }
+
+def get_image_autogui_data(game_id, variant_id):
+    if game_id in image_autogui_data_funcs:
+        return image_autogui_data_funcs[game_id](variant_id)
+    return None
