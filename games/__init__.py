@@ -844,6 +844,27 @@ games = {
                 gui='v3'),
         },
         gui='v3'),
+        
+    'laukatikata': Game(
+    name='Lau Kati Kata',
+    variants={
+        'default': Variant(
+            name='Default',
+            data_provider=GamesmanClassic,
+            data_provider_game_id='laukatikata',
+            data_provider_variant_id='0',
+            gui='v3'
+        ),
+        '19-point': Variant(
+            name='9x9',
+            data_provider=GamesmanClassic,
+            data_provider_game_id='laukatikata',
+            data_provider_variant_id='1',
+            gui='v3'
+        )
+    },
+    is_two_player_game=True,
+    gui='v3'),
 
     'legrec': Game(
         name='Le Grec',
