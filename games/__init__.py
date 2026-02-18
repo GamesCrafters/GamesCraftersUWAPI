@@ -192,6 +192,19 @@ games = {
             'start': RegularChessVariant('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', name='Start')
         },
         gui='v2'),
+    
+    'chinesecheckers': Game(
+        name='Chinese Checkers',
+        variants={
+            'regular': Variant(
+                name='Regular',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='chinesecheckers',
+                data_provider_variant_id=0,
+                gui='v3'
+            )
+        },
+        gui='v3'),
 
     'chinesechess': Game(
         name='Chinese Chess',
