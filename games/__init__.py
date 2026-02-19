@@ -199,7 +199,7 @@ games = {
             'regular': Variant(
                 name='Regular',
                 data_provider=GamesmanClassic,
-                data_provider_game_id='chinesecheckers',
+                data_provider_game_id='ccheckers',
                 data_provider_variant_id=0,
                 gui='v3'
             )

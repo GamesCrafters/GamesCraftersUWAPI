@@ -390,19 +390,19 @@ def get_chinesecheckers(variant_id):
         "themes": {
             "regular": {    
                 'space': [272, 165],
-                'backgrond': "chinesecheckers/board.svg",
+                'background': "chinesecheckers/board.svg",
+                'arrowWidth': 1,
                 'centers': [
-                    [9.3, 83.7],[41.0, 65.4],[72.8, 47.1],[104.5, 28.8],[136.2, 10.5],
-                    [41.0, 100.7],[72.7, 82.4],[104.5, 64.1],[136.2, 45.8],[167.9, 27.5],
+                    [9.3, 82.8],[41.0, 64.5],[72.8, 46.2],[104.5, 27.8],[136.2, 9.6],
+                    [41.0, 101.1],[72.8, 82.8],[104.5, 64.5],[136.2, 46.2],[167.9, 27.8],
                     [72.8, 119.4],[104.5, 101.1],[136.2, 82.8],[167.9, 64.5],[199.6, 46.2],
                     [104.5, 137.7],[136.2, 119.4],[167.9, 101.1],[199.6, 82.8],[231.3, 64.5],
                     [136.2, 156.0],[167.9, 137.7],[199.6, 119.4],[231.3, 101.1],[262.9, 82.8],
                 ],
                 'charImages': {
-                    "B": {"image": "general/bluepiece.svg", "scale": 1},
-                    "R": {"image": "general/redpiece.svg", "scale": 1}
+                    "B": {"image": "general/bluepiece.svg", "scale": 15},
+                    "R": {"image": "general/redpiece.svg", "scale": 15}
                 },              
-                "arrowWidth": 1,
                 "entitiesOverArrows": True,
                 "sounds": {"x": "general/slide.mp3"},
                 "animationType": "simpleSlides" 
