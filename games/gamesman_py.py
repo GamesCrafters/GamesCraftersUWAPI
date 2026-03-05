@@ -4,7 +4,7 @@ from .models import DataProvider
 class GamesmanPy(DataProvider):
     # Use first url when running on a different machine,
     # use second when running on main gamesman server.
-    #url = "https://nyc.cs.berkeley.edu:9004/"
+    #url = "https://nyc.cs.berkeley.edu/py/"
     url = "http://localhost:9004/"
 
     def read_from_url(tempurl):
