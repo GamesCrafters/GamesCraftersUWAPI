@@ -415,6 +415,53 @@ def get_chinesechess(variant_id):
         }
     }
 
+
+def get_chipschallenge(variant_id):
+    
+    """
+    Tiles for future reference: https://wiki.bitbusters.club/Tile
+    """
+
+    match variant_id:
+        case "1":
+            row_size = 15
+            column_size = 14   
+    
+    board_size = [row_size*20, column_size*20]
+    centers = [[17.75 + 15.5626*x, 7.75 + 15.5625*y] for y in range(0, column_size) for x in range(row_size)]
+    
+    
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": board_size,
+                "centers": centers,
+                "background": f"chipschallenge/board.svg",
+                "charImages": {
+                    "W" : {"image": f"chipschallenge/wall.svg", "scale": 15},
+                    "." : {"image": f"chipschallenge/floor.svg", "scale": 15},
+                    "c" : {"image": f"chipschallenge/computer_chip.svg", "scale": 15},
+                    "P" : {"image": f"chipschallenge/exit.svg", "scale": 15},
+                    "B" : {"image": f"chipschallenge/blue_lock.svg", "scale": 15},
+                    "R" : {"image": f"chipschallenge/red_lock.svg", "scale": 15},
+                    "y" : {"image": f"chipschallenge/yellow_key.svg", "scale": 15},
+                    "p" : {"image": f"chipschallenge/ox.svg", "scale": 30},
+                    "b" : {"image": f"chipschallenge/blue_key.svg", "scale": 15},
+                    "r" : {"image": f"chipschallenge/red_key.svg", "scale": 15},
+                    "g" : {"image": f"chipschallenge/green_key.svg", "scale": 15},
+                    "G" : {"image": f"chipschallenge/green_lock.svg", "scale": 15},
+                    "Y" : {"image": f"chipschallenge/yellow_lock.svg", "scale": 15},
+                    "C" : {"image": f"chipschallenge/socket.svg", "scale": 12},
+                },
+                "circleButtonRadius": 3,
+                "entitiesOverCircles": True,
+                "sounds": {"x": "general/slide.mp3"}
+            }
+        }
+    }    
+
+
 def get_chomp(variant_id):
     rows, cols = variant_id.split('x')
     rows, cols = int(rows), int(cols)
@@ -2752,6 +2799,7 @@ image_autogui_data_funcs = {
     "change": get_change,
     "chess": get_chess,
     "chinesechess": get_chinesechess,
+    "chipschallenge": get_chipschallenge,
     "chomp": get_chomp,
     "chopsticks": get_chopsticks,
     "clobber": get_clobber,
