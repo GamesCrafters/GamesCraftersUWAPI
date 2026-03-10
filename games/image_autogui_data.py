@@ -454,8 +454,7 @@ def get_chipschallenge(variant_id):
                     "Y" : {"image": f"chipschallenge/yellow_lock.svg", "scale": 15},
                     "C" : {"image": f"chipschallenge/socket.svg", "scale": 12},
                 },
-                "circleButtonRadius": 3,
-                "entitiesOverCircles": True,
+                "arrowWidth": 0.5,
                 "sounds": {"x": "general/slide.mp3"}
             }
         }
