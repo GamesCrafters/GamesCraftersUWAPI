@@ -391,7 +391,7 @@ def get_chinesecheckers(variant_id):
             "regular": {    
                 'space': [272, 165],
                 'background': "chinesecheckers/board.svg",
-                'arrowWidth': 1,
+                'arrowWidth': 2,
                 'centers': [
                     [9.3, 82.8],[41.0, 64.5],[72.8, 46.2],[104.5, 27.8],[136.2, 9.6],
                     [41.0, 101.1],[72.8, 82.8],[104.5, 64.5],[136.2, 46.2],[167.9, 27.8],
