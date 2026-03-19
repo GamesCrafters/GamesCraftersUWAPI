@@ -966,6 +966,20 @@ games = {
         },
         gui='v3'),
 
+    'lunarlockout': Game(
+        name='LunarLockout',
+        variants={
+            'puzzle1': Variant(
+                name='puzzle1',
+                data_provider=GamesmanPy,
+                data_provider_game_id='lunarlockout',
+                data_provider_variant_id='puzzle1',
+                gui='v3'),
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
+
     'mancala': Game(
         name='Mancala',
         variants={
