@@ -970,9 +970,9 @@ games = {
         name='LunarLockout',
         variants={
             'puzzle1': Variant(
-                name='Regular',
-                data_provider=GamesmanClassic,
-                data_provider_game_id='lunar_lockout',
+                name='puzzle1',
+                data_provider=GamesmanPy,
+                data_provider_game_id='lunarlockout',
                 data_provider_variant_id='puzzle1',
                 gui='v3'),
         },

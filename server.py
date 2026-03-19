@@ -27,6 +27,15 @@ def key_move_obj_by_move_value_then_delta_remoteness(move_obj):
     return (VALUES.index(move_value), delta_remotenesss)
 
 def wrangle_move_objects_1Player(position_data):
+    # If this position is losing, ALL moves are losing
+    if position_data.get('positionValue') == Value.LOSE:
+        move_objs = position_data.get('moves', [])
+        for move_obj in move_objs:
+            move_obj['moveValue'] = Value.LOSE
+            move_obj['deltaRemoteness'] = 0
+        move_objs.sort(key=key_move_obj_by_move_value_then_delta_remoteness)
+        return
+
     if 'remoteness' not in position_data: # Means not possible to solve puzzle from this state
         position_data['remoteness'] = Remoteness.INFINITY
     current_position_remoteness = position_data['remoteness']
@@ -43,6 +52,14 @@ def wrangle_move_objects_1Player(position_data):
             # Moves that reduce remoteness should be green. Moves that increase remoteness should
             # be red. Moves that neither reduce nor increase remoteness should be yellow.
             move_obj['moveValue'] = Value.WIN if delta_remoteness > 0 else Value.LOSE if delta_remoteness < 0 else Value.TIE
+            if move_obj.get('positionValue') == Value.LOSE:
+                move_obj['moveValue'] = Value.LOSE
+            else:
+                move_obj['moveValue'] = (
+                    Value.WIN if delta_remoteness > 0
+                    else Value.LOSE if delta_remoteness < 0
+                    else Value.TIE
+                )
     move_objs.sort(key=key_move_obj_by_move_value_then_delta_remoteness)
 
 def wrangle_move_objects_2Player(position_data):

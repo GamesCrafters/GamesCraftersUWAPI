@@ -1447,21 +1447,18 @@ def get_lunarlockout(variant_id):
         "themes": {
             "regular": {
                 "space": [5, 5],
-
-                "centers": [[i % 5 + 0.5, i // 5 + 0.5] for i in range(25)],
-
-                "background": "general/checkerboard_gray_5x5.svg",
-
+                "centers": [[col + 0.5, row + 0.5] for row in range(5) for col in range(5)],
+                "background": "lunarlockout/board.svg",
                 "charImages": {
-                    "0": {"image": "general/redpiece.svg", "scale": 1},
-                    "1": {"image": "general/bluepiece.svg", "scale": 1},
-                    "2": {"image": "general/bluepiece.svg", "scale": 1},
-                    "3": {"image": "general/bluepiece.svg", "scale": 1},
-                    "4": {"image": "general/bluepiece.svg", "scale": 1},
-                    "x": {"image": "general/goal.svg", "scale": 1}
+                    "0": {"image": "lunarlockout/robotcat0.svg", "scale": 1},
+                    "1": {"image": "lunarlockout/robotcat1.svg", "scale": 1},
+                    "2": {"image": "lunarlockout/robotcat2.svg", "scale": 1},
+                    "3": {"image": "lunarlockout/robotcat3.svg", "scale": 1},
+                    "4": {"image": "lunarlockout/robotcat4.svg", "scale": 1},
                 },
-
-                "animationType": "entityFade"
+                "arrowWidth": 0.06,
+                "entitiesOverArrows": True,
+                "animationType": "simpleSlides"
             }
         }
     }
