@@ -1101,6 +1101,57 @@ def get_hareandhounds(variant_id):
         return hareandhounds_iadata('large', 340, 7)
     return None
 
+def get_hashi(variant_id):
+    puzzles = {
+        "4x4": [ (0, 0, 3), (0, 3, 3), (2, 0, 2), (2, 2, 1), (3, 3, 1) ],
+        "6x6": [ (0, 0, 2), (3, 0, 4), (5, 0, 2), (0, 3, 2), (3, 3, 2), (1, 4, 1), (5, 4, 2), (0, 5, 2), (2, 5, 1) ]
+    }
+
+    if variant_id not in puzzles:
+        return None
+
+    nodes = puzzles[variant_id]
+    max_x = max(n[0] for n in nodes)
+    max_y = max(n[1] for n in nodes)
+
+    width = (max_x * 2) + 1
+    height = (max_y * 2) + 1
+
+    space = [width + 3, height + 3]
+    centers = [[x + 1.5, y + 1.5] for y in range(height) for x in range(width)]
+
+    return {
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "space": space,
+                "centers": centers,
+                "animationType": "entityFade",
+                "arrowWidth": 0.2,
+                "entitiesOverArrows": True,
+                "charImages": {
+                    "1": {"image": "hashi/node1.svg", "scale": 1},
+                    "2": {"image": "hashi/node2.svg", "scale": 1},
+                    "3": {"image": "hashi/node3.svg", "scale": 1},
+                    "4": {"image": "hashi/node4.svg", "scale": 1},
+                    "5": {"image": "hashi/node5.svg", "scale": 1},
+                    "6": {"image": "hashi/node6.svg", "scale": 1},
+                    "7": {"image": "hashi/node7.svg", "scale": 1},
+                    "8": {"image": "hashi/node8.svg", "scale": 1},
+                    "h": {"image": "hashi/horiz1.svg", "scale": 1},
+                    "H": {"image": "hashi/horiz2.svg", "scale": 1},
+                    "v": {"image": "hashi/vert1.svg", "scale": 1},
+                    "V": {"image": "hashi/vert2.svg", "scale": 1},
+                    "q": {"image": "hashi/horizpill.svg", "scale": 2},
+                    "Q": {"image": "hashi/vertpill.svg", "scale": 2}
+                },
+                "sounds": {
+                    "x": "general/place.mp3"
+                }
+            }
+        }
+    }
+
 def get_jan(variant_id):
     return {
         "defaultTheme": "default",
@@ -2777,6 +2828,7 @@ image_autogui_data_funcs = {
     "graphgame": get_graphgame,
     "towersofhanoi": get_towersofhanoi,
     "hareandhounds": get_hareandhounds,
+    "hashi":get_hashi,
     "hexapawn": get_hexapawn,
     "hobaggonu": get_hobaggonu,
     "horses": get_horses,
