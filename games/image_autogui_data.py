@@ -2735,29 +2735,31 @@ def get_orbito(variant_id):
 
 def get_sokoban(variant_id):
     dimensions = variant_id.split('_')[1]
-    rows, cols = map(int, dimensions.split('x'))
-    def sokoban_data(rows, cols):
-        return {
-            "defaultTheme": "regular",
-            "themes": {
-                "regular": {
-                    "space": [cols*10, rows*10], 
-                    "background": f"sokoban/sokoban_{rows}x{cols}.svg",
-                    "centers": [[i % cols * 10 + 5, i // cols * 10 + 5] for i in range(rows * cols)],
-                    "charImages": {
-                        "#": {"image": f"sokoban/sokoban_wall.svg", "scale": 10},
-                        "@": {"image": f"sokoban/sokoban_player.svg", "scale": 10},
-                        ".": {"image": f"sokoban/sokoban_goal.svg", "scale": 10},
-                        "$": {"image": f"sokoban/sokoban_box.svg", "scale": 10},
-                        "+": {"image": f"sokoban/sokoban_player_on_goal.svg", "scale": 10},
-                        "*": {"image": f"sokoban/sokoban_box_on_goal.svg", "scale": 10},
-                    },
-                    "sounds": {"y": "general/slide.mp3"},
-                    "animationType": "simpleSlide",
-                }
+    cols, rows = map(int, dimensions.split('x'))
+    print(rows, cols)
+    print([[(i % cols) * 10 + 5, (i // cols) * 10 + 5] for i in range(rows * cols)])
+
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [cols*10, rows*10], 
+                "background": f"sokoban/sokoban_{cols}x{rows}.svg",
+                "centers": [[(i % cols) * 10 + 5, (i // cols) * 10 + 5] for i in range(rows * cols)],
+                "charImages": {
+                    "W": {"image": f"sokoban/sokoban_wall.svg", "scale": 10},
+                    "p": {"image": f"sokoban/sokoban_player.svg", "scale": 10},
+                    ".": {"image": f"sokoban/sokoban_goal.svg", "scale": 10},
+                    "b": {"image": f"sokoban/sokoban_box.svg", "scale": 10},
+                    "P": {"image": f"sokoban/sokoban_player_on_goal.svg", "scale": 10},
+                    "g": {"image": f"sokoban/sokoban_box_on_goal.svg", "scale": 10},
+                    "-": {"image": "sokoban/sokoban_floor.svg", "scale": 10},
+                },
+                "sounds": {"y": "general/slide.mp3"},
+                "animationType": "simpleSlide",
             }
         }
-    return sokoban_data(rows, cols)
+    }
 
 """
 ===== STEP 2 ===== 
