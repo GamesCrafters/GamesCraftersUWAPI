@@ -2732,6 +2732,33 @@ def get_orbito(variant_id):
         data["themes"]["regular"]["background"] = "orbito/orbito_board_reversed.svg"
 
     return data
+
+def get_sokoban(variant_id):
+    dimensions = variant_id.split('_')[1]
+    rows, cols = map(int, dimensions.split('x'))
+    def sokoban_data(rows, cols):
+        return {
+            "defaultTheme": "regular",
+            "themes": {
+                "regular": {
+                    "space": [cols*10, rows*10], 
+                    "background": f"sokoban/sokoban_{rows}x{cols}.svg",
+                    "centers": [[i % cols * 10 + 5, i // cols * 10 + 5] for i in range(rows * cols)],
+                    "charImages": {
+                        "#": {"image": f"sokoban/sokoban_wall.svg", "scale": 10},
+                        "@": {"image": f"sokoban/sokoban_player.svg", "scale": 10},
+                        ".": {"image": f"sokoban/sokoban_goal.svg", "scale": 10},
+                        "$": {"image": f"sokoban/sokoban_box.svg", "scale": 10},
+                        "+": {"image": f"sokoban/sokoban_player_on_goal.svg", "scale": 10},
+                        "*": {"image": f"sokoban/sokoban_box_on_goal.svg", "scale": 10},
+                    },
+                    "sounds": {"y": "general/slide.mp3"},
+                    "animationType": "simpleSlide",
+                }
+            }
+        }
+    return sokoban_data(rows, cols)
+
 """
 ===== STEP 2 ===== 
 Add your function to the image_autogui_data_funcs dict in alphabetical order by game_id.
@@ -2817,6 +2844,7 @@ image_autogui_data_funcs = {
     "slide5": get_slide5,
     "snake": get_snake,
     "spinout": get_spinout,
+    "sokoban": get_sokoban,
     "solitairechess": get_solitaire_chess,
     "squaredance": get_squaredance,
     "squirrels": get_squirrels_go_nuts,
