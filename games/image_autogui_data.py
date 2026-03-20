@@ -1455,6 +1455,7 @@ def get_lunarlockout(variant_id):
                     "2": {"image": "lunarlockout/robotcat2.svg", "scale": 1},
                     "3": {"image": "lunarlockout/robotcat3.svg", "scale": 1},
                     "4": {"image": "lunarlockout/robotcat4.svg", "scale": 1},
+                    "5": {"image": "lunarlockout/robotcat5.svg", "scale": 1},
                 },
                 "arrowWidth": 0.06,
                 "entitiesOverArrows": True,
