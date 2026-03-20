@@ -1425,6 +1425,26 @@ games = {
         is_two_player_game=False,
         gui='v3'),
 
+    'sokoban': Game(
+            name='Sokoban',
+            variants={
+                'level1_6x7': Variant(
+                    name='Level 1',
+                    data_provider=GamesmanPuzzles,
+                    data_provider_game_id='sokoban',
+                    data_provider_variant_id='1',
+                    gui='v3'),
+                'level2_8x8': Variant(
+                    name='Level 2',
+                    data_provider=GamesmanPuzzles,
+                    data_provider_game_id='sokoban',
+                    data_provider_variant_id='2',
+                    gui='v3'),
+            },
+            
+            is_two_player_game=False,
+            gui='v3'),
+
     'solitairechess': Game(
         name='Solitaire Chess',
         variants= {
@@ -1820,25 +1840,5 @@ games = {
                 gui='v3')
         },
         gui='v3'),
-
-        'sokoban': Game(
-        name='Sokoban',
-        variants={
-            'level1_6x7': Variant(
-                name='Level 1',
-                data_provider=GamesmanPuzzles,
-                data_provider_game_id='sokoban',
-                data_provider_variant_id='1',
-                gui='v3'),
-            'level2_8x8': Variant(
-                name='Level 2',
-                data_provider=GamesmanPuzzles,
-                data_provider_game_id='sokoban',
-                data_provider_variant_id='2',
-                gui='v3'),
-        },
-        
-        is_two_player_game=False,
-        gui='v3')
 }
 
