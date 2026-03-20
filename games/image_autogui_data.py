@@ -1440,7 +1440,82 @@ def get_lite3(variant_id):
             }
         }
     }
-    
+
+def get_marblecircuit(variant_id):
+    """
+    Marble Circuit: Board.svg viewBox 0 0 960 720.
+
+    Same slot indexing as GamesmanPy marble_circuit.py (PYRAMID_10_TOPOLOGY_CORNERS comment):
+      layout 0 / 1,2 / 3,4,5 / 6,7,8,9 — apex up, bottom row left→right is 6..9.
+
+    Autogui: 0_<10 board chars>_<rem×4>_<confirmed>;
+    char at index i == board[i] (slot i). Piece types 1–4 = Teal/Orange/Yellow/Magenta.
+
+    Slot centers: analytic pyramid matching Board.svg diamond step (first tile in Board uses S=62.393707).
+    """
+    # Step and apex Y from Board.svg first #d0e0e3 diamond (marble_circuit grid).
+    _S = 62.393707
+    _cx = 480.0
+    _y0 = 272.81628
+    _rows = [
+        [(_cx, _y0)],
+        [(_cx - _S, _y0 + _S), (_cx + _S, _y0 + _S)],
+        [(_cx - 2 * _S, _y0 + 2 * _S), (_cx, _y0 + 2 * _S), (_cx + 2 * _S, _y0 + 2 * _S)],
+        [
+            (_cx - 3 * _S, _y0 + 3 * _S),
+            (_cx - _S, _y0 + 3 * _S),
+            (_cx + _S, _y0 + 3 * _S),
+            (_cx + 3 * _S, _y0 + 3 * _S),
+        ],
+    ]
+    _piece_shift_x = -3.85  # nudge pieces slightly right (960-space)
+    _piece_shift_y = -2.0  # nudge pieces slightly up (960-space)
+    centers = [
+        [round(x + _piece_shift_x, 5), round(y + _piece_shift_y, 5)]
+        for row in _rows
+        for x, y in row
+    ]
+
+    # PYRAMID_CHALLENGES[*]["exit_counts"] — exit id 0..4 left→right in Board.svg grey triangles
+    _exit_goal = {
+        "ch23": [0, 1, 4, 3, 0],
+        "ch46": [1, 2, 2, 2, 1],
+    }.get(variant_id, [0, 0, 0, 0, 0])
+    # Triangle centroids (Board.svg #999999 downward triangles ~y=488–550)
+    _goal_exit_centers = [
+        [230.36707, 529.47268],
+        [355.18335, 529.47268],
+        [479.9996, 529.47135],
+        [604.8172, 529.64459],
+        [729.6335, 529.29946],
+    ]
+    # ~62.4 px between neighbor centers in 960-space. entityScaleBoost (GamesmanUni) nudges larger.
+    piece_scale = 118
+    pieces = {
+        "1": {"image": "marble_circuit/Teal.svg", "scale": piece_scale},
+        "2": {"image": "marble_circuit/Orange.svg", "scale": piece_scale},
+        "3": {"image": "marble_circuit/Yellow.svg", "scale": piece_scale},
+        "4": {"image": "marble_circuit/Magenta.svg", "scale": piece_scale},
+    }
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [960, 720],
+                "centers": centers,
+                "background": "marble_circuit/Board.svg",
+                "backgroundNoBalls": "marble_circuit/noballs.svg",
+                "charImages": pieces,
+                "entityScaleBoost": 1.107,
+                "goalExitCenters": _goal_exit_centers,
+                "goalExitValues": [str(v) for v in _exit_goal],
+                "goalExitFontSize": 26,
+                "entitiesOverArrows": True,
+                "animationType": "entityFade",
+            }
+        },
+    }
+
 def get_mutorere(variant_id):
     return {
         "defaultTheme": "octagon",
@@ -2791,6 +2866,7 @@ image_autogui_data_funcs = {
     "lgame": get_lgame,
     "lightsout": get_lightsout,
     "lite3": get_lite3,
+    "marblecircuit": get_marblecircuit,
     "mutorere": get_mutorere,
     "neutron": get_neutron,
     "nim": get_nim,

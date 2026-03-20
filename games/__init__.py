@@ -977,6 +977,25 @@ games = {
         }
     ),
 
+    'marblecircuit': Game(
+        name='Marble Circuit',
+        variants={
+            'ch23': Variant(
+                name='Challenge 23',
+                data_provider=GamesmanPy,
+                data_provider_game_id='marble_circuit',
+                data_provider_variant_id='ch23',
+                gui='v3'),
+            'ch46': Variant(
+                name='Challenge 46',
+                data_provider=GamesmanPy,
+                data_provider_game_id='marble_circuit',
+                data_provider_variant_id='ch46',
+                gui='v3'),
+        },
+        is_two_player_game=False,
+        gui='v3'),
+
     'mutorere': Game(
         name='Mū Tōrere',
         variants={
