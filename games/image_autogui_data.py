@@ -384,6 +384,33 @@ def get_chess(variant_id):
         }
     }
 
+def get_chinesecheckers(variant_id):
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {    
+                'space': [272, 165],
+                'background': "chinesecheckers/board.svg",
+                'arrowWidth': 2,
+                'centers': [
+                    [9.3, 82.8],[41.0, 64.5],[72.8, 46.2],[104.5, 27.8],[136.2, 9.6],
+                    [41.0, 101.1],[72.8, 82.8],[104.5, 64.5],[136.2, 46.2],[167.9, 27.8],
+                    [72.8, 119.4],[104.5, 101.1],[136.2, 82.8],[167.9, 64.5],[199.6, 46.2],
+                    [104.5, 137.7],[136.2, 119.4],[167.9, 101.1],[199.6, 82.8],[231.3, 64.5],
+                    [136.2, 156.0],[167.9, 137.7],[199.6, 119.4],[231.3, 101.1],[262.9, 82.8],
+                ],
+                'charImages': {
+                    "B": {"image": "general/bluepiece.svg", "scale": 15},
+                    "R": {"image": "general/redpiece.svg", "scale": 15}
+                },              
+                "entitiesOverArrows": True,
+                "sounds": {"x": "general/slide.mp3"},
+                "animationType": "simpleSlides" 
+            }
+        }
+    }
+
+
 def get_chinesechess(variant_id):
     pieces = {
         "K": "general_r", "A": "advisor_r", "R": "chariot_r", "B": "elephant_r", "N": "horse_r",
@@ -2751,6 +2778,7 @@ image_autogui_data_funcs = {
     "bishoppuzzle": get_bishoppuzzle,
     "change": get_change,
     "chess": get_chess,
+    "chinesecheckers": get_chinesecheckers,
     "chinesechess": get_chinesechess,
     "chomp": get_chomp,
     "chopsticks": get_chopsticks,
