@@ -5,14 +5,6 @@ Author: Doris Chang, Kshitij Tomar
 Date: 2026-03-18
 """
 
-"""
-In this example puzzle, the player starts at state 0 and can either
-add 1 or 2 to the current state. The puzzle is solved when the player
-reaches 10.
-There are two variants. In variant1, you can add 0 to the current state
-if the current state is 5.
-"""
-
 from . import ServerPuzzle
 from ..util import *
 
@@ -42,7 +34,7 @@ class Sokoban(ServerPuzzle):
         self.dxdy = [(1, 0), (0, 1), (-1, 0), (0, -1)]
         self.dirs = {(1, 0): "R", (0, 1): "D", (-1, 0): "L", (0, -1): "U"}
 
-        match self._variant_id:
+        match self.variant_id:
             case "1": # equivalent to Level 1 from the online Sokoban player
                 self.column_size = 6
                 self.row_size = 7
