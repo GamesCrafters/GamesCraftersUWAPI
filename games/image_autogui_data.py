@@ -2744,7 +2744,7 @@ def get_sokoban(variant_id):
         "themes": {
             "regular": {
                 "space": [cols*10, rows*10], 
-                "background": f"sokoban/sokoban_{cols}x{rows}.svg",
+                "background": f"sokoban/sokoban_6x7.svg",
                 "centers": [[(i % cols) * 10 + 5, (i // cols) * 10 + 5] for i in range(rows * cols)],
                 "charImages": {
                     "W": {"image": f"sokoban/sokoban_wall.svg", "scale": 10},
@@ -2753,7 +2753,7 @@ def get_sokoban(variant_id):
                     "b": {"image": f"sokoban/sokoban_box.svg", "scale": 10},
                     "P": {"image": f"sokoban/sokoban_player_on_goal.svg", "scale": 10},
                     "g": {"image": f"sokoban/sokoban_box_on_goal.svg", "scale": 10},
-                    "-": {"image": "sokoban/sokoban_floor.svg", "scale": 10},
+                    "t": {"image": f"sokoban/sokoban_tile.svg", "scale": 10},
                 },
                 "sounds": {"y": "general/slide.mp3"},
                 "animationType": "simpleSlide",
