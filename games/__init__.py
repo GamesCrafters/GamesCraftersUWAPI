@@ -994,6 +994,22 @@ games = {
         },
         gui='v3'),
 
+    'lunarlockout': Game(
+        name='LunarLockout',
+        variants={
+            v: Variant(
+                name=v,
+                data_provider=GamesmanPy,
+                data_provider_game_id='lunarlockout',
+                data_provider_variant_id=v,
+                gui='v3'
+            )
+            for v in ('beginner', 'easy', 'medium', 'hard')
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
+
     'mancala': Game(
         name='Mancala',
         variants={

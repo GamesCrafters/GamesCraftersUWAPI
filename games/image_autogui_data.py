@@ -1513,7 +1513,30 @@ def get_lite3(variant_id):
             }
         }
     }
-    
+
+def get_lunarlockout(variant_id):
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [5, 5],
+                "centers": [[col + 0.5, row + 0.5] for row in range(5) for col in range(5)],
+                "background": "lunarlockout/board.svg",
+                "charImages": {
+                    "0": {"image": "lunarlockout/robotcat0.svg", "scale": 1},
+                    "1": {"image": "lunarlockout/robotcat1.svg", "scale": 1},
+                    "2": {"image": "lunarlockout/robotcat2.svg", "scale": 1},
+                    "3": {"image": "lunarlockout/robotcat3.svg", "scale": 1},
+                    "4": {"image": "lunarlockout/robotcat4.svg", "scale": 1},
+                    "5": {"image": "lunarlockout/robotcat5.svg", "scale": 1},
+                },
+                "arrowWidth": 0.06,
+                "entitiesOverArrows": True,
+                "animationType": "simpleSlides"
+            }
+        }
+    }
+
 def get_mutorere(variant_id):
     return {
         "defaultTheme": "octagon",
@@ -2866,6 +2889,7 @@ image_autogui_data_funcs = {
     "lgame": get_lgame,
     "lightsout": get_lightsout,
     "lite3": get_lite3,
+    "lunarlockout": get_lunarlockout,
     "mutorere": get_mutorere,
     "neutron": get_neutron,
     "nim": get_nim,
