@@ -1469,8 +1469,9 @@ def get_marblecircuit(variant_id):
             (_cx + 3 * _S, _y0 + 3 * _S),
         ],
     ]
-    _piece_shift_x = -3.85  # nudge pieces slightly right (960-space)
-    _piece_shift_y = -2.0  # nudge pieces slightly up (960-space)
+    # Nudge pyramid + on-board pieces to align with Board.svg chutes / cells (was too far up-left).
+    _piece_shift_x = 0.2
+    _piece_shift_y = 0.3
     slot_centers = [
         [round(x + _piece_shift_x, 5), round(y + _piece_shift_y, 5)]
         for row in _rows
@@ -1479,10 +1480,19 @@ def get_marblecircuit(variant_id):
     # Inventory row — low on the 720 canvas so it does not overlap exit triangles.
     _inv_shift_x = 28.0
     _inv_x = [200.0 + _inv_shift_x, 360.0 + _inv_shift_x, 520.0 + _inv_shift_x, 680.0 + _inv_shift_x]
-    _inv_icon_y = 652.0
-    _inv_text_y = 718.0
+    # Full-size inventory icons: low enough to clear the grey board card, still within viewBox height 720.
+    _inv_icon_y = 680.0
+    # Count digits sit bottom-right of each block (piece_scale 118 → half-extent ~59; text stays inside viewBox).
+    _inv_text_br_dx = 45.0
+    _inv_text_br_dy = 40.0
     inv_icon_centers = [[round(_inv_x[i], 5), _inv_icon_y] for i in range(4)]
-    inv_text_centers = [[round(_inv_x[i], 5), _inv_text_y] for i in range(4)]
+    inv_text_centers = [
+        [
+            round(_inv_x[i] + _inv_text_br_dx, 5),
+            round(_inv_icon_y + _inv_text_br_dy, 5),
+        ]
+        for i in range(4)
+    ]
     # Exit HUD: goal (18–22) centered in pocket; result (23–27) bottom-right of goal.
     _gx = [230.36707, 355.18335, 479.9996, 604.8172, 729.6335]
     _goal_y = 530.0
@@ -1493,8 +1503,8 @@ def get_marblecircuit(variant_id):
     ]
     # Pad 28–49 (board string length 28 before quadrants).
     _pad_centers = [[480.0, 360.0] for _ in range(22)]
-    # Quadrant hit targets: A_t/o/y/m_<50+4*slot+k> (k=0..3: 上/右/下/左).
-    _q_off = 34.0
+    # Quadrant hit targets: A_t/o/y/m_<50+4*slot+k> (k=0..3: 上/右/下/左). Smaller offset → closer to cell center, more edge margin.
+    _q_off = 31.0
     _quad_offsets = [(0.0, -_q_off), (_q_off, 0.0), (0.0, _q_off), (-_q_off, 0.0)]
     quad_centers = []
     for s in range(10):
@@ -1517,8 +1527,9 @@ def get_marblecircuit(variant_id):
     )
     # ~62.4 px between neighbor centers in 960-space. entityScaleBoost (GamesmanUni) nudges larger.
     piece_scale = 118
-    move_btn_scale = 50
-    inv_icon_scale = 72
+    # Quadrant move buttons (t/o/y/m): area ≤ 1/4 of board pieces → scale ≤ piece_scale/2 (=59).
+    move_btn_scale = 56
+    inv_icon_scale = 118
     pieces = {
         "1": {"image": "marble_circuit/Teal.svg", "scale": piece_scale},
         "2": {"image": "marble_circuit/Orange.svg", "scale": piece_scale},
@@ -1543,7 +1554,7 @@ def get_marblecircuit(variant_id):
                 "charImages": pieces,
                 "entityScaleBoost": 1.107,
                 "textEntityFontSize": 22,
-                "circleButtonRadius": 5,
+                "circleButtonRadius": 8,
                 "defaultAnimationWindow": [0, 10],
                 "entitiesOverArrows": True,
                 "animationType": "entityFade",
