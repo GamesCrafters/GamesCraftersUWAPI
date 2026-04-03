@@ -1448,8 +1448,9 @@ def get_marblecircuit(variant_id):
     Same slot indexing as GamesmanPy marble_circuit.py (PYRAMID_10_TOPOLOGY_CORNERS comment):
       layout 0 / 1,2 / 3,4,5 / 6,7,8,9 — apex up, bottom row left→right is 6..9.
 
-    Autogui: 0_<10 board chars>_<rem×4>_<confirmed>;
-    char at index i == board[i] (slot i). Piece types 1–4 = Teal/Orange/Yellow/Magenta.
+    Autogui board: 10 digits + TOYM + 14 dots (~: 4 rem, 5 goals, 5 exit results).
+    Centers: 0–9 slots; 10–13 inv icons; 14–17 inv counts; 18–22 goals (large); 23–27 results (small, BR of goal);
+    28–49 pad; 50–89 place quads; 90 confirm (A_c_90); 91–100 remove (A_u_91+s).
 
     Slot centers: analytic pyramid matching Board.svg diamond step (first tile in Board uses S=62.393707).
     """
@@ -1470,32 +1471,67 @@ def get_marblecircuit(variant_id):
     ]
     _piece_shift_x = -3.85  # nudge pieces slightly right (960-space)
     _piece_shift_y = -2.0  # nudge pieces slightly up (960-space)
-    centers = [
+    slot_centers = [
         [round(x + _piece_shift_x, 5), round(y + _piece_shift_y, 5)]
         for row in _rows
         for x, y in row
     ]
-
-    # PYRAMID_CHALLENGES[*]["exit_counts"] — exit id 0..4 left→right in Board.svg grey triangles
-    _exit_goal = {
-        "ch23": [0, 1, 4, 3, 0],
-        "ch46": [1, 2, 2, 2, 1],
-    }.get(variant_id, [0, 0, 0, 0, 0])
-    # Triangle centroids (Board.svg #999999 downward triangles ~y=488–550)
-    _goal_exit_centers = [
-        [230.36707, 529.47268],
-        [355.18335, 529.47268],
-        [479.9996, 529.47135],
-        [604.8172, 529.64459],
-        [729.6335, 529.29946],
+    # Inventory row — low on the 720 canvas so it does not overlap exit triangles.
+    _inv_shift_x = 28.0
+    _inv_x = [200.0 + _inv_shift_x, 360.0 + _inv_shift_x, 520.0 + _inv_shift_x, 680.0 + _inv_shift_x]
+    _inv_icon_y = 652.0
+    _inv_text_y = 718.0
+    inv_icon_centers = [[round(_inv_x[i], 5), _inv_icon_y] for i in range(4)]
+    inv_text_centers = [[round(_inv_x[i], 5), _inv_text_y] for i in range(4)]
+    # Exit HUD: goal (18–22) centered in pocket; result (23–27) bottom-right of goal.
+    _gx = [230.36707, 355.18335, 479.9996, 604.8172, 729.6335]
+    _goal_y = 530.0
+    _res_dx, _res_dy = 20.0, 10.0
+    exit_goal_centers = [[round(_gx[i], 5), _goal_y] for i in range(5)]
+    exit_result_centers = [
+        [round(_gx[i] + _res_dx, 5), round(_goal_y + _res_dy, 5)] for i in range(5)
     ]
+    # Pad 28–49 (board string length 28 before quadrants).
+    _pad_centers = [[480.0, 360.0] for _ in range(22)]
+    # Quadrant hit targets: A_t/o/y/m_<50+4*slot+k> (k=0..3: 上/右/下/左).
+    _q_off = 34.0
+    _quad_offsets = [(0.0, -_q_off), (_q_off, 0.0), (0.0, _q_off), (-_q_off, 0.0)]
+    quad_centers = []
+    for s in range(10):
+        cx, cy = slot_centers[s]
+        for dx, dy in _quad_offsets:
+            quad_centers.append([round(cx + dx, 5), round(cy + dy, 5)])
+    # Drop / confirm: right of the flat grey bar under the 8 ball chutes (Board.svg ~upper area).
+    _confirm_center = [[798.0, 188.0]]
+    _remove_centers = [[round(slot_centers[s][0], 5), round(slot_centers[s][1], 5)] for s in range(10)]
+    centers = (
+        slot_centers
+        + inv_icon_centers
+        + inv_text_centers
+        + exit_goal_centers
+        + exit_result_centers
+        + _pad_centers
+        + quad_centers
+        + _confirm_center
+        + _remove_centers
+    )
     # ~62.4 px between neighbor centers in 960-space. entityScaleBoost (GamesmanUni) nudges larger.
     piece_scale = 118
+    move_btn_scale = 50
+    inv_icon_scale = 72
     pieces = {
         "1": {"image": "marble_circuit/Teal.svg", "scale": piece_scale},
         "2": {"image": "marble_circuit/Orange.svg", "scale": piece_scale},
         "3": {"image": "marble_circuit/Yellow.svg", "scale": piece_scale},
         "4": {"image": "marble_circuit/Magenta.svg", "scale": piece_scale},
+        "T": {"image": "marble_circuit/Teal.svg", "scale": inv_icon_scale},
+        "O": {"image": "marble_circuit/Orange.svg", "scale": inv_icon_scale},
+        "Y": {"image": "marble_circuit/Yellow.svg", "scale": inv_icon_scale},
+        "M": {"image": "marble_circuit/Magenta.svg", "scale": inv_icon_scale},
+        "t": {"image": "marble_circuit/Teal.svg", "scale": move_btn_scale},
+        "o": {"image": "marble_circuit/Orange.svg", "scale": move_btn_scale},
+        "y": {"image": "marble_circuit/Yellow.svg", "scale": move_btn_scale},
+        "m": {"image": "marble_circuit/Magenta.svg", "scale": move_btn_scale},
     }
     return {
         "defaultTheme": "regular",
@@ -1504,12 +1540,11 @@ def get_marblecircuit(variant_id):
                 "space": [960, 720],
                 "centers": centers,
                 "background": "marble_circuit/Board.svg",
-                "backgroundNoBalls": "marble_circuit/noballs.svg",
                 "charImages": pieces,
                 "entityScaleBoost": 1.107,
-                "goalExitCenters": _goal_exit_centers,
-                "goalExitValues": [str(v) for v in _exit_goal],
-                "goalExitFontSize": 26,
+                "textEntityFontSize": 22,
+                "circleButtonRadius": 5,
+                "defaultAnimationWindow": [0, 10],
                 "entitiesOverArrows": True,
                 "animationType": "entityFade",
             }
