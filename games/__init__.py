@@ -1176,6 +1176,20 @@ games = {
         supports_win_by=True
     ),
 
+    'othellofour': Game(
+        name='Othello',
+        variants={
+            'regular': Variant(
+                name='Regular',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='othellofour',
+                data_provider_variant_id=0,
+                gui='v3')
+        },
+        gui='v3',
+        supports_win_by=False
+    ),
+
     'orbito': Game(
         name='Orbito',
         variants={
