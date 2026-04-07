@@ -1852,7 +1852,10 @@ def get_othellofour(variant_id):
     char_images = {
         "b": {"image": "general/blackpiece.svg", "scale": 9},
         "w": {"image": "general/whitepiece.svg", "scale": 9},
+        "p": {"image": "othello/P.svg", "scale": 6},
     }
+    centers.append([20, 45])
+    centers = [[x + 0.06, y + 0.06] for x, y in centers]
     return {
         "defaultTheme": "regular",
         "themes": {
