@@ -1288,6 +1288,243 @@ def get_kaooa(variant_id):
         }
     }
 
+# def get_klotski(variant_id):
+#     centers = [[i % 4 + 0.5, i // 4 + 0.5] for i in range(20)]  # 0-19: board cells
+
+#     # 20-34: 1x2 piece centers, index = 20 + col*5 + row
+#     for col in range(3):
+#         for row in range(5):
+#             centers.append([col+1, row+0.5])
+
+#     # 35-50: 2x1 piece centers, index = 35 + col*4 + row
+#     for col in range(4):
+#         for row in range(4):
+#             centers.append([col+0.5, row+1])
+
+#     # 51-62: 2x2 piece centers, index = 51 + col*4 + row
+#     for col in range(3):
+#         for row in range(4):
+#             centers.append([col+1, row+1])
+
+#     # 63-77: 1x2 UP to, index = 63 + col*5 + row
+#     for col in range(3):
+#         for row in range(5):
+#             centers.append([col+1, row-0.5])
+
+#     # 78-92: 1x2 DOWN to, index = 78 + col*5 + row
+#     for col in range(3):
+#         for row in range(5):
+#             centers.append([col+1, row+1.5])
+
+#     # 93-107: 1x2 LEFT to, index = 93 + col*5 + row
+#     for col in range(3):
+#         for row in range(5):
+#             centers.append([col-0.5, row+0.5])
+
+#     # 108-122: 1x2 RIGHT from, index = 108 + col*5 + row
+#     for col in range(3):
+#         for row in range(5):
+#             centers.append([col+1.5, row+0.5])
+
+#     # 123-137: 1x2 RIGHT to, index = 123 + col*5 + row
+#     for col in range(3):
+#         for row in range(5):
+#             centers.append([col+2.5, row+0.5])
+
+#     # 138-153: 2x1 UP to, index = 138 + col*4 + row
+#     for col in range(4):
+#         for row in range(4):
+#             centers.append([col+0.5, row-0.5])
+
+#     # 154-169: 2x1 DOWN to, index = 154 + col*4 + row
+#     for col in range(4):
+#         for row in range(4):
+#             centers.append([col+0.5, row+2.5])
+
+#     # 170-185: 2x1 LEFT to, index = 170 + col*4 + row
+#     for col in range(4):
+#         for row in range(4):
+#             centers.append([col-0.5, row+1])
+
+#     # 186-201: 2x1 RIGHT to, index = 186 + col*4 + row
+#     for col in range(4):
+#         for row in range(4):
+#             centers.append([col+1.5, row+1])
+
+#     # 202-213: 2x2 UP from, index = 202 + col*4 + row
+#     for col in range(3):
+#         for row in range(4):
+#             centers.append([col+1, row+0.5])
+
+#     # 214-225: 2x2 UP to, index = 214 + col*4 + row
+#     for col in range(3):
+#         for row in range(4):
+#             centers.append([col+1, row-0.5])
+
+#     # 226-237: 2x2 DOWN from, index = 226 + col*4 + row
+#     for col in range(3):
+#         for row in range(4):
+#             centers.append([col+1, row+1.5])
+
+#     # 238-249: 2x2 DOWN to, index = 238 + col*4 + row
+#     for col in range(3):
+#         for row in range(4):
+#             centers.append([col+1, row+2.5])
+
+#     # 250-261: 2x2 LEFT from, index = 250 + col*4 + row
+#     for col in range(3):
+#         for row in range(4):
+#             centers.append([col+0.5, row+1])
+
+#     # 262-273: 2x2 LEFT to, index = 262 + col*4 + row
+#     for col in range(3):
+#         for row in range(4):
+#             centers.append([col-0.5, row+1])
+
+#     # 274-285: 2x2 RIGHT from, index = 274 + col*4 + row
+#     for col in range(3):
+#         for row in range(4):
+#             centers.append([col+1.5, row+1])
+
+#     # 286-297: 2x2 RIGHT to, index = 286 + col*4 + row
+#     for col in range(3):
+#         for row in range(4):
+#             centers.append([col+2.5, row+1])
+
+#     char_images = {
+#         "o": {"image": "klotski/tile_11.svg", "scale": 1.05},
+#         "H": {"image": "klotski/tile_12L.svg", "scale": 1.05},
+#         "h": {"image": "klotski/tile_12R.svg", "scale": 1.05},
+#         "V": {"image": "klotski/tile_21T.svg", "scale": 1.05},
+#         "v": {"image": "klotski/tile_21B.svg", "scale": 1.05},
+#         "W": {"image": "klotski/tile_22TL.svg", "scale": 1.05},
+#         "X": {"image": "klotski/tile_22TR.svg", "scale": 1.05},
+#         "Y": {"image": "klotski/tile_22BL.svg", "scale": 1.05},
+#         "Z": {"image": "klotski/tile_22BR.svg", "scale": 1.05},
+#         ".": {"image": "general/basichitbox.svg", "scale": 0.01},
+#         "↑": {"image": "general/basichitbox.svg", "scale": 0.01},
+#         "↓": {"image": "general/basichitbox.svg", "scale": 0.01},
+#         "←": {"image": "general/basichitbox.svg", "scale": 0.01},
+#         "→": {"image": "general/basichitbox.svg", "scale": 0.01},
+#     }
+#     return {
+#         "defaultTheme": "regular",
+#         "themes": {
+#             "regular": {
+#                 "space": [4, 5],
+#                 "centers": centers,
+#                 "charImages": char_images,
+#                 "arrowWidth": 0.1,
+#                 "entitiesOverArrows": False,
+#                 "sounds": {"x": "general/slide.mp3"},
+#                 "animationType": "simpleSlides"
+#             }
+#         }
+#     }
+
+def get_klotski(variant_id):
+    centers = [[i % 4 + 0.5, i // 4 + 0.5] for i in range(20)]
+
+    for col in range(3):
+        for row in range(5):
+            centers.append([col+1, row+0.5])
+    for col in range(4):
+        for row in range(4):
+            centers.append([col+0.5, row+1])
+    for col in range(3):
+        for row in range(4):
+            centers.append([col+1, row+1])
+    for col in range(3):
+        for row in range(5):
+            centers.append([col+1, row-0.5])
+    for col in range(3):
+        for row in range(5):
+            centers.append([col+1, row+1.5])
+    for col in range(3):
+        for row in range(5):
+            centers.append([col-0.5, row+0.5])
+    for col in range(3):
+        for row in range(5):
+            centers.append([col+1.5, row+0.5])
+    for col in range(3):
+        for row in range(5):
+            centers.append([col+2.5, row+0.5])
+    for col in range(4):
+        for row in range(4):
+            centers.append([col+0.5, row-0.5])
+    for col in range(4):
+        for row in range(4):
+            centers.append([col+0.5, row+2.5])
+    for col in range(4):
+        for row in range(4):
+            centers.append([col-0.5, row+1])
+    for col in range(4):
+        for row in range(4):
+            centers.append([col+1.5, row+1])
+    for col in range(3):
+        for row in range(4):
+            centers.append([col+1, row+0.5])
+    for col in range(3):
+        for row in range(4):
+            centers.append([col+1, row-0.5])
+    for col in range(3):
+        for row in range(4):
+            centers.append([col+1, row+1.5])
+    for col in range(3):
+        for row in range(4):
+            centers.append([col+1, row+2.5])
+    for col in range(3):
+        for row in range(4):
+            centers.append([col+0.5, row+1])
+    for col in range(3):
+        for row in range(4):
+            centers.append([col-0.5, row+1])
+    for col in range(3):
+        for row in range(4):
+            centers.append([col+1.5, row+1])
+    for col in range(3):
+        for row in range(4):
+            centers.append([col+2.5, row+1])
+
+    def make_char_images(folder):
+        return {
+            "o": {"image": f"klotski/{folder}/tile_11.svg", "scale": 1.05},
+            "H": {"image": f"klotski/{folder}/tile_12L.svg", "scale": 1.05},
+            "h": {"image": f"klotski/{folder}/tile_12R.svg", "scale": 1.05},
+            "V": {"image": f"klotski/{folder}/tile_21T.svg", "scale": 1.05},
+            "v": {"image": f"klotski/{folder}/tile_21B.svg", "scale": 1.05},
+            "W": {"image": f"klotski/{folder}/tile_22TL.svg", "scale": 1.05},
+            "X": {"image": f"klotski/{folder}/tile_22TR.svg", "scale": 1.05},
+            "Y": {"image": f"klotski/{folder}/tile_22BL.svg", "scale": 1.05},
+            "Z": {"image": f"klotski/{folder}/tile_22BR.svg", "scale": 1.05},
+            "-": {"image": "general/basichitbox.svg", "scale": 0.01},
+            "↑": {"image": "general/basichitbox.svg", "scale": 0.01},
+            "↓": {"image": "general/basichitbox.svg", "scale": 0.01},
+            "←": {"image": "general/basichitbox.svg", "scale": 0.01},
+            "→": {"image": "general/basichitbox.svg", "scale": 0.01},
+        }
+
+    def make_theme(folder):
+        return {
+            "space": [4, 5],
+            "centers": centers,
+            "charImages": make_char_images(folder),
+            "arrowWidth": 0.1,
+            "entitiesOverArrows": False,
+            "sounds": {"x": "general/slide.mp3"},
+            "animationType": "simpleSlides"
+        }
+
+    return {
+        "defaultTheme": "default",
+        "themes": {
+            "default": make_theme("default"),
+            "rounded": make_theme("rounded"),
+            "wood": make_theme("wood"),
+            "woodRounded": make_theme("woodRounded"),
+        }
+    }
+
 def get_konane(variant_id):
     def konane_iadata(rows, cols):
         rc = rows * cols
@@ -2785,6 +3022,7 @@ image_autogui_data_funcs = {
     "joust": get_joust,
     "kayles": get_kayles,
     "kaooa": get_kaooa, 
+    "klotski": get_klotski,
     "konane": get_konane,
     "legrec": get_legrec,
     "lewthwaitesgame": get_lewthwaitesgame,
