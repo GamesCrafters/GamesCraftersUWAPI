@@ -1446,8 +1446,8 @@ def get_lunarlockout(variant_id):
         "defaultTheme": "regular",
         "themes": {
             "regular": {
-                "space": [5, 5],
-                "centers": [[col + 0.5, row + 0.5] for row in range(5) for col in range(5)],
+                "space": [7, 7],
+                "centers": [[col + 0.5, row + 0.5] for row in range(7) for col in range(7)],
                 "background": "lunarlockout/board.svg",
                 "charImages": {
                     "0": {"image": "lunarlockout/robotcat0.svg", "scale": 1},
@@ -1459,7 +1459,15 @@ def get_lunarlockout(variant_id):
                 },
                 "arrowWidth": 0.06,
                 "entitiesOverArrows": True,
-                "animationType": "simpleSlides"
+                "animationType": "simpleSlides",
+                "sounds": {
+                    "0": "general/slide.mp3",
+                    "1": "general/place.mp3",
+                    "2": "general/place.mp3",
+                    "3": "general/place.mp3",
+                    "4": "general/place.mp3",
+                    "5": "general/place.mp3",
+                    }
             }
         }
     }

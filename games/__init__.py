@@ -967,16 +967,25 @@ games = {
         gui='v3'),
 
     'lunarlockout': Game(
-        name='LunarLockout',
+        name='Lunar Lockout',
         variants={
-            v: Variant(
-                name=v,
+            ui_name: Variant(
+                name=ui_name,
                 data_provider=GamesmanPy,
                 data_provider_game_id='lunarlockout',
-                data_provider_variant_id=v,
+                data_provider_variant_id=internal_name,
                 gui='v3'
             )
-            for v in ('beginner', 'easy', 'medium', 'hard')
+            for ui_name, internal_name in {
+                "Beginner 1": "beginner-1",
+                "Beginner 2": "beginner-2",
+                "Easy 16": "easy-16",
+                "Easy 17": "easy-17",
+                "Medium 28": "medium-28",
+                "Medium 29": "medium-29",
+                "Hard 34": "hard-34",
+                "Hard 35": "hard-35",
+            }.items()
         },
         is_two_player_game=False,
         gui='v3'
