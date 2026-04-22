@@ -667,11 +667,32 @@ games = {
                 data_provider_variant_id='4x4',
                 gui='v3'
             ),
-            '6x6': Variant(
-                name='6x6',
+            '6x6_lvl1': Variant(
+                name='6x6_lvl1',
                 data_provider=GamesmanPy,
                 data_provider_game_id='hashi',
-                data_provider_variant_id='6x6',
+                data_provider_variant_id='6x6_lvl1',
+                gui='v3'
+            ),
+            '6x6_lvl2': Variant(
+                name='6x6_lvl2',
+                data_provider=GamesmanPy,
+                data_provider_game_id='hashi',
+                data_provider_variant_id='6x6_lvl2',
+                gui='v3'
+            ),
+            '6x6_lvl3': Variant(
+                name='6x6_lvl3',
+                data_provider=GamesmanPy,
+                data_provider_game_id='hashi',
+                data_provider_variant_id='6x6_lvl3',
+                gui='v3'
+            ),
+            '7x5': Variant(
+                name='7x5',
+                data_provider=GamesmanPy,
+                data_provider_game_id='hashi',
+                data_provider_variant_id='7x5',
                 gui='v3'
             )
         },

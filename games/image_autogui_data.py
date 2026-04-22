@@ -1104,7 +1104,10 @@ def get_hareandhounds(variant_id):
 def get_hashi(variant_id):
     puzzles = {
         "4x4": [ (0, 0, 3), (0, 3, 3), (2, 0, 2), (2, 2, 1), (3, 3, 1) ],
-        "6x6": [ (0, 0, 2), (3, 0, 4), (5, 0, 2), (0, 3, 2), (3, 3, 2), (1, 4, 1), (5, 4, 2), (0, 5, 2), (2, 5, 1) ]
+        "6x6_lvl1": [ (0, 0, 2), (3, 0, 4), (5, 0, 2), (0, 3, 2), (3, 3, 2), (1, 4, 1), (5, 4, 2), (0, 5, 2), (2, 5, 1) ],
+        "6x6_lvl2": [ (0, 0, 2), (2, 0, 3), (5, 0, 3), (4, 1, 1), (0, 2, 4), (2, 2, 4), (5, 2, 3), (2, 4, 1), (5, 4, 1), (0, 5, 3), (4, 5, 3) ],
+        "6x6_lvl3": [ (0, 0, 3), (4, 0, 3), (1, 1, 3), (3, 1, 2), (5, 1, 2), (3, 3, 1), (1, 4, 3), (4, 4, 2), (0, 5, 2), (5, 5, 3) ],
+        "7x5": [ (0, 0, 2), (2, 0, 4), (4, 0, 4), (6, 0, 2), (0, 2, 4), (2, 2, 2), (4, 2, 2), (6, 2, 4), (0, 4, 4), (2, 4, 2), (4, 4, 1), (6, 4, 3) ]
     }
 
     if variant_id not in puzzles:
@@ -1120,6 +1123,28 @@ def get_hashi(variant_id):
     space = [width + 3, height + 3]
     centers = [[x + 1.5, y + 1.5] for y in range(height) for x in range(width)]
 
+    char_images = {
+        "h": {"image": "hashi/horiz1.svg", "scale": 1},
+        "H": {"image": "hashi/horiz2.svg", "scale": 1},
+        "v": {"image": "hashi/vert1.svg", "scale": 1},
+        "V": {"image": "hashi/vert2.svg", "scale": 1},
+        "q": {"image": "hashi/horizpill.svg", "scale": 2},
+        "Q": {"image": "hashi/vertpill.svg", "scale": 2} 
+    }
+    
+    for i in range(1, 9):
+        char_images[str(i)] = {"image": f"hashi/node_default_{i}.svg", "scale": 1}
+
+    satisfied_chars = ["a", "b", "c", "d", "e", "f", "g", "i"]
+    for i in range(8):
+        char = satisfied_chars[i]
+        char_images[char] = {"image": f"hashi/node_satisfied_{i+1}.svg", "scale": 1}
+
+    over_chars = ["A", "B", "C", "D", "E", "F", "G", "I"]
+    for i in range(8):
+        char = over_chars[i]
+        char_images[char] = {"image": f"hashi/node_over_{i+1}.svg", "scale": 1}
+    
     return {
         "defaultTheme": "basic",
         "themes": {
@@ -1128,23 +1153,7 @@ def get_hashi(variant_id):
                 "centers": centers,
                 "animationType": "entityFade",
                 "arrowWidth": 0.2,
-                "entitiesOverArrows": True,
-                "charImages": {
-                    "1": {"image": "hashi/node1.svg", "scale": 1},
-                    "2": {"image": "hashi/node2.svg", "scale": 1},
-                    "3": {"image": "hashi/node3.svg", "scale": 1},
-                    "4": {"image": "hashi/node4.svg", "scale": 1},
-                    "5": {"image": "hashi/node5.svg", "scale": 1},
-                    "6": {"image": "hashi/node6.svg", "scale": 1},
-                    "7": {"image": "hashi/node7.svg", "scale": 1},
-                    "8": {"image": "hashi/node8.svg", "scale": 1},
-                    "h": {"image": "hashi/horiz1.svg", "scale": 1},
-                    "H": {"image": "hashi/horiz2.svg", "scale": 1},
-                    "v": {"image": "hashi/vert1.svg", "scale": 1},
-                    "V": {"image": "hashi/vert2.svg", "scale": 1},
-                    "q": {"image": "hashi/horizpill.svg", "scale": 2},
-                    "Q": {"image": "hashi/vertpill.svg", "scale": 2}
-                },
+                "charImages":char_images,
                 "sounds": {
                     "x": "general/place.mp3"
                 }
