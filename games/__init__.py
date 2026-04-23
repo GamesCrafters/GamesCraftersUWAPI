@@ -688,11 +688,11 @@ games = {
                 data_provider_variant_id='6x6_lvl3',
                 gui='v3'
             ),
-            '7x5': Variant(
-                name='7x5',
+            '6x6_lvl4': Variant(
+                name='6x6_lvl4',
                 data_provider=GamesmanPy,
                 data_provider_game_id='hashi',
-                data_provider_variant_id='7x5',
+                data_provider_variant_id='6x6_lvl4',
                 gui='v3'
             )
         },
