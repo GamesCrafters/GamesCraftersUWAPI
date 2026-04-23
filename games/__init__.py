@@ -1883,6 +1883,6 @@ games = {
                 data_provider_variant_id=2,
                 gui='v3')
         },
-        gui='v3'),
+        gui='v3')
 }
 
