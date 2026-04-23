@@ -2742,7 +2742,6 @@ def get_sokoban(variant_id):
         "themes": {
             "regular": {
                 "space": [cols, rows], 
-                "background": f"sokoban/sokoban_background.svg",
                 "centers": [[(i % cols) + 0.5, (i // cols) + 0.5] for i in range(rows * cols)],
                 "charImages": {
                     "W": {"image": f"sokoban/sokoban_wall.svg", "scale": 1},
@@ -2755,7 +2754,7 @@ def get_sokoban(variant_id):
                 },
                 "sounds": {"y": "general/slide.mp3"},
                 "animationType": "simpleSlide",
-                "arrowWidth": 2/(cols*rows),
+                "arrowWidth": 0.15, 
             }
         }
     }

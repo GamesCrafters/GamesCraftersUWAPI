@@ -1459,6 +1459,12 @@ games = {
                     data_provider_game_id='sokoban',
                     data_provider_variant_id='5',
                     gui='v3'),
+                'level6_9x8': Variant(
+                    name='Level 6',
+                    data_provider=GamesmanPy,
+                    data_provider_game_id='sokoban',
+                    data_provider_variant_id='6',
+                    gui='v3'),
                 'level7_6x7': Variant(
                     name='Level 7',
                     data_provider=GamesmanPy,
@@ -1466,6 +1472,18 @@ games = {
                     data_provider_variant_id='7',
                     gui='v3'
                 ),
+                'level8_9x8': Variant(
+                    name='Level 8',
+                    data_provider=GamesmanPy,
+                    data_provider_game_id='sokoban',
+                    data_provider_variant_id='8',
+                    gui='v3'),
+                'level9_9x8': Variant(
+                    name='Level 9',
+                    data_provider=GamesmanPy,
+                    data_provider_game_id='sokoban',
+                    data_provider_variant_id='9',
+                    gui='v3'),
             },
             
             is_two_player_game=False,
