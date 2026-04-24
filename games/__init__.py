@@ -1428,7 +1428,7 @@ games = {
     'sokoban': Game(
             name='Sokoban',
             variants={
-                'level1_6x7': Variant(
+                'level1_8x9': Variant(
                     name='Level 1',
                     data_provider=GamesmanPy,
                     data_provider_game_id='sokoban',
@@ -1483,6 +1483,12 @@ games = {
                     data_provider=GamesmanPy,
                     data_provider_game_id='sokoban',
                     data_provider_variant_id='9',
+                    gui='v3'),
+                'level10_7x7': Variant(
+                    name='Level 10',
+                    data_provider=GamesmanPy,
+                    data_provider_game_id='sokoban',
+                    data_provider_variant_id='10',
                     gui='v3'),
             },
             
