@@ -1490,6 +1490,12 @@ games = {
                     data_provider_game_id='sokoban',
                     data_provider_variant_id='10',
                     gui='v3'),
+                'level11_11x9': Variant(
+                    name='Level 11',
+                    data_provider=GamesmanPy,
+                    data_provider_game_id='sokoban',
+                    data_provider_variant_id='11',
+                    gui='v3'),
             },
             
             is_two_player_game=False,
