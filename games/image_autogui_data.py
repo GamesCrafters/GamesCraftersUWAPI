@@ -43,6 +43,28 @@ get_<game>(variant_id) should return JSON of the following form:
 
 """
 
+def get_stormyseas(variant_id):
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [180, 160],
+                #first 35 centers will be for centering the waves if applicable; next 35 will be possible boat centers; arrows yet to be added
+                "centers": [[50,30,],[70,30],[90,30],[110,30],[130,30],[150,30],[170,30],[50, 50], [70, 50], [90, 50], [110, 50], [130, 50], [150, 50], [170, 50],[50, 70], [70, 70], [90, 70], [110, 70], [130, 70], [150, 70], [170, 70],[50, 90], [70, 90], [90, 90], [110, 90], [130, 90], [150, 90], [170, 90],[50, 110], [70, 110], [90, 110], [110, 110], [130, 110], [150, 110], [170, 110],
+                            [50, 20], [70, 20], [90, 20], [110, 20], [130, 20], [150, 20], [170, 20], [50, 40], [70, 40], [90, 40], [110, 40], [130, 40], [150, 40], [170, 40], [50, 60], [70, 60], [90, 60], [110, 60], [130, 60], [150, 60], [170, 60], [50, 80], [70, 80], [90, 80], [110, 80], [130, 80], [150, 80], [170, 80], [50, 100], [70, 100], [90, 100], [110, 100], [130, 100], [150, 100], [170, 100], [50, 120], [70, 120], [90, 120], [110, 120], [130, 120], [150, 120], [170, 120]
+                            ],
+                "background": "stormyseas/fullboard.svg",
+                "charImages": {
+                    "W": {"image":"stormyseas/wavc.svg", "scale": "1"},
+                    "B": {"image":"stormyseas/blueboat.svg", "scale": "1"},
+                },
+                "arrowWidth": 2,
+                "sounds": {"x": "general/remove.mp3"},
+                "animationType": "simpleSlides",
+            }
+        }
+    }
+
 def get_hexapawn(variant_id):
    width = (int(variant_id) % 4) + 3
    height = 3
