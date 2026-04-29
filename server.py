@@ -297,6 +297,8 @@ def get_games_health():
             latency_ms = round((time.time() - start) * 1000)
             if not position_data:
                 return key, {'status': 'error', 'variant_probed': variant_id, 'position_value': None, 'latency_ms': latency_ms, 'error': 'no position data returned'}
+            if position_data.get('position', '').lower() == 'unavailable':
+                return key, {'status': 'unavailable', 'variant_probed': variant_id, 'position_value': None, 'latency_ms': latency_ms, 'error': 'position unavailable'}
             pos_value = position_data.get('positionValue', '')
             if pos_value in VALID_POSITION_VALUES:
                 status = 'ok'
@@ -315,8 +317,18 @@ def get_games_health():
             for variant_id, variant in game.variants.items()
         }
         for future in as_completed(futures):
-            key, result = future.result()
-            results[key] = result
+            try:
+                key, result = future.result(timeout=10)
+                results[key] = result
+            except TimeoutError:
+                game_id, variant_id = futures[future]
+                results[f"{game_id}/{variant_id}"] = {
+                    'status': 'timeout',
+                    'variant_probed': variant_id,
+                    'position_value': None,
+                    'latency_ms': None,
+                    'error': 'probe timed out'
+                }
 
     return jsonify({'timestamp': timestamp, 'games': results})
 
