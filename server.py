@@ -13,6 +13,7 @@ from games.gamesman_py import GamesmanPy
 import requests
 import time
 from datetime import datetime, timezone
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 VALID_POSITION_VALUES = {'win', 'lose', 'tie', 'draw'}
 BACKEND_SERVICES = [GamesmanClassic, GamesmanPuzzles, GamesmanOne, GamesmanPy]
@@ -256,28 +257,45 @@ def get_instructions(game_id: str, variant_id: str) -> dict[str: str]:
         return {'instructions': md_instr(game_type, game_id, locale)}
     return error('Game')
 
-@app.route('/health/')
-def get_health():
+@app.route('/games/health/')
+def get_games_health():
     timestamp = datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
-    backends = {}
-    for service_cls in BACKEND_SERVICES:
-        service_name = service_cls.__name__.lower()
+    results = {}
+
+    def probe(game_id, variant_id, variant):
+        key = f"{game_id}/{variant_id}"
         try:
             start = time.time()
-            res = requests.get(f"{service_cls.url.rstrip('/')}/health", timeout=1.5)
+            start_data = variant.start_position()
+            position_str = start_data.get('position', '')
+            if not position_str:
+                return key, {'status': 'error', 'variant_probed': variant_id, 'position_value': None, 'latency_ms': None, 'error': 'no start position returned'}
+            position_data = variant.position_data(position_str)
             latency_ms = round((time.time() - start) * 1000)
-            if res.status_code == 200:
-                backends[service_name] = {'status': 'ok', 'latency_ms': latency_ms}
+            if not position_data:
+                return key, {'status': 'error', 'variant_probed': variant_id, 'position_value': None, 'latency_ms': latency_ms, 'error': 'no position data returned'}
+            pos_value = position_data.get('positionValue', '')
+            if pos_value in VALID_POSITION_VALUES:
+                status = 'ok'
+            elif pos_value == 'unsolved':
+                status = 'unsolved'
             else:
-                backends[service_name] = {'status': 'fail', 'latency_ms': latency_ms, 'error': f"status code {res.status_code}"}
+                status = 'error'
+            return key, {'status': status, 'variant_probed': variant_id, 'position_value': pos_value, 'latency_ms': latency_ms}
         except Exception as e:
-            backends[service_name] = {'status': 'fail', 'latency_ms': None, 'error': str(e)}
-    all_ok = bool(backends) and all(b['status'] == 'ok' for b in backends.values())
-    return jsonify({
-        'status': 'ok' if all_ok else 'degraded',
-        'timestamp': timestamp,
-        'backends': backends
-    }), 200 if all_ok else 503
+            return key, {'status': 'error', 'variant_probed': variant_id, 'position_value': None, 'latency_ms': None, 'error': str(e)}
+
+    with ThreadPoolExecutor(max_workers=5) as executor:
+        futures = {
+            executor.submit(probe, game_id, variant_id, variant): (game_id, variant_id)
+            for game_id, game in games.items()
+            for variant_id, variant in game.variants.items()
+        }
+        for future in as_completed(futures):
+            key, result = future.result()
+            results[key] = result
+
+    return jsonify({'timestamp': timestamp, 'games': results})
 
 @app.route('/games/health/')
 def get_games_health():
