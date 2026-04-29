@@ -977,14 +977,14 @@ games = {
                 gui='v3'
             )
             for ui_name, internal_name in {
-                "Beginner 1": "beginner-1",
-                "Beginner 2": "beginner-2",
-                "Easy 16": "easy-16",
-                "Easy 17": "easy-17",
-                "Medium 28": "medium-28",
-                "Medium 29": "medium-29",
-                "Hard 34": "hard-34",
-                "Hard 35": "hard-35",
+                "Beginner_1": "beginner-1",
+                "Beginner_2": "beginner-2",
+                "Easy_16": "easy-16",
+                "Easy_17": "easy-17",
+                "Medium_28": "medium-28",
+                "Medium_29": "medium-29",
+                "Hard_34": "hard-34",
+                "Hard_35": "hard-35",
             }.items()
         },
         is_two_player_game=False,

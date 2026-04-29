@@ -1461,7 +1461,6 @@ def get_lunarlockout(variant_id):
                 "entitiesOverArrows": True,
                 "animationType": "simpleSlides",
                 "sounds": {
-                    "0": "general/slide.mp3",
                     "1": "general/place.mp3",
                     "2": "general/place.mp3",
                     "3": "general/place.mp3",
