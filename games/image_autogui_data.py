@@ -875,6 +875,30 @@ def get_fivefieldkono(variant_id):
         }
     }
 
+def get_flowfree(variant_id):
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [5, 5],
+                "centers": [[0.5 + i % 5, 0.5 + i // 5] for i in range(25)],
+                "background": "flowfree/grid.svg",
+                "charImages": {
+                    "1": {"image": "general/teal_circle.svg",   "scale": 0.8},
+                    "2": {"image": "general/orange_circle.svg", "scale": 0.8},
+                    "3": {"image": "general/purple_circle.svg", "scale": 0.8},
+                    "4": {"image": "general/pink_circle.svg",   "scale": 0.8},
+                    "5": {"image": "general/brown_circle.svg",  "scale": 0.8},
+                },
+                "arrowWidth": 0.15,
+                "entitiesOverArrows": False,
+                "arrowClipSource": True,
+                "sounds": {"x": "general/place.mp3"},
+                "animationType": "entityFade",
+            }
+        }
+    }
+
 def get_fourfieldkono(variant_id):
     return {
         "defaultTheme": "basic",
@@ -2769,6 +2793,7 @@ image_autogui_data_funcs = {
     "euclidsgame": get_euclidsgame,
     "expantix": get_expantix,
     "fivefieldkono": get_fivefieldkono,
+    "flowfree": get_flowfree,
     "fourfieldkono": get_fourfieldkono,
     "forestfox": get_forestfox,
     "foxandhounds": get_foxandhounds,
