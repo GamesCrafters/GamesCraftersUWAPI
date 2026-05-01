@@ -1289,113 +1289,73 @@ def get_kaooa(variant_id):
     }
 
 def get_klotski(variant_id):
-    centers = [[i % 4 + 0.5, i // 4 + 0.5] for i in range(20)]
+    centers = (
+        [[i % 4 + 0.5, i // 4 + 0.5] for i in range(20)] +
+        [[col+1,   row+0.5] for col in range(3) for row in range(5)] +
+        [[col+0.5, row+1]   for col in range(4) for row in range(4)] +
+        [[col+1,   row+1]   for col in range(3) for row in range(4)] +
+        [[col+1,   row-0.5] for col in range(3) for row in range(5)] +
+        [[col+1,   row+1.5] for col in range(3) for row in range(5)] +
+        [[col-0.5, row+0.5] for col in range(3) for row in range(5)] +
+        [[col+1.5, row+0.5] for col in range(3) for row in range(5)] +
+        [[col+2.5, row+0.5] for col in range(3) for row in range(5)] +
+        [[col+0.5, row-0.5] for col in range(4) for row in range(4)] +
+        [[col+0.5, row+2.5] for col in range(4) for row in range(4)] +
+        [[col-0.5, row+1]   for col in range(4) for row in range(4)] +
+        [[col+1.5, row+1]   for col in range(4) for row in range(4)] +
+        [[col+1,   row+0.5] for col in range(3) for row in range(4)] +
+        [[col+1,   row-0.5] for col in range(3) for row in range(4)] +
+        [[col+1,   row+1.5] for col in range(3) for row in range(4)] +
+        [[col+1,   row+2.5] for col in range(3) for row in range(4)] +
+        [[col+0.5, row+1]   for col in range(3) for row in range(4)] +
+        [[col-0.5, row+1]   for col in range(3) for row in range(4)] +
+        [[col+1.5, row+1]   for col in range(3) for row in range(4)] +
+        [[col+2.5, row+1]   for col in range(3) for row in range(4)]
+    )
 
-    for col in range(3):
-        for row in range(5):
-            centers.append([col+1, row+0.5])
-    for col in range(4):
-        for row in range(4):
-            centers.append([col+0.5, row+1])
-    for col in range(3):
-        for row in range(4):
-            centers.append([col+1, row+1])
-    for col in range(3):
-        for row in range(5):
-            centers.append([col+1, row-0.5])
-    for col in range(3):
-        for row in range(5):
-            centers.append([col+1, row+1.5])
-    for col in range(3):
-        for row in range(5):
-            centers.append([col-0.5, row+0.5])
-    for col in range(3):
-        for row in range(5):
-            centers.append([col+1.5, row+0.5])
-    for col in range(3):
-        for row in range(5):
-            centers.append([col+2.5, row+0.5])
-    for col in range(4):
-        for row in range(4):
-            centers.append([col+0.5, row-0.5])
-    for col in range(4):
-        for row in range(4):
-            centers.append([col+0.5, row+2.5])
-    for col in range(4):
-        for row in range(4):
-            centers.append([col-0.5, row+1])
-    for col in range(4):
-        for row in range(4):
-            centers.append([col+1.5, row+1])
-    for col in range(3):
-        for row in range(4):
-            centers.append([col+1, row+0.5])
-    for col in range(3):
-        for row in range(4):
-            centers.append([col+1, row-0.5])
-    for col in range(3):
-        for row in range(4):
-            centers.append([col+1, row+1.5])
-    for col in range(3):
-        for row in range(4):
-            centers.append([col+1, row+2.5])
-    for col in range(3):
-        for row in range(4):
-            centers.append([col+0.5, row+1])
-    for col in range(3):
-        for row in range(4):
-            centers.append([col-0.5, row+1])
-    for col in range(3):
-        for row in range(4):
-            centers.append([col+1.5, row+1])
-    for col in range(3):
-        for row in range(4):
-            centers.append([col+2.5, row+1])
-
-    def make_char_images(folder):
-        return {
-            "o": {"image": f"klotski/{folder}/tile_11.svg", "scale": 1.05},
-            "H": {"image": f"klotski/{folder}/tile_12L.svg", "scale": 1.05},
-            "h": {"image": f"klotski/{folder}/tile_12R.svg", "scale": 1.05},
-            "V": {"image": f"klotski/{folder}/tile_21T.svg", "scale": 1.05},
-            "v": {"image": f"klotski/{folder}/tile_21B.svg", "scale": 1.05},
-            "W": {"image": f"klotski/{folder}/tile_22TL.svg", "scale": 1.05},
-            "X": {"image": f"klotski/{folder}/tile_22TR.svg", "scale": 1.05},
-            "Y": {"image": f"klotski/{folder}/tile_22BL.svg", "scale": 1.05},
-            "Z": {"image": f"klotski/{folder}/tile_22BR.svg", "scale": 1.05},
-            "-": {"image": "general/basichitbox.svg", "scale": 0.01},
-            "↑": {"image": "general/basichitbox.svg", "scale": 0.01},
-            "↓": {"image": "general/basichitbox.svg", "scale": 0.01},
-            "←": {"image": "general/basichitbox.svg", "scale": 0.01},
-            "→": {"image": "general/basichitbox.svg", "scale": 0.01},
-        }
-
-    def make_theme(folder, bg):
-        return {
-            "space": [4, 5],
-            "centers": centers,
-            "background": bg,
-            "charImages": make_char_images(folder),
-            "arrowWidth": 0.1,
-            "entitiesOverArrows": False,
-            "sounds": {"x": "general/slide.mp3"},
-            "animationType": "simpleSlides"
-        }
-
-    if variant_id == "donkey":
-        bg_sharp = "klotski/goal_donkey_sharp.svg"
-        bg_rounded = "klotski/goal_donkey_rounded.svg"
-    else:
-        bg_sharp = "klotski/goal_pennant_sharp.svg"
-        bg_rounded = "klotski/goal_pennant_rounded.svg"
+    match variant_id:
+        case "donkey":
+            bgs = {"default":   "klotski/goal_donkey_rounded.svg",
+                   "sharp":     "klotski/goal_donkey_sharp.svg",
+                   "wood":      "klotski/goal_donkey_rounded.svg",
+                   "woodSharp": "klotski/goal_donkey_sharp.svg"}
+        case "pennant":
+            bgs = {"default":   "klotski/goal_pennant_rounded.svg",
+                   "sharp":     "klotski/goal_pennant_sharp.svg",
+                   "wood":      "klotski/goal_pennant_rounded.svg",
+                   "woodSharp": "klotski/goal_pennant_sharp.svg"}
+        case _:
+            return None
 
     return {
         "defaultTheme": "default",
         "themes": {
-            "default": make_theme("default", bg_rounded),
-            "sharp": make_theme("sharp", bg_sharp),
-            "wood": make_theme("wood", bg_rounded),
-            "woodSharp": make_theme("woodSharp", bg_sharp),
+            theme: {
+                "space": [4, 5],
+                "centers": centers,
+                "background": bgs[theme],
+                "charImages": {
+                    "o": {"image": f"klotski/{theme}/tile_11.svg", "scale": 1.05},
+                    "H": {"image": f"klotski/{theme}/tile_12L.svg", "scale": 1.05},
+                    "h": {"image": f"klotski/{theme}/tile_12R.svg", "scale": 1.05},
+                    "V": {"image": f"klotski/{theme}/tile_21T.svg", "scale": 1.05},
+                    "v": {"image": f"klotski/{theme}/tile_21B.svg", "scale": 1.05},
+                    "W": {"image": f"klotski/{theme}/tile_22TL.svg", "scale": 1.05},
+                    "X": {"image": f"klotski/{theme}/tile_22TR.svg", "scale": 1.05},
+                    "Y": {"image": f"klotski/{theme}/tile_22BL.svg", "scale": 1.05},
+                    "Z": {"image": f"klotski/{theme}/tile_22BR.svg", "scale": 1.05},
+                    "-": {"image": "general/basichitbox.svg", "scale": 0.01},
+                    "↑": {"image": "general/basichitbox.svg", "scale": 0.01},
+                    "↓": {"image": "general/basichitbox.svg", "scale": 0.01},
+                    "←": {"image": "general/basichitbox.svg", "scale": 0.01},
+                    "→": {"image": "general/basichitbox.svg", "scale": 0.01},
+                },
+                "arrowWidth": 0.1,
+                "entitiesOverArrows": False,
+                "sounds": {"x": "general/slide.mp3"},
+                "animationType": "simpleSlides"
+            }
+            for theme in ("default", "sharp", "wood", "woodSharp")
         }
     }
 
