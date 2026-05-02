@@ -42,7 +42,81 @@ get_<game>(variant_id) should return JSON of the following form:
 (Scroll all the way down for Step 2).
 
 """
+def get_snakestale(variant_id):
+    width, height = (5, 4) if variant_id == "lvl5" else (4, 4)
 
+    return {
+        "defaultTheme" : "lvl",
+        "themes" : {
+            "lvl": {
+                "space": [width, height],
+                "centers": [[0.5 + (i % width), 0.5 + (i // width)] for i in range(width*height)],
+                "background": f"snakestale/{variant_id}.svg",
+                "charImages": {
+                    "O":{"image": "snakestale/Hole.svg", "scale": 1},
+                    "k":{"image": "snakestale/Water.svg", "scale": 1},
+                    "X":{"image": "snakestale/obs.svg", "scale": 1},
+
+                    "v":{"image": "snakestale/finalbodie/PHDOWN (1).svg", "scale": 1},
+                    "w":{"image": "snakestale/finalbodie/PHUP (1).svg", "scale": 1},
+                    "i":{"image": "snakestale/finalbodie/PHLEFT (1).svg", "scale": 1},
+                    "r":{"image": "snakestale/finalbodie/PHRIGHT (1).svg", "scale": 1},
+
+                    "q":{"image": "snakestale/finalbodie/PBODYVER (2).svg", "scale": 1},
+                    "p":{"image": "snakestale/finalbodie/PBODYHOR (3).svg", "scale": 1},
+
+                    "b":{"image": "snakestale/finalbodie/PCURVERD (2).svg", "scale": 1},
+                    "c":{"image": "snakestale/finalbodie/PCURVELD (2).svg", "scale": 1},
+                    "d":{"image": "snakestale/finalbodie/PCURVERU (2).svg", "scale": 1},
+                    "e":{"image": "snakestale/finalbodie/PCURVELU (2).svg", "scale": 1},
+
+                    "T":{"image": "snakestale/finalbodie/PTAILD (1).svg", "scale": 1},
+                    "J":{"image": "snakestale/finalbodie/PTAILU (1).svg", "scale": 1},
+                    "K":{"image": "snakestale/finalbodie/PTAILL (1).svg", "scale": 1},
+                    "N":{"image": "snakestale/finalbodie/PTAILR (1).svg", "scale": 1},
+
+                    "A":{"image": "snakestale/finalbodie/LHUP (1).svg", "scale": 1},
+                    "B":{"image": "snakestale/finalbodie/LHDOWN (1).svg", "scale": 1},
+                    "D":{"image": "snakestale/finalbodie/LHRIGHT (1).svg", "scale": 1},
+                    "C":{"image": "snakestale/finalbodie/LHLEFT (1).svg", "scale": 1},
+
+                    "Q":{"image": "snakestale/finalbodie/LBODYVER (1).svg", "scale": 1},
+                    "P":{"image": "snakestale/finalbodie/LBODYHOR (1).svg", "scale": 1},
+
+                    "M":{"image": "snakestale/finalbodie/LCURVERD (1).svg", "scale": 1},
+                    "n":{"image": "snakestale/finalbodie/LCURVEDL (1).svg", "scale": 1},
+                    "H":{"image": "snakestale/finalbodie/LCURVEUR (1).svg", "scale": 1},
+                    "V":{"image": "snakestale/finalbodie/LCURVELU (1).svg", "scale": 1},
+
+                    "W":{"image": "snakestale/finalbodie/LTAILD (1).svg", "scale": 1},
+                    "S":{"image": "snakestale/finalbodie/LTAILU (1).svg", "scale": 1},
+                    "Y":{"image": "snakestale/finalbodie/LTAILL (1).svg", "scale": 1},
+                    "Z":{"image": "snakestale/finalbodie/LTAILR (1).svg", "scale": 1},
+
+                    "E":{"image": "snakestale/finalbodie/WHUP (1).svg", "scale": 1},
+                    "F":{"image": "snakestale/finalbodie/WHDOWN (1).svg", "scale": 1},
+                    "G":{"image": "snakestale/finalbodie/WHLEFT (1).svg", "scale": 1},
+                    "I":{"image": "snakestale/finalbodie/WHRIGHT (1).svg", "scale": 1},
+
+                    "x":{"image": "snakestale/finalbodie/WBODYVER (1).svg", "scale": 1},
+                    "y":{"image": "snakestale/finalbodie/WBODYHOR (1).svg", "scale": 1},
+
+                    "z":{"image": "snakestale/finalbodie/WCURVERD (1).svg", "scale": 1},
+                    "f":{"image": "snakestale/finalbodie/WCURVELD (1).svg", "scale": 1},
+                    "g":{"image": "snakestale/finalbodie/WCURVERU (1).svg", "scale": 1},
+                    "u":{"image": "snakestale/finalbodie/WCURVELU (1).svg", "scale": 1},
+
+                    "o":{"image": "snakestale/finalbodie/WTAILD (1).svg", "scale": 1},
+                    "m":{"image": "snakestale/finalbodie/WTAILU (1).svg", "scale": 1},
+                    "t":{"image": "snakestale/finalbodie/WTAILL (1).svg", "scale": 1},
+                    "j":{"image": "snakestale/finalbodie/WTAILR (1).svg", "scale": 1},
+                },
+                "arrowWidth": 0.1,
+                "entitiesOverArrows": False,
+                "sounds": {"x": "animals/snake.mp3"},
+                "animationType": "simpleSlides"
+        }}}
+    
 def get_hexapawn(variant_id):
    width = (int(variant_id) % 4) + 3
    height = 3
@@ -2891,6 +2965,7 @@ image_autogui_data_funcs = {
     "shifttactoe": get_shifttactoe,
     "slide5": get_slide5,
     "snake": get_snake,
+    "snakestale": get_snakestale,
     "spinout": get_spinout,
     "solitairechess": get_solitaire_chess,
     "squaredance": get_squaredance,
