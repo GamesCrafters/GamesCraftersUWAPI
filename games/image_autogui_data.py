@@ -1847,22 +1847,38 @@ def get_othello(variant_id):
         }
     }
 
-def get_othellofour(variant_id):
-    centers = [[5 + i % 4 * 10, 5 + i // 4 * 10] for i in range(16)]
-    char_images = {
-        "b": {"image": "general/blackpiece.svg", "scale": 9},
-        "w": {"image": "general/whitepiece.svg", "scale": 9},
-        "p": {"image": "othello/P.svg", "scale": 6},
-    }
-    centers.append([20, 45])
-    centers = [[x + 0.06, y + 0.06] for x, y in centers]
+
+def get_othelloblob(variant_id):
+    match variant_id:
+        case '4x5':
+            centers = [[5 + i % 5 * 10, 5 + i // 5 * 10] for i in range(20)]
+            char_images = {
+                "b": {"image": "general/blackpiece.svg", "scale": 9},
+                "w": {"image": "general/whitepiece.svg", "scale": 9},
+                "p": {"image": "othello/P.svg", "scale": 9},
+            }
+            centers.append([25.06, 45])
+            centers = [[x + 0.06, y + 0.06] for x, y in centers]
+            background = "othello5x4/board.svg"
+            space = [50.12, 50]
+        case '4x4':
+            centers = [[5 + i % 4 * 10, 5 + i // 4 * 10] for i in range(16)]
+            char_images = {
+                "b": {"image": "general/blackpiece.svg", "scale": 9},
+                "w": {"image": "general/whitepiece.svg", "scale": 9},
+                "p": {"image": "othello/P.svg", "scale": 6},
+            }
+            centers.append([20, 45])
+            centers = [[x + 0.06, y + 0.06] for x, y in centers]
+            background = "othello/grid.svg"
+            space = [40.12, 50]
     return {
         "defaultTheme": "regular",
         "themes": {
             "regular": {
-                "space": [40.12, 50],
+                "space": space,
                 "centers": centers,
-                "background": "othello/grid.svg",
+                "background": background,
                 "charImages": char_images,
                 "sounds": {"x": "general/place.mp3"},
                 "animationType": "entityFade"
@@ -2901,7 +2917,7 @@ image_autogui_data_funcs = {
     "oddoreven": get_oddoreven,
     "orbito" : get_orbito, 
     "othello": get_othello,
-    "othellofour": get_othellofour,
+    "othelloblob": get_othelloblob,
     "pancakes": get_pancakes,
     "pegsolitaire": get_pegsolitaire,
     "ponghauki": get_ponghauki,
