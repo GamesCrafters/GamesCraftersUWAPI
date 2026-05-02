@@ -1440,6 +1440,19 @@ games = {
             },
         gui='v3'),
 
+    'snakestale': Game(
+        name="Snake's Tale",
+        variants={
+            v: Variant(
+                name=v.replace('lvl', 'Level '),
+                data_provider=GamesmanPy,
+                data_provider_game_id='snakestale',
+                data_provider_variant_id=v,
+                gui='v3') for v in ['lvl1', 'lvl2', 'lvl3', 'lvl4', 'lvl5']
+        },
+        is_two_player_game=False,
+        gui='v3'),
+
     'spinout': Game(
         name='Spinout',
         variants={
