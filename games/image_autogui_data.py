@@ -1361,6 +1361,66 @@ def get_kaooa(variant_id):
         }
     }
 
+def get_klotski(variant_id):
+    centers = [[i % 4 + 0.5, i // 4 + 0.5] for i in range(20)]
+    offset_groups = [
+        (3, 5, [(1, 0.5)]),
+        (4, 4, [(0.5, 1)]),
+        (3, 4, [(1, 1)]),
+        (3, 5, [(1, -0.5), (1, 1.5), (-0.5, 0.5), (1.5, 0.5), (2.5, 0.5)]),
+        (4, 4, [(0.5, -0.5), (0.5, 2.5), (-0.5, 1), (1.5, 1)]),
+        (3, 4, [(1, 0.5), (1, -0.5), (1, 1.5), (1, 2.5), (0.5, 1), (-0.5, 1), (1.5, 1), (2.5, 1)]),
+    ]
+    for cols, rows, offsets in offset_groups:
+        for dx, dy in offsets:
+            centers += [[col + dx, row + dy] for col in range(cols) for row in range(rows)]
+
+    match variant_id:
+        case "donkey":
+            bgs = {"default":   "klotski/goal_donkey_rounded.svg",
+                   "sharp":     "klotski/goal_donkey_sharp.svg",
+                   "wood":      "klotski/goal_donkey_rounded.svg",
+                   "woodSharp": "klotski/goal_donkey_sharp.svg"}
+        case "pennant":
+            bgs = {"default":   "klotski/goal_pennant_rounded.svg",
+                   "sharp":     "klotski/goal_pennant_sharp.svg",
+                   "wood":      "klotski/goal_pennant_rounded.svg",
+                   "woodSharp": "klotski/goal_pennant_sharp.svg"}
+        case _:
+            return None
+
+    return {
+        "defaultTheme": "default",
+        "themes": {
+            theme: {
+                "space": [4, 5],
+                "centers": centers,
+                "background": bgs[theme],
+                "charImages": {
+                    "o": {"image": f"klotski/{theme}/tile_11.svg", "scale": 1.05},
+                    "H": {"image": f"klotski/{theme}/tile_12L.svg", "scale": 1.05},
+                    "h": {"image": f"klotski/{theme}/tile_12R.svg", "scale": 1.05},
+                    "V": {"image": f"klotski/{theme}/tile_21T.svg", "scale": 1.05},
+                    "v": {"image": f"klotski/{theme}/tile_21B.svg", "scale": 1.05},
+                    "W": {"image": f"klotski/{theme}/tile_22TL.svg", "scale": 1.05},
+                    "X": {"image": f"klotski/{theme}/tile_22TR.svg", "scale": 1.05},
+                    "Y": {"image": f"klotski/{theme}/tile_22BL.svg", "scale": 1.05},
+                    "Z": {"image": f"klotski/{theme}/tile_22BR.svg", "scale": 1.05},
+                    "-": {"image": "general/basichitbox.svg", "scale": 0.01},
+                    "↑": {"image": "general/basichitbox.svg", "scale": 0.01},
+                    "↓": {"image": "general/basichitbox.svg", "scale": 0.01},
+                    "←": {"image": "general/basichitbox.svg", "scale": 0.01},
+                    "→": {"image": "general/basichitbox.svg", "scale": 0.01},
+                },
+                "arrowWidth": 0.1,
+                "entitiesOverArrows": False,
+                "sounds": {"x": "general/slide.mp3"},
+                "animationType": "simpleSlides"
+            }
+            for theme in ("default", "sharp", "wood", "woodSharp")
+        }
+    }
+
 def get_konane(variant_id):
     def konane_iadata(rows, cols):
         rc = rows * cols
@@ -2860,6 +2920,7 @@ image_autogui_data_funcs = {
     "joust": get_joust,
     "kayles": get_kayles,
     "kaooa": get_kaooa, 
+    "klotski": get_klotski,
     "konane": get_konane,
     "legrec": get_legrec,
     "lewthwaitesgame": get_lewthwaitesgame,

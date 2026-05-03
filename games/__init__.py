@@ -877,6 +877,25 @@ games = {
         },
         gui='v3'),
 
+    'klotski': Game(
+        name='Klotski',
+        variants={
+            'donkey': Variant(
+                name='Donkey',
+                data_provider=GamesmanPy,
+                data_provider_game_id='klotski',
+                data_provider_variant_id='donkey',
+                gui='v3'),
+            'pennant': Variant(
+                name='Pennant',
+                data_provider=GamesmanPy,
+                data_provider_game_id='klotski',
+                data_provider_variant_id='pennant',    
+                gui='v3')
+        },
+        is_two_player_game=False,
+        gui='v3'),
+
     'konane': Game(
         name='Kōnane',
         variants={
