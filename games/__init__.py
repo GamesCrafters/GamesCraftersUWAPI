@@ -1454,80 +1454,17 @@ games = {
         gui='v3'),
 
     'sokoban': Game(
-            name='Sokoban',
-            variants={
-                'level1_8x9': Variant(
-                    name='Level 1',
-                    data_provider=GamesmanPy,
-                    data_provider_game_id='sokoban',
-                    data_provider_variant_id='1',
-                    gui='v3'
-                ),
-                'level2_8x8': Variant(
-                    name='Level 2',
-                    data_provider=GamesmanPy,
-                    data_provider_game_id='sokoban',
-                    data_provider_variant_id='2',
-                    gui='v3'),
-                'level3_11x10': Variant(
-                    name='Level 3',
-                    data_provider=GamesmanPy,
-                    data_provider_game_id='sokoban',
-                    data_provider_variant_id='3',
-                    gui='v3'),
-                'level4_9x9': Variant(
-                    name='Level 4',
-                    data_provider=GamesmanPy,
-                    data_provider_game_id='sokoban',
-                    data_provider_variant_id='4',
-                    gui='v3'),
-                'level5_23x12': Variant(
-                    name='Level 5',
-                    data_provider=GamesmanPy,
-                    data_provider_game_id='sokoban',
-                    data_provider_variant_id='5',
-                    gui='v3'),
-                'level6_9x8': Variant(
-                    name='Level 6',
-                    data_provider=GamesmanPy,
-                    data_provider_game_id='sokoban',
-                    data_provider_variant_id='6',
-                    gui='v3'),
-                'level7_6x7': Variant(
-                    name='Level 7',
-                    data_provider=GamesmanPy,
-                    data_provider_game_id='sokoban',
-                    data_provider_variant_id='7',
-                    gui='v3'
-                ),
-                'level8_9x8': Variant(
-                    name='Level 8',
-                    data_provider=GamesmanPy,
-                    data_provider_game_id='sokoban',
-                    data_provider_variant_id='8',
-                    gui='v3'),
-                'level9_9x8': Variant(
-                    name='Level 9',
-                    data_provider=GamesmanPy,
-                    data_provider_game_id='sokoban',
-                    data_provider_variant_id='9',
-                    gui='v3'),
-                'level10_7x7': Variant(
-                    name='Level 10',
-                    data_provider=GamesmanPy,
-                    data_provider_game_id='sokoban',
-                    data_provider_variant_id='10',
-                    gui='v3'),
-                'level11_11x9': Variant(
-                    name='Level 11',
-                    data_provider=GamesmanPy,
-                    data_provider_game_id='sokoban',
-                    data_provider_variant_id='11',
-                    gui='v3'),
-            },
-            
-            is_two_player_game=False,
-            gui='v3'),
+        name='Sokoban',
+        variants= {
+            v: Variant(
+                name='Level ' + v,
+                data_provider=GamesmanPy,
+                data_provider_game_id='sokoban',
+                data_provider_variant_id=v,
+                gui='v3') for v in ('1','2','3','4','5','6','7','8','9','10','11')
+        },
+        is_two_player_game=False,
+        gui='v3'),
 
     'solitairechess': Game(
         name='Solitaire Chess',

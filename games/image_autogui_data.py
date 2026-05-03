@@ -2807,9 +2807,45 @@ def get_orbito(variant_id):
     return data
 
 def get_sokoban(variant_id):
-    dimensions = variant_id.split('_')[1]
-    cols, rows = map(int, dimensions.split('x'))
 
+    match variant_id:
+        case '1':
+            cols = 8
+            rows = 9
+        case '2':
+            cols = 8
+            rows = 8
+        case '3':
+            cols = 11
+            rows = 10
+        case '4':
+            cols = 9
+            rows = 9
+        case '5':
+            cols = 23
+            rows = 12
+        case '6':
+            cols = 9
+            rows = 8
+        case '7':
+            cols = 6
+            rows = 7
+        case '8':
+            cols = 9
+            rows = 8
+        case '9':
+            cols = 9
+            rows = 8
+        case '10':
+            cols = 7
+            rows = 7
+        case '11':
+            cols = 11
+            rows = 9
+        case _:
+            cols = 0
+            rows = 0
+            
     return {
         "defaultTheme": "regular",
         "themes": {
