@@ -2805,6 +2805,69 @@ def get_orbito(variant_id):
         data["themes"]["regular"]["background"] = "orbito/orbito_board_reversed.svg"
 
     return data
+
+def get_sokoban(variant_id):
+
+    match variant_id:
+        case '1':
+            cols = 8
+            rows = 9
+        case '2':
+            cols = 8
+            rows = 8
+        case '3':
+            cols = 11
+            rows = 10
+        case '4':
+            cols = 9
+            rows = 9
+        case '5':
+            cols = 23
+            rows = 12
+        case '6':
+            cols = 9
+            rows = 8
+        case '7':
+            cols = 6
+            rows = 7
+        case '8':
+            cols = 9
+            rows = 8
+        case '9':
+            cols = 9
+            rows = 8
+        case '10':
+            cols = 7
+            rows = 7
+        case '11':
+            cols = 11
+            rows = 9
+        case _:
+            cols = 0
+            rows = 0
+            
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [cols, rows], 
+                "centers": [[(i % cols) + 0.5, (i // cols) + 0.5] for i in range(rows * cols)],
+                "charImages": {
+                    "W": {"image": f"sokoban/sokoban_wall.svg", "scale": 1},
+                    "p": {"image": f"sokoban/sokoban_player.svg", "scale": 1},
+                    ".": {"image": f"sokoban/sokoban_goal.svg", "scale": 1},
+                    "b": {"image": f"sokoban/sokoban_box.svg", "scale": 1},
+                    "P": {"image": f"sokoban/sokoban_player_on_goal.svg", "scale": 1},
+                    "g": {"image": f"sokoban/sokoban_box_on_goal.svg", "scale": 1},
+                    "t": {"image": f"sokoban/sokoban_tile.svg", "scale": 1},
+                },
+                "sounds": {"y": "general/slide.mp3"},
+                "animationType": "simpleSlide",
+                "arrowWidth": 0.15, 
+            }
+        }
+    }
+
 """
 ===== STEP 2 ===== 
 Add your function to the image_autogui_data_funcs dict in alphabetical order by game_id.
@@ -2892,6 +2955,7 @@ image_autogui_data_funcs = {
     "slide5": get_slide5,
     "snake": get_snake,
     "spinout": get_spinout,
+    "sokoban": get_sokoban,
     "solitairechess": get_solitaire_chess,
     "squaredance": get_squaredance,
     "squirrels": get_squirrels_go_nuts,
