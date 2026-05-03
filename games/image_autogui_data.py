@@ -1289,29 +1289,18 @@ def get_kaooa(variant_id):
     }
 
 def get_klotski(variant_id):
-    centers = (
-        [[i % 4 + 0.5, i // 4 + 0.5] for i in range(20)] +
-        [[col+1,   row+0.5] for col in range(3) for row in range(5)] +
-        [[col+0.5, row+1]   for col in range(4) for row in range(4)] +
-        [[col+1,   row+1]   for col in range(3) for row in range(4)] +
-        [[col+1,   row-0.5] for col in range(3) for row in range(5)] +
-        [[col+1,   row+1.5] for col in range(3) for row in range(5)] +
-        [[col-0.5, row+0.5] for col in range(3) for row in range(5)] +
-        [[col+1.5, row+0.5] for col in range(3) for row in range(5)] +
-        [[col+2.5, row+0.5] for col in range(3) for row in range(5)] +
-        [[col+0.5, row-0.5] for col in range(4) for row in range(4)] +
-        [[col+0.5, row+2.5] for col in range(4) for row in range(4)] +
-        [[col-0.5, row+1]   for col in range(4) for row in range(4)] +
-        [[col+1.5, row+1]   for col in range(4) for row in range(4)] +
-        [[col+1,   row+0.5] for col in range(3) for row in range(4)] +
-        [[col+1,   row-0.5] for col in range(3) for row in range(4)] +
-        [[col+1,   row+1.5] for col in range(3) for row in range(4)] +
-        [[col+1,   row+2.5] for col in range(3) for row in range(4)] +
-        [[col+0.5, row+1]   for col in range(3) for row in range(4)] +
-        [[col-0.5, row+1]   for col in range(3) for row in range(4)] +
-        [[col+1.5, row+1]   for col in range(3) for row in range(4)] +
-        [[col+2.5, row+1]   for col in range(3) for row in range(4)]
-    )
+    centers = [[i % 4 + 0.5, i // 4 + 0.5] for i in range(20)]
+    offset_groups = [
+        (3, 5, [(1, 0.5)]),
+        (4, 4, [(0.5, 1)]),
+        (3, 4, [(1, 1)]),
+        (3, 5, [(1, -0.5), (1, 1.5), (-0.5, 0.5), (1.5, 0.5), (2.5, 0.5)]),
+        (4, 4, [(0.5, -0.5), (0.5, 2.5), (-0.5, 1), (1.5, 1)]),
+        (3, 4, [(1, 0.5), (1, -0.5), (1, 1.5), (1, 2.5), (0.5, 1), (-0.5, 1), (1.5, 1), (2.5, 1)]),
+    ]
+    for cols, rows, offsets in offset_groups:
+        for dx, dy in offsets:
+            centers += [[col + dx, row + dy] for col in range(cols) for row in range(rows)]
 
     match variant_id:
         case "donkey":
