@@ -1174,6 +1174,57 @@ def get_hareandhounds(variant_id):
         return hareandhounds_iadata('large', 340, 7)
     return None
 
+def get_hashi(variant_id):
+    match variant_id:
+        case "4x4":
+            max_x, max_y = 3, 3
+        case "6x6_lvl1" | "6x6_lvl2" | "6x6_lvl3" | "6x6_lvl4":
+            max_x, max_y = 5, 5
+
+    width = (max_x * 2) + 1
+    height = (max_y * 2) + 1
+
+    space = [width + 3, height + 3]
+    centers = [[x + 1.5, y + 1.5] for y in range(height) for x in range(width)]
+
+    char_images = {
+        "h": {"image": "hashi/horiz1.svg", "scale": 1},
+        "H": {"image": "hashi/horiz2.svg", "scale": 1},
+        "v": {"image": "hashi/vert1.svg", "scale": 1},
+        "V": {"image": "hashi/vert2.svg", "scale": 1},
+        "q": {"image": "hashi/horizpill.svg", "scale": 2},
+        "Q": {"image": "hashi/vertpill.svg", "scale": 2} 
+    }
+    
+    for i in range(1, 9):
+        char_images[str(i)] = {"image": f"hashi/node_default_{i}.svg", "scale": 1}
+
+    satisfied_chars = ["a", "b", "c", "d", "e", "f", "g", "i"]
+    for i in range(8):
+        char = satisfied_chars[i]
+        char_images[char] = {"image": f"hashi/node_satisfied_{i+1}.svg", "scale": 1}
+
+    over_chars = ["A", "B", "C", "D", "E", "F", "G", "I"]
+    for i in range(8):
+        char = over_chars[i]
+        char_images[char] = {"image": f"hashi/node_over_{i+1}.svg", "scale": 1}
+    
+    return {
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "space": space,
+                "centers": centers,
+                "animationType": "entityFade",
+                "arrowWidth": 0.2,
+                "charImages":char_images,
+                "sounds": {
+                    "x": "general/place.mp3"
+                }
+            }
+        }
+    }
+
 def get_jan(variant_id):
     return {
         "defaultTheme": "default",
@@ -2852,6 +2903,7 @@ image_autogui_data_funcs = {
     "graphgame": get_graphgame,
     "towersofhanoi": get_towersofhanoi,
     "hareandhounds": get_hareandhounds,
+    "hashi":get_hashi,
     "hexapawn": get_hexapawn,
     "hobaggonu": get_hobaggonu,
     "horses": get_horses,

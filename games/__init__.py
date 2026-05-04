@@ -685,6 +685,30 @@ games = {
         },
         gui='v3'),
 
+    'hashi': Game(
+        name='Hashi',
+        variants={
+            '4x4': Variant(
+                name='4x4',
+                data_provider=GamesmanPy,
+                data_provider_game_id='hashi',
+                data_provider_variant_id='4x4',
+                gui='v3'
+            ),
+            **{
+                f'6x6_lvl{i}': Variant(
+                    name=f'6x6_lvl{i}',
+                    data_provider=GamesmanPy,
+                    data_provider_game_id='hashi',
+                    data_provider_variant_id=f'6x6_lvl{i}',
+                    gui='v3'
+                ) for i in range(1, 5)
+            }
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
+
     'hexapawn': Game(
         name="Hexapawn",
         variants={
