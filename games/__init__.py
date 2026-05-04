@@ -667,34 +667,15 @@ games = {
                 data_provider_variant_id='4x4',
                 gui='v3'
             ),
-            '6x6_lvl1': Variant(
-                name='6x6_lvl1',
-                data_provider=GamesmanPy,
-                data_provider_game_id='hashi',
-                data_provider_variant_id='6x6_lvl1',
-                gui='v3'
-            ),
-            '6x6_lvl2': Variant(
-                name='6x6_lvl2',
-                data_provider=GamesmanPy,
-                data_provider_game_id='hashi',
-                data_provider_variant_id='6x6_lvl2',
-                gui='v3'
-            ),
-            '6x6_lvl3': Variant(
-                name='6x6_lvl3',
-                data_provider=GamesmanPy,
-                data_provider_game_id='hashi',
-                data_provider_variant_id='6x6_lvl3',
-                gui='v3'
-            ),
-            '6x6_lvl4': Variant(
-                name='6x6_lvl4',
-                data_provider=GamesmanPy,
-                data_provider_game_id='hashi',
-                data_provider_variant_id='6x6_lvl4',
-                gui='v3'
-            )
+            **{
+                f'6x6_lvl{i}': Variant(
+                    name=f'6x6_lvl{i}',
+                    data_provider=GamesmanPy,
+                    data_provider_game_id='hashi',
+                    data_provider_variant_id=f'6x6_lvl{i}',
+                    gui='v3'
+                ) for i in range(1, 5)
+            }
         },
         is_two_player_game=False,
         gui='v3'

@@ -1102,20 +1102,11 @@ def get_hareandhounds(variant_id):
     return None
 
 def get_hashi(variant_id):
-    puzzles = {
-        "4x4": [ (0, 0, 3), (0, 3, 3), (2, 0, 2), (2, 2, 1), (3, 3, 1) ],
-        "6x6_lvl1": [ (0, 0, 2), (3, 0, 4), (5, 0, 2), (0, 3, 2), (3, 3, 2), (1, 4, 1), (5, 4, 2), (0, 5, 2), (2, 5, 1) ],
-        "6x6_lvl2": [ (0, 0, 3), (4, 0, 3), (1, 1, 3), (3, 1, 2), (5, 1, 2), (3, 3, 1), (1, 4, 3), (4, 4, 2), (0, 5, 2), (5, 5, 3) ],
-        "6x6_lvl3": [ (0, 0, 2), (2, 0, 3), (5, 0, 3), (4, 1, 1), (0, 2, 4), (2, 2, 4), (5, 2, 3), (2, 4, 1), (5, 4, 1), (0, 5, 3), (4, 5, 3) ],
-        "6x6_lvl4": [ (0, 0, 3), (3, 0, 3), (5, 0, 2), (2, 1, 1), (4, 1, 2), (3, 2, 2), (5, 2, 3), (0, 3, 4), (2, 3, 3), (4, 3, 3), (0, 5, 2), (3, 5, 3), (5, 5, 3) ]
-    }
-
-    if variant_id not in puzzles:
-        return None
-
-    nodes = puzzles[variant_id]
-    max_x = max(n[0] for n in nodes)
-    max_y = max(n[1] for n in nodes)
+    match variant_id:
+        case "4x4":
+            max_x, max_y = 3, 3
+        case "6x6_lvl1" | "6x6_lvl2" | "6x6_lvl3" | "6x6_lvl4":
+            max_x, max_y = 5, 5
 
     width = (max_x * 2) + 1
     height = (max_y * 2) + 1
