@@ -1456,12 +1456,12 @@ games = {
     'sokoban': Game(
         name='Sokoban',
         variants= {
-            v: Variant(
-                name='Level ' + v,
+            f"{v}": Variant(
+                name=f"Level {v}",
                 data_provider=GamesmanPy,
                 data_provider_game_id='sokoban',
-                data_provider_variant_id=v,
-                gui='v3') for v in ('1','2','3','4','5','6','7','8','9','10','11')
+                data_provider_variant_id=f"{v}",
+                gui='v3') for v in range(1,12)
         },
         is_two_player_game=False,
         gui='v3'),
