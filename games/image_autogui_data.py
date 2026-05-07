@@ -2855,7 +2855,7 @@ def get_sokoban(variant_id):
                 "charImages": {
                     "W": {"image": f"sokoban/sokoban_wall.svg", "scale": 1},
                     "p": {"image": f"sokoban/sokoban_player.svg", "scale": 1},
-                    ".": {"image": f"sokoban/sokoban_goal.svg", "scale": 1},
+                    "B": {"image": f"sokoban/sokoban_goal.svg", "scale": 1},
                     "b": {"image": f"sokoban/sokoban_box.svg", "scale": 1},
                     "P": {"image": f"sokoban/sokoban_player_on_goal.svg", "scale": 1},
                     "g": {"image": f"sokoban/sokoban_box_on_goal.svg", "scale": 1},
