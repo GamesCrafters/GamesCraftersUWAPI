@@ -279,19 +279,6 @@ games = {
         },
         gui='v3'),
 
-    'flowfree': Game(
-        name='FlowFree',
-        variants={
-            variant_id: Variant(
-                name=f'Puzzle {variant_id.upper()}',
-                data_provider=GamesmanPy,
-                data_provider_game_id='flowfree',
-                data_provider_variant_id=variant_id,
-                gui='v3') for variant_id in ['a', 'b', 'c', 'd', 'e', 'f']
-        },
-        is_two_player_game=False,
-        gui='v3'),
-
     'clocksolitaire': Game(
         name='Clock Solitaire',
         variants= {
@@ -531,6 +518,19 @@ games = {
                 data_provider_variant_id=2,
                 gui='v3')
         },
+        gui='v3'),
+
+    'flowfree': Game(
+        name='FlowFree',
+        variants={
+            variant_id: Variant(
+                name=f'Puzzle {variant_id.upper()}',
+                data_provider=GamesmanPy,
+                data_provider_game_id='flowfree',
+                data_provider_variant_id=variant_id,
+                gui='v3') for variant_id in ['a', 'b', 'c', 'd', 'e', 'f']
+        },
+        is_two_player_game=False,
         gui='v3'),
 
     'fourfieldkono': Game(
