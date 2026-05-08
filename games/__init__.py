@@ -193,6 +193,19 @@ games = {
             'start': RegularChessVariant('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', name='Start')
         },
         gui='v2'),
+    
+    'chinesecheckers': Game(
+        name='Chinese Checkers',
+        variants={
+            'regular': Variant(
+                name='Regular',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='ccheckers',
+                data_provider_variant_id=0,
+                gui='v3'
+            )
+        },
+        gui='v3'),
 
     'chinesechess': Game(
         name='Chinese Chess',
@@ -200,6 +213,21 @@ games = {
             'regular': RegularChineseChessVariant()
         },
         gui='v3'),
+
+    'chipschallenge': Game(
+        name="Chip\'s Challenge",
+        variants= {
+            "1": Variant(
+                name="Level 1",
+                data_provider=GamesmanPy,
+                data_provider_game_id='chipschallenge',
+                data_provider_variant_id="1",
+                gui='v3'
+            ),
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
 
     'chomp': Game(
         name='Chomp',
