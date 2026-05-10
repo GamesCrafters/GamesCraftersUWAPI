@@ -948,6 +948,30 @@ def get_fivefieldkono(variant_id):
         }
     }
 
+def get_flowfree(variant_id):
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [5, 5],
+                "centers": [[0.5 + i % 5, 0.5 + i // 5] for i in range(25)],
+                "background": "flowfree/grid.svg",
+                "charImages": {
+                    "1": {"image": "general/teal_circle.svg",   "scale": 0.8},
+                    "2": {"image": "general/orange_circle.svg", "scale": 0.8},
+                    "3": {"image": "general/purple_circle.svg", "scale": 0.8},
+                    "4": {"image": "general/pink_circle.svg",   "scale": 0.8},
+                    "5": {"image": "general/brown_circle.svg",  "scale": 0.8},
+                },
+                "arrowWidth": 0.15,
+                "entitiesOverArrows": False,
+                "arrowClipSource": True,
+                "sounds": {"x": "general/place.mp3"},
+                "animationType": "entityFade",
+            }
+        }
+    }
+
 def get_fourfieldkono(variant_id):
     return {
         "defaultTheme": "basic",
@@ -1513,7 +1537,37 @@ def get_lite3(variant_id):
             }
         }
     }
-    
+
+def get_lunarlockout(variant_id):
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [7, 7],
+                "centers": [[col + 0.5, row + 0.5] for row in range(7) for col in range(7)],
+                "background": "lunarlockout/board.svg",
+                "charImages": {
+                    "0": {"image": "lunarlockout/robotcat0.svg", "scale": 1},
+                    "1": {"image": "lunarlockout/robotcat1.svg", "scale": 1},
+                    "2": {"image": "lunarlockout/robotcat2.svg", "scale": 1},
+                    "3": {"image": "lunarlockout/robotcat3.svg", "scale": 1},
+                    "4": {"image": "lunarlockout/robotcat4.svg", "scale": 1},
+                    "5": {"image": "lunarlockout/robotcat5.svg", "scale": 1},
+                },
+                "arrowWidth": 0.06,
+                "entitiesOverArrows": True,
+                "animationType": "simpleSlides",
+                "sounds": {
+                    "1": "general/place.mp3",
+                    "2": "general/place.mp3",
+                    "3": "general/place.mp3",
+                    "4": "general/place.mp3",
+                    "5": "general/place.mp3",
+                    }
+            }
+        }
+    }
+
 def get_mutorere(variant_id):
     return {
         "defaultTheme": "octagon",
@@ -2907,6 +2961,7 @@ image_autogui_data_funcs = {
     "euclidsgame": get_euclidsgame,
     "expantix": get_expantix,
     "fivefieldkono": get_fivefieldkono,
+    "flowfree": get_flowfree,
     "fourfieldkono": get_fourfieldkono,
     "forestfox": get_forestfox,
     "foxandhounds": get_foxandhounds,
@@ -2929,6 +2984,7 @@ image_autogui_data_funcs = {
     "lgame": get_lgame,
     "lightsout": get_lightsout,
     "lite3": get_lite3,
+    "lunarlockout": get_lunarlockout,
     "mutorere": get_mutorere,
     "neutron": get_neutron,
     "nim": get_nim,
