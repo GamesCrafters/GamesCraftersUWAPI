@@ -1503,7 +1503,7 @@ def get_marblecircuit(variant_id):
     ]
     # Pad 28–49 (board string length 28 before quadrants).
     _pad_centers = [[480.0, 360.0] for _ in range(22)]
-    # Quadrant hit targets: A_t/o/y/m_<50+4*slot+k> (k=0..3: 上/右/下/左). Smaller offset → closer to cell center, more edge margin.
+    # Quadrant hit targets: A_t/o/y/m_<50+4*slot+k> (k=0..3). Smaller offset → closer to cell center, more edge margin.
     _q_off = 31.0
     _quad_offsets = [(0.0, -_q_off), (_q_off, 0.0), (0.0, _q_off), (-_q_off, 0.0)]
     quad_centers = []
