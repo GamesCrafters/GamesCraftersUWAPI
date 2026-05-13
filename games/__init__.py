@@ -549,7 +549,7 @@ games = {
         gui='v3'),
 
     'flowfree': Game(
-        name='FlowFree',
+        name='Flow Free',
         variants={
             variant_id: Variant(
                 name=f'Puzzle {variant_id.upper()}',
