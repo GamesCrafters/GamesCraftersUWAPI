@@ -1490,32 +1490,34 @@ games = {
             },
         is_two_player_game=False,
         gui='v3'),
-
-    'sokobaniq': Game(
-        name='Sokoban IQ',
-        variants= {
-            f'{v}': Variant(
-                name=f'Level {v}',
-                data_provider=GamesmanPy,
-                data_provider_game_id='sokobaniq',
-                data_provider_variant_id=f'{v}',
-                gui='v3') for v in ('1','2','3','4','6','7','8','9','10')
-        },
-        is_two_player_game=False,
-        gui='v3'),
     
-    'sokobanlarge': Game(
-        name='Sokoban Large',
-        variants= {
-            f'{v}': Variant(
-                name=f'Level {v}',
-                data_provider=GamesmanPy,
-                data_provider_game_id='sokobanlarge',
-                data_provider_variant_id=f'{v}',
-                gui='v3') for v in ['5', '11']
+    'sokoban': Game(
+        name='Sokoban',
+        variants={
+            **{
+                f'{v}': Variant(
+                    name=f'Level {v}',
+                    data_provider=GamesmanPy,
+                    data_provider_game_id='sokobaniq',
+                    data_provider_variant_id=f'{v}',
+                    gui='v3'
+                )
+                for v in [1, 2, 3, 4, 6, 7, 8, 9, 10]
+            },
+            **{
+                f'{v}': Variant(
+                    name=f'Level {v}',
+                    data_provider=GamesmanPy,
+                    data_provider_game_id='sokobanlarge',
+                    data_provider_variant_id=f'{v}',
+                    gui='v3'
+                )
+                for v in [5, 11]
+            },
         },
         is_two_player_game=False,
-        gui='v3'),
+        gui='v3'
+    ),
 
     'solitairechess': Game(
         name='Solitaire Chess',
