@@ -1512,7 +1512,7 @@ games = {
                     data_provider_variant_id=f'{v}',
                     gui='v3'
                 )
-                for v in [5, 11]
+                for v in [11] # Remove variant 5 until arrows fixed
             },
         },
         is_two_player_game=False,
