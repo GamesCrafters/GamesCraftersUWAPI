@@ -549,7 +549,7 @@ games = {
         gui='v3'),
 
     'flowfree': Game(
-        name='FlowFree',
+        name='Flow Free',
         variants={
             variant_id: Variant(
                 name=f'Puzzle {variant_id.upper()}',
@@ -1490,6 +1490,34 @@ games = {
             },
         is_two_player_game=False,
         gui='v3'),
+    
+    'sokoban': Game(
+        name='Sokoban',
+        variants={
+            **{
+                f'{v}': Variant(
+                    name=f'Level {v}',
+                    data_provider=GamesmanPy,
+                    data_provider_game_id='sokobaniq',
+                    data_provider_variant_id=f'{v}',
+                    gui='v3'
+                )
+                for v in [1, 2, 3, 4, 6, 7, 8, 9, 10]
+            },
+            **{
+                f'{v}': Variant(
+                    name=f'Level {v}',
+                    data_provider=GamesmanPy,
+                    data_provider_game_id='sokobanlarge',
+                    data_provider_variant_id=f'{v}',
+                    gui='v3'
+                )
+                for v in [11] # Remove variant 5 until arrows fixed
+            },
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
 
     'solitairechess': Game(
         name='Solitaire Chess',
@@ -1887,3 +1915,4 @@ games = {
         },
         gui='v3')
 }
+
