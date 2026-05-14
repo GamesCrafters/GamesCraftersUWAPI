@@ -384,6 +384,33 @@ def get_chess(variant_id):
         }
     }
 
+def get_chinesecheckers(variant_id):
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {    
+                'space': [272, 165],
+                'background': "chinesecheckers/board.svg",
+                'arrowWidth': 2,
+                'centers': [
+                    [9.3, 82.8],[41.0, 64.5],[72.8, 46.2],[104.5, 27.8],[136.2, 9.6],
+                    [41.0, 101.1],[72.8, 82.8],[104.5, 64.5],[136.2, 46.2],[167.9, 27.8],
+                    [72.8, 119.4],[104.5, 101.1],[136.2, 82.8],[167.9, 64.5],[199.6, 46.2],
+                    [104.5, 137.7],[136.2, 119.4],[167.9, 101.1],[199.6, 82.8],[231.3, 64.5],
+                    [136.2, 156.0],[167.9, 137.7],[199.6, 119.4],[231.3, 101.1],[262.9, 82.8],
+                ],
+                'charImages': {
+                    "B": {"image": "general/bluepiece.svg", "scale": 15},
+                    "R": {"image": "general/redpiece.svg", "scale": 15}
+                },              
+                "entitiesOverArrows": True,
+                "sounds": {"x": "general/slide.mp3"},
+                "animationType": "simpleSlides" 
+            }
+        }
+    }
+
+
 def get_chinesechess(variant_id):
     pieces = {
         "K": "general_r", "A": "advisor_r", "R": "chariot_r", "B": "elephant_r", "N": "horse_r",
@@ -414,6 +441,52 @@ def get_chinesechess(variant_id):
             } | theme for t in ("regular", "graphical")
         }
     }
+
+
+def get_chipschallenge(variant_id):
+    
+    """
+    Tiles for future reference: https://wiki.bitbusters.club/Tile
+    """
+
+    match variant_id:
+        case "1":
+            row_size = 15
+            column_size = 14   
+    
+    board_size = [row_size*20, column_size*20]
+    centers = [[17.75 + 15.5626*x, 7.75 + 15.5625*y] for y in range(0, column_size) for x in range(row_size)]
+    
+    
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": board_size,
+                "centers": centers,
+                "background": f"chipschallenge/board.svg",
+                "charImages": {
+                    "W" : {"image": f"chipschallenge/wall.svg", "scale": 15},
+                    "." : {"image": f"chipschallenge/floor.svg", "scale": 15},
+                    "c" : {"image": f"chipschallenge/computer_chip.svg", "scale": 15},
+                    "P" : {"image": f"chipschallenge/exit.svg", "scale": 15},
+                    "B" : {"image": f"chipschallenge/blue_lock.svg", "scale": 15},
+                    "R" : {"image": f"chipschallenge/red_lock.svg", "scale": 15},
+                    "y" : {"image": f"chipschallenge/yellow_key.svg", "scale": 15},
+                    "p" : {"image": f"chipschallenge/ox.svg", "scale": 30},
+                    "b" : {"image": f"chipschallenge/blue_key.svg", "scale": 15},
+                    "r" : {"image": f"chipschallenge/red_key.svg", "scale": 15},
+                    "g" : {"image": f"chipschallenge/green_key.svg", "scale": 15},
+                    "G" : {"image": f"chipschallenge/green_lock.svg", "scale": 15},
+                    "Y" : {"image": f"chipschallenge/yellow_lock.svg", "scale": 15},
+                    "C" : {"image": f"chipschallenge/socket.svg", "scale": 12},
+                },
+                "arrowWidth": 0.5,
+                "sounds": {"x": "general/slide.mp3"}
+            }
+        }
+    }    
+
 
 def get_chomp(variant_id):
     rows, cols = variant_id.split('x')
@@ -871,6 +944,30 @@ def get_fivefieldkono(variant_id):
                 "entitiesOverArrows": True,
                 "sounds": {"x": "general/slide.mp3"},
                 "animationType": "simpleSlides"
+            }
+        }
+    }
+
+def get_flowfree(variant_id):
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [5, 5],
+                "centers": [[0.5 + i % 5, 0.5 + i // 5] for i in range(25)],
+                "background": "flowfree/grid.svg",
+                "charImages": {
+                    "1": {"image": "general/teal_circle.svg",   "scale": 0.8},
+                    "2": {"image": "general/orange_circle.svg", "scale": 0.8},
+                    "3": {"image": "general/purple_circle.svg", "scale": 0.8},
+                    "4": {"image": "general/pink_circle.svg",   "scale": 0.8},
+                    "5": {"image": "general/brown_circle.svg",  "scale": 0.8},
+                },
+                "arrowWidth": 0.15,
+                "entitiesOverArrows": False,
+                "arrowClipSource": True,
+                "sounds": {"x": "general/place.mp3"},
+                "animationType": "entityFade",
             }
         }
     }
@@ -1437,6 +1534,36 @@ def get_lite3(variant_id):
                 },
                 "sounds": {"x": "general/place.mp3"},
                 "animationType": "entityFade"
+            }
+        }
+    }
+
+def get_lunarlockout(variant_id):
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [7, 7],
+                "centers": [[col + 0.5, row + 0.5] for row in range(7) for col in range(7)],
+                "background": "lunarlockout/board.svg",
+                "charImages": {
+                    "0": {"image": "lunarlockout/robotcat0.svg", "scale": 1},
+                    "1": {"image": "lunarlockout/robotcat1.svg", "scale": 1},
+                    "2": {"image": "lunarlockout/robotcat2.svg", "scale": 1},
+                    "3": {"image": "lunarlockout/robotcat3.svg", "scale": 1},
+                    "4": {"image": "lunarlockout/robotcat4.svg", "scale": 1},
+                    "5": {"image": "lunarlockout/robotcat5.svg", "scale": 1},
+                },
+                "arrowWidth": 0.06,
+                "entitiesOverArrows": True,
+                "animationType": "simpleSlides",
+                "sounds": {
+                    "1": "general/place.mp3",
+                    "2": "general/place.mp3",
+                    "3": "general/place.mp3",
+                    "4": "general/place.mp3",
+                    "5": "general/place.mp3",
+                    }
             }
         }
     }
@@ -2853,6 +2980,69 @@ def get_orbito(variant_id):
         data["themes"]["regular"]["background"] = "orbito/orbito_board_reversed.svg"
 
     return data
+
+def get_sokoban(variant_id):
+
+    match variant_id:
+        case '1':
+            cols = 8
+            rows = 9
+        case '2':
+            cols = 8
+            rows = 8
+        case '3':
+            cols = 11
+            rows = 10
+        case '4':
+            cols = 9
+            rows = 9
+        case '5':
+            cols = 23
+            rows = 12
+        case '6':
+            cols = 9
+            rows = 8
+        case '7':
+            cols = 6
+            rows = 7
+        case '8':
+            cols = 9
+            rows = 8
+        case '9':
+            cols = 9
+            rows = 8
+        case '10':
+            cols = 7
+            rows = 7
+        case '11':
+            cols = 11
+            rows = 9
+        case _:
+            cols = 0
+            rows = 0
+            
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [cols, rows], 
+                "centers": [[(i % cols) + 0.5, (i // cols) + 0.5] for i in range(rows * cols)],
+                "charImages": {
+                    "W": {"image": f"sokoban/sokoban_wall.svg", "scale": 1},
+                    "p": {"image": f"sokoban/sokoban_player.svg", "scale": 1},
+                    "G": {"image": f"sokoban/sokoban_goal.svg", "scale": 1},
+                    "b": {"image": f"sokoban/sokoban_box.svg", "scale": 1},
+                    "P": {"image": f"sokoban/sokoban_player_on_goal.svg", "scale": 1},
+                    "g": {"image": f"sokoban/sokoban_box_on_goal.svg", "scale": 1},
+                    "t": {"image": f"sokoban/sokoban_tile.svg", "scale": 1},
+                },
+                "sounds": {"y": "general/slide.mp3"},
+                "animationType": "simpleSlide",
+                "arrowWidth": 0.15, 
+            }
+        }
+    }
+
 """
 ===== STEP 2 ===== 
 Add your function to the image_autogui_data_funcs dict in alphabetical order by game_id.
@@ -2872,7 +3062,9 @@ image_autogui_data_funcs = {
     "bishoppuzzle": get_bishoppuzzle,
     "change": get_change,
     "chess": get_chess,
+    "chinesecheckers": get_chinesecheckers,
     "chinesechess": get_chinesechess,
+    "chipschallenge": get_chipschallenge,
     "chomp": get_chomp,
     "chopsticks": get_chopsticks,
     "clobber": get_clobber,
@@ -2890,6 +3082,7 @@ image_autogui_data_funcs = {
     "euclidsgame": get_euclidsgame,
     "expantix": get_expantix,
     "fivefieldkono": get_fivefieldkono,
+    "flowfree": get_flowfree,
     "fourfieldkono": get_fourfieldkono,
     "forestfox": get_forestfox,
     "foxandhounds": get_foxandhounds,
@@ -2912,6 +3105,7 @@ image_autogui_data_funcs = {
     "lgame": get_lgame,
     "lightsout": get_lightsout,
     "lite3": get_lite3,
+    "lunarlockout": get_lunarlockout,
     "marblecircuit": get_marblecircuit,
     "mutorere": get_mutorere,
     "neutron": get_neutron,
@@ -2939,6 +3133,7 @@ image_autogui_data_funcs = {
     "slide5": get_slide5,
     "snake": get_snake,
     "spinout": get_spinout,
+    'sokoban': get_sokoban,
     "solitairechess": get_solitaire_chess,
     "squaredance": get_squaredance,
     "squirrels": get_squirrels_go_nuts,
