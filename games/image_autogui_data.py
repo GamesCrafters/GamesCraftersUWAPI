@@ -92,7 +92,6 @@ def get_sevenpennies(variant_id):
                 "space": [960,960],
                 "centers": [[739.289, 76.657],[877.283, 215.999],[876.166, 727.324],[739.289, 882.208],[228.001, 881.834],[86.283, 727.324],[85.148, 215.999],[228.001, 77.012]],
                 "background": "sevenpennies/7pennies.svg",
-                "space": [220, 160],
                 "charImages": {
                     "p": {"image": "sevenpennies/penny.svg", "scale": "150"}
                 },
