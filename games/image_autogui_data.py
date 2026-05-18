@@ -77,8 +77,8 @@ def get_snakestale(variant_id):
 
                     "A":{"image": "snakestale/LHUP.svg", "scale": 1},
                     "B":{"image": "snakestale/LHDOWN.svg", "scale": 1},
-                    "D":{"image": "snakestale/LHRIGHT.svg", "scale": 1},
-                    "C":{"image": "snakestale/LHLEFT.svg", "scale": 1},
+                    "D":{"image": "snakestale/LHLEFT.svg", "scale": 1},
+                    "C":{"image": "snakestale/LHRIGHT.svg", "scale": 1},
 
                     "Q":{"image": "snakestale/LBODYVER.svg", "scale": 1},
                     "P":{"image": "snakestale/LBODYHOR.svg", "scale": 1},
