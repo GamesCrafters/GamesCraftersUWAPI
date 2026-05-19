@@ -42,7 +42,81 @@ get_<game>(variant_id) should return JSON of the following form:
 (Scroll all the way down for Step 2).
 
 """
+def get_snakestale(variant_id):
+    width, height = (5, 4) if variant_id == "lvl5" else (4, 4)
 
+    return {
+        "defaultTheme" : "lvl",
+        "themes" : {
+            "lvl": {
+                "space": [width, height],
+                "centers": [[0.5 + (i % width), 0.5 + (i // width)] for i in range(width*height)],
+                "background": f"snakestale/{variant_id}.svg",
+                "charImages": {
+                    "O":{"image": "snakestale/Hole.svg", "scale": 1},
+                    "k":{"image": "snakestale/Water.svg", "scale": 1},
+                    "X":{"image": "snakestale/obs.svg", "scale": 1},
+
+                    "v":{"image": "snakestale/PHDOWN.svg", "scale": 1},
+                    "w":{"image": "snakestale/PHUP.svg", "scale": 1},
+                    "i":{"image": "snakestale/PHLEFT.svg", "scale": 1},
+                    "r":{"image": "snakestale/PHRIGHT.svg", "scale": 1},
+
+                    "q":{"image": "snakestale/PBODYVER.svg", "scale": 1},
+                    "p":{"image": "snakestale/PBODYHOR.svg", "scale": 1},
+
+                    "b":{"image": "snakestale/PCURVERD.svg", "scale": 1},
+                    "c":{"image": "snakestale/PCURVELD.svg", "scale": 1},
+                    "d":{"image": "snakestale/PCURVERU.svg", "scale": 1},
+                    "e":{"image": "snakestale/PCURVELU.svg", "scale": 1},
+
+                    "T":{"image": "snakestale/PTAILD.svg", "scale": 1},
+                    "J":{"image": "snakestale/PTAILU.svg", "scale": 1},
+                    "K":{"image": "snakestale/PTAILL.svg", "scale": 1},
+                    "N":{"image": "snakestale/PTAILR.svg", "scale": 1},
+
+                    "A":{"image": "snakestale/LHUP.svg", "scale": 1},
+                    "B":{"image": "snakestale/LHDOWN.svg", "scale": 1},
+                    "D":{"image": "snakestale/LHRIGHT.svg", "scale": 1},
+                    "C":{"image": "snakestale/LHLEFT.svg", "scale": 1},
+
+                    "Q":{"image": "snakestale/LBODYVER.svg", "scale": 1},
+                    "P":{"image": "snakestale/LBODYHOR.svg", "scale": 1},
+
+                    "M":{"image": "snakestale/LCURVERD.svg", "scale": 1},
+                    "n":{"image": "snakestale/LCURVEDL.svg", "scale": 1},
+                    "H":{"image": "snakestale/LCURVEUR.svg", "scale": 1},
+                    "V":{"image": "snakestale/LCURVELU.svg", "scale": 1},
+
+                    "W":{"image": "snakestale/LTAILD.svg", "scale": 1},
+                    "S":{"image": "snakestale/LTAILU.svg", "scale": 1},
+                    "Y":{"image": "snakestale/LTAILL.svg", "scale": 1},
+                    "Z":{"image": "snakestale/LTAILR.svg", "scale": 1},
+
+                    "E":{"image": "snakestale/WHUP.svg", "scale": 1},
+                    "F":{"image": "snakestale/WHDOWN.svg", "scale": 1},
+                    "G":{"image": "snakestale/WHRIGHT.svg", "scale": 1},
+                    "I":{"image": "snakestale/WHLEFT.svg", "scale": 1},
+
+                    "x":{"image": "snakestale/WBODYVER.svg", "scale": 1},
+                    "y":{"image": "snakestale/WBODYHOR.svg", "scale": 1},
+
+                    "z":{"image": "snakestale/WCURVERD.svg", "scale": 1},
+                    "f":{"image": "snakestale/WCURVELD.svg", "scale": 1},
+                    "g":{"image": "snakestale/WCURVERU.svg", "scale": 1},
+                    "u":{"image": "snakestale/WCURVELU.svg", "scale": 1},
+
+                    "o":{"image": "snakestale/WTAILD.svg", "scale": 1},
+                    "m":{"image": "snakestale/WTAILU.svg", "scale": 1},
+                    "t":{"image": "snakestale/WTAILL.svg", "scale": 1},
+                    "j":{"image": "snakestale/WTAILR.svg", "scale": 1},
+                },
+                "arrowWidth": 0.1,
+                "entitiesOverArrows": False,
+                "sounds": {"x": "animals/snake.mp3"},
+                "animationType": "simpleSlides"
+        }}}
+    
 def get_hexapawn(variant_id):
    width = (int(variant_id) % 4) + 3
    height = 3
@@ -3062,6 +3136,7 @@ image_autogui_data_funcs = {
     "shifttactoe": get_shifttactoe,
     "slide5": get_slide5,
     "snake": get_snake,
+    "snakestale": get_snakestale,
     "spinout": get_spinout,
     'sokoban': get_sokoban,
     "solitairechess": get_solitaire_chess,
