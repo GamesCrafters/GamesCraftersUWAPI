@@ -77,8 +77,8 @@ def get_snakestale(variant_id):
 
                     "A":{"image": "snakestale/LHUP.svg", "scale": 1},
                     "B":{"image": "snakestale/LHDOWN.svg", "scale": 1},
-                    "D":{"image": "snakestale/LHLEFT.svg", "scale": 1},
-                    "C":{"image": "snakestale/LHRIGHT.svg", "scale": 1},
+                    "D":{"image": "snakestale/LHRIGHT.svg", "scale": 1},
+                    "C":{"image": "snakestale/LHLEFT.svg", "scale": 1},
 
                     "Q":{"image": "snakestale/LBODYVER.svg", "scale": 1},
                     "P":{"image": "snakestale/LBODYHOR.svg", "scale": 1},
@@ -95,8 +95,8 @@ def get_snakestale(variant_id):
 
                     "E":{"image": "snakestale/WHUP.svg", "scale": 1},
                     "F":{"image": "snakestale/WHDOWN.svg", "scale": 1},
-                    "G":{"image": "snakestale/WHLEFT.svg", "scale": 1},
-                    "I":{"image": "snakestale/WHRIGHT.svg", "scale": 1},
+                    "G":{"image": "snakestale/WHRIGHT.svg", "scale": 1},
+                    "I":{"image": "snakestale/WHLEFT.svg", "scale": 1},
 
                     "x":{"image": "snakestale/WBODYVER.svg", "scale": 1},
                     "y":{"image": "snakestale/WBODYHOR.svg", "scale": 1},
