@@ -1448,7 +1448,7 @@ def get_marblecircuit(variant_id):
     Same slot indexing as GamesmanPy marble_circuit.py (PYRAMID_10_TOPOLOGY_CORNERS comment):
       layout 0 / 1,2 / 3,4,5 / 6,7,8,9 — apex up, bottom row left→right is 6..9.
 
-    Autogui board: 10 digits + TOYM + 14 dots (~: 4 rem, 5 goals, 5 exit results).
+    Autogui board: 10 slot chars + TOYM + 4 rem digits + 5 goal digits + 5 exit-result digits.
     Centers: 0–9 slots; 10–13 inv icons; 14–17 inv counts; 18–22 goals (large); 23–27 results (small, BR of goal);
     28–49 pad; 50–89 place quads; 90 confirm (A_c_90); 91–100 remove (A_u_91+s).
 
@@ -1543,6 +1543,36 @@ def get_marblecircuit(variant_id):
         "o": {"image": "marble_circuit/Orange.svg", "scale": move_btn_scale},
         "y": {"image": "marble_circuit/Yellow.svg", "scale": move_btn_scale},
         "m": {"image": "marble_circuit/Magenta.svg", "scale": move_btn_scale},
+        "a": {"image": "general/0.svg", "scale": 72},
+        "b": {"image": "general/1.svg", "scale": 72},
+        "d": {"image": "general/2.svg", "scale": 72},
+        "e": {"image": "general/3.svg", "scale": 72},
+        "f": {"image": "general/4.svg", "scale": 72},
+        "g": {"image": "general/5.svg", "scale": 72},
+        "h": {"image": "general/6.svg", "scale": 72},
+        "i": {"image": "general/7.svg", "scale": 72},
+        "j": {"image": "general/8.svg", "scale": 72},
+        "k": {"image": "general/9.svg", "scale": 72},
+        "F": {"image": "general/0.svg", "scale": 78},
+        "G": {"image": "general/1.svg", "scale": 78},
+        "H": {"image": "general/2.svg", "scale": 78},
+        "I": {"image": "general/3.svg", "scale": 78},
+        "J": {"image": "general/4.svg", "scale": 78},
+        "K": {"image": "general/5.svg", "scale": 78},
+        "L": {"image": "general/6.svg", "scale": 78},
+        "N": {"image": "general/7.svg", "scale": 78},
+        "P": {"image": "general/8.svg", "scale": 78},
+        "Q": {"image": "general/9.svg", "scale": 78},
+        "R": {"image": "general/0.svg", "scale": 66},
+        "U": {"image": "general/1.svg", "scale": 66},
+        "V": {"image": "general/2.svg", "scale": 66},
+        "W": {"image": "general/3.svg", "scale": 66},
+        "X": {"image": "general/4.svg", "scale": 66},
+        "Z": {"image": "general/5.svg", "scale": 66},
+        "A": {"image": "general/6.svg", "scale": 66},
+        "B": {"image": "general/7.svg", "scale": 66},
+        "C": {"image": "general/8.svg", "scale": 66},
+        "D": {"image": "general/9.svg", "scale": 66},
     }
     return {
         "defaultTheme": "regular",
