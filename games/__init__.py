@@ -1086,6 +1086,20 @@ games = {
         }
     ),
 
+    'marblecircuit': Game(
+        name='Marble Circuit',
+        variants={
+            f'ch{i}': Variant(
+                name=f'Challenge {i}',
+                data_provider=GamesmanPy,
+                data_provider_game_id='marble_circuit',
+                data_provider_variant_id=f'ch{i}',
+                gui='v3')
+            for i in range(1, 65)
+        },
+        is_two_player_game=False,
+        gui='v3'),
+
     'mutorere': Game(
         name='Mū Tōrere',
         variants={
