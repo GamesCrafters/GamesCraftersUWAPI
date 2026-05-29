@@ -698,6 +698,30 @@ games = {
         },
         gui='v3'),
 
+    'hashi': Game(
+        name='Hashi',
+        variants={
+            '4x4': Variant(
+                name='4x4',
+                data_provider=GamesmanPy,
+                data_provider_game_id='hashi',
+                data_provider_variant_id='4x4',
+                gui='v3'
+            ),
+            **{
+                f'6x6_lvl{i}': Variant(
+                    name=f'6x6_lvl{i}',
+                    data_provider=GamesmanPy,
+                    data_provider_game_id='hashi',
+                    data_provider_variant_id=f'6x6_lvl{i}',
+                    gui='v3'
+                ) for i in range(1, 5)
+            }
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
+
     'hexapawn': Game(
         name="Hexapawn",
         variants={
@@ -888,6 +912,25 @@ games = {
                 data_provider_variant_id=0,
                 gui='v3')
         },
+        gui='v3'),
+
+    'klotski': Game(
+        name='Klotski',
+        variants={
+            'donkey': Variant(
+                name='Donkey',
+                data_provider=GamesmanPy,
+                data_provider_game_id='klotski',
+                data_provider_variant_id='donkey',
+                gui='v3'),
+            'pennant': Variant(
+                name='Pennant',
+                data_provider=GamesmanPy,
+                data_provider_game_id='klotski',
+                data_provider_variant_id='pennant',    
+                gui='v3')
+        },
+        is_two_player_game=False,
         gui='v3'),
 
     'konane': Game(
@@ -1490,6 +1533,19 @@ games = {
                 data_provider_variant_id=1,
                 gui='v3')
             },
+        gui='v3'),
+
+    'snakestale': Game(
+        name="Snake's Tale",
+        variants={
+            v: Variant(
+                name=v.replace('lvl', 'Level '),
+                data_provider=GamesmanPy,
+                data_provider_game_id='snakestale',
+                data_provider_variant_id=v,
+                gui='v3') for v in ['lvl1', 'lvl2', 'lvl3', 'lvl4', 'lvl5']
+        },
+        is_two_player_game=False,
         gui='v3'),
 
     'spinout': Game(

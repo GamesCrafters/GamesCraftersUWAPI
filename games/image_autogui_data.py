@@ -42,7 +42,81 @@ get_<game>(variant_id) should return JSON of the following form:
 (Scroll all the way down for Step 2).
 
 """
+def get_snakestale(variant_id):
+    width, height = (5, 4) if variant_id == "lvl5" else (4, 4)
 
+    return {
+        "defaultTheme" : "lvl",
+        "themes" : {
+            "lvl": {
+                "space": [width, height],
+                "centers": [[0.5 + (i % width), 0.5 + (i // width)] for i in range(width*height)],
+                "background": f"snakestale/{variant_id}.svg",
+                "charImages": {
+                    "O":{"image": "snakestale/Hole.svg", "scale": 1},
+                    "k":{"image": "snakestale/Water.svg", "scale": 1},
+                    "X":{"image": "snakestale/obs.svg", "scale": 1},
+
+                    "v":{"image": "snakestale/PHDOWN.svg", "scale": 1},
+                    "w":{"image": "snakestale/PHUP.svg", "scale": 1},
+                    "i":{"image": "snakestale/PHLEFT.svg", "scale": 1},
+                    "r":{"image": "snakestale/PHRIGHT.svg", "scale": 1},
+
+                    "q":{"image": "snakestale/PBODYVER.svg", "scale": 1},
+                    "p":{"image": "snakestale/PBODYHOR.svg", "scale": 1},
+
+                    "b":{"image": "snakestale/PCURVERD.svg", "scale": 1},
+                    "c":{"image": "snakestale/PCURVELD.svg", "scale": 1},
+                    "d":{"image": "snakestale/PCURVERU.svg", "scale": 1},
+                    "e":{"image": "snakestale/PCURVELU.svg", "scale": 1},
+
+                    "T":{"image": "snakestale/PTAILD.svg", "scale": 1},
+                    "J":{"image": "snakestale/PTAILU.svg", "scale": 1},
+                    "K":{"image": "snakestale/PTAILL.svg", "scale": 1},
+                    "N":{"image": "snakestale/PTAILR.svg", "scale": 1},
+
+                    "A":{"image": "snakestale/LHUP.svg", "scale": 1},
+                    "B":{"image": "snakestale/LHDOWN.svg", "scale": 1},
+                    "D":{"image": "snakestale/LHRIGHT.svg", "scale": 1},
+                    "C":{"image": "snakestale/LHLEFT.svg", "scale": 1},
+
+                    "Q":{"image": "snakestale/LBODYVER.svg", "scale": 1},
+                    "P":{"image": "snakestale/LBODYHOR.svg", "scale": 1},
+
+                    "M":{"image": "snakestale/LCURVERD.svg", "scale": 1},
+                    "n":{"image": "snakestale/LCURVEDL.svg", "scale": 1},
+                    "H":{"image": "snakestale/LCURVEUR.svg", "scale": 1},
+                    "V":{"image": "snakestale/LCURVELU.svg", "scale": 1},
+
+                    "W":{"image": "snakestale/LTAILD.svg", "scale": 1},
+                    "S":{"image": "snakestale/LTAILU.svg", "scale": 1},
+                    "Y":{"image": "snakestale/LTAILL.svg", "scale": 1},
+                    "Z":{"image": "snakestale/LTAILR.svg", "scale": 1},
+
+                    "E":{"image": "snakestale/WHUP.svg", "scale": 1},
+                    "F":{"image": "snakestale/WHDOWN.svg", "scale": 1},
+                    "G":{"image": "snakestale/WHRIGHT.svg", "scale": 1},
+                    "I":{"image": "snakestale/WHLEFT.svg", "scale": 1},
+
+                    "x":{"image": "snakestale/WBODYVER.svg", "scale": 1},
+                    "y":{"image": "snakestale/WBODYHOR.svg", "scale": 1},
+
+                    "z":{"image": "snakestale/WCURVERD.svg", "scale": 1},
+                    "f":{"image": "snakestale/WCURVELD.svg", "scale": 1},
+                    "g":{"image": "snakestale/WCURVERU.svg", "scale": 1},
+                    "u":{"image": "snakestale/WCURVELU.svg", "scale": 1},
+
+                    "o":{"image": "snakestale/WTAILD.svg", "scale": 1},
+                    "m":{"image": "snakestale/WTAILU.svg", "scale": 1},
+                    "t":{"image": "snakestale/WTAILL.svg", "scale": 1},
+                    "j":{"image": "snakestale/WTAILR.svg", "scale": 1},
+                },
+                "arrowWidth": 0.1,
+                "entitiesOverArrows": False,
+                "sounds": {"x": "animals/snake.mp3"},
+                "animationType": "simpleSlides"
+        }}}
+    
 def get_hexapawn(variant_id):
    width = (int(variant_id) % 4) + 3
    height = 3
@@ -1198,6 +1272,57 @@ def get_hareandhounds(variant_id):
         return hareandhounds_iadata('large', 340, 7)
     return None
 
+def get_hashi(variant_id):
+    match variant_id:
+        case "4x4":
+            max_x, max_y = 3, 3
+        case "6x6_lvl1" | "6x6_lvl2" | "6x6_lvl3" | "6x6_lvl4":
+            max_x, max_y = 5, 5
+
+    width = (max_x * 2) + 1
+    height = (max_y * 2) + 1
+
+    space = [width + 3, height + 3]
+    centers = [[x + 1.5, y + 1.5] for y in range(height) for x in range(width)]
+
+    char_images = {
+        "h": {"image": "hashi/horiz1.svg", "scale": 1},
+        "H": {"image": "hashi/horiz2.svg", "scale": 1},
+        "v": {"image": "hashi/vert1.svg", "scale": 1},
+        "V": {"image": "hashi/vert2.svg", "scale": 1},
+        "q": {"image": "hashi/horizpill.svg", "scale": 2},
+        "Q": {"image": "hashi/vertpill.svg", "scale": 2} 
+    }
+    
+    for i in range(1, 9):
+        char_images[str(i)] = {"image": f"hashi/node_default_{i}.svg", "scale": 1}
+
+    satisfied_chars = ["a", "b", "c", "d", "e", "f", "g", "i"]
+    for i in range(8):
+        char = satisfied_chars[i]
+        char_images[char] = {"image": f"hashi/node_satisfied_{i+1}.svg", "scale": 1}
+
+    over_chars = ["A", "B", "C", "D", "E", "F", "G", "I"]
+    for i in range(8):
+        char = over_chars[i]
+        char_images[char] = {"image": f"hashi/node_over_{i+1}.svg", "scale": 1}
+    
+    return {
+        "defaultTheme": "basic",
+        "themes": {
+            "basic": {
+                "space": space,
+                "centers": centers,
+                "animationType": "entityFade",
+                "arrowWidth": 0.2,
+                "charImages":char_images,
+                "sounds": {
+                    "x": "general/place.mp3"
+                }
+            }
+        }
+    }
+
 def get_jan(variant_id):
     return {
         "defaultTheme": "default",
@@ -1382,6 +1507,66 @@ def get_kaooa(variant_id):
                 },
                 "animationType": "simpleSlides",
             }
+        }
+    }
+
+def get_klotski(variant_id):
+    centers = [[i % 4 + 0.5, i // 4 + 0.5] for i in range(20)]
+    offset_groups = [
+        (3, 5, [(1, 0.5)]),
+        (4, 4, [(0.5, 1)]),
+        (3, 4, [(1, 1)]),
+        (3, 5, [(1, -0.5), (1, 1.5), (-0.5, 0.5), (1.5, 0.5), (2.5, 0.5)]),
+        (4, 4, [(0.5, -0.5), (0.5, 2.5), (-0.5, 1), (1.5, 1)]),
+        (3, 4, [(1, 0.5), (1, -0.5), (1, 1.5), (1, 2.5), (0.5, 1), (-0.5, 1), (1.5, 1), (2.5, 1)]),
+    ]
+    for cols, rows, offsets in offset_groups:
+        for dx, dy in offsets:
+            centers += [[col + dx, row + dy] for col in range(cols) for row in range(rows)]
+
+    match variant_id:
+        case "donkey":
+            bgs = {"default":   "klotski/goal_donkey_rounded.svg",
+                   "sharp":     "klotski/goal_donkey_sharp.svg",
+                   "wood":      "klotski/goal_donkey_rounded.svg",
+                   "woodSharp": "klotski/goal_donkey_sharp.svg"}
+        case "pennant":
+            bgs = {"default":   "klotski/goal_pennant_rounded.svg",
+                   "sharp":     "klotski/goal_pennant_sharp.svg",
+                   "wood":      "klotski/goal_pennant_rounded.svg",
+                   "woodSharp": "klotski/goal_pennant_sharp.svg"}
+        case _:
+            return None
+
+    return {
+        "defaultTheme": "default",
+        "themes": {
+            theme: {
+                "space": [4, 5],
+                "centers": centers,
+                "background": bgs[theme],
+                "charImages": {
+                    "o": {"image": f"klotski/{theme}/tile_11.svg", "scale": 1.05},
+                    "H": {"image": f"klotski/{theme}/tile_12L.svg", "scale": 1.05},
+                    "h": {"image": f"klotski/{theme}/tile_12R.svg", "scale": 1.05},
+                    "V": {"image": f"klotski/{theme}/tile_21T.svg", "scale": 1.05},
+                    "v": {"image": f"klotski/{theme}/tile_21B.svg", "scale": 1.05},
+                    "W": {"image": f"klotski/{theme}/tile_22TL.svg", "scale": 1.05},
+                    "X": {"image": f"klotski/{theme}/tile_22TR.svg", "scale": 1.05},
+                    "Y": {"image": f"klotski/{theme}/tile_22BL.svg", "scale": 1.05},
+                    "Z": {"image": f"klotski/{theme}/tile_22BR.svg", "scale": 1.05},
+                    "-": {"image": "general/basichitbox.svg", "scale": 0.01},
+                    "↑": {"image": "general/basichitbox.svg", "scale": 0.01},
+                    "↓": {"image": "general/basichitbox.svg", "scale": 0.01},
+                    "←": {"image": "general/basichitbox.svg", "scale": 0.01},
+                    "→": {"image": "general/basichitbox.svg", "scale": 0.01},
+                },
+                "arrowWidth": 0.1,
+                "entitiesOverArrows": False,
+                "sounds": {"x": "general/slide.mp3"},
+                "animationType": "simpleSlides"
+            }
+            for theme in ("default", "sharp", "wood", "woodSharp")
         }
     }
 
@@ -3091,6 +3276,7 @@ image_autogui_data_funcs = {
     "graphgame": get_graphgame,
     "towersofhanoi": get_towersofhanoi,
     "hareandhounds": get_hareandhounds,
+    "hashi":get_hashi,
     "hexapawn": get_hexapawn,
     "hobaggonu": get_hobaggonu,
     "horses": get_horses,
@@ -3099,6 +3285,7 @@ image_autogui_data_funcs = {
     "joust": get_joust,
     "kayles": get_kayles,
     "kaooa": get_kaooa, 
+    "klotski": get_klotski,
     "konane": get_konane,
     "legrec": get_legrec,
     "lewthwaitesgame": get_lewthwaitesgame,
@@ -3132,6 +3319,7 @@ image_autogui_data_funcs = {
     "shifttactoe": get_shifttactoe,
     "slide5": get_slide5,
     "snake": get_snake,
+    "snakestale": get_snakestale,
     "spinout": get_spinout,
     'sokoban': get_sokoban,
     "solitairechess": get_solitaire_chess,
