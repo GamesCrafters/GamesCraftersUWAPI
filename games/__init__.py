@@ -24,6 +24,19 @@ from .Ghost import Ghost
 
 games = {
 
+    'stormyseas': Game(
+        name='Stormy Seas',
+        variants={
+            'regular': Variant(
+                name='Regular',
+                data_provider=GamesmanPy,
+                data_provider_game_id='stormyseas',
+                data_provider_variant_id='a',
+                gui='v3')
+        },
+        is_two_player_game=False,
+        gui='v3'),
+
     '0to10by1or2': Game(
         name='0 to 10 by 1 or 2',
         variants={
