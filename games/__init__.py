@@ -27,11 +27,35 @@ games = {
     'stormyseas': Game(
         name='Stormy Seas',
         variants={
-            'regular': Variant(
-                name='Regular',
+            'Beginner 1': Variant(
+                name='Beginner 1',
                 data_provider=GamesmanPy,
                 data_provider_game_id='stormyseas',
-                data_provider_variant_id='a',
+                data_provider_variant_id='Beginner 1',
+                gui='v3'),
+            'Beginner 2': Variant(
+                name='Beginner 2',
+                data_provider=GamesmanPy,
+                data_provider_game_id='stormyseas',
+                data_provider_variant_id='Beginner 2',
+                gui='v3'),
+            'Beginner 3': Variant(
+                name='Beginner 3',
+                data_provider=GamesmanPy,
+                data_provider_game_id='stormyseas',
+                data_provider_variant_id='Beginner 3',
+                gui='v3'),
+            'Intermediate 1': Variant(
+                name='Intermediate 1',
+                data_provider=GamesmanPy,
+                data_provider_game_id='stormyseas',
+                data_provider_variant_id='Intermediate 1',
+                gui='v3'),
+            'Intermediate 2': Variant(
+                name='Intermediate 2',
+                data_provider=GamesmanPy,
+                data_provider_game_id='stormyseas',
+                data_provider_variant_id='Intermediate 2',
                 gui='v3')
         },
         is_two_player_game=False,
