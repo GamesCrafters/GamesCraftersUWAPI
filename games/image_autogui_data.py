@@ -2303,7 +2303,7 @@ def get_stormyseas(variant_id):
                 "background": "stormyseas/fullboard.svg",
                 "charImages": {
                     "W": {"image":"stormyseas/wave.svg", "scale": "20"},
-                    "B": {"image":"stormyseas/blueboat.svg", "scale": "30"},
+                    "P": {"image":"stormyseas/purpleboat.svg", "scale": "30"},
                     "R": {"image":"stormyseas/redboat.svg", "scale": "30"},
                 },
                 "arrowWidth": 2,
