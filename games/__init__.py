@@ -39,12 +39,6 @@ games = {
                 data_provider_game_id='stormyseas',
                 data_provider_variant_id='Beginner 2',
                 gui='v3'),
-            'Beginner 3': Variant(
-                name='Beginner 3',
-                data_provider=GamesmanPy,
-                data_provider_game_id='stormyseas',
-                data_provider_variant_id='Beginner 3',
-                gui='v3'),
             'Intermediate 1': Variant(
                 name='Intermediate 1',
                 data_provider=GamesmanPy,
