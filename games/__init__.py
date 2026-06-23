@@ -1278,10 +1278,10 @@ games = {
                 data_provider=GamesmanClassic,
                 data_provider_game_id='othello',
                 data_provider_variant_id=136,
+                supports_win_by=True,
                 gui='v3')
         },
         gui='v3',
-        supports_win_by=True
     ),
 
     'orbito': Game(
