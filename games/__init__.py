@@ -1302,6 +1302,26 @@ games = {
         supports_win_by=True
     ),
 
+    'othelloblob': Game(
+        name='Othello Blob',
+        variants={
+            '4x4': Variant(
+                name='4x4 Othello',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='othellofour',
+                data_provider_variant_id=0,
+                gui='v3'),
+            '4x5': Variant(
+                name='4x5 Othello',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='othellofourxfive',
+                data_provider_variant_id=0,
+                gui='v3')
+        },
+        gui='v3',
+        supports_win_by=False
+    ),
+
     'orbito': Game(
         name='Orbito',
         variants={
