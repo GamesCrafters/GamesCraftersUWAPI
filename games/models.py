@@ -53,13 +53,15 @@ class Variant(AbstractVariant):
             name: str,
             data_provider: DataProvider,
             data_provider_game_id: str,
-            data_provider_variant_id: Union[int, str], 
+            data_provider_variant_id: Union[int, str],
+            supports_win_by: bool = False,
             gui: str = 'v0'
         ):
         super(Variant, self).__init__(name, gui=gui)
         self.data_provider = data_provider
         self.data_provider_game_id = data_provider_game_id
         self.data_provider_variant_id = data_provider_variant_id
+        self.supports_win_by = supports_win_by
 
     def start_position(self) -> StartPosition:
         return self.data_provider.start_position(self.data_provider_game_id, self.data_provider_variant_id)
@@ -77,7 +79,6 @@ class Game:
             variants: dict[str, AbstractVariant],
             is_two_player_game: bool = True,
             custom_variant: bool = False,
-            supports_win_by: bool = False,
             gui: str = 'v0'
         ):
         self.name = name
@@ -85,7 +86,6 @@ class Game:
         self.is_two_player_game = is_two_player_game
         self.custom_variant = custom_variant
         self.gui = gui
-        self.supports_win_by = supports_win_by
 
     def variant(self, variant_id):
         variant_val = self.variants.get(variant_id, None)

@@ -190,12 +190,12 @@ def get_game(game_id: str):
                 {
                     'id': variant_id,
                     'name': variant.name,
+                    'supportsWinBy': variant.supports_win_by,
                     'gui': variant.gui
                 }
                 for variant_id, variant in game.variants.items()
             ],
-            'allowCustomVariantCreation': bool(game.custom_variant),
-            'supportsWinBy': game.supports_win_by
+            'allowCustomVariantCreation': bool(game.custom_variant)
         }
     return error('Game')
 
@@ -208,6 +208,7 @@ def get_variant(game_id: str, variant_id: str):
             return {
                 'id': variant_id,
                 'name': variant.name,
+                'supportsWinBy': variant.supports_win_by,
                 'startPosition': start_position_data.get('position', ''),
                 'autoguiStartPosition': start_position_data.get('autoguiPosition', ''),
                 'imageAutoGUIData': get_image_autogui_data(game_id, variant_id),
