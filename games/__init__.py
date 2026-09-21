@@ -172,6 +172,20 @@ games = {
         gui='v3'
     ),
 
+    'breakthrough': Game(
+        name='Breakthrough',
+        variants={
+            '3x5': Variant(
+                name='3x5',
+                data_provider=GamesmanPy,
+                data_provider_game_id='breakthrough',
+                data_provider_variant_id='3x5',
+                gui='v3'
+            )
+        },
+        gui='v3'
+    ),
+
     'change': Game(
         name='Change!',
         variants={
