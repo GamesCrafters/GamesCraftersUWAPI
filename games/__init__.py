@@ -1,4 +1,5 @@
 from .models import Game, Variant
+from .tags import GameStyle, MiscTag, validate_registry
 from .gamesman_classic import GamesmanClassic
 from .gamesman_puzzles import GamesmanPuzzles
 from .gamesman_one import GamesmanOne
@@ -57,6 +58,9 @@ games = {
 
     '0to10by1or2': Game(
         name='0 to 10 by 1 or 2',
+        style=(GameStyle.IMPARTIAL,),
+        misc=(MiscTag.EDUCATIONAL,),
+        supports_mex=True,
         variants={
             'regular': Variant(
                 name='Regular',
@@ -82,6 +86,7 @@ games = {
 
     '1dchess': Game(
         name='1D Chess',
+        style=(GameStyle.CHASING, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -94,6 +99,7 @@ games = {
 
     '3spot': Game(
         name='3-Spot',
+        style=(GameStyle.DARTBOARD, GameStyle.PARTISAN),  # TODO(tags): unverified in gameTags.ts
         variants={
             'regular': Variant(
                 name='Regular',
@@ -106,6 +112,7 @@ games = {
 
     'abalone': Game(
         name='Abalone',
+        style=(GameStyle.PARTISAN,),  # TODO(tags): add a mechanic style (no gameTags.ts entry)
         variants={
             'regular': Variant(
                 name='Regular',
@@ -117,6 +124,7 @@ games = {
 
     'abrobad' : Game(
         name = 'Abrobad' ,
+        style=(GameStyle.BLOCKING, GameStyle.PARTISAN),  # TODO(tags): unverified in gameTags.ts
         variants={
             'standard': Variant(
                 name = 'Regular',
@@ -129,6 +137,7 @@ games = {
 
     'achi': Game(
         name='Achi',
+        style=(GameStyle.DARTBOARD, GameStyle.REARRANGER, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -141,6 +150,7 @@ games = {
 
     'adugo': Game(
         name='Adugo',
+        style=(GameStyle.CHASING, GameStyle.PARTISAN),
         variants={
             '5x5': Variant(
                 name='5x5',
@@ -153,6 +163,7 @@ games = {
 
     'allqueenschess': Game(
         name='All Queens Chess',
+        style=(GameStyle.CHASING, GameStyle.PARTISAN),
         variants={
             'standard': Variant(
                 name='Standard',
@@ -166,6 +177,7 @@ games = {
 
     'baghchal': Game(
         name='Bagh-Chal',
+        style=(GameStyle.CHASING, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Standard',
@@ -178,6 +190,7 @@ games = {
 
     'beeline': Game(
         name='Beeline',
+        style=(GameStyle.CONNECTION, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Standard',
@@ -205,6 +218,7 @@ games = {
 
     'change': Game(
         name='Change!',
+        style=(GameStyle.PARTISAN,),  # TODO(tags): unverified in gameTags.ts
         variants={
             'regular': Variant(
                 name='Regular',
@@ -218,6 +232,7 @@ games = {
 
     'chess': Game(
         name='Chess',
+        style=(GameStyle.CHASING, GameStyle.PARTISAN),
         variants={
             'endgame1': RegularChessVariant('K1k1B3/8/8/8/8/8/7N/8 w - - 0 1', name='Endgame 1'),
             'endgame2': RegularChessVariant('8/6R1/6k1/p2pB3/8/8/r7/6K1 b - - 0 1', name='Endgame 2'),
@@ -227,6 +242,7 @@ games = {
     
     'chinesecheckers': Game(
         name='Chinese Checkers',
+        style=(GameStyle.REARRANGER, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -240,6 +256,7 @@ games = {
 
     'chinesechess': Game(
         name='Chinese Chess',
+        style=(GameStyle.CHASING, GameStyle.PARTISAN),
         variants={
             'regular': RegularChineseChessVariant()
         },
@@ -262,6 +279,9 @@ games = {
 
     'chomp': Game(
         name='Chomp',
+        style=(GameStyle.IMPARTIAL,),
+        misc=(MiscTag.EDUCATIONAL,),
+        supports_mex=True,
         variants={
             '4x7': Variant(
                 name='4 Rows, 7 Columns',
@@ -286,6 +306,8 @@ games = {
 
     'chopsticks': Game(
         name='Chopsticks',
+        style=(GameStyle.PARTISAN,),
+        misc=(MiscTag.EDUCATIONAL,),
         variants={
             '0': Variant(
                 name='[Standard] Neither pass-equivalent transfers nor full transfers allowed.',
@@ -316,6 +338,7 @@ games = {
 
     'chungtoi': Game(
         name='Chung-Toi',
+        style=(GameStyle.REARRANGER, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -328,6 +351,7 @@ games = {
 
     'clobber': Game(
         name='Clobber',
+        style=(GameStyle.BLOCKING, GameStyle.PARTISAN),
         variants={
             variant_id: Variant(
                 name=variant_id,
@@ -378,6 +402,7 @@ games = {
 
     'connect4': Game(
         name='Connect 4',
+        style=(GameStyle.CONNECTION, GameStyle.PARTISAN),
         variants={
             '6x6': Variant(
                 name='6x6',
@@ -396,6 +421,7 @@ games = {
     
     'connect4twist': Game(
         name='Connect 4 Twist and Turn',
+        style=(GameStyle.CONNECTION, GameStyle.DARTBOARD, GameStyle.PARTISAN),
         variants={
             '4x4': Variant(
                 name='4x4',
@@ -415,6 +441,7 @@ games = {
 
     'dao': Game(
         name='Dao',
+        style=(GameStyle.REARRANGER, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -427,6 +454,8 @@ games = {
 
     'dawsonschess': Game(
         name='Dawson\'s Chess',
+        style=(GameStyle.IMPARTIAL,),
+        supports_mex=True,
         variants={
             str(i): DawsonsChessVariant(i, str(i)) for i in range(5, 10)
         },
@@ -435,6 +464,7 @@ games = {
 
     'dinododgem': Game(
         name='Dino Dodgem',
+        style=(GameStyle.CHASING, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -447,6 +477,7 @@ games = {
 
     'dodgem': Game(
         name='Dodgem',
+        style=(GameStyle.CHASING, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -459,6 +490,8 @@ games = {
 
     'domineering': Game(
         name='Domineering',
+        style=(GameStyle.DARTBOARD, GameStyle.PARTISAN),
+        misc=(MiscTag.EDUCATIONAL,),
         variants={
             '4': Variant(
                 name='4x4',
@@ -483,6 +516,7 @@ games = {
 
     'dragonsandswans': Game(
         name='Dragons & Swans',
+        style=(GameStyle.CHASING, GameStyle.PARTISAN),
         variants={
             '1': Variant(
                 name='1 Dragon',
@@ -513,6 +547,7 @@ games = {
 
     'dshogi': Game(
         name='Dōbutsu shōgi',
+        style=(GameStyle.CHASING, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -525,6 +560,8 @@ games = {
 
     'euclidsgame': Game(
         name="Euclid's Game",
+        style=(GameStyle.IMPARTIAL,),
+        misc=(MiscTag.EDUCATIONAL,),
         variants={
             'regular': EuclidsGame()
         },
@@ -532,6 +569,7 @@ games = {
 
     'expantix': Game(
         name='ExpanTix',
+        style=(GameStyle.CONNECTION, GameStyle.PARTISAN),
         variants={
             '3': Variant(
                 name='3x3',
@@ -557,6 +595,7 @@ games = {
 
     'fivefieldkono': Game(
         name='Five Field Kono',
+        style=(GameStyle.REARRANGER, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name="Tie if you can't move",
@@ -594,6 +633,7 @@ games = {
 
     'fourfieldkono': Game(
         name='Four Field Kono',
+        style=(GameStyle.REARRANGER, GameStyle.PARTISAN),
         variants={
             'standard': Variant(
                 name='Standard',
@@ -606,6 +646,7 @@ games = {
 
     'forestfox': Game(
         name='Forest Fox',
+        style=(GameStyle.CHASING, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -618,6 +659,7 @@ games = {
 
     'foxandhounds': Game(
         name='Fox and Hounds',
+        style=(GameStyle.CHASING, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -630,6 +672,7 @@ games = {
 
     'ghost': Game(
         name='Ghost',
+        style=(GameStyle.PARTISAN,),  # TODO(tags): unverified in gameTags.ts
         variants = {
             str(c): Ghost(minimum_length = int(c)) for c in range(3, 7)
         },
@@ -638,6 +681,7 @@ games = {
 
     'gobbletgobblers': Game(
         name='Gobblet Gobblers',
+        style=(GameStyle.DARTBOARD, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='regular',
@@ -650,6 +694,9 @@ games = {
 
     'graphgame': Game(
         name='Graph',
+        style=(GameStyle.IMPARTIAL,),
+        misc=(MiscTag.EDUCATIONAL,),
+        supports_mex=True,
         variants={
             '0': Variant(
                 name='10 to 0 by 1 or 2',
@@ -689,6 +736,7 @@ games = {
 
     'hareandhounds': Game(
         name='Hare and Hounds',
+        style=(GameStyle.CHASING, GameStyle.PARTISAN),
         variants={
             's-hounds-first': Variant(
                 name='Small, Hounds First',
@@ -755,6 +803,8 @@ games = {
 
     'hexapawn': Game(
         name="Hexapawn",
+        style=(GameStyle.BLOCKING, GameStyle.PARTISAN),
+        misc=(MiscTag.EDUCATIONAL,),
         variants={
             '0': Variant(
                 name='Length 3',
@@ -839,6 +889,7 @@ games = {
 
     'hobaggonu': Game(
         name="Ho-Bag Gonu",
+        style=(GameStyle.BLOCKING, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -853,6 +904,7 @@ games = {
 
     'horses': Game(
         name="Horses",
+        style=(GameStyle.REARRANGER, GameStyle.PARTISAN),  # TODO(tags): unverified in gameTags.ts
         variants={
             'regular': Variant(
                 name='Regular',
@@ -888,6 +940,7 @@ games = {
 
     'jan': Game(
         name="Jan",
+        style=(GameStyle.PARTISAN,),  # TODO(tags): unverified in gameTags.ts
         variants={
             '4x4': Variant(
                 name='4x4',
@@ -902,6 +955,7 @@ games = {
 
     'jenga': Game(
         name='Jenga',
+        style=(GameStyle.IMPARTIAL,),  # TODO(tags): unverified in gameTags.ts
         variants={
             "regular" : Jenga()
         },
@@ -909,6 +963,7 @@ games = {
 
     'joust': Game(
         name='Joust',
+        style=(GameStyle.BLOCKING, GameStyle.PARTISAN),
         variants={
             '4x4': Variant(
                 name='4x4',
@@ -927,6 +982,9 @@ games = {
 
     'kayles': Game(
         name='Kayles',
+        style=(GameStyle.IMPARTIAL,),
+        misc=(MiscTag.EDUCATIONAL,),
+        supports_mex=True,
         variants={
             str(i): KaylesVariant(i, str(i)) for i in range(5, 10)
         },
@@ -935,6 +993,7 @@ games = {
 
     'kaooa': Game(
         name='Kaooa',
+        style=(GameStyle.CHASING, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -966,6 +1025,7 @@ games = {
 
     'konane': Game(
         name='Kōnane',
+        style=(GameStyle.BLOCKING, GameStyle.PARTISAN),
         variants={
             '4x4': Variant(
                 name='4x4',
@@ -996,6 +1056,7 @@ games = {
 
     'legrec': Game(
         name='Le Grec',
+        style=(GameStyle.PARTISAN,),  # TODO(tags): unverified in gameTags.ts
         variants={
             'advancement-comparison': Variant(
                 name='Regular',
@@ -1020,6 +1081,7 @@ games = {
 
     'lewthwaitesgame': Game(
         name="Lewthwaite's Game",
+        style=(GameStyle.BLOCKING, GameStyle.REARRANGER, GameStyle.PARTISAN),
         variants={
             'standard': Variant(
                 name='Standard',
@@ -1032,6 +1094,7 @@ games = {
 
     'lgame': Game(
         name='L-game',
+        style=(GameStyle.BLOCKING, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -1044,6 +1107,7 @@ games = {
 
     'lightsout': Game(
         name='Lights Out',
+        misc=(MiscTag.EDUCATIONAL,),
         variants={
             v: Variant(
                 name=f'{v}x{v}',
@@ -1059,6 +1123,7 @@ games = {
 
     'lite3': Game(
         name='Lite 3',
+        style=(GameStyle.DARTBOARD, GameStyle.PARTISAN),
         variants={
             'three-in-a-row': Variant(
                 name='Three-In-A-Row Wins',
@@ -1108,6 +1173,7 @@ games = {
 
     'mancala': Game(
         name='Mancala',
+        style=(GameStyle.MAJORITY_CONTROL, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -1133,6 +1199,7 @@ games = {
 
     'mutorere': Game(
         name='Mū Tōrere',
+        style=(GameStyle.BLOCKING, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Standard',
@@ -1151,6 +1218,7 @@ games = {
 
     'neutron' : Game(
         name = 'Neutron' ,
+        style=(GameStyle.BLOCKING, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name = 'Home Row Wins',
@@ -1164,6 +1232,9 @@ games = {
 
     'nim': Game(
         name='Nim',
+        style=(GameStyle.IMPARTIAL,),
+        misc=(MiscTag.EDUCATIONAL,),
+        supports_mex=True,
         variants={
             s: NimVariant(p, s) for p, s in (
                 ((2, 3, 5, 7), '2_3_5_7'),
@@ -1178,6 +1249,7 @@ games = {
 
     'ninemensmorris': Game(
         name="Nine Men's Morris",
+        style=(GameStyle.BLOCKING, GameStyle.DARTBOARD, GameStyle.REARRANGER, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name="Nine Men's Morris",
@@ -1198,6 +1270,9 @@ games = {
 
     'notakto': Game(
         name='Notakto',
+        style=(GameStyle.DARTBOARD, GameStyle.IMPARTIAL),
+        misc=(MiscTag.EDUCATIONAL,),
+        supports_mex=True,
         variants={
             'regular': Variant(
                 name='1 Board',
@@ -1265,6 +1340,7 @@ games = {
 
     'nutictactoe': Game(
         name='Nu Tic-Tac-Toe',
+        style=(GameStyle.DARTBOARD, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='5x4',
@@ -1277,6 +1353,8 @@ games = {
 
     'oddoreven': Game(
         name='Odd or Even',
+        style=(GameStyle.IMPARTIAL,),
+        misc=(MiscTag.EDUCATIONAL,),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -1290,6 +1368,7 @@ games = {
 
     'othello': Game(
         name='Othello',
+        style=(GameStyle.MAJORITY_CONTROL, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -1304,6 +1383,7 @@ games = {
 
     'orbito': Game(
         name='Orbito',
+        style=(GameStyle.MAJORITY_CONTROL, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -1394,6 +1474,7 @@ games = {
 
     'ponghauki': Game(
         name="Pong Hau K'i",
+        style=(GameStyle.CHASING, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -1406,6 +1487,7 @@ games = {
 
     'quarto': Game(
         name='Quarto',
+        style=(GameStyle.DARTBOARD, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -1418,6 +1500,7 @@ games = {
 
     'quickchess': Game(
         name='Quick Chess',
+        style=(GameStyle.CHASING, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -1430,6 +1513,7 @@ games = {
 
     'quickcross': Game(
        name='Quick Cross',
+       style=(GameStyle.CONNECTION, GameStyle.DARTBOARD, GameStyle.PARTISAN),
        variants={
            'regular': Variant(
                name='Regular',
@@ -1443,6 +1527,7 @@ games = {
 
     'quixo' : Game(
         name = 'Quixo' ,
+        style=(GameStyle.REARRANGER, GameStyle.PARTISAN),
         variants={
             '5x5': Variant(
                 name = '5x5',
@@ -1485,6 +1570,7 @@ games = {
 
     'rubiksmagic': Game(
         name="Rubik's Magic",
+        style=(GameStyle.PARTISAN,),  # TODO(tags): add a mechanic style (kPartizan = TRUE in mrubiksmagic.c)
         variants={
             'regular': Variant(
                 name='Regular',
@@ -1512,6 +1598,8 @@ games = {
 
     'sim': Game(
         name='Sim',
+        style=(GameStyle.CONNECTION, GameStyle.IMPARTIAL),
+        misc=(MiscTag.EDUCATIONAL,),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -1524,6 +1612,7 @@ games = {
 
     'shifttactoe': Game(
         name='Shift Tac Toe',
+        style=(GameStyle.DARTBOARD, GameStyle.REARRANGER, GameStyle.PARTISAN),
         variants={
             'default': Variant(
                 name='Regular',
@@ -1536,6 +1625,7 @@ games = {
 
     'slide5': Game(
         name="Slide-5",
+        style=(GameStyle.REARRANGER, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name="[Standard] Creating a 5-in-a-Row for both players counts as a win for the player who did so.",
@@ -1556,6 +1646,7 @@ games = {
 
     'snake': Game(
         name='Snake',
+        style=(GameStyle.BLOCKING, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -1636,6 +1727,7 @@ games = {
 
     'squaredance': Game(
         name='Square Dance',
+        style=(GameStyle.REARRANGER, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -1681,6 +1773,8 @@ games = {
 
     'tactix': Game(
         name='TacTix',
+        style=(GameStyle.IMPARTIAL,),
+        supports_mex=True,
         variants={
             'regular': Variant(
                 name='Regular',
@@ -1694,6 +1788,7 @@ games = {
 
     'tantfant': Game(
         name='Tant Fant',
+        style=(GameStyle.BLOCKING, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -1785,6 +1880,7 @@ games = {
 
     'teeko' : Game(
         name = 'Teeko' ,
+        style=(GameStyle.DARTBOARD, GameStyle.REARRANGER, GameStyle.PARTISAN),
         variants={
             'standard': Variant(
                 name = 'Standard',
@@ -1805,6 +1901,8 @@ games = {
 
     'tictactoe': Game(
         name='Tic-Tac-Toe',
+        style=(GameStyle.DARTBOARD, GameStyle.PARTISAN),
+        misc=(MiscTag.EDUCATIONAL,),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -1823,6 +1921,7 @@ games = {
 
     'tictactwo': Game(
         name='Tic-Tac-Two',
+        style=(GameStyle.DARTBOARD, GameStyle.REARRANGER, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -1849,6 +1948,7 @@ games = {
 
     'toadsandfrogspuzzle': Game(
         name='Toads and Frogs Puzzle',
+        misc=(MiscTag.EDUCATIONAL,),
         variants={
             str(v): Variant(
                 name=f'{v >> 1} Frogs, {v >> 1} Toads',
@@ -1864,6 +1964,7 @@ games = {
 
     'tootandotto': Game(
         name='Toot and Otto',
+        style=(GameStyle.DARTBOARD, GameStyle.PARTISAN),
         variants={
             '4': TootAndOtto(4),
             '5': TootAndOtto(5),
@@ -1873,6 +1974,7 @@ games = {
 
     'topitop': Game(
         name="Topitop",
+        style=(GameStyle.MAJORITY_CONTROL, GameStyle.PARTISAN),
         variants={
             'regular':  Variant(
                 name="Standard Topitop",
@@ -1908,6 +2010,7 @@ games = {
 
     'tsoroyematatu': Game(
         name='Tsoro Yematatu',
+        style=(GameStyle.DARTBOARD, GameStyle.IMPARTIAL),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -1921,6 +2024,7 @@ games = {
 
     'winkers' : Game(
         name = 'Winkers' ,
+        style=(GameStyle.MAJORITY_CONTROL, GameStyle.PARTISAN),
         variants={
             'simplified': Variant(
                 name = "Win if you can't move",
@@ -1934,6 +2038,7 @@ games = {
 
     'y': Game(
         name='Y',
+        style=(GameStyle.CONNECTION, GameStyle.PARTISAN),
         variants={
             'dim4': Variant(
                 name='Dimension 4',
@@ -1964,6 +2069,7 @@ games = {
 
     'yote': Game(
         name='Yoté',
+        style=(GameStyle.BLOCKING, GameStyle.CHASING, GameStyle.PARTISAN),
         variants={
             '3x3': Variant(
                 name='3x3',
@@ -1988,6 +2094,7 @@ games = {
 
         '4squaretictactoe': Game(
         name='4-Square-Tic-Tac-Toe',
+        style=(GameStyle.DARTBOARD, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -2017,3 +2124,4 @@ games = {
         gui='v3')
 }
 
+validate_registry(games)

@@ -32,6 +32,19 @@ In the example above, 'ttt' is the key
 - In the initial stage of adding games, can simply add the regular variant (user does not need to change anything other than the
 `data_provider_game_id`)
 
+- Every two-player game must declare its style tags, or UWAPI refuses to start and the PR check fails:
+
+```python
+'tictactoe': Game(
+    name='Tic-Tac-Toe',
+    style=(GameStyle.DARTBOARD, GameStyle.PARTISAN),  # must include IMPARTIAL or PARTISAN
+    misc=(MiscTag.EDUCATIONAL,),                       # optional
+    supports_mex=False,                                # True only if the backend returns mex values
+    variants={...})
+```
+
+Solve and variant tags are generated automatically; do not add them by hand. Run `python scripts/check_tags.py` before opening a PR. See [docs/tags.md](../docs/tags.md).
+
 #### III. Documenting the Game in Google Spreadsheet
 
 Add the game information to the [spreadsheet](https://docs.google.com/spreadsheets/d/1-V9lE1N1Y-E-0Oi1uOnjEEdIwRwyy4cHzBKxb3h9MHw/edit?usp=sharing) (UC Berkeley log-in required).

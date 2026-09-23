@@ -100,6 +100,7 @@ def syz_next_stats(autoguiPosition, fen):
 
 
 class RegularChessVariant(AbstractVariant):
+    solved = False  # backed by the Lichess endgame tablebase, not a full solve
 
     def __init__(self, fen, name = "Chess Endgame"):
         self.start_fen = fen

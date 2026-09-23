@@ -4,6 +4,7 @@ from flask_cors import CORS
 from games import games
 from games.image_autogui_data import *
 from games.models import Value, Remoteness
+from games.tags import game_tags, vocabulary
 from md_api import md_instr
 
 app = Flask(__name__)
@@ -174,10 +175,15 @@ def get_games() -> list[dict[str, str]]:
         'id': game_id,
         'name': game.name,
         'type': 'twoPlayer' if game.is_two_player_game else 'onePlayer',
-        'gui': game.gui
+        'gui': game.gui,
+        'tags': game_tags(game)
     } for game_id, game in games.items()]
     all_games.sort(key=lambda g: g['name'])
     return jsonify(all_games)
+
+@app.route("/tags/")
+def get_tags():
+    return vocabulary()
 
 @app.route("/<game_id>/")
 def get_game(game_id: str):
@@ -195,7 +201,8 @@ def get_game(game_id: str):
                 for variant_id, variant in game.variants.items()
             ],
             'allowCustomVariantCreation': bool(game.custom_variant),
-            'supportsWinBy': game.supports_win_by
+            'supportsWinBy': game.supports_win_by,
+            'tags': game_tags(game)
         }
     return error('Game')
 

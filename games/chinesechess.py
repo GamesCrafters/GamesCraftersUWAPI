@@ -742,6 +742,8 @@ def tier_size_steps(tier: str):
 
 
 class RegularChineseChessVariant(AbstractVariant):
+    solved = False  # backed by an endgame tablebase, not a full solve
+
     def __init__(self):
         super(RegularChineseChessVariant, self).__init__('Regular', 'v2')
 

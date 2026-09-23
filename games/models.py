@@ -21,6 +21,10 @@ class Remoteness(int, Enum):
 class AbstractVariant:
     """Abstract class for a variant of a game"""
 
+    # False for variants backed by partial data (e.g. endgame tablebases)
+    # rather than a strong solve. Drives the derived 'unsolved' solve tag.
+    solved = True
+
     def __init__(self, name: str, gui: str = 'v0'):
         self.name = name
         self.gui = gui
@@ -78,6 +82,10 @@ class Game:
             is_two_player_game: bool = True,
             custom_variant: bool = False,
             supports_win_by: bool = False,
+            supports_mex: bool = False,
+            supports_draw_analysis: bool = False,
+            style: tuple = (),
+            misc: tuple = (),
             gui: str = 'v0'
         ):
         self.name = name
@@ -86,6 +94,18 @@ class Game:
         self.custom_variant = custom_variant
         self.gui = gui
         self.supports_win_by = supports_win_by
+        # Backend capabilities, mirroring supports_win_by. Solve tags are
+        # derived from these (games/tags.py), so they must match what the
+        # backend actually returns, e.g. gSupportsMex in GamesmanClassic.
+        self.supports_mex = supports_mex
+        self.supports_draw_analysis = supports_draw_analysis
+        # Hand-assigned tags: GameStyle / MiscTag members from games/tags.py.
+        self.style = tuple(style)
+        self.misc = tuple(misc)
+
+    @property
+    def is_solved(self) -> bool:
+        return any(variant.solved for variant in self.variants.values())
 
     def variant(self, variant_id):
         variant_val = self.variants.get(variant_id, None)
