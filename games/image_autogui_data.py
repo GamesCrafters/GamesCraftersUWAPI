@@ -501,8 +501,7 @@ def get_chungtoi(variant_id):
     }
 
 def get_breakthrough(variant_id):
-    # variant_id looks like "3x5": cols x rows. No dedicated art yet, so this
-    # reuses Clobber's generic grid layout and pieces as a placeholder.
+    # variant_id looks like "3x5": cols x rows.
     cols, rows = map(int, variant_id.split('x'))
     return {
         "defaultTheme": "regular",
@@ -510,9 +509,10 @@ def get_breakthrough(variant_id):
             "regular": {
                 "space": [cols, rows],
                 "centers": [[0.5 + i % cols, 0.5 + i // cols] for i in range(rows * cols)],
+                "background": f"breakthrough/{variant_id}.svg",
                 "charImages": {
-                    "x": {"image": "general/blackpiece.svg", "scale": 1},
-                    "o": {"image": "general/whitepiece.svg", "scale": 1},
+                    "x": {"image": "breakthrough/x.svg", "scale": 1},
+                    "o": {"image": "breakthrough/o.svg", "scale": 1},
                 },
                 "arrowWidth": 0.1,
                 "sounds": {

@@ -181,6 +181,15 @@ games = {
                 data_provider_game_id='breakthrough',
                 data_provider_variant_id='3x5',
                 gui='v3'
+            ),
+            # Small board the interactive tutorial plays on (see GamesmanUni's
+            # AppGameTutorial.vue).
+            '3x4': Variant(
+                name='Tutorial',
+                data_provider=GamesmanPy,
+                data_provider_game_id='breakthrough',
+                data_provider_variant_id='3x4',
+                gui='v3'
             )
         },
         gui='v3'
