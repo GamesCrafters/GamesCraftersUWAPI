@@ -112,7 +112,7 @@ games = {
 
     'abalone': Game(
         name='Abalone',
-        style=(GameStyle.PARTISAN,),  # TODO(tags): add a mechanic style (no gameTags.ts entry)
+        style=(GameStyle.MAJORITY_CONTROL, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -124,7 +124,7 @@ games = {
 
     'abrobad' : Game(
         name = 'Abrobad' ,
-        style=(GameStyle.BLOCKING, GameStyle.PARTISAN),  # TODO(tags): unverified in gameTags.ts
+        style=(GameStyle.CONNECTION, GameStyle.DARTBOARD, GameStyle.REARRANGER, GameStyle.PARTISAN),
         variants={
             'standard': Variant(
                 name = 'Regular',
@@ -218,7 +218,7 @@ games = {
 
     'change': Game(
         name='Change!',
-        style=(GameStyle.PARTISAN,),  # TODO(tags): unverified in gameTags.ts
+        style=(GameStyle.REARRANGER, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -672,7 +672,7 @@ games = {
 
     'ghost': Game(
         name='Ghost',
-        style=(GameStyle.PARTISAN,),  # TODO(tags): unverified in gameTags.ts
+        style=(GameStyle.PARTISAN,),
         variants = {
             str(c): Ghost(minimum_length = int(c)) for c in range(3, 7)
         },
@@ -904,7 +904,7 @@ games = {
 
     'horses': Game(
         name="Horses",
-        style=(GameStyle.REARRANGER, GameStyle.PARTISAN),  # TODO(tags): unverified in gameTags.ts
+        style=(GameStyle.DARTBOARD, GameStyle.REARRANGER, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Regular',
@@ -940,7 +940,7 @@ games = {
 
     'jan': Game(
         name="Jan",
-        style=(GameStyle.PARTISAN,),  # TODO(tags): unverified in gameTags.ts
+        style=(GameStyle.REARRANGER, GameStyle.PARTISAN),
         variants={
             '4x4': Variant(
                 name='4x4',
@@ -955,7 +955,7 @@ games = {
 
     'jenga': Game(
         name='Jenga',
-        style=(GameStyle.IMPARTIAL,),  # TODO(tags): unverified in gameTags.ts
+        style=(GameStyle.IMPARTIAL,),
         variants={
             "regular" : Jenga()
         },
@@ -1056,7 +1056,7 @@ games = {
 
     'legrec': Game(
         name='Le Grec',
-        style=(GameStyle.PARTISAN,),  # TODO(tags): unverified in gameTags.ts
+        style=(GameStyle.REARRANGER, GameStyle.PARTISAN),
         variants={
             'advancement-comparison': Variant(
                 name='Regular',
@@ -1570,7 +1570,7 @@ games = {
 
     'rubiksmagic': Game(
         name="Rubik's Magic",
-        style=(GameStyle.PARTISAN,),  # TODO(tags): add a mechanic style (kPartizan = TRUE in mrubiksmagic.c)
+        style=(GameStyle.CONNECTION, GameStyle.DARTBOARD, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Regular',

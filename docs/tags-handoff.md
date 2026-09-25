@@ -4,17 +4,29 @@ For Nahee, picking up the tagging workload. Written 2026-09-22 by Allena.
 The design and rationale are in [tags.md](tags.md); this is state, ownership
 and the work queue.
 
+## Progress (Nahee)
+
+- **2026-09-25**: Branch `feature/typed-tags` is now on `origin` (pushed since
+  this doc was written; local branch is up to date with it, HEAD at `002b0b3`,
+  one commit past this doc's `fbb4622`). No remote-add/bundle step was needed.
+  Re-ran verification locally: `check_tags.py` → `OK: 112 games validated (83
+  two-player, 29 puzzles)`, derived tags `mex=8, remoteness=110, unsolved=2,
+  winby=1` (matches this doc's expected numbers); `pytest tests -q` → 10/10
+  pass. Still open: whether the GitHub Action has run now that the branch is
+  pushed, and the live-backend checks (need campus network/VPN).
+  Next: work queue item 1 (review the 10 `TODO(tags)` games).
+
 ## Status
 
 | | |
 |---|---|
 | Branch | `feature/typed-tags`, commit `fbb4622`, cut from `master` `cd25c7b` |
-| Pushed? | **No.** It exists only on Allena's machine as of 2026-09-22 |
-| Verified | `scripts/check_tags.py` passes on all 112 games; 10 tests pass; the check exits 1 on a deliberately untagged game |
-| Not verified | The GitHub Action has never run (nothing pushed). No live-backend checks: `nyc.cs.berkeley.edu` is unreachable off campus |
+| Pushed? | **Yes**, as of 2026-09-25 (was no, as of 2026-09-22, when this doc was written) |
+| Verified | `scripts/check_tags.py` passes on all 112 games; 10 tests pass; the check exits 1 on a deliberately untagged game. Re-confirmed by Nahee on 2026-09-25. |
+| Not verified | Whether the GitHub Action has run now that the branch is pushed (check `gh`/Actions tab). No live-backend checks yet: `nyc.cs.berkeley.edu` is unreachable off campus |
 
-Nothing you forked contains this branch. Get it before writing any tag code,
-or you will rebuild it.
+~~Nothing you forked contains this branch. Get it before writing any tag code,
+or you will rebuild it.~~ Done — branch is pulled and pushed to origin.
 
 ```bash
 # after Allena pushes:
@@ -24,12 +36,12 @@ git fetch upstream feature/typed-tags && git checkout -b typed-tags upstream/fea
 git fetch ../uwapi-typed-tags.bundle feature/typed-tags:typed-tags
 ```
 
-Run it:
+Run it (macOS/Linux: `bin/` instead of `Scripts/`):
 
 ```bash
-python -m venv .venv && .venv/Scripts/pip install -r requirements.txt pytest
-.venv/Scripts/python scripts/check_tags.py
-.venv/Scripts/python -m pytest tests -q
+python -m venv .venv && .venv/bin/pip install -r requirements.txt pytest
+.venv/bin/python scripts/check_tags.py
+.venv/bin/python -m pytest tests -q
 ```
 
 ## Who owns what
