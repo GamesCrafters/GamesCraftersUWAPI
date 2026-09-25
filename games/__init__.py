@@ -99,7 +99,7 @@ games = {
 
     '3spot': Game(
         name='3-Spot',
-        style=(GameStyle.DARTBOARD, GameStyle.PARTISAN),  # TODO(tags): unverified in gameTags.ts
+        style=(GameStyle.REARRANGER, GameStyle.PARTISAN),
         variants={
             'regular': Variant(
                 name='Regular',
