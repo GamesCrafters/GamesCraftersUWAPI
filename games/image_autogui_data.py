@@ -1481,6 +1481,30 @@ def get_kayles(variant_id):
         }
     }
 
+def get_kaninariebi(variant_id):
+    rows = int(variant_id[0]) # todo: figure out what variant_id is
+    cols = int(variant_id[2]) # todo: figure out what variant_id is + figure out how to implement multi-part + arrows
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [cols, rows],
+                "centers": [[0.5 + i // rows, 0.5 + i % rows] for i in range(rows * cols)],
+                "background": f"kaninariebi/{variant_id}.svg",
+                "charImages": {
+                    "C": {"image": "chess/wikipedia/B.svg", "scale": 1}, ##Replace "chess/wikipedia/bb.svg" with corresponding svg file
+                    "S": {"image": "chess/wikipedia/bb.svg", "scale": 1}, #Replace "chess/wikipedia/bb.svg" with corresponding svg file
+                    "c": {"image": "chess/wikipedia/bb.svg", "scale": 1}, #Replace "chess/wikipedia/bb.svg" with corresponding svg file
+                    "s": {"image": "chess/wikipedia/bb.svg", "scale": 1}, #Replace "chess/wikipedia/bb.svg" with corresponding svg file
+                },
+                "entitiesOverArrows": True,
+                "arrowWidth": 0.1,
+                "sounds": {"x": "general/slide.mp3"}, #Replace sounds (entries) with our ideal noises
+                "animationType": "simpleSlides"
+            }
+        }
+    }    
+
 def get_kaooa(variant_id):
     char_images = {
         "V": {"image": "kaooa/vulture.svg", "scale": 2}, 

@@ -932,6 +932,37 @@ games = {
         },
         custom_variant=kayles_custom_start,
         gui='v3'),
+    
+    'kaninariebi': Game(
+        name='Kani Nari Ebi',
+        variants={
+            'regular': Variant(
+                name='Regular',
+                data_provider=GamesmanPy,
+                data_provider_game_id='kaninariebi',
+                data_provider_variant_id=0,
+                gui='v3'),
+            'mixed': Variant(
+                name='Mixed',
+                data_provider=GamesmanPy,
+                data_provider_game_id='kaninariebi',
+                data_provider_variant_id=1,
+                gui='v3'),
+            '3x5': Variant(
+                name='Regular (3x5)',
+                data_provider=GamesmanPy,
+                data_provider_game_id='kaninariebi',
+                data_provider_variant_id=2,
+                gui='v3'),
+            '5x3': Variant(
+                name='Regular (5x3)',
+                data_provider=GamesmanPy,
+                data_provider_game_id='kaninariebi',
+                data_provider_variant_id=3,
+                gui='v3'),
+        },
+        gui='v3'
+    ),
 
     'kaooa': Game(
         name='Kaooa',
