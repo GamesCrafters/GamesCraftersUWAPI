@@ -1288,6 +1288,18 @@ games = {
         gui='v3'
     ),
 
+    'onitama': Game(
+        name= 'Onitama'
+        variants= {
+            'regular' : Variant(
+                name='4x3',
+                data_provider=GamesmanPy,
+                data_provider_game_id='onitama';
+                data_provider_variant_id=0;
+                gui= 'v3')
+        }
+    )
+
     'othello': Game(
         name='Othello',
         variants={
@@ -2015,5 +2027,6 @@ games = {
                 gui='v3')
         },
         gui='v3')
+        
 }
 
