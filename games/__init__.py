@@ -203,6 +203,21 @@ games = {
         gui='v3'
     ),
 
+    'bug': Game(
+        name='Bug',
+        variants={
+            'Regular': Variant(
+                name='Regular',
+                data_provider=GamesmanPy,
+                data_provider_game_id='bug',
+                data_provider_variant_id='regular',
+                gui='v3'
+            ) 
+        },
+        is_two_player_game=True,
+        gui='v3'
+    ),
+
     'change': Game(
         name='Change!',
         variants={

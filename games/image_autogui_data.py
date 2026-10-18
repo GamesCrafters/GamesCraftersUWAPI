@@ -409,6 +409,28 @@ def get_bishoppuzzle(variant_id):
         }
     }
 
+def bug(variant_id):
+    return {
+        "defaultTheme": "default",
+        "themes": {
+            "default": {
+                "space": [, ],
+                "centers": [],
+                "background": "bug/board.svg",
+            "charImages": {
+                    "b": {"image": "bug/bhex.svg", "scale": 125},
+                    "w": {"image": "bug/whex.svg", "scale": 125},
+                },
+                "circleButtonRadius": 6.5,
+                "entitiesOverArrows": True,
+                "sounds": {
+                    "s": "general/slide.mp3",
+                },
+                "animationType": "simpleSlides",
+            }
+        }
+    }
+
 def get_change(variant_id):
     return {
         "defaultTheme": "basic",
