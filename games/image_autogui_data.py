@@ -1482,8 +1482,21 @@ def get_kayles(variant_id):
     }
 
 def get_kaninariebi(variant_id):
-    rows = int(variant_id[0]) # todo: figure out what variant_id is
-    cols = int(variant_id[2]) # todo: figure out what variant_id is + figure out how to implement multi-part + arrows
+    # variant_id:
+    # 2 -> 3x5 Board
+    # 3 -> 5x3 Board
+    # 0 or 1 -> 5x5 Board
+    
+    if variant_id == 2:
+        rows = 3
+        cols = 5
+    else if variant_id == 3:
+        rows = 5
+        cols = 3
+    else:
+        rows = 5
+        cols = 5
+
     return {
         "defaultTheme": "regular",
         "themes": {
