@@ -1486,7 +1486,7 @@ def get_kaninariebi(variant_id):
     # 2 -> 3x5 Board
     # 3 -> 5x3 Board
     # 0 or 1 -> 5x5 Board
-    
+
     if variant_id == 2:
         rows = 3
         cols = 5
@@ -3376,6 +3376,7 @@ image_autogui_data_funcs = {
     "jenga": get_jenga,
     "joust": get_joust,
     "kayles": get_kayles,
+    "kaninariebi": get_kaninariebi, 
     "kaooa": get_kaooa, 
     "klotski": get_klotski,
     "konane": get_konane,
