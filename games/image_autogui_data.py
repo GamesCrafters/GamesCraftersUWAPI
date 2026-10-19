@@ -1481,42 +1481,100 @@ def get_kayles(variant_id):
         }
     }
 
-def get_kaninariebi(variant_id):
-    # variant_id:
-    # 2 -> 3x5 Board
-    # 3 -> 5x3 Board
-    # 0 or 1 -> 5x5 Board
+# def get_kaninariebi(variant_id):
+#     rows = int(variant_id[0]) # todo: figure out what variant_id is
+#     cols = int(variant_id[2]) # todo: figure out what variant_id is + figure out how to implement multi-part + arrows
+#     return {
+#         "defaultTheme": "regular",
+#         "themes": {
+#             "regular": {
+#                 "space": [cols, rows],
+#                 "centers": [[0.5 + i // rows, 0.5 + i % rows] for i in range(rows * cols)],
+#                 "background": f"kaninariebi/{variant_id}.svg",
+#                 "charImages": {
+#                     "C": {"image": "chess/wikipedia/B.svg", "scale": 1}, ##Replace "chess/wikipedia/bb.svg" with corresponding svg file
+#                     "S": {"image": "chess/wikipedia/bb.svg", "scale": 1}, #Replace "chess/wikipedia/bb.svg" with corresponding svg file
+#                     "c": {"image": "chess/wikipedia/bb.svg", "scale": 1}, #Replace "chess/wikipedia/bb.svg" with corresponding svg file
+#                     "s": {"image": "chess/wikipedia/bb.svg", "scale": 1}, #Replace "chess/wikipedia/bb.svg" with corresponding svg file
+#                 },
+#                 "entitiesOverArrows": True,
+#                 "arrowWidth": 0.1,
+#                 "sounds": {"x": "general/slide.mp3"}, #Replace sounds (entries) with our ideal noises
+#                 "animationType": "simpleSlides"
+#             }
+#         }
+#     }    
 
-    if variant_id == 2:
-        rows = 3
-        cols = 5
-    elif variant_id == 3:
-        rows = 5
-        cols = 3
-    else:
-        rows = 5
-        cols = 5
+
+def get_kaninariebi(variant_id):
+    dimensions = {
+        "regular": (5, 5),
+        "mixed": (5, 5),
+        "3x5": (3, 5),
+        "5x3": (5, 3),
+    }
+
+    if variant_id not in dimensions:
+        return None
+
+    rows, cols = dimensions[variant_id]
+
+    # Board centers: left to right, top to bottom
+    board_centers = [
+        [col + 0.5, row + 0.5]
+        for row in range(rows)
+        for col in range(cols)
+    ]
+
+    # Extra centers: UP, DOWN, YES, NO, END
+    action_centers = [
+        [cols + 1, rows * (i + 0.5) / 5]
+        for i in range(5)
+    ]
 
     return {
         "defaultTheme": "regular",
         "themes": {
             "regular": {
-                "space": [cols, rows],
-                "centers": [[0.5 + i // rows, 0.5 + i % rows] for i in range(rows * cols)],
-                "background": f"kaninariebi/{variant_id}.svg",
+                "space": [cols + 2, rows],
+                "centers": board_centers + action_centers,
+
+                "background": (
+                    f"kaninariebi/board_{rows}x{cols}.png"
+                ),
+
                 "charImages": {
-                    "C": {"image": "chess/wikipedia/B.svg", "scale": 1}, ##Replace "chess/wikipedia/bb.svg" with corresponding svg file
-                    "S": {"image": "chess/wikipedia/bb.svg", "scale": 1}, #Replace "chess/wikipedia/bb.svg" with corresponding svg file
-                    "c": {"image": "chess/wikipedia/bb.svg", "scale": 1}, #Replace "chess/wikipedia/bb.svg" with corresponding svg file
-                    "s": {"image": "chess/wikipedia/bb.svg", "scale": 1}, #Replace "chess/wikipedia/bb.svg" with corresponding svg file
+                    "C": {
+                        "image": "kaninariebi/c1.png",
+                        "scale": 0.88
+                    },
+                    "c": {
+                        "image": "kaninariebi/c2.png",
+                        "scale": 0.88
+                    },
+                    "S": {
+                        "image": "kaninariebi/s1.png",
+                        "scale": 0.88
+                    },
+                    "s": {
+                        "image": "kaninariebi/s2.png",
+                        "scale": 0.88
+                    },
                 },
-                "entitiesOverArrows": True,
-                "arrowWidth": 0.1,
-                "sounds": {"x": "general/slide.mp3"}, #Replace sounds (entries) with our ideal noises
-                "animationType": "simpleSlides"
+
+                "sounds": {
+                    "x": "kaninariebi/move.mp3"
+                },
+
+                "arrowWidth": 0.10,
+                "textButtonFontSize": 0.28,
+                "entitiesOverArrows": False,
+                "animationType": "simpleSlides",
+                "defaultAnimationWindow": [0, rows * cols],
             }
         }
-    }    
+    }
+
 
 def get_kaooa(variant_id):
     char_images = {
@@ -3375,6 +3433,7 @@ image_autogui_data_funcs = {
     "jan": get_jan,
     "jenga": get_jenga,
     "joust": get_joust,
+    "kaninariebi": get_kaninariebi,
     "kayles": get_kayles,
     "kaninariebi": get_kaninariebi, 
     "kaooa": get_kaooa, 
