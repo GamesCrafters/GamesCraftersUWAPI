@@ -1490,7 +1490,7 @@ def get_kaninariebi(variant_id):
     if variant_id == 2:
         rows = 3
         cols = 5
-    else if variant_id == 3:
+    elif variant_id == 3:
         rows = 5
         cols = 3
     else:
