@@ -1512,6 +1512,29 @@ def get_kaninariebi(variant_id):
         "mixed": (5, 5),
         "3x5": (3, 5),
         "5x3": (5, 3),
+
+        # Action buttons
+        "U": {
+            "image": "kaninariebi/btn_up.svg",
+            "scale": 0.92
+        },
+        "D": {
+            "image": "kaninariebi/btn_down.svg",
+            "scale": 0.92
+        },
+        "Y": {
+            "image": "kaninariebi/btn_yes.svg",
+            "scale": 0.92
+        },
+        "N": {
+            "image": "kaninariebi/btn_no.svg",
+            "scale": 0.92
+        },
+        "E": {
+            "image": "kaninariebi/btn_end.svg",
+            "scale": 0.92
+        },
+
     }
 
     if variant_id not in dimensions:
@@ -1519,24 +1542,34 @@ def get_kaninariebi(variant_id):
 
     rows, cols = dimensions[variant_id]
 
-    # Board centers: left to right, top to bottom
+
+    # The current 3x5 background has a half-cell
+    # vertical offset relative to the original grid.
+    y_offset = 0.5 if variant_id == "3x5" else 0.0
+
+    # Piece centers
     board_centers = [
-        [col + 0.5, row + 0.5]
+        [col + 0.5, row + 0.5 + y_offset]
         for row in range(rows)
         for col in range(cols)
     ]
 
-    # Extra centers: UP, DOWN, YES, NO, END
+    # UP, DOWN, YES, NO, END
+    # Position the buttons inside the bottom dark strip.
+    action_y = rows + 0.75 if variant_id == "3x5" else rows + 0.5
+
     action_centers = [
-        [cols + 1, rows * (i + 0.5) / 5]
+        [cols * (i + 0.5) / 5, action_y]
         for i in range(5)
     ]
+
+
 
     return {
         "defaultTheme": "regular",
         "themes": {
             "regular": {
-                "space": [cols + 2, rows],
+                "space": [cols, rows + 1],
                 "centers": board_centers + action_centers,
 
                 "background": (
@@ -1560,6 +1593,11 @@ def get_kaninariebi(variant_id):
                         "image": "kaninariebi/s2.png",
                         "scale": 0.88
                     },
+                    "U": {"image": "kaninariebi/btn_up.svg", "scale": 0.55},
+                    "D": {"image": "kaninariebi/btn_down.svg", "scale": 0.55},
+                    "Y": {"image": "kaninariebi/btn_yes.svg", "scale": 0.55},
+                    "N": {"image": "kaninariebi/btn_no.svg", "scale": 0.55},
+                    "E": {"image": "kaninariebi/btn_end.svg", "scale": 0.55},
                 },
 
                 "sounds": {
