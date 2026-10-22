@@ -42,6 +42,49 @@ get_<game>(variant_id) should return JSON of the following form:
 (Scroll all the way down for Step 2).
 
 """
+
+def get_boop(variant_id):
+    size = 4
+    board = [[i % size + 0.5, size - i // size + 0.5] for i in range(size * size)]
+    pieces = 3
+    slot_xs = [2.0, 1.0, 3.0]
+    p1_supply = [[x, 5.535] for x in slot_xs[:pieces]]
+    p2_supply = [[x, 0.465] for x in slot_xs[:pieces]]
+    kitten_buttons = [[x - 0.25, y] for x, y in board]
+    cat_buttons = [[x + 0.25, y] for x, y in board]
+    nudges = {(1, 0): (0, -0.3), (0, 1): (-0.3, 0), (1, 1): (-0.22, 0.22), (1, -1): (0.22, 0.22)}
+    line_centers = []
+    for y in range(size):
+        for x in range(size):
+            for dx, dy in ((1, 0), (0, 1), (1, 1), (1, -1)):
+                if 0 <= x + 2 * dx < size and 0 <= y + 2 * dy < size:
+                    mx, my = board[(y + dy) * size + x + dx]
+                    line_centers.append([mx + nudges[(dx, dy)][0], my + nudges[(dx, dy)][1]])
+
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [4, 6],
+                "centers": board + p1_supply + p2_supply + kitten_buttons + cat_buttons + line_centers,
+                "background": "boop/boards.svg",
+                "charImages": {
+                    "k": {"image": "boop/kitteno.svg", "scale": 0.85},
+                    "K": {"image": "boop/cato.svg", "scale": 0.85},
+                    "l": {"image": "boop/kitteng.svg", "scale": 0.85},
+                    "L": {"image": "boop/catg.svg", "scale": 0.85},
+                    "a": {"image": "boop/kittent.svg", "scale": 0.5},
+                    "b": {"image": "boop/catt.svg", "scale": 0.5}
+                },
+                "arrowWidth": 0.06,
+                "entitiesOverArrows": False,
+                "sounds": {"x": "general/place.mp3"},
+                "animationType": "entityFade"
+            }
+        }
+    }
+
+
 def get_snakestale(variant_id):
     width, height = (5, 4) if variant_id == "lvl5" else (4, 4)
 
@@ -3299,6 +3342,7 @@ image_autogui_data_funcs = {
     "allqueenschess": get_allqueenschess,
     "baghchal": get_baghchal,
     "beeline": get_beeline,
+    "boop": get_boop,
     "bishoppuzzle": get_bishoppuzzle,
     "change": get_change,
     "chess": get_chess,

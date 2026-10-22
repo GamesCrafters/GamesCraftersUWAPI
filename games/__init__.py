@@ -188,6 +188,18 @@ games = {
         },
         gui='v3'),
 
+    'boop': Game(
+        name='Boop',
+        variants={
+            '4x4': Variant(
+                name='4x4',
+                data_provider=GamesmanPy,
+                data_provider_game_id='boop',
+                data_provider_variant_id='4x4-3pieces-original',
+                gui='v3')
+        },
+        gui='v3'),
+
     'bishoppuzzle': Game(
         name='Bishop Puzzle',
         variants={
