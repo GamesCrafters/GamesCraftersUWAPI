@@ -674,6 +674,35 @@ def get_clobber(variant_id):
         case '5x3': return get_theme(5, 3)
         case '5x4': return get_theme(5, 4)
 
+def get_clusterfuss(variant_id):
+    # Variant ids are '<rows>x<cols>'. Centers are the cells in row-major order
+    # from the top-left, matching GamesmanPy clusterfuss.py. Uppercase X/O is
+    # the checker selected by the first click of a two-click capture. Player 1
+    # (x, moves first) is drawn blue to match GamesmanUni's player colors.
+    rows, cols = map(int, variant_id.split('x'))
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [cols, rows],
+                "centers": [[0.5 + i % cols, 0.5 + i // cols] for i in range(rows * cols)],
+                "background": f"clusterfuss/{variant_id}.svg",
+                "charImages": {
+                    "x": {"image": "general/bluepiece.svg", "scale": 0.8},
+                    "o": {"image": "general/redpiece.svg", "scale": 0.8},
+                    "X": {"image": "clusterfuss/blueselected.svg", "scale": 0.8},
+                    "O": {"image": "clusterfuss/redselected.svg", "scale": 0.8},
+                },
+                "circleButtonRadius": 0.15,
+                "arrowWidth": 0.1,
+                "sounds": {
+                    "x": "general/slideThenRemove.mp3",
+                },
+                "animationType": "simpleSlides",
+            }
+        }
+    }
+
 def get_clock_solitaire(variant_id):
     scale = 1
     arrowWidth = 0.15
@@ -3308,6 +3337,7 @@ image_autogui_data_funcs = {
     "chomp": get_chomp,
     "chopsticks": get_chopsticks,
     "clobber": get_clobber,
+    "clusterfuss": get_clusterfuss,
     "clocksolitaire": get_clock_solitaire,
     "connect4": get_connect4,
     "connect4twist": get_connect4twist,
