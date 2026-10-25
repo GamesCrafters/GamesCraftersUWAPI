@@ -676,22 +676,25 @@ def get_clobber(variant_id):
 
 def get_clusterfuss(variant_id):
     # Variant ids are '<rows>x<cols>'. Centers are the cells in row-major order
-    # from the top-left, matching GamesmanPy clusterfuss.py. Uppercase X/O is
-    # the checker selected by the first click of a two-click capture. Player 1
-    # (x, moves first) is drawn blue to match GamesmanUni's player colors.
+    # from the top-left, matching GamesmanPy clusterfuss.py, listed twice: the
+    # position string has a second layer of rows * cols characters where 's'
+    # rings the checker selected by the first click of a two-click capture.
+    # Keeping the ring in its own layer leaves the checker's own character
+    # unchanged, so simpleSlides still slides it on the capture.
+    # Player 1 (x, Blue in GamesmanPy) moves first.
     rows, cols = map(int, variant_id.split('x'))
+    cells = [[0.5 + i % cols, 0.5 + i // cols] for i in range(rows * cols)]
     return {
         "defaultTheme": "regular",
         "themes": {
             "regular": {
                 "space": [cols, rows],
-                "centers": [[0.5 + i % cols, 0.5 + i // cols] for i in range(rows * cols)],
+                "centers": cells + cells,
                 "background": f"clusterfuss/{variant_id}.svg",
                 "charImages": {
                     "x": {"image": "general/bluepiece.svg", "scale": 0.8},
                     "o": {"image": "general/redpiece.svg", "scale": 0.8},
-                    "X": {"image": "clusterfuss/blueselected.svg", "scale": 0.8},
-                    "O": {"image": "clusterfuss/redselected.svg", "scale": 0.8},
+                    "s": {"image": "clusterfuss/selected.svg", "scale": 0.8},
                 },
                 "circleButtonRadius": 0.15,
                 "arrowWidth": 0.1,
