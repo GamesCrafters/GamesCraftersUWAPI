@@ -680,7 +680,9 @@ def get_clusterfuss(variant_id):
     # position string has a second layer of rows * cols characters where 's'
     # rings the checker selected by the first click of a two-click capture.
     # Keeping the ring in its own layer leaves the checker's own character
-    # unchanged, so simpleSlides still slides it on the capture.
+    # unchanged, so simpleSlides still slides it on the capture. The last
+    # center is the pass-turn button (as in Othello) in a 0.7-high strip below
+    # the board, for a player with no legal move.
     # Player 1 (x, Blue in GamesmanPy) moves first.
     rows, cols = map(int, variant_id.split('x'))
     cells = [[0.5 + i % cols, 0.5 + i // cols] for i in range(rows * cols)]
@@ -688,13 +690,14 @@ def get_clusterfuss(variant_id):
         "defaultTheme": "regular",
         "themes": {
             "regular": {
-                "space": [cols, rows],
-                "centers": cells + cells,
+                "space": [cols, rows + 0.7],
+                "centers": cells + cells + [[cols / 2, rows + 0.35]],
                 "background": f"clusterfuss/{variant_id}.svg",
                 "charImages": {
                     "x": {"image": "general/bluepiece.svg", "scale": 0.8},
                     "o": {"image": "general/redpiece.svg", "scale": 0.8},
                     "s": {"image": "clusterfuss/selected.svg", "scale": 0.8},
+                    "P": {"image": "othello/P.svg", "scale": 0.6},
                 },
                 "circleButtonRadius": 0.15,
                 "arrowWidth": 0.1,
