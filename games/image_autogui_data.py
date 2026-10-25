@@ -676,14 +676,14 @@ def get_clobber(variant_id):
 
 def get_clusterfuss(variant_id):
     # Variant ids are '<rows>x<cols>'. Centers are the cells in row-major order
-    # from the top-left, matching GamesmanPy clusterfuss.py, listed twice: the
+    # from the top-left, matching GamesmanClassic mclusterfuss.c, listed twice: the
     # position string has a second layer of rows * cols characters where 's'
     # rings the checker selected by the first click of a two-click capture.
     # Keeping the ring in its own layer leaves the checker's own character
     # unchanged, so simpleSlides still slides it on the capture. The last
     # center is the pass-turn button (as in Othello) in a 0.7-high strip below
     # the board, for a player with no legal move.
-    # Player 1 (x, Blue in GamesmanPy) moves first.
+    # Player 1 (x, Blue) moves first.
     rows, cols = map(int, variant_id.split('x'))
     cells = [[0.5 + i % cols, 0.5 + i // cols] for i in range(rows * cols)]
     return {
