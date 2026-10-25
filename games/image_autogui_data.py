@@ -29,7 +29,9 @@ get_<game>(variant_id) should return JSON of the following form:
                     <char2>:
                 },
                 "animationType": <optional, string, animation type>,
-                "defaultAnimationWindow": [start, end] <optional>
+                "defaultAnimationWindow": [start, end] <optional>,
+                "animationDuration": <optional, seconds, length of entityFade/simpleSlides animations, default 0.5>,
+                "instantWithoutSlides": <optional, bool, skip the animation of moves that slide nothing, default False>
             },
             <name of theme2>: {
                 ...
@@ -702,6 +704,10 @@ def get_clusterfuss(variant_id):
                     "x": "general/slideThenRemove.mp3",
                 },
                 "animationType": "simpleSlides",
+                # Two clicks per capture, so keep it snappy: selecting a piece
+                # (no slide) shows at once, and the capture slide is short.
+                "animationDuration": 0.25,
+                "instantWithoutSlides": True,
             }
         }
     }
