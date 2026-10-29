@@ -409,7 +409,7 @@ def get_bishoppuzzle(variant_id):
         }
     }
 
-def bug(variant_id):
+def get_bug(variant_id):
     return {
         "defaultTheme": "default",
         "themes": {
