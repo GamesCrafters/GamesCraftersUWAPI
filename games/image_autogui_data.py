@@ -414,9 +414,15 @@ def get_bug(variant_id):
         "defaultTheme": "default",
         "themes": {
             "default": {
-                "space": [, ],
-                "centers": [],
-                "background": "bug/board.svg",
+                "space": [868, 802],
+                "centers": [
+                        [226.8, 100], [400, 100], [573.2, 100],                           # row 1: 11 12 13
+                        [140.2, 250], [313.4, 250], (486.6, 250), [659.8, 250],           # row 2: 21 22 23 24
+                        [53.6, 400], [226.8, 400], (400, 400), (573.2, 400), [746.4, 400],  # row 3: 31 32 33 34 35
+                        [140.2, 550], [313.4, 550], [486.6, 550], [659.8, 550],           # row 4: 41 42 43 44
+                        [226.8, 700], [400, 700], [573.2, 700]                        # row 5: 51 52 53
+                ],
+            "background": "bug/board.svg",
             "charImages": {
                     "b": {"image": "bug/bhex.svg", "scale": 125},
                     "w": {"image": "bug/whex.svg", "scale": 125},
@@ -3322,6 +3328,7 @@ image_autogui_data_funcs = {
     "baghchal": get_baghchal,
     "beeline": get_beeline,
     "bishoppuzzle": get_bishoppuzzle,
+    "bug": get_bug,
     "change": get_change,
     "chess": get_chess,
     "chinesecheckers": get_chinesecheckers,
