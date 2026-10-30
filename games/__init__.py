@@ -343,10 +343,10 @@ games = {
         variants={
             variant_id: Variant(
                 name=variant_id,
-                data_provider=GamesmanClassic,
+                data_provider=GamesmanPy,
                 data_provider_game_id='clusterfuss',
-                data_provider_variant_id=option,
-                gui='v3') for option, variant_id in enumerate(['2x2', '2x3', '3x3', '4x4', '4x5'], start=1)
+                data_provider_variant_id=variant_id,
+                gui='v3') for variant_id in ['2x2', '2x3', '3x3', '4x4', '4x5']
         },
         gui='v3'),
 
