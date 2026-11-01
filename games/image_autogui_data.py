@@ -647,6 +647,29 @@ def get_chungtoi(variant_id):
         }
     }
 
+def get_breakthrough(variant_id):
+    # variant_id looks like "3x5": cols x rows.
+    cols, rows = map(int, variant_id.split('x'))
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [cols, rows],
+                "centers": [[0.5 + i % cols, rows - 0.5 - i // cols] for i in range(rows * cols)],  # o (first to move) on row 0, drawn at the bottom
+                "background": f"breakthrough/{variant_id}.svg",
+                "charImages": {
+                    "x": {"image": "breakthrough/o.svg", "scale": 1},  # x is drawn blue (top)
+                    "o": {"image": "breakthrough/x.svg", "scale": 1},  # o is drawn yellow (bottom, starts)
+                },
+                "arrowWidth": 0.1,
+                "sounds": {
+                    "x": "general/slide.mp3",
+                },
+                "animationType": "simpleSlides",
+            }
+        }
+    }
+
 def get_clobber(variant_id):
     def get_theme(cols, rows):
         return {
@@ -3300,6 +3323,7 @@ image_autogui_data_funcs = {
     "baghchal": get_baghchal,
     "beeline": get_beeline,
     "bishoppuzzle": get_bishoppuzzle,
+    "breakthrough": get_breakthrough,
     "change": get_change,
     "chess": get_chess,
     "chinesecheckers": get_chinesecheckers,
