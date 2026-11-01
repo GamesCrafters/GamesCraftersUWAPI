@@ -3195,7 +3195,41 @@ def get_yote(variant_id):
         data_regular["centers"] = data_regular["centers"] + [[5, 5], [35, 5]]
     return data
 
-    
+
+def get_onitama(variant_id):
+    # Center layout must match the AutoGUI strings in GamesmanPy's onitama.py:
+    # 0-8 board squares, 9-11 blue cards (left, right, queued), 12-14 red cards,
+    # 15-32 arrow targets (left/right of each square, for the left/right hand card).
+    # Cards are lowercase for the bottom player's and uppercase (flipped) for the top player's.
+    square_centers = [[6 + 12 * (i % 3), 20 + 12 * (i // 3)] for i in range(9)]
+    card_centers = [[x, y] for y in (7, 57) for x in (6, 30, 18)]
+    arrow_target_centers = [[x + dx, y] for x, y in square_centers for dx in (-3, 3)]
+    cards = {"h": "horse", "g": "goose", "e": "elephant", "n": "mantis", "r": "rat"}
+    card_images = {}
+    for char, card in cards.items():
+        card_images[char] = {"image": f"onitama/cards/{card}.svg", "scale": 11.5}
+        card_images[char.upper()] = {"image": f"onitama/cards/{card}-flipped.svg", "scale": 11.5}
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [36, 64],
+                "centers": square_centers + card_centers + arrow_target_centers,
+                "background": "onitama/board.svg",
+                "charImages": {
+                    "p": {"image": "onitama/bluepawn.svg", "scale": 10},
+                    "m": {"image": "onitama/blueking.svg", "scale": 10},
+                    "P": {"image": "onitama/redpawn.svg", "scale": 10},
+                    "M": {"image": "onitama/redking.svg", "scale": 10},
+                    **card_images,
+                },
+                "arrowWidth": 1,
+                "sounds": {"x": "general/slide.mp3"}
+            }
+        }
+    }
+
+
 def get_orbito(variant_id):
     data = {
         "defaultTheme": "regular",
@@ -3359,6 +3393,7 @@ image_autogui_data_funcs = {
     "nqueens": get_nqueens,
     "nutictactoe": get_nutictactoe,
     "oddoreven": get_oddoreven,
+    "onitama": get_onitama,
     "orbito" : get_orbito, 
     "othello": get_othello,
     "pancakes": get_pancakes,
