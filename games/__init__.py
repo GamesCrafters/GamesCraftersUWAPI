@@ -24,6 +24,37 @@ from .Ghost import Ghost
 
 games = {
 
+    'stormyseas': Game(
+        name='Stormy Seas',
+        variants={
+            'beg1': Variant(
+                name='Beginner 1',
+                data_provider=GamesmanPy,
+                data_provider_game_id='stormyseas',
+                data_provider_variant_id='beg1',
+                gui='v3'),
+            'beg2': Variant(
+                name='Beginner 2',
+                data_provider=GamesmanPy,
+                data_provider_game_id='stormyseas',
+                data_provider_variant_id='beg2',
+                gui='v3'),
+            'int1': Variant(
+                name='Intermediate 1',
+                data_provider=GamesmanPy,
+                data_provider_game_id='stormyseas',
+                data_provider_variant_id='int1',
+                gui='v3'),
+            'int2': Variant(
+                name='Intermediate 2',
+                data_provider=GamesmanPy,
+                data_provider_game_id='stormyseas',
+                data_provider_variant_id='int2',
+                gui='v3')
+        },
+        is_two_player_game=False,
+        gui='v3'),
+
     '0to10by1or2': Game(
         name='0 to 10 by 1 or 2',
         variants={
@@ -247,6 +278,19 @@ games = {
             'start': RegularChessVariant('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', name='Start')
         },
         gui='v2'),
+    
+    'chinesecheckers': Game(
+        name='Chinese Checkers',
+        variants={
+            'regular': Variant(
+                name='Regular',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='ccheckers',
+                data_provider_variant_id=0,
+                gui='v3'
+            )
+        },
+        gui='v3'),
 
     'chinesechess': Game(
         name='Chinese Chess',
@@ -254,6 +298,21 @@ games = {
             'regular': RegularChineseChessVariant()
         },
         gui='v3'),
+
+    'chipschallenge': Game(
+        name="Chip\'s Challenge",
+        variants= {
+            "1": Variant(
+                name="Level 1",
+                data_provider=GamesmanPy,
+                data_provider_game_id='chipschallenge',
+                data_provider_variant_id="1",
+                gui='v3'
+            ),
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
 
     'chomp': Game(
         name='Chomp',
@@ -574,6 +633,19 @@ games = {
         },
         gui='v3'),
 
+    'flowfree': Game(
+        name='Flow Free',
+        variants={
+            variant_id: Variant(
+                name=f'Puzzle {variant_id.upper()}',
+                data_provider=GamesmanPy,
+                data_provider_game_id='flowfree',
+                data_provider_variant_id=variant_id,
+                gui='v3') for variant_id in ['a', 'b', 'c', 'd', 'e', 'f']
+        },
+        is_two_player_game=False,
+        gui='v3'),
+
     'fourfieldkono': Game(
         name='Four Field Kono',
         variants={
@@ -710,6 +782,30 @@ games = {
                 gui='v3')
         },
         gui='v3'),
+
+    'hashi': Game(
+        name='Hashi',
+        variants={
+            '4x4': Variant(
+                name='4x4',
+                data_provider=GamesmanPy,
+                data_provider_game_id='hashi',
+                data_provider_variant_id='4x4',
+                gui='v3'
+            ),
+            **{
+                f'6x6_lvl{i}': Variant(
+                    name=f'6x6_lvl{i}',
+                    data_provider=GamesmanPy,
+                    data_provider_game_id='hashi',
+                    data_provider_variant_id=f'6x6_lvl{i}',
+                    gui='v3'
+                ) for i in range(1, 5)
+            }
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
 
     'hexapawn': Game(
         name="Hexapawn",
@@ -903,6 +999,25 @@ games = {
         },
         gui='v3'),
 
+    'klotski': Game(
+        name='Klotski',
+        variants={
+            'donkey': Variant(
+                name='Donkey',
+                data_provider=GamesmanPy,
+                data_provider_game_id='klotski',
+                data_provider_variant_id='donkey',
+                gui='v3'),
+            'pennant': Variant(
+                name='Pennant',
+                data_provider=GamesmanPy,
+                data_provider_game_id='klotski',
+                data_provider_variant_id='pennant',    
+                gui='v3')
+        },
+        is_two_player_game=False,
+        gui='v3'),
+
     'konane': Game(
         name='Kōnane',
         variants={
@@ -1055,6 +1170,20 @@ games = {
                 data_provider_variant_id=1)
         }
     ),
+
+    'marblecircuit': Game(
+        name='Marble Circuit',
+        variants={
+            f'ch{i}': Variant(
+                name=f'Challenge {i}',
+                data_provider=GamesmanPy,
+                data_provider_game_id='marble_circuit',
+                data_provider_variant_id=f'ch{i}',
+                gui='v3')
+            for i in range(1, 65)
+        },
+        is_two_player_game=False,
+        gui='v3'),
 
     'mutorere': Game(
         name='Mū Tōrere',
@@ -1491,6 +1620,19 @@ games = {
             },
         gui='v3'),
 
+    'snakestale': Game(
+        name="Snake's Tale",
+        variants={
+            v: Variant(
+                name=v.replace('lvl', 'Level '),
+                data_provider=GamesmanPy,
+                data_provider_game_id='snakestale',
+                data_provider_variant_id=v,
+                gui='v3') for v in ['lvl1', 'lvl2', 'lvl3', 'lvl4', 'lvl5']
+        },
+        is_two_player_game=False,
+        gui='v3'),
+
     'spinout': Game(
         name='Spinout',
         variants={
@@ -1503,6 +1645,34 @@ games = {
             },
         is_two_player_game=False,
         gui='v3'),
+    
+    'sokoban': Game(
+        name='Sokoban',
+        variants={
+            **{
+                f'{v}': Variant(
+                    name=f'Level {v}',
+                    data_provider=GamesmanPy,
+                    data_provider_game_id='sokobaniq',
+                    data_provider_variant_id=f'{v}',
+                    gui='v3'
+                )
+                for v in [1, 2, 3, 4, 6, 7, 8, 9, 10]
+            },
+            **{
+                f'{v}': Variant(
+                    name=f'Level {v}',
+                    data_provider=GamesmanPy,
+                    data_provider_game_id='sokobanlarge',
+                    data_provider_variant_id=f'{v}',
+                    gui='v3'
+                )
+                for v in [11] # Remove variant 5 until arrows fixed
+            },
+        },
+        is_two_player_game=False,
+        gui='v3'
+    ),
 
     'solitairechess': Game(
         name='Solitaire Chess',
@@ -1900,3 +2070,4 @@ games = {
         },
         gui='v3')
 }
+
