@@ -175,22 +175,53 @@ games = {
     'breakthrough': Game(
         name='Breakthrough',
         variants={
-            '3x5': Variant(
-                name='3x5',
-                data_provider=GamesmanPy,
-                data_provider_game_id='breakthrough',
-                data_provider_variant_id='3x5',
-                gui='v3'
-            ),
             # Small board the interactive tutorial plays on (see GamesmanUni's
-            # AppGameTutorial.vue).
+            # AppGameTutorial.vue). Listed first so new players hit it before
+            # the full board.
             '3x4': Variant(
                 name='Tutorial',
-                data_provider=GamesmanPy,
+                data_provider=GamesmanOne,
                 data_provider_game_id='breakthrough',
-                data_provider_variant_id='3x4',
+                data_provider_variant_id='0',
                 gui='v3'
-            )
+            ),
+            '3x5': Variant(
+                name='3x5',
+                data_provider=GamesmanOne,
+                data_provider_game_id='breakthrough',
+                data_provider_variant_id='1',
+                gui='v3'
+            ),
+            '4x5': Variant(
+                name='4x5',
+                data_provider=GamesmanOne,
+                data_provider_game_id='breakthrough',
+                data_provider_variant_id='2',
+                gui='v3'
+            ),
+            '4x6': Variant(
+                name='4x6',
+                data_provider=GamesmanOne,
+                data_provider_game_id='breakthrough',
+                data_provider_variant_id='3',
+                gui='v3'
+            ),
+            '5x5': Variant(
+                name='5x5',
+                data_provider=GamesmanOne,
+                data_provider_game_id='breakthrough',
+                data_provider_variant_id='4',
+                gui='v3'
+            ),
+            # 5x6 is still solving on Savio; re-enable once its data is in
+            # GamesmanOne/data/breakthrough/5 and bin/gamesman is rebuilt.
+            # '5x6': Variant(
+            #     name='5x6',
+            #     data_provider=GamesmanOne,
+            #     data_provider_game_id='breakthrough',
+            #     data_provider_variant_id='5',
+            #     gui='v3'
+            # ),
         },
         gui='v3'
     ),
