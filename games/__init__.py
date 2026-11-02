@@ -1296,6 +1296,12 @@ games = {
                 data_provider=GamesmanPy,
                 data_provider_game_id='onitama',
                 data_provider_variant_id='3x4',
+                gui='v3'),
+            '3x4_balanced': Variant(
+                name='3x4_balanced',
+                data_provider=GamesmanPy,
+                data_provider_game_id='onitama',
+                data_provider_variant_id='3x4_balanced',
                 gui='v3')
         },
         gui='v3'
