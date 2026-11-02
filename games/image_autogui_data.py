@@ -3199,11 +3199,11 @@ def get_yote(variant_id):
 def get_onitama(variant_id):
     # Center layout must match the AutoGUI strings in GamesmanPy's onitama.py:
     # 0-8 board squares, 9-11 blue cards (left, right, queued), 12-14 red cards,
-    # 15-32 arrow targets (left/right of each square, for the left/right hand card).
+    # Piece moves are S_<card center>_M_..., so their arrows only appear once that card is clicked;
+    # "selectionFrame" is drawn over the selected card.
     # Cards are lowercase for the bottom player's and uppercase (flipped) for the top player's.
     square_centers = [[6 + 12 * (i % 3), 20 + 12 * (i // 3)] for i in range(9)]
     card_centers = [[x, y] for y in (7, 57) for x in (6, 30, 18)]
-    arrow_target_centers = [[x + dx, y] for x, y in square_centers for dx in (-3, 3)]
     cards = {"h": "horse", "g": "goose", "e": "elephant", "n": "mantis", "r": "rat"}
     card_images = {}
     for char, card in cards.items():
@@ -3214,16 +3214,19 @@ def get_onitama(variant_id):
         "themes": {
             "regular": {
                 "space": [36, 64],
-                "centers": square_centers + card_centers + arrow_target_centers,
+                "centers": square_centers + card_centers,
                 "background": "onitama/board.svg",
                 "charImages": {
                     "p": {"image": "onitama/bluepawn.svg", "scale": 10},
                     "m": {"image": "onitama/blueking.svg", "scale": 10},
                     "P": {"image": "onitama/redpawn.svg", "scale": 10},
                     "M": {"image": "onitama/redking.svg", "scale": 10},
+                    "s": {"image": "onitama/selected.svg", "scale": 11.5},
                     **card_images,
                 },
                 "arrowWidth": 1,
+                # frame drawn over the selected card (charImages key)
+                "selectionFrame": "s",
                 "sounds": {"x": "general/slide.mp3"}
             }
         }
