@@ -3197,17 +3197,8 @@ def get_yote(variant_id):
 
 
 def get_onitama(variant_id):
-    # Center layout must match the AutoGUI strings in GamesmanPy's onitama.py:
-    # 0-11 board squares, 12-14 blue cards (left, right, queued), 15-17 red cards.
-    # Piece moves are S_<card center>_M_..., so their arrows only appear once that card is clicked;
-    # "selectionFrame" is drawn over the selected card.
-    # Cards are lowercase for the bottom player's and uppercase (flipped) for the top player's.
-    
-    # Expanded from range(9) to range(12) for the 3x4 grid
-    square_centers = [[6 + 12 * (i % 3), 20 + 12 * (i // 3)] for i in range(12)]
-    
-    # Bottom cards shifted down from y=57 to y=69 to make room for the 4th row
-    card_centers = [[x, y] for y in (7, 69) for x in (6, 18, 30)]
+    square_centers = [[6 + 12 * (i % 3), 6 + 12 * (i // 3)] for i in range(12)]
+    card_centers = [[46, 8], [62, 8], [46, 24], [46, 40], [62, 40], [62, 24]]
     
     cards = {"h": "horse", "g": "goose", "e": "elephant", "n": "mantis", "r": "rat"}
     card_images = {}
@@ -3219,12 +3210,9 @@ def get_onitama(variant_id):
         "defaultTheme": "regular",
         "themes": {
             "regular": {
-                # Expanded height from 64 to 76 for the extra row
-                "space": [36, 76],
+                "space": [72, 48],
                 "centers": square_centers + card_centers,
-                # Note: If your original board.svg has a hardcoded 3x3 grid drawn on it, 
-                # you will need to create and reference a new 3x4 board SVG here.
-                "background": "onitama/3x4_board.svg", 
+                "background": "onitama/3x4_board_v3.svg", 
                 "charImages": {
                     "p": {"image": "onitama/bluepawn.svg", "scale": 10},
                     "m": {"image": "onitama/blueking.svg", "scale": 10},
@@ -3234,7 +3222,6 @@ def get_onitama(variant_id):
                     **card_images,
                 },
                 "arrowWidth": 1.5,
-                # frame drawn over the selected card (charImages key)
                 "selectionFrame": "s",
                 "circleButtonRadius": 2,
                 "sounds": {"x": "general/slide.mp3"},
