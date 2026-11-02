@@ -1291,14 +1291,14 @@ games = {
     'onitama': Game(
         name='Onitama',
         variants={
-            '3x3': Variant(
-                name='3x3',
+            '3x4': Variant(
+                name='3x4',
                 data_provider=GamesmanPy,
                 data_provider_game_id='onitama',
-                data_provider_variant_id='3x3',
-                gui='v2')
+                data_provider_variant_id='3x4',
+                gui='v3')
         },
-        gui='v2'
+        gui='v3'
     ),
 
     'othello': Game(

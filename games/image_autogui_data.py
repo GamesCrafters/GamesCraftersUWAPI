@@ -3198,24 +3198,33 @@ def get_yote(variant_id):
 
 def get_onitama(variant_id):
     # Center layout must match the AutoGUI strings in GamesmanPy's onitama.py:
-    # 0-8 board squares, 9-11 blue cards (left, right, queued), 12-14 red cards,
+    # 0-11 board squares, 12-14 blue cards (left, right, queued), 15-17 red cards.
     # Piece moves are S_<card center>_M_..., so their arrows only appear once that card is clicked;
     # "selectionFrame" is drawn over the selected card.
     # Cards are lowercase for the bottom player's and uppercase (flipped) for the top player's.
-    square_centers = [[6 + 12 * (i % 3), 20 + 12 * (i // 3)] for i in range(9)]
-    card_centers = [[x, y] for y in (7, 57) for x in (6, 30, 18)]
+    
+    # Expanded from range(9) to range(12) for the 3x4 grid
+    square_centers = [[6 + 12 * (i % 3), 20 + 12 * (i // 3)] for i in range(12)]
+    
+    # Bottom cards shifted down from y=57 to y=69 to make room for the 4th row
+    card_centers = [[x, y] for y in (7, 69) for x in (6, 18, 30)]
+    
     cards = {"h": "horse", "g": "goose", "e": "elephant", "n": "mantis", "r": "rat"}
     card_images = {}
     for char, card in cards.items():
         card_images[char] = {"image": f"onitama/cards/{card}.svg", "scale": 11.5}
         card_images[char.upper()] = {"image": f"onitama/cards/{card}-flipped.svg", "scale": 11.5}
+        
     return {
         "defaultTheme": "regular",
         "themes": {
             "regular": {
-                "space": [36, 64],
+                # Expanded height from 64 to 76 for the extra row
+                "space": [36, 76],
                 "centers": square_centers + card_centers,
-                "background": "onitama/board.svg",
+                # Note: If your original board.svg has a hardcoded 3x3 grid drawn on it, 
+                # you will need to create and reference a new 3x4 board SVG here.
+                "background": "onitama/3x4_board.svg", 
                 "charImages": {
                     "p": {"image": "onitama/bluepawn.svg", "scale": 10},
                     "m": {"image": "onitama/blueking.svg", "scale": 10},
@@ -3224,10 +3233,12 @@ def get_onitama(variant_id):
                     "s": {"image": "onitama/selected.svg", "scale": 11.5},
                     **card_images,
                 },
-                "arrowWidth": 1,
+                "arrowWidth": 1.5,
                 # frame drawn over the selected card (charImages key)
                 "selectionFrame": "s",
-                "sounds": {"x": "general/slide.mp3"}
+                "circleButtonRadius": 2,
+                "sounds": {"x": "general/slide.mp3"},
+                "animationType": "simpleSlides", 
             }
         }
     }
