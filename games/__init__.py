@@ -212,6 +212,13 @@ games = {
                 data_provider_game_id='bug',
                 data_provider_variant_id='regular',
                 gui='v3'
+            ),
+            'Reverse': Variant(
+                name='Reverse',
+                data_provider=GamesmanPy,
+                data_provider_game_id='bug',
+                data_provider_variant_id='reverse',
+                gui='v3'
             ) 
         },
         is_two_player_game=True,

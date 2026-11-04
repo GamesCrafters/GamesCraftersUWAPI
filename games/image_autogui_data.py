@@ -409,22 +409,29 @@ def get_bishoppuzzle(variant_id):
         }
     }
 
-def bug(variant_id):
+def get_bug(variant_id):
     return {
         "defaultTheme": "default",
         "themes": {
             "default": {
                 "space": [868, 802],
-                "centers": [[260.8, 101], [434, 101], [607.2, 101], [174.2, 251], [347.4, 251], [520.6, 251], [693.8, 251], [87.6, 401], [260.8, 401], [434, 401], [607.2, 401], [780.4, 401], [174.2, 551], [347.4, 551], [520.6, 551], [693.8, 551], [260.8, 701], [434, 701], [607.2, 701]],
-                "background": "bug/board.svg",
+                "centers": [
+                    [261, 101], [434.2, 101], [607.4, 101],                           # row 1: 11 12 13
+                    [174.4, 251], [347.6, 251], [520.8, 251], [694.0, 251],           # row 2: 21 22 23 24
+                    [87.8, 401], [261.0, 401], [434.2, 401], [607.4, 401], [780.6, 401],  # row 3: 31 32 33 34 35
+                    [174.4, 551], [347.6, 551], [520.8, 551], [694.0, 551],           # row 4: 41 42 43 44
+                    [261.0, 701], [434.2, 701], [607.4, 701]                       # row 5: 51 52 53
+                ],
+            "background": "bug/board.svg",
             "charImages": {
-                    "b": {"image": "bug/bhex.svg", "scale": 125},
-                    "w": {"image": "bug/whex.svg", "scale": 125},
+                    "b": {"image": "bug/bhex.svg", "scale": 190},
+                    "r": {"image": "bug/rhex.svg", "scale": 190},
                 },
-                "circleButtonRadius": 6.5,
+                "circleButtonRadius": 30,
                 "entitiesOverArrows": True,
                 "sounds": {
-                    "s": "general/slide.mp3",
+                    "e": "/chomp/chomp.mp3.mp3",
+                    "p": "general/place.mp3"
                 },
                 "animationType": "simpleSlides",
             }
@@ -3322,6 +3329,7 @@ image_autogui_data_funcs = {
     "baghchal": get_baghchal,
     "beeline": get_beeline,
     "bishoppuzzle": get_bishoppuzzle,
+    "bug": get_bug,
     "change": get_change,
     "chess": get_chess,
     "chinesecheckers": get_chinesecheckers,
