@@ -741,6 +741,18 @@ games = {
         gui='v3'
     ),
 
+    'hadron': Game(
+        name='Hadron',
+        variants={
+            'regular': Variant(
+                name='Regular',
+                data_provider=GamesmanClassic,
+                data_provider_game_id='hadron',
+                data_provider_variant_id=5,
+                gui='v3'),
+        },
+        gui='v3'),
+
     'hareandhounds': Game(
         name='Hare and Hounds',
         variants={

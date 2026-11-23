@@ -1262,6 +1262,67 @@ def get_towersofhanoi(variant_id):
         }
     }
 
+def get_hadron(variant_id):
+    # Character i of the position string is cell i, A1 to E5 row by row;
+    # row 1 is drawn at the bottom, as in the text interface.
+    centers = [[i % 5 + 0.5, 4 - i // 5 + 0.5] for i in range(25)]
+
+    # Sculpted Clay, Pebble and Living Glass: each has its own board, pieces
+    # and sounds. The move buttons ("-" in Hadron's move strings) are a value
+    # dot on a white disc (hadron/dot.svg), coloured by GamesmanUni's own
+    # move-value colours; new pieces fade in. Everything is plain theme data,
+    # so no GamesmanUni code is needed.
+    def theme(board, red, blue, scale, sounds):
+        return {
+            "space": [5, 5],
+            "centers": centers,
+            "background": board,
+            "charImages": {
+                "r": {"image": red, "scale": scale},
+                "b": {"image": blue, "scale": scale},
+                "-": {"image": "hadron/dot.svg", "scale": 1}
+            },
+            "sounds": sounds,
+            "animationType": "entityFade"
+        }
+
+    # Placement sounds, keyed by the colour that moved (the last character of
+    # Hadron's move string). Mixkit sound effects, files unmodified.
+    bubble = "hadron/red-mixkit-liquid-bubble-3000.wav"
+    slide = "hadron/blue-mixkit-funny-video-game-slide-2888.wav"
+
+    return {
+        "defaultTheme": "Sculpted Clay",
+        "themes": {
+            "Sculpted Clay": theme("hadron/clay/board5-grass.svg",
+                                   "hadron/clay/red.svg", "hadron/clay/blue.svg", 1.08,
+                                   {"r": bubble, "b": slide}),
+            "Pebble \u00b7 Coral & Cobalt": theme("hadron/pebble/board5.svg",
+                                   "hadron/pebble/coral-cobalt-red.svg",
+                                   "hadron/pebble/coral-cobalt-blue.svg", 1,
+                                   {"r": "ttt/X.mp3", "b": "ttt/O.mp3"}),
+            "Living Glass": theme("hadron/glass/board5.svg",
+                                  "hadron/glass/red.svg", "hadron/glass/blue.svg", 1,
+                                  {"r": slide, "b": bubble}),
+            "regular": {
+                "space": [5, 5],
+                "centers": centers,
+                "background": "hadron/5x5grid.svg",
+                # A placed tile colours its whole cell. The grid is drawn
+                # again over the tiles so the lines stay visible.
+                "charImages": {
+                    "r": {"image": "hadron/red.svg", "scale": 1.01},
+                    "b": {"image": "hadron/blue.svg", "scale": 1.01}
+                },
+                "foreground": "hadron/5x5grid.svg",
+                "circleButtonRadius": 0.22,
+                # one placement sound per player, as in Tic-Tac-Toe
+                "sounds": {"r": "ttt/X.mp3", "b": "ttt/O.mp3"},
+                "animationType": "entityFade"
+            }
+        }
+    }
+
 def get_hareandhounds(variant_id):
     def hareandhounds_iadata(name, width, num_width):
         main_centers = [[40 * i + 50, 40 * j + 10] for i in range(num_width) for j in range(3)]
@@ -3354,6 +3415,7 @@ image_autogui_data_funcs = {
     "gobbletgobblers": get_gobblet_gobblers,
     "graphgame": get_graphgame,
     "towersofhanoi": get_towersofhanoi,
+    "hadron": get_hadron,
     "hareandhounds": get_hareandhounds,
     "hashi":get_hashi,
     "hexapawn": get_hexapawn,
