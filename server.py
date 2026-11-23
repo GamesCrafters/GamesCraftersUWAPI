@@ -216,6 +216,16 @@ def get_variant(game_id: str, variant_id: str):
         return error('Variant')
     return error('Game')
 
+
+def shorten_breakthrough_moves(position_data):
+    """Display-only: 'a2-diag-left' -> 'a2-DL' (F = straight, DL, DR)."""
+    short = {'straight': 'F', 'diag-left': 'DL', 'diag-right': 'DR'}
+    for move_obj in position_data.get('moves', []):
+        for long, code in short.items():
+            if move_obj.get('move', '').endswith('-' + long):
+                move_obj['move'] = move_obj['move'][:-len(long)] + code
+                break
+
 @app.route('/<game_id>/<variant_id>/positions/')
 def get_position(game_id: str, variant_id: str):
     if game_id in games:
@@ -229,6 +239,8 @@ def get_position(game_id: str, variant_id: str):
                         wrangle_move_objects_2Player(position_data)
                     else:
                         wrangle_move_objects_1Player(position_data)
+                    if game_id == 'breakthrough':
+                        shorten_breakthrough_moves(position_data)
                     return position_data
             return error('Position')
         return error('Variant')
