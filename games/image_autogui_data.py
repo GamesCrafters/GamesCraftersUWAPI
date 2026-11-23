@@ -3306,6 +3306,34 @@ def get_sokoban(variant_id):
         }
     }
 
+
+
+def get_rota(variant_id):
+    centers = [
+        [50.5025, 50.5025],   [100, 30],  [149.4975, 50.5025],    # 0 1 2
+        [30, 100],            [100, 100], [170, 100],             # 3 4 5
+        [50.5025, 149.4975],  [100, 170], [149.4975, 149.4975],   # 6 7 8
+    ]
+    return {
+        "defaultTheme": "regular",
+        "themes": {
+            "regular": {
+                "space": [200, 200],
+                "background": "rota/background.svg",
+                "centers": centers,
+                "charImages": {
+                    "X": {"image": "general/bluepiece.svg", "scale": 25},
+                    "O": {"image": "general/redpiece.svg", "scale": 25},
+                },
+                "arrowWidth": 2.5,
+                "sounds": {
+                    "x": "general/place.mp3",
+                },
+                "animationType": "simpleSlides",
+            }
+        }
+    }
+
 """
 ===== STEP 2 ===== 
 Add your function to the image_autogui_data_funcs dict in alphabetical order by game_id.
@@ -3391,6 +3419,7 @@ image_autogui_data_funcs = {
     "quickchess": get_quickchess,
     "quickcross": get_quickcross,
     "quixo": get_quixo,
+    "rota" : get_rota,
     "rubikscube": get_rubikscube,
     "rubiksmagic": get_rubiksmagic,
     "rushhour": get_rushhour,

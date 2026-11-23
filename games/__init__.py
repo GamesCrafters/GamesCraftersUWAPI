@@ -926,6 +926,20 @@ games = {
         gui='v3',
     ),
 
+     'rota': Game(
+        name="Rota",
+        variants={
+            'regular': Variant(
+                name='Regular',
+                data_provider=GamesmanPy,
+                data_provider_game_id='rota',
+                data_provider_variant_id='regular',
+                gui='v3',
+            ),
+        },
+        gui='v3',
+    ),
+
     'hopndrop': Game(
         name="Hop N' Drop",
         variants= {
