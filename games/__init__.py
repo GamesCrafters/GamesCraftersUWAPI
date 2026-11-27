@@ -1105,7 +1105,7 @@ games = {
                 data_provider_game_id='lightsout',
                 data_provider_variant_id=v,
                 gui='v3'
-            ) for v in '2345678'
+            ) for v in map(str, range(2, 39))
         },
         is_two_player_game=False,
         gui='v3'
